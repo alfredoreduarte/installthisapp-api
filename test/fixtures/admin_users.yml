@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  identifier: MyString
+  access_token: MyString
+  name: MyString
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  locale: MyString
+  utype: MyString
+  total_likes_count: 1
+  timezone: 1
+
+two:
+  identifier: MyString
+  access_token: MyString
+  name: MyString
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  locale: MyString
+  utype: MyString
+  total_likes_count: 1
+  timezone: 1

@@ -1,0 +1,2 @@
+module FbApplicationsHelper
+end

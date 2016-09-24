@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  token: MyString
+  user_id: 1
+  application_id: 1
+  checksum: MyString
+  processed: false
+  user_identifier: MyString
+
+two:
+  token: MyString
+  user_id: 1
+  application_id: 1
+  checksum: MyString
+  processed: false
+  user_identifier: MyString

@@ -1,0 +1,2 @@
+class FbApplication < ApplicationRecord
+end

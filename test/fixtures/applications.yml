@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  checksum: MyString
+  application_type: MyString
+  status: MyString
+  fb_application_id: 1
+  admin_user_id: 1
+  users_count: 1
+  fb_page_id: 1
+  timezone: 1
+  first_time_installed_on: 2016-09-23 17:02:07
+
+two:
+  title: MyString
+  checksum: MyString
+  application_type: MyString
+  status: MyString
+  fb_application_id: 1
+  admin_user_id: 1
+  users_count: 1
+  fb_page_id: 1
+  timezone: 1
+  first_time_installed_on: 2016-09-23 17:02:07

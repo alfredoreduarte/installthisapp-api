@@ -1,0 +1,2 @@
+module FbPagesHelper
+end
