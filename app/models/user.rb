@@ -94,11 +94,6 @@ class User < ApplicationRecord
 		self.last_name = data.last_name
 		self.identifier = data.id
 		self.email = data.email
-		# self.link = data.link
-		# self.locale = data.locale
-		# self.gender = data.gender      
-		# self.last_update_on_facebook = data.updated_time.to_time rescue nil
-		# self.last_update_from_facebook = Time.now.utc
 		self.save    
 	end
 end
