@@ -1,0 +1,44 @@
+<%
+@already_answered = []
+entries = $application.answers.where(user_id: $user.id)
+for entry in entries
+	@already_answered << entry.question_id
+end
+logger.info('alredy')
+logger.info(@already_answered)
+if @already_answered.length > 0
+	if $application.questions.where("id not in (#{@already_answered.join(',')})").where("active = 1").length > 0
+		@questions = $application.questions.where("id not in (#{@already_answered.join(',')})")
+	else
+		@questions = []
+	end
+else
+	@questions = $application.questions
+end  
+%>
+{
+	"appTitle": "<%= $application.title %>",
+	"settings": {
+		"timeOut": <%#= $application.setting.preferences_time_limit %> 9999
+	},
+	"payload": {
+		"questions": [
+			<% @questions.each do |question| %>
+			{
+				"id": <%= question.id %>,
+				"text": "<%= question.text %>",
+				"options": [
+					<% question.options.each do |option| %>
+					{
+						"id": <%= option.id %>,
+						"text": "<%= option.text %>",
+						"correct": <%= option.correct %>,
+						"position": <%= option.position %>
+					}<%=',' unless option == question.options.last%>
+					<% end %>
+				]
+			}<%=',' unless question == @questions.last%>
+			<% end %>
+		]
+	}
+}

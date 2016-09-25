@@ -1,0 +1,38 @@
+<div class="col-md-6">
+	<h3 class="ita-section-title">Top Players</h3>
+	<table class="table ita-table ita-table-body-align-middle">
+		<colgroup>
+			<col style="width: 60%"></col>
+			<col style="width: 40%"></col>
+		</colgroup>
+		<tbody>
+			<%for summary in @top_answers%>
+				<tr>
+					<td>
+						<%= react_component 'UserObject', { user: summary.user.as_json, format: 'small' } %>
+					</td>
+					<td class="text-right"><b><%=((summary.total_correct_answers*100)/summary.total_answers)%></b> %</td>
+				</tr>
+			<%end%>
+		</tbody>
+	</table>
+</div>
+<div class="col-md-6">
+	<h3 class="ita-section-title">Latest Players</h3>
+	<table class="table ita-table ita-table-body-align-middle">
+		<colgroup>
+			<col style="width: 60%"></col>
+			<col style="width: 40%"></col>
+		</colgroup>
+		<tbody>
+			<%for summary in @latest_answers%>
+				<tr>
+					<td>
+						<%= react_component 'UserObject', { user: summary.user.as_json, format: 'small' } %>
+					</td>
+					<td class="text-right"><b><%=((summary.total_correct_answers*100)/summary.total_answers)%></b> %</td>
+				</tr>
+			<%end%>
+		</tbody>
+	</table>
+</div>

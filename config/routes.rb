@@ -1,8 +1,25 @@
 Rails.application.routes.draw do
-  resources :users
-  resources :fb_pages
-  resources :fb_applications
-  resources :applications
-  resources :admin_users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+	resources :users
+	resources :fb_applications
+	resources :applications
+	resources :admin_users do
+		collection do
+			resources :fb_pages do
+				collection do
+					get 'fetch'
+				end
+			end
+		end
+	end
+	match '/applications/:checksum/:action.json', to: "applications#:action", via: [:get, :post]
+	# scope '/trivia' do
+
+	# end
+
+	# 
+	# CANVAS
+	# 
+	match '/test_auth.json', to: "canvas#test_auth", via: [:post]
+	match '/standalone_auth.json', to: "canvas#standalone_auth", via: [:post]
+	match '/:checksum/:action.json', to: "canvas#:action", via: [:get, :post]
 end

@@ -1,9 +1,9 @@
 class CreateFbPages < ActiveRecord::Migration[5.0]
   def change
     create_table :fb_pages do |t|
-      t.string :name
-      t.integer :fan_count
-      t.integer :identifier
+      t.string :name, limit: 255
+      t.integer :fan_count, limit: 4
+      t.integer :identifier, limit: 8
 
       t.timestamps
     end

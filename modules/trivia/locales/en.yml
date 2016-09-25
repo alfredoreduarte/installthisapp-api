@@ -1,0 +1,87 @@
+en:
+   #backend
+   trivia_question_users_with_text_title: "All answers for '%{question_text}'"
+   trivia_question_stats_title: "Total Answers grouped by questions"
+   trivia_question_users_title: "Total user responses"
+   trivia_question_user_title: "Total user responses"
+   trivia_question_users_incorrect_with_text_title: "Wrong answers for '%{question_text}'"
+   trivia_question_users_incorrect_title: "Total of users with wrong answers"
+   trivia_question_users_correct_with_text_title: "Correct answers for '%{question_text}'"
+   trivia_question_users_correct_title: "Total Correct Answers users"
+   trivia_question_list_flash_info: "Write down the first question"
+   trivia_question_update_list_flash_info: "The questions were modified successfully"
+   trivia_question_delete_flash_info: "The answers were deleted successfully"
+   trivia_question_new_default_value: "New question..."
+   trivia_option_new_default_value: "New option..."
+   trivia_question_new_default_value_frontend: "This is a placeholder text, check your app's admin page to edit it."
+   trivia_option_new_default_value_frontend: "Placeholder answer"
+   trivia_questions_edit_title: "Edit questions and their respective options"
+   trivia_stats_tip: "Click on the numbers to get detailed info."
+   trivia_main_menu_questions_menu_title: "Questions"
+   trivia_main_menu_answers_menu_title: "Answers"
+   trivia_show_summary: "Show score after completing the trivia"
+   
+   #model
+   trivia_incorrect_to_human: "wrong"
+   trivia_correct_to_human: "right"
+   
+   trivia_active_to_human: "Active"
+   trivia_inactive_to_human: "Off"
+   
+   trivia_toolbar_preview_counter_label: "Countdown"
+   trivia_toolbar_preview_titles_label: "Titles"
+   trivia_toolbar_preview_titles_tip: "* Title style is applied to all the titles in the app."
+   trivia_toolbar_preview_responses_title: "Answers"
+   trivia_toolbar_preview_response_button: "Reply Button"
+   
+   trivia_defaults_response_button: "Answer"
+   trivia_defaults_counter_text: "Time Left: "
+   trivia_defaults_thanks_message: "Thank you for answering the trivia! You have answered correctly"
+   trivia_defaults_thanks_message_for_winners: "Thank you! You've answered all of the questions correctly."
+   trivia_defaults_thanks_message_connection: "of"
+   trivia_defaults_thanks_message_object: "questions"
+   trivia_defaults_wallpost_caption: "I answered the trivia, you should give it a try!"
+   trivia_defaults_already_played_message: "You've already answered the trivia, thanks!"
+   
+   trivia_intallation_next_step_title: "Setting questions and response options"
+   trivia_intallation_next_step_description: "In this screen, you will create your first trivia question as well the response options for each"
+   #views
+   trivia_main_menu_questions: "Questions"
+   trivia_main_menu_stats: "Statistics"
+   trivia_option_correct: "Correct"
+   trivia_option_incorrect: "Wrong"
+   trivia_answers_list_correct_answers_amount: "Correct answers"
+   
+   trivia_amount_of_question_to_show_label: "Limit questions"
+   trivia_amount_of_question_to_show_tip: "Amount of questions asked to each user."
+   trivia_question_sorting_label: "Questions order"
+   trivia_max_time_to_finish_trivia_label: "Countdown"
+   trivia_max_time_to_finish_trivia_tip: "Add some difficulty by setting a time limit to answer all the questions."
+   trivia_question_stats_button: "Statistics in question"
+   trivia_users_top_button: "View top users"
+   trivia_view_list_of_questions_button: "Questions list"
+   
+   trivia_preview_question_sample_text: "Question Text"
+   
+   trivia_question_column: "Question"
+   trivia_incorrect_column: "Wrong"
+   trivia_correct_column: "Correct"
+   trivia_totals_column: "Totals"
+   
+   trivia_position_column: "Position"
+   trivia_new_default_value_backend_title: "Whoa!"
+   trivia_new_default_value_backend: "You sould have at least one option. We've created one for you :)"
+   trivia_responses_column: "Responses"
+   trivia_correct_responses_column: "Correct responses"
+
+   trivia_view_users_by_score: "Sort responses by score"
+   trivia_view_users_by_date: "Sort responses by upload date"
+
+   trivia_enter: "Login to the app"
+   trivia_connect_to_enter_title: "Please authenticate"
+   trivia_connect_to_enter_text: "You must grant permissions to participate."
+   
+   trivia_tooltips_add_questions: "Add/edit questions"
+   trivia_tooltips_results: "Scores"
+   
+   trivia_toolbar_preview_youwonmessage_title: "Perfect score message"

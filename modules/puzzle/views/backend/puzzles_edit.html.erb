@@ -1,0 +1,60 @@
+<script>
+	$(document).ready(function(){
+		$('#puzzle_image').on('change', function(){
+			var file = this.files[0];
+			var target = $('#new_puzzle_image img');
+			showThumbnail(file, target, function(){
+				$('#new_puzzle_image').show();
+			});
+		});
+	});
+</script>
+<% form_for @puzzle, :url => {:action => :puzzles_edit, :puzzle_id => @puzzle.id}, :remote => true, :html => {:class => "form", :multipart => true} do |f| %>
+<fieldset>
+	<table>
+		<colgroup>
+			<col style="width:35%" />
+			<col style="width:75%" />
+		</colgroup>
+		<tr>
+			<td><%= label :puzzle, :name, t(:name) %></td>
+			<td><%= text_field :puzzle, :name %></td>
+		</tr>
+		<tr>
+			<td><label><%=t :pz_pieces%></label></td>
+			<td>
+				<%= select :puzzle, :pieces, [[12], [20], [30], [42], [56]] %>
+				<span><%=t :pz_pieces_comment%></span>
+			</td>
+		</tr>
+		<tr>
+			<td><label><%=t :pz_active_puzzle%></label></td>
+			<td>
+				<%= check_box :puzzle, :active %>
+				<span><%=t :pz_active_puzzle_hint%></span>
+			</td>
+		</tr>
+		<tr>
+			<td><label><%=t :image%></label></td>
+			<td>
+				<div id="new_puzzle_image" style="
+				display: block;
+				width: 50%;
+				float: left;
+				margin-right: 1%;
+				margin-bottom: 2%;
+				" class="media photo">
+					<div class="img" style="width: 100%;">
+						<img style="width: 100%;" src="<%=url_for @puzzle.image.normal.url %>" alt="" />
+					</div>
+				</div>
+				<div class="clear"></div>
+				<%= upload_column_field :puzzle, :image, {:title => t(:pz_upload_image)} %>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center"><div class="center"><%= f.submit t(:save) %></div></td>
+		</tr>
+	</table>
+</fieldset>
+<% end %>

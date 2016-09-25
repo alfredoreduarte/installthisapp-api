@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160923222945) do
+ActiveRecord::Schema.define(version: 20160924065726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,34 +68,72 @@ ActiveRecord::Schema.define(version: 20160923222945) do
     t.string   "title"
     t.string   "checksum"
     t.string   "application_type"
-    t.string   "status"
+    t.integer  "status",                  default: 0
     t.integer  "fb_application_id"
     t.integer  "admin_user_id"
-    t.integer  "users_count"
+    t.integer  "users_count",             default: 0
     t.integer  "fb_page_id"
     t.integer  "timezone"
     t.datetime "first_time_installed_on"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   create_table "fb_applications", force: :cascade do |t|
     t.string   "name"
     t.string   "app_id"
     t.string   "secret_key"
-    t.string   "applicatio_type"
+    t.string   "application_type"
     t.string   "canvas_id"
     t.string   "namespace"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "fb_pages", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",       limit: 255
     t.integer  "fan_count"
-    t.integer  "identifier"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.bigint   "identifier"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "module_trivia_answers", force: :cascade do |t|
+    t.integer  "correct",         limit: 2, default: 0
+    t.integer  "option_id",                             null: false
+    t.integer  "question_id",                           null: false
+    t.integer  "application_id",                        null: false
+    t.integer  "user_id",                   default: 0
+    t.integer  "user_summary_id"
+    t.datetime "created_on",                            null: false
+    t.datetime "updated_on"
+  end
+
+  create_table "module_trivia_options", force: :cascade do |t|
+    t.string   "text",        limit: 255
+    t.boolean  "correct",                 default: true
+    t.integer  "question_id",                            null: false
+    t.integer  "position",                default: 0
+    t.datetime "created_on",                             null: false
+    t.datetime "updated_on"
+  end
+
+  create_table "module_trivia_questions", force: :cascade do |t|
+    t.string   "text",           limit: 255
+    t.integer  "application_id",                            null: false
+    t.boolean  "active",                     default: true
+    t.datetime "created_on",                                null: false
+    t.datetime "updated_on"
+  end
+
+  create_table "module_trivia_user_summaries", force: :cascade do |t|
+    t.integer  "total_answers",         default: 0
+    t.integer  "total_correct_answers", default: 0
+    t.float    "qualification",         default: 0.0
+    t.integer  "application_id",        default: 0
+    t.integer  "user_id",               default: 0
+    t.datetime "created_on",                          null: false
+    t.datetime "updated_on"
   end
 
   create_table "settings", force: :cascade do |t|
@@ -104,6 +142,11 @@ ActiveRecord::Schema.define(version: 20160923222945) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.index ["application_id"], name: "index_settings_on_application_id", using: :btree
+  end
+
+  create_table "templates", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_api_keys", force: :cascade do |t|
@@ -119,6 +162,7 @@ ActiveRecord::Schema.define(version: 20160923222945) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "identifier"
+    t.string   "email"
     t.string   "token_for_business"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false

@@ -1,0 +1,38 @@
+<table>
+	<colgroup>
+		<% if @application.setting.generic_form_enabled == 'yes' %>
+		<col style="width: 35%">
+		<col style="width: 25%">
+		<col style="width: 20%">
+		<col style="width: 10%">
+		<col style="width: 10%">
+		<col style="width: 1%">
+		<% else %>
+		<col style="width: 35%">
+		<col style="width: 25%">
+		<col style="width: 20%">
+		<col style="width: 20%">
+		<col style="width: 1%">
+		<% end %>
+	</colgroup>
+	<thead total="<%=@table_total_entries%>">
+		<tr>
+			<th><%=t(:user)%></th>
+			<th><%=table_sort_link(t(:pz_last_entry_date), :created_on, :ajax)%></th>
+			<th><%=table_sort_link(t(:pz_total_puzzles_solved), :total_entries, :ajax)%></th>
+			<th><%=table_sort_link(t(:pz_average_time), :average_time, :ajax)%></th>
+			<% if @application.setting.generic_form_enabled == 'yes' %>
+			<th></th>
+			<% end %>
+			<th>
+				<input type="checkbox" />
+			</th>
+		</tr>
+	</thead>
+	<tbody id="table_body">
+		<%= render :partial => "./results_table_entries" %>
+	</tbody>
+	<tfoot id="table_footer">
+		<%= render :partial => "applications/backend_embeds/default_table_footer" %>
+	</tfoot>	
+</table>

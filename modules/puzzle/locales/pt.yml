@@ -1,0 +1,65 @@
+pt:
+   pz_toolbar_preview_index_title: "Quebra-cabeça"
+   toolbar_preview_thankyoumessage_title: "Resultado"
+   toolbar_preview_alreadyplayed_screen_title: "Mensagem \"Eu já participei\""
+   toolbar_preview_wall_screen_title: "Post no timeline"
+   
+   pz_puzzles: "Quebra-cabeças"
+   pz_main_menu_results_menu_title: "Resultados"
+   pz_no_puzzles: "Você não criou enigmas. Clique no sinal de \"+ \" para criar um."
+   pz_no_results_yet: "Ninguém participou ainda."
+   pz_no_puzzles_frontend: "Nós ainda não criamos um quebra-cabeça. Volte em breve!"
+   
+   pz_settings: "Configuração"
+   pz_play_many_times: "Jogue várias vezes"
+   pz_play_many_times_comment: "Permita que seus usuários resolvam o mesmo quebra-cabeça várias vezes e eles competiram entre si para ser o mais rápido."
+   
+   pz_users_answers: "Resultados"
+   pz_total_puzzles_solved: "Quebra-cabeças resolvidos"
+   pz_average_time: "Tempo promedio"
+   pz_last_entry_date: "Última participação"
+   pz_time: "Tempo"
+   
+   pz_play_again: "Jogar de novo"
+   
+   pz_view_users_by_score: "Veja as melhores médias"
+   pz_view_users_by_date: "Ver promedios ordenados por data"
+   pz_active_puzzle: "Ativo"
+   pz_active_puzzle_hint: "Os usuários vêem apenas quebra-cabeças ativos."
+   pz_inactive_puzzle: "Inativo"
+   pz_edit_puzzle: "Editar quebra-cabeças"
+   pz_new_puzzle: "Quebra-cabeças novo"
+   pz_pieces: "Numero do peças"
+   pz_pieces_comment: "Defina o número de peças do puzzle, maior é o número o mais difícil para os usuários."
+   pz_upload_image: "Seleccionar imagem"
+   pz_results_by_user: "Resultados de %{user_name}"
+   
+   pz_save_error: "Erro ao tentar salvar o quebra-cabeça. Verifique se é uma imagem válida."
+   pz_puzzle_edited: "Quebra-cabeça guardado"
+   pz_eliminated_puzzles: "Até logo!"
+   pz_eliminated_puzzles_comment: "Os quebra-cabeças selecionados foram excluídos"
+   pz_entry_delete_flash_info: "Os resultados selecionados foram apagados"
+   
+   pz_defaults_leaderboard: "Melhores tempos"
+   pz_defaults_thanks_message: "Bem! Você resolveu em"
+   pz_defaults_best_time_message: "Seu melhor tempo até agora foi"
+   pz_defaults_best_time_optional_message: "    "
+   pz_defaults_and_your_position_is: "E chegou ao lugar"
+   pz_defaults_already_played_message: "Você já jogou!"
+   pz_defaults_wallpost_message: "Acabo de resolver este quebra-cabeças. Experimente!"
+   
+   export_total_entries: "Quebra-cabeças resoltos"
+   export_average_time: "Tempo promedio"
+   
+   solved_user: "Você resolveu um quebra-cabeça"
+
+   pz_connect_to_play_title: "Você deve fazer login"
+   pz_connect_to_play_text: "Por favor autenticar para jogar."
+   
+   pz_tooltips_puzzles_list: "Adicionar/editar quebra-cabeças"
+   pz_tooltips_puzzles_scores: "Veja no ranking de usuários que completaram o quebra-cabeça."
+   
+   pz_show_preview: "Mostrar ayuda"
+   pz_show_preview_explain: "Mostra como deve ser resolvido o quebra-cabeça por cinco segundos antes de começar o jogo."
+   
+   memory_match_template_edit_top_message: "Com o editor de layout você pode definir cores, fontes e imagens. Você também pode editar o conteúdo de texto e botões. Basta verificar as telas e clique no item que deseja editar.<br/> <b>Importante:</b> Os quebra-cabeças não são criados nesta seção, para criá-los deve ir para a seção chamada \"Quebra-cabeça\"."

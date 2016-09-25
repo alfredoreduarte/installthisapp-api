@@ -1,0 +1,11 @@
+{
+	"appTitle": "<%= $application.title %>",
+	"settings": {
+		
+	},
+	"payload": {
+		"photos": <%= $application.photos.to_json(
+			include: [:votes, :user], methods: [:thumbnail_url, :asset_url] 
+		).html_safe %>
+	}
+}

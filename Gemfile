@@ -47,3 +47,16 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# FB Graph 2.0+
+gem 'fb_graph2'
+gem 'koala'
+
+# Paperclip
+gem "paperclip"
+
+# Paperclip AWS S3 integration
+gem 'aws-sdk', '~> 2'
+
+# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+gem 'rack-cors'

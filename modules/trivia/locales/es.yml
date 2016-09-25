@@ -1,0 +1,91 @@
+es:
+   # Backend Controller
+   trivia_question_users_with_text_title: "Todas las respuestas para '%{question_text}'"
+   trivia_question_stats_title: "Total de respuestas agrupadas por preguntas"
+   trivia_question_users_title: "Total respuestas de usuarios"
+   trivia_question_user_title: "Total respuestas de usuarios"
+   trivia_question_users_incorrect_with_text_title: "Respuestas Incorrectas para '%{question_text}'"
+   trivia_question_users_incorrect_title: "Total de usuarios con respuestas incorrectas"
+   trivia_question_users_correct_with_text_title: "Respuestas correctas para '%{question_text}'"
+   trivia_question_users_correct_title: "Total de usuarios con respuestas Correctas"
+   trivia_question_list_flash_info: "Crea la primera pregunta"
+   trivia_question_update_list_flash_info: "Las preguntas fueron modificadas con exito"
+   trivia_question_delete_flash_info: "Las respuestas fueron borradas exitosamente"
+   trivia_question_new_default_value: "Nueva pregunta..."
+   trivia_option_new_default_value: "Nueva opción..."
+   trivia_question_new_default_value_frontend: "Este es un texto de relleno. Para crear preguntas, ingresa al panel de administración de tu app."
+   trivia_option_new_default_value_frontend: "Respuesta de relleno."
+   trivia_questions_edit_title: "Editar preguntas y sus opciones"
+   trivia_stats_tip: "Haz click en los números para ver más detalles."
+   trivia_main_menu_questions_menu_title: "Preguntas"
+   trivia_main_menu_answers_menu_title: "Respuestas"
+   trivia_show_summary: "Mostrar puntaje al completar la trivia"
+   
+   #Model
+   
+   trivia_incorrect_to_human: "incorrecto"
+   trivia_correct_to_human: "correcto"
+   
+   trivia_active_to_human: "Activo"
+   trivia_inactive_to_human: "Inactivo"
+   
+   trivia_toolbar_preview_counter_label: "Cuenta regresiva"
+   trivia_toolbar_preview_titles_label: "Titulos"
+   trivia_toolbar_preview_titles_tip: "*Los colores de títulos se aplican a todas las pantallas de la aplicación, incluidas las preguntas."
+   trivia_toolbar_preview_responses_title: "Respuestas"
+   trivia_toolbar_preview_response_button: "Boton de respuesta"
+   
+   
+   trivia_defaults_response_button: "Responder"
+   trivia_defaults_counter_text: "Tiempo restante: "
+   trivia_defaults_thanks_message: "Gracias por responder la trivia! Has respondido correctamente"
+   trivia_defaults_thanks_message_for_winners: "Gracias! Has respondido correctamente todas las preguntas."
+   trivia_defaults_thanks_message_connection: "de"
+   trivia_defaults_thanks_message_object: "preguntas"
+   trivia_defaults_wallpost_caption: "Yo respondí la trivia exitosamente, participa tu tambien."
+   trivia_defaults_already_played_message: "Ya has paticipado, gracias!"
+   
+   trivia_intallation_next_step_title: "Configuración de preguntas y opciones de respuesta"
+   trivia_intallation_next_step_description: "En esta pantalla, crearás la primera pregunta de tu trivia como tambien las opciones de respuesta para cada una"
+   
+   # Views
+   
+   trivia_main_menu_questions: "Preguntas"
+   trivia_main_menu_stats: "Estadisticas"
+   trivia_option_correct: "Correcta"
+   trivia_option_incorrect: "Incorrecta"  
+   trivia_answers_list_correct_answers_amount: "Respuestas correctas" 
+   
+   trivia_amount_of_question_to_show_label: "Limitar preguntas"
+   trivia_amount_of_question_to_show_tip: "Cantidad de preguntas que se muestran a cada participante."
+   trivia_question_sorting_label: "Orden de las preguntas"
+   trivia_max_time_to_finish_trivia_label: "Cuenta regresiva"
+   trivia_max_time_to_finish_trivia_tip: "Agrega dificultad al concurso limitando el tiempo disponible para responder todas las preguntas."
+   trivia_question_stats_button: "Estadisticas por pregunta"
+   trivia_users_top_button: "Ver top de usuarios"
+   trivia_view_list_of_questions_button: "Ver lista de preguntas"   
+   
+   trivia_preview_question_sample_text: "Texto de la pregunta"
+   
+   trivia_question_column: "Pregunta"
+   trivia_incorrect_column: "Incorrectos"
+   trivia_correct_column: "Correctos"   
+   trivia_totals_column: "Totales"
+      
+   trivia_position_column: "Posicion"
+   trivia_new_default_value_backend_title: "A escribir!"
+   trivia_new_default_value_backend: "La aplicación debe contar con al menos una opción. Hemos creado la primera por ti."
+   trivia_responses_column: "Respuestas"
+   trivia_correct_responses_column: "Respuestas correctas"
+
+   trivia_view_users_by_score: "Ver respuestas por puntaje"
+   trivia_view_users_by_date: "Ver respuestas por fecha de completado"
+
+   trivia_enter: "Ingresa a la app"
+   trivia_connect_to_enter_title: "Debes identificarte"
+   trivia_connect_to_enter_text: "Por favor autentícate para participar."
+   
+   trivia_tooltips_add_questions: "Agregar preguntas"
+   trivia_tooltips_results: "Puntajes"
+   
+   trivia_toolbar_preview_youwonmessage_title: "Mensaje para ganadores"
