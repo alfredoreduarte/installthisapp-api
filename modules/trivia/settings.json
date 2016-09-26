@@ -1,0 +1,10 @@
+{
+	"preferences": {
+		"limit_switch": true,
+		"limit": 5,
+		"order": "rand",
+		"time_limit_switch": true,
+		"time_limit": 120,
+		"show_summary": false
+	}
+}

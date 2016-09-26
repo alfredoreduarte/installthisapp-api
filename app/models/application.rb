@@ -8,13 +8,7 @@ class Application < ApplicationRecord
 	has_many 		:users, :through => :access_tokens
 	has_one 		:setting
 
-	# validates :status, inclusion: { in: %w(ready installed uninstalled deleted), message: "%{value} is not a valid application status" }
-	# validates_presence_of :fb_page_id, :scope => :fb_application_id, :on => :update
-
-
 	before_create 			:generate_checksum
-	# after_initialize 		:load_template
-	# after_create 			:set_template
 	after_create 			:create_setting
 
 	attr_accessor 			:module_loaded
@@ -33,27 +27,15 @@ class Application < ApplicationRecord
 		self.checksum = code
 	end
 
-	# def load_template
-	# 	if self.template.nil?
-	# 		self.template = Template.new
-	# 	end
-	# end
-
-	# def set_template
-	# 	unless self.id.nil?
-	# 		self.load_template
-	# 	end
-	# end
-
-	# def create_setting
-	# 	if self.setting.nil?
-	# 		self.setting = Setting.new()
-	# 		self.setting.save
-	# 		return true
-	# 	else
-	# 		return false
-	# 	end
-	# end
+	def create_setting
+		if self.setting.nil?
+			self.setting = Setting.new
+			self.setting.save
+			return true
+		else
+			return false
+		end
+	end
 
 	def test_install
 		fb_page = FbPage.find(self.fb_page_id)

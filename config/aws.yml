@@ -1,9 +1,9 @@
-development:
-  access_key_id: AKIAJ3SD7KN5JJ5YMLZA
-  secret_access_key: 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
-stage:
-  access_key_id: AKIAJ3SD7KN5JJ5YMLZA
-  secret_access_key: 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
-production:
-  access_key_id: AKIAJ3SD7KN5JJ5YMLZA
-  secret_access_key: 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
+# development:
+#   access_key_id: AKIAJ3SD7KN5JJ5YMLZA
+#   secret_access_key: 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
+# stage:
+#   access_key_id: AKIAJ3SD7KN5JJ5YMLZA
+#   secret_access_key: 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
+# production:
+#   access_key_id: AKIAJ3SD7KN5JJ5YMLZA
+#   secret_access_key: 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

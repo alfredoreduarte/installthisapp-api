@@ -85,18 +85,18 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Paperclip settings
-  Paperclip.options[:command_path] = "/usr/bin/"
+  # Paperclip.options[:command_path] = "/usr/bin/"
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_region => "us-west-2",
-    :s3_host_name => "installthisapp.s3.amazonaws.com",
+    :s3_host_name => ENV['S3_HOST_NAME'],
     :url => ':s3_alias_url',
-    :s3_host_alias => "d2df5y9t5wt0p8.cloudfront.net",
-    :bucket => 'installthisapp',
+    :s3_host_alias => ENV['S3_HOST_ALIAS'],
+    :bucket => ENV['S3_BUCKET_NAME'],
     :s3_protocol => :https,
     :s3_credentials => {
-      :access_key_id => "AKIAJ3SD7KN5JJ5YMLZA",
-      :secret_access_key => "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"
+      :access_key_id => ENV['S3_ACCESS_KEY_ID'],
+      :secret_access_key => ENV['S3_SECRET_ACCESS_KEY']
     }
   }
 end

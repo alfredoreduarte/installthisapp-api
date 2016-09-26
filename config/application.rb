@@ -13,6 +13,7 @@ module ItaApi
     # -- all .rb files in that directory are automatically loaded.
 
     config.autoload_paths << Rails.root.join('modules').to_s
+    # config.force_ssl = true
   end
   require Rails.root.join('lib', 'modules.rb').to_s
   Modules::Base.initialize!

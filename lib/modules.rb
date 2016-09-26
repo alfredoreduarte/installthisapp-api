@@ -20,12 +20,9 @@ module Modules
 				end
 			end
 			def find_by_name(name)
-				# application = nil
 				@applications.each do |app|
-					Rails.logger.info("name: #{name}")
-					Rails.logger.info("app name #{app.name}")
-					Rails.logger.info("#{app.name.to_s}-#{name.to_s}")
-					# application = app.name.to_s == name.to_s ? app : nil
+					Rails.logger.info('find_by_name')
+					Rails.logger.info(app.name.to_s == name.to_s)
 					return app if app.name.to_s == name.to_s
 				end
 				return nil
@@ -46,13 +43,13 @@ module Modules
 		
 		attr_reader :name, :layout
 		attr_reader :loaded_models
-		attr_accessor :render
+		# attr_accessor :render
 		attr_accessor :platform
 		
 		def initialize attrs
 			@attrs = attrs;
 			@name = @attrs[0].to_sym;
-			@render = false 
+			# @render = false 
 			@loaded_models = []
 		end
 		
@@ -76,11 +73,14 @@ module Modules
 		end
 
 		def load_models
-			t1 = Time.now.utc
-			models = Dir[Rails.root.join('modules', @name.to_s, 'models', '{setting.rb,application.rb}').to_s]
+			# t1 = Time.now.utc
+			Rails.logger.info("levanta modelos")
+			# models = Dir[Rails.root.join('modules', @name.to_s, 'models', '{setting.rb,application.rb}').to_s]
+			models = Dir[Rails.root.join('modules', @name.to_s, 'models', '{application.rb}').to_s]
+			Rails.logger.info(models.inspect)
 			# levanto las clases
 			models.each {|file|                             
-				load(file) rescue nil
+				load(file)
 			}
 			# ActiveRecord::Base.logger.info "MODULE LOAD MODELS TIME: #{Time.now.utc-t1}"
 		end
@@ -102,7 +102,7 @@ module Modules
 		end
 		
 		def dispatch!(base, from, app)
-			@render = true
+			# @render = true
 			@layout = from
 			case from
 				when :backend
@@ -145,16 +145,16 @@ module Modules
 			action_name
 		end
 		
-		def render(*args)
-			# ActiveRecord::Base.logger.info "************************** el template **************************"
-			if !@module.nil? && @module.render
-				options = args.extract_options!
-				options[:template] = File.join("../../modules/", @module.name.to_s , "views", action_name).to_s if options[:no_module_views].nil?
-				super(*(args << options))
-			else 
-				super(*args)
-			end
-		end
+		# def render(*args)
+		# 	# ActiveRecord::Base.logger.info "************************** el template **************************"
+		# 	if !@module.nil? && @module.render
+		# 		options = args.extract_options!
+		# 		options[:template] = File.join("../../modules/", @module.name.to_s , "views", action_name).to_s if options[:no_module_views].nil?
+		# 		super(*(args << options))
+		# 	else 
+		# 		super(*args)
+		# 	end
+		# end
 				
 	end
 	

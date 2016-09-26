@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(version: 20160924065726) do
   end
 
   create_table "settings", force: :cascade do |t|
-    t.text     "conf"
+    t.json     "conf"
     t.integer  "application_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false

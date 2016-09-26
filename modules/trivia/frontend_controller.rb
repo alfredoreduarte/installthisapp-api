@@ -59,16 +59,15 @@ module FrontendController
 		incorrect_answers = save_params[:incorrect].to_i
 		user_summary = $application.user_summaries.find_or_create_by(user_id: $user.id)
 		for question in save_params[:details]
-			correct = question[1][1].to_i
 			answer = $application.answers.new(
-				:correct => correct, 
-				:option_id => question[1][0], 
-				:user_id => $user.id, 
-				:question_id => question[0], 
+				:correct => question[:correct], 
+				:option_id => question[:option],
+				:user_id => $user.id,
+				:question_id => question[:question],
 				:user_summary_id => user_summary.id
 			)
 			answer.save
-			user_summary.total_correct_answers += 1 if correct == 1 
+			user_summary.total_correct_answers += 1 if question[:correct] == 1 
 		end
 		user_summary.total_answers = user_summary.total_answers + correct_answers + incorrect_answers
 		user_summary.save

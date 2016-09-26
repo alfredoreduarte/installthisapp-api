@@ -6,30 +6,18 @@ class ApplicationsController < ApplicationController
 	before_action :get_application, :except => [:index, :create]
 	before_action :load_module, :except => [:index, :create, :template_update]
 	before_action :dispatch_module, :except => [
-		:configuration_info, 
-		:configuration_info_update, 
-		:template_edit, 
-		:template_update, 
-		:destroy, 
-		:preview, 
-		:guest_admin_users, 
-		:setting_upload_image, 
-		:undefined, 
-		:configuration_facebook_app, 
-		:external_instagram_subscription
+		:destroy,
 	]
 
 	# 
 	# CSS
 	# 
-	def initial_css(content)
+	def generate_css(content)
 		path = "#{Rails.root}/app/assets/stylesheets/application_stylesheets/#{@application.checksum}/"
 		FileUtils.mkdir_p(path) unless File.directory?(path)
 		css_file = path + "styles.css"
-		towrite = content
 		File.open(css_file, "w+") do |f|
-			# f.write(ItaApi::Application.assets.find_asset("modules/#{app.application_type}/#{app.setting.design_chosen_template}/styles").to_s)
-			f.write(towrite)
+			f.write(content)
 		end
 		upload_css_to_s3(css_file)
 	end
@@ -41,22 +29,20 @@ class ApplicationsController < ApplicationController
 		cleanup_local_css_files(css_file)
 		return {status: "success", path: asset.as_json(:methods => [:asset_url])}
 	end
-	def cleanup_local_css_files(css_file)
-		File.delete(css_file) if File.exist?(css_file)
+	def cleanup_local_css_files(file)
+		File.delete(file) if File.exist?(file)
 		FileUtils.remove_dir "#{Rails.root}/app/assets/stylesheets/application_stylesheets/#{@application.checksum}", false
-		logger.info("cleaned up #{@application.checksum} temporal stylesheets")
 	end
 
 	# 
 	# STATIC MESSAGES
 	# 
-	def initial_messages_json(content)
+	def generate_messages(content)
 		path = "#{Rails.root}/app/assets/json/application_messages/#{@application.checksum}/"
 		FileUtils.mkdir_p(path) unless File.directory?(path)
-		json_file = path+"messages.json"
-		towrite = content
+		json_file = path + "messages.json"
 		File.open(json_file, "w+") do |f|
-			f.write(towrite)
+			f.write(content)
 		end
 		@response = upload_json_to_s3(json_file)
 	end
@@ -66,12 +52,36 @@ class ApplicationsController < ApplicationController
 		@asset.attachment_content_type = "application/json"
 		@asset.save!
 		cleanup_local_json_files(json_file)
-		{status: "success", path: @asset.as_json(:methods => [:asset_url])}
+		return {status: "success", path: @asset.as_json(:methods => [:asset_url])}
 	end
-	def cleanup_local_json_files(json_file)
-		File.delete(json_file) if File.exist?(json_file)
+	def cleanup_local_json_files(file)
+		File.delete(file) if File.exist?(file)
 		FileUtils.remove_dir "#{Rails.root}/app/assets/json/application_messages/#{@application.checksum}", false
-		logger.info("cleaned up #{@application.checksum} temporal json file")
+	end
+
+	def index
+		response = {
+			apps: $admin_user.applications.as_json(include: :fb_application),
+		}
+		respond_to do |format|
+			format.json { render json: response }
+		end
+	end
+	def styles
+		response = {
+			stylesheet_url: @application.application_assets.where(attachment_file_name: "styles.css").last.asset_url,
+		}
+		respond_to do |format|
+			format.json { render json: response }
+		end
+	end
+	def messages
+		response = {
+			messages_url: @application.application_assets.where(attachment_file_name: "messages.json").last.asset_url,
+		}
+		respond_to do |format|
+			format.json { render json: response }
+		end
 	end
 
 	def create
@@ -79,10 +89,8 @@ class ApplicationsController < ApplicationController
 		response = ''
 		if (@application.save!)
 			load_module
-			# setting = @application.setting
-			# setting.init
-			initial_css(params[:initial_styles])
-			initial_messages_json(params[:initial_messages_json])
+			generate_css(params[:initial_styles])
+			generate_messages(params[:initial_messages_json])
 			response = @application.as_json
 		else
 			response = {
@@ -132,15 +140,26 @@ class ApplicationsController < ApplicationController
 		@application.save
 		render json: @application.as_json
 	end
+	def save_app_from_editor
+		generate_css(params[:css])
+		generate_messages(params[:messages])
+		respond_to do |format|
+			format.json { render json: @response }
+		end
+	end
+	def save_image_from_new_editor
+		par = asset_params
+		asset = @application.application_asset.create(par)
+		respond_to do |format|
+			format.json { render json: asset.as_json(methods: [:asset_url])}
+		end
+	end
+
 
 	private
 
 	def application_params
 		params.require(:application).permit(:fb_page_id, :application_type, :title, :tracking_code, :timezone, :app_availability, :country_restriction, :timezone)
-	end
-
-	def setting_params
-		params.require(:setting).permit(:preferences_time_limit)
 	end
 
 	def get_application
