@@ -20,10 +20,11 @@ class CanvasController < ApplicationController
 
 	def test_auth
 		fb_application = FbApplication.find_by(canvas_id: params[:canvas_id])
-		fb_connection = FbGraph2::Auth.new(fb_application.app_id, fb_application.client_secret)
+		fb_connection = FbGraph2::Auth.new(fb_application.app_id, fb_application.secret_key)
 		fb_auth = fb_connection.from_signed_request(params[:signed_request])
 		page_data = fb_auth.payload[:page]
-		application = fb_application.applications.where("facebook_page_identifier = '#{ page_data["id"] }' and status = 'installed'").first
+		fb_page = FbPage.find_by(identifier: page_data['id'])
+		application = fb_application.applications.installed.where("fb_page_id = '#{ fb_page.id }'").first
 		application.module
 		response = {
 			title: application.title,
