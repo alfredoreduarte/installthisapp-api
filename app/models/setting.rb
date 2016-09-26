@@ -6,7 +6,9 @@ class Setting < ApplicationRecord
 
 	def init
 		jsonfile = File.open(File.join(Rails.root, 'modules', self.application.application_type.to_s, 'settings.json'))
-		conf = JSON.parse(jsonfile.read)
-		self.conf = conf.to_s
+		conf = JSON.parse(jsonfile.read.to_s)
+		# self.conf = conf.to_json
+		# self.conf = conf.to_s
+		self.conf = conf
 	end
 end
