@@ -4,8 +4,6 @@ entries = $application.answers.where(user_id: $user.id)
 for entry in entries
 	@already_answered << entry.question_id
 end
-logger.info('alredy')
-logger.info(@already_answered)
 if @already_answered.length > 0
 	if $application.questions.where("id not in (#{@already_answered.join(',')})").where("active = true").length > 0
 		@questions = $application.questions.where("id not in (#{@already_answered.join(',')})")
