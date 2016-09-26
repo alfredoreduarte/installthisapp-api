@@ -149,7 +149,7 @@ class ApplicationsController < ApplicationController
 	end
 	def save_image_from_new_editor
 		par = asset_params
-		asset = @application.application_asset.create(par)
+		asset = @application.application_assets.create(par)
 		respond_to do |format|
 			format.json { render json: asset.as_json(methods: [:asset_url])}
 		end
