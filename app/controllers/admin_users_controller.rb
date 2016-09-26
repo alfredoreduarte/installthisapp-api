@@ -33,6 +33,18 @@ class AdminUsersController < ApplicationController
 		end
 	end
 
+	# Godview data
+	def jsonmock
+		$admin_users = AdminUser.includes(:applications)
+		@apps = Application.all
+		@active_apps = Application.installed.all
+		@pages = FbPage.all
+		@fb_apps = FbApplication.all
+		respond_to do |format|
+			format.json
+		end
+	end
+
 	private
 
 	def admin_user_params

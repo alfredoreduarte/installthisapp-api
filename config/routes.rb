@@ -23,4 +23,9 @@ Rails.application.routes.draw do
 	match '/test_auth.json', to: "canvas#test_auth", via: [:post]
 	match '/standalone_auth.json', to: "canvas#standalone_auth", via: [:post]
 	match '/:checksum/:action.json', to: "canvas#:action", via: [:get, :post]
+
+	# 
+	# GODVIEW
+	# 
+	match '/jsonmock', to: "admin_users#jsonmock", via: [:get]
 end

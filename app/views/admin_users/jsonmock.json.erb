@@ -1,0 +1,79 @@
+{
+	"summary": [
+		{
+			"title": "Total Apps",
+			"value": <%= @apps.length %>
+		},
+		{
+			"title": "Active Apps",
+			"value": <%= @active_apps.length %>
+		},
+		{
+			"title": "Total Admins",
+			"value": <%= $admin_users.length %>
+		},
+		{
+			"title": "Total Orders",
+			"value": 0
+		}
+	],
+	"users": [
+		<% $admin_users.each do |user| %>
+		{
+			"id": <%= user.id %>,
+			"name": "<%= user.name %>",
+			"email": "<%= user.email %>",
+			"fbId": <%= user.identifier %>,
+			"fbLikes": 2313,
+			"fbPages": <%= user.fb_pages.length %>,
+			"totalApps": <%= user.applications.length %>,
+			"apps": [
+				<% user.applications.each do |app| %>
+				{
+					"id": <%= app.id %>,
+					"checksum": "<%= app.checksum %>",
+					"title": "<%= app.title %>",
+					"status": "<%= app.status %>",
+					"fbPageId": <%= app.fb_page.id %>,
+					"users": <%= app.users.length %>	
+				}<%=',' unless app == user.applications.last%>
+				<% end %>
+			]
+		}<%=',' unless user == $admin_users.last%>
+		<% end %>
+	],
+	"apps": [
+		<% @apps.each do |app| %>
+		{
+			"id": <%= app.id %>,
+			"checksum": "<%= app.checksum %>",
+			"title": "<%= app.title %>",
+			"status": "<%= app.status %>",
+			"fbPageId": <%= app.fb_page.id %>,
+			"users": <%= app.users.length %>	
+		}<%=',' unless app == @apps.last%>
+		<% end %>
+	],
+	"fbPages": [
+		<% @pages.each do |page| %>
+		{
+			"id": <%= page.id %>,
+			"fbIdentifier": "<%= page.identifier %>",
+			"name": "<%= page.name %>"
+		}<%=',' unless page == @pages.last%>
+		<% end %>
+	],
+	"fbApps": [
+		<% @fb_apps.each do |fb_app| %>
+		{
+			"id": <%= fb_app.id %>,
+			"name": "<%= fb_app.name %>",
+			"applicationId": "<%= fb_app.app_id %>",
+			"secretCode": "<%= fb_app.secret_key %>",
+			"type": "<%= fb_app.application_type %>",
+			"canvasId": "<%= fb_app.canvas_id %>",
+			"namespace": "<%= fb_app.namespace %>"
+		}<%=',' unless fb_app == @fb_apps.last%>
+		<% end %>
+	]
+}
