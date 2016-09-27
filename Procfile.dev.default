@@ -1,0 +1,1 @@
+web: bundle exec puma -b 'ssl://127.0.0.1:3000?key=ABSOLUTE_PATH_TO_PROJECT/ssl-dev/server.key&cert=ABSOLUTE_PATH_TO_PROJECT/ssl-dev/server.crt'

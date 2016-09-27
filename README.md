@@ -1,24 +1,9 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Local development
 
-Things you may want to cover:
+You'll need foreman installed globally:
 
-* Ruby version
+`gem install -g foreman`
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Rename `Procfile.dev.default` to `Procfile.dev`, and replace `ABSOLUTE_PATH_TO_PROJECT` with the absolute path to the project's folder.
