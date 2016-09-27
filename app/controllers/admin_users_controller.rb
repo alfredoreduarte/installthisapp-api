@@ -9,9 +9,10 @@ class AdminUsersController < ApplicationController
 	end
 
 	def create
-		logger.info('monguito')
-		TopFansLike.create(post_id: 123,user_identifier: 456,user_name: "Alf staging",page_id: 1928)
-		logger.info('monguito')
+		# logger.info('monguito')
+		# TopFansLike.create(post_id: 123,user_identifier: 456,user_name: "Alf staging",page_id: 1928)
+		# TopFansLike.create(post_id: 123,user_identifier: 456,user_name: "Alf Dev!",page_id: 1928)
+		# logger.info('monguito')
 		$admin_user = AdminUser.sign_in(params[:signed_request])
 		unless $admin_user.api_key.length > 0
 			$admin_user.api_key.create

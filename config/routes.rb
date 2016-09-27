@@ -28,4 +28,11 @@ Rails.application.routes.draw do
 	# GODVIEW
 	# 
 	match '/jsonmock', to: "admin_users#jsonmock", via: [:get]
+
+	# 
+	# FB Page realtime subscriptions
+	# 
+	match '/top_fans_stats', to: "fb_page_subscription#top_fans_stats", via: [:get]
+	match '/likes_by_page', to: "fb_page_subscription#likes_by_page", via: [:get]
+	match '/subscription', to: "fb_page_subscription#subscription", via: [:get, :post]
 end
