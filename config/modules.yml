@@ -10,7 +10,6 @@ trivia:
         enter: "public_profile, publish_actions"
         mobile: "public_profile, publish_actions"
         form: "public_profile, public_profile"
-    status: :public
 photo_contest:
     associations:
         0: "Application has_many photos PhotoContestPhoto"
@@ -21,10 +20,8 @@ photo_contest:
     secondary_perms:
         enter: "email, user_friends"
         form: "email, user_friends"
-    status: :public
 top_fans:
     perms: ""
     secondary_perms:
         enter: "email, user_friends"
         form: "email, user_friends"
-    status: :public

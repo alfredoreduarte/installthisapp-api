@@ -208,6 +208,7 @@ DEPENDENCIES
   aws-sdk (~> 2)
   byebug
   coffee-rails (~> 4.2)
+  faraday
   fb_graph2
   foreman
   jbuilder (~> 2.5)

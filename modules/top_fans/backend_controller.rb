@@ -1,6 +1,6 @@
 module BackendController
 	def likes
-		identifier = @application.facebook_page.identifier
+		identifier = @application.fb_page.identifier
 		results_likes = TopFansLike.likes_by_page(identifier)
 		response = {
 			"#{identifier}": results_likes

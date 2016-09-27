@@ -114,6 +114,7 @@ class ApplicationsController < ApplicationController
 		logger.info('install result')
 		logger.info(install_result)
 		if install_result == :ok
+			@application.install_callback
 			respond_to do |format|
 				format.json { render json: @application.as_json(include: [:users, :fb_application]) }
 			end
@@ -126,6 +127,7 @@ class ApplicationsController < ApplicationController
 	def uninstall
 		uninstall_result = @application.test_uninstall
 		if uninstall_result == :ok
+			@application.uninstall_callback
 			respond_to do |format|
 				format.json { render json: @application.as_json(include: [:users, :fb_application]) }
 			end

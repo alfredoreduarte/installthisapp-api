@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160924065726) do
+ActiveRecord::Schema.define(version: 20160927073438) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,11 +91,12 @@ ActiveRecord::Schema.define(version: 20160924065726) do
   end
 
   create_table "fb_pages", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name",               limit: 255
     t.integer  "fan_count"
     t.bigint   "identifier"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.boolean  "webhook_subscribed",             default: false
   end
 
   create_table "module_trivia_answers", force: :cascade do |t|
