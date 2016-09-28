@@ -24,7 +24,7 @@
 			"name": "<%= user.name %>",
 			"email": "<%= user.email %>",
 			"fbId": <%= user.identifier %>,
-			"fbLikes": <%= user.total_likes_count %>,
+			"fbLikes": <%= user.total_likes_count ? user.total_likes_count : 0 %>,
 			"fbPages": <%= user.fb_pages.length %>,
 			"totalApps": <%= user.applications.length %>,
 			"createdAt": "<%= user.created_at %>",

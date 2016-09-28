@@ -9,7 +9,7 @@ class CreateAdminUsers < ActiveRecord::Migration[5.0]
       t.string :email
       t.string :locale
       t.string :utype
-      t.integer :total_likes_count
+      t.integer :total_likes_count, default: 0
       t.integer :timezone
 
       t.timestamps
