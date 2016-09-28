@@ -39,7 +39,7 @@ class AdminUsersController < ApplicationController
 
 	# Godview data
 	def jsonmock
-		$admin_users = AdminUser.includes(:applications)
+		@admin_users = AdminUser.includes(:applications)
 		@apps = Application.all
 		@active_apps = Application.installed.all
 		@pages = FbPage.all

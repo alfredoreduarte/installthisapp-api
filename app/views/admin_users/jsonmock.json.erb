@@ -10,7 +10,7 @@
 		},
 		{
 			"title": "Total Admins",
-			"value": <%= $admin_users.length %>
+			"value": <%= @admin_users.length %>
 		},
 		{
 			"title": "Total Orders",
@@ -18,28 +18,32 @@
 		}
 	],
 	"users": [
-		<% $admin_users.each do |user| %>
+		<% @admin_users.each do |user| %>
 		{
 			"id": <%= user.id %>,
 			"name": "<%= user.name %>",
 			"email": "<%= user.email %>",
 			"fbId": <%= user.identifier %>,
-			"fbLikes": 2313,
+			"fbLikes": <%= user.total_likes_count %>,
 			"fbPages": <%= user.fb_pages.length %>,
 			"totalApps": <%= user.applications.length %>,
+			"createdAt": "<%= user.created_at %>",
 			"apps": [
 				<% user.applications.each do |app| %>
 				{
 					"id": <%= app.id %>,
 					"checksum": "<%= app.checksum %>",
 					"title": "<%= app.title %>",
+					"application_type": "<%= app.application_type %>",
 					"status": "<%= app.status %>",
+					"canvasId": "<%= app.installed? ? app.fb_application.canvas_id : nil %>",
 					"fbPageId": <%= app.fb_page.id %>,
+					"fbPageIdentifier": <%= app.fb_page.identifier %>,
 					"users": <%= app.users.length %>	
 				}<%=',' unless app == user.applications.last%>
 				<% end %>
 			]
-		}<%=',' unless user == $admin_users.last%>
+		}<%=',' unless user == @admin_users.last%>
 		<% end %>
 	],
 	"apps": [
@@ -48,8 +52,11 @@
 			"id": <%= app.id %>,
 			"checksum": "<%= app.checksum %>",
 			"title": "<%= app.title %>",
+			"application_type": "<%= app.application_type %>",
 			"status": "<%= app.status %>",
+			"canvasId": "<%= app.installed? ? app.fb_application.canvas_id : nil %>",
 			"fbPageId": <%= app.fb_page.id %>,
+			"fbPageIdentifier": <%= app.fb_page.identifier %>,
 			"users": <%= app.users.length %>	
 		}<%=',' unless app == @apps.last%>
 		<% end %>
