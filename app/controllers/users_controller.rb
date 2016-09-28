@@ -19,7 +19,7 @@ class UsersController < ApplicationController
 	private
 	
 	def get_user
-		@access_tokens = AccessToken.where("user_id = #{params[:id]} and application_id in (#{$admin_user.application_ids.join(",")})").includes(:application).order("access_tokens.updated_on DESC")
+		@access_tokens = AccessToken.where("user_id = #{params[:id]} and application_id in (#{$admin_user.application_ids.join(",")})").includes(:application).order("access_tokens.updated_at DESC")
 		if @access_tokens.length > 0
 			@user = @access_tokens[0].user
 		else

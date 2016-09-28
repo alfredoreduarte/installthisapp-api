@@ -1,6 +1,6 @@
 class CanvasController < ApplicationController
 	include Modules::BaseController
-	before_action :authenticate_user, except: [:test_auth, :standalone_auth, :viewmodel, :likes]
+	before_action :authenticate_user, except: [:test_auth, :standalone_auth, :viewmodel, :entries, :settings]
 	before_action :test_application_step_by_step, :except => [:test_auth, :standalone_auth]
 
 	def standalone_auth

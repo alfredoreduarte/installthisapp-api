@@ -17,4 +17,34 @@ class TopFansComment
 		}
 		return self.collection.aggregate([group])
 	end
+
+	def self.comments_by_page(identifier)
+		match = {
+			'$match': {
+				page_id: identifier.to_i,
+			}
+		}
+		group = {
+			'$group': {
+				_id: "$user_identifier",
+				user_identifier: { "$first": "$user_identifier" },
+				user_name: { "$first": "$user_name" },
+				comments: {"$sum": 1}
+			}
+		}
+		sort = {
+			'$sort': {
+				comments: -1,
+			}
+		}
+		project = {
+			'$project': {
+				_id: 0,
+				comments: 1,
+				user_identifier: 1,
+				user_name: 1,
+			}
+		}
+		return self.collection.aggregate([match, group, sort, project])
+	end
 end

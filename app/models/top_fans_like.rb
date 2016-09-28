@@ -25,11 +25,10 @@ class TopFansLike
 		}
 		group = {
 			'$group': {
-				_id: {
-					"user_identifier": "$user_identifier",
-					"user_name": "$user_name",
-				},
-				likes: {'$sum': 1}
+				_id: "$user_identifier",
+				user_identifier: { "$first": "$user_identifier" },
+				user_name: { "$first": "$user_name" },
+				likes: {"$sum": 1}
 			}
 		}
 		sort = {
@@ -37,6 +36,14 @@ class TopFansLike
 				likes: -1,
 			}
 		}
-		return self.collection.aggregate([match, group, sort])
+		project = {
+			'$project': {
+				_id: 0,
+				likes: 1,
+				user_identifier: 1,
+				user_name: 1,
+			}
+		}
+		return self.collection.aggregate([match, group, sort, project])
 	end
 end

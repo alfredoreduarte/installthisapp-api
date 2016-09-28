@@ -99,6 +99,25 @@ ActiveRecord::Schema.define(version: 20160927073438) do
     t.boolean  "webhook_subscribed",             default: false
   end
 
+  create_table "module_photo_contest_photos", force: :cascade do |t|
+    t.integer  "application_id",                                  null: false
+    t.integer  "user_id",                                         null: false
+    t.text     "caption"
+    t.integer  "votes_count",                         default: 0
+    t.string   "attachment_file_name",    limit: 255
+    t.string   "attachment_content_type", limit: 255
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+  end
+
+  create_table "module_photo_contest_votes", force: :cascade do |t|
+    t.integer  "application_id", null: false
+    t.integer  "user_id",        null: false
+    t.integer  "photo_id",       null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
   create_table "module_trivia_answers", force: :cascade do |t|
     t.integer  "correct",         limit: 2, default: 0
     t.integer  "option_id",                             null: false
@@ -106,8 +125,8 @@ ActiveRecord::Schema.define(version: 20160927073438) do
     t.integer  "application_id",                        null: false
     t.integer  "user_id",                   default: 0
     t.integer  "user_summary_id"
-    t.datetime "created_on",                            null: false
-    t.datetime "updated_on"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   create_table "module_trivia_options", force: :cascade do |t|
@@ -115,16 +134,16 @@ ActiveRecord::Schema.define(version: 20160927073438) do
     t.boolean  "correct",                 default: true
     t.integer  "question_id",                            null: false
     t.integer  "position",                default: 0
-    t.datetime "created_on",                             null: false
-    t.datetime "updated_on"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
   end
 
   create_table "module_trivia_questions", force: :cascade do |t|
     t.string   "text",           limit: 255
     t.integer  "application_id",                            null: false
     t.boolean  "active",                     default: true
-    t.datetime "created_on",                                null: false
-    t.datetime "updated_on"
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
   end
 
   create_table "module_trivia_user_summaries", force: :cascade do |t|
@@ -133,8 +152,8 @@ ActiveRecord::Schema.define(version: 20160927073438) do
     t.float    "qualification",         default: 0.0
     t.integer  "application_id",        default: 0
     t.integer  "user_id",               default: 0
-    t.datetime "created_on",                          null: false
-    t.datetime "updated_on"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   create_table "settings", force: :cascade do |t|
@@ -143,11 +162,6 @@ ActiveRecord::Schema.define(version: 20160927073438) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.index ["application_id"], name: "index_settings_on_application_id", using: :btree
-  end
-
-  create_table "templates", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "user_api_keys", force: :cascade do |t|
