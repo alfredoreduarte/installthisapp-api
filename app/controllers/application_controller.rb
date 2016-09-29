@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-	# protect_from_forgery with: :exception
 
 	def get_application_for_admin(include_super_admin=true)
 		checksum = params[:checksum] || params[:id]
@@ -15,7 +14,6 @@ class ApplicationController < ActionController::Base
 	end
 
 	private
-	# Api authentication
 
 	def set_admin
 		$admin_user = nil

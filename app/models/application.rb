@@ -2,7 +2,8 @@ class Application < ApplicationRecord
 	enum status: { ready: 0, installed: 1, uninstalled: 2, deleted: 3 }
 	belongs_to		:admin_user
 	belongs_to  	:fb_application, optional: true
-	belongs_to 		:fb_page
+	# Optional true para poder tener apps no asociadas a fb_page alguno
+	belongs_to 		:fb_page, optional: true
 	has_many 		:access_tokens
 	has_many 		:application_assets
 	has_many 		:users, :through => :access_tokens
@@ -12,8 +13,6 @@ class Application < ApplicationRecord
 	after_create 			:create_setting
 
 	attr_accessor 			:module_loaded
-	attr_accessor 			:template
-	attr_accessor 			:template_name
 	attr_accessor 			:facebook_page_loaded
 	attr_accessor 			:admin_user_logged_loaded
 
@@ -37,7 +36,7 @@ class Application < ApplicationRecord
 		end
 	end
 
-	def test_install
+	def install
 		fb_page = FbPage.find(self.fb_page_id)
 		installed_apps = Application.installed.where("fb_page_id = '#{fb_page.id}' and application_type = '#{self.application_type}'")
 		if installed_apps.length > 0
@@ -69,7 +68,7 @@ class Application < ApplicationRecord
 		return :ok
 	end
 
-	def test_uninstall
+	def uninstall
 		if self.installed?
 			self.uninstalled!
 			if self.test_delete_tab_on_facebook
@@ -108,24 +107,10 @@ class Application < ApplicationRecord
 	end
 
 	def module(setting_flags={})
-		# self.create_setting
 		if self.module_loaded.nil?
-			# logger.info('module 1?')
 			self.module_loaded = Modules::Base.load_by_name(self.application_type)
-			# logger.info('module 4?')
-			# logger.info("module 4? #{self.module_loaded.inspect}")
 			self.module_loaded.load_associations
-			# En lugar de esto:
-			# if (self.template_type.nil? rescue false)
-				# self.template_type = self.module_loaded.template
-				# self.save
-			# end
-			# Esto, ya que tenemos un solo template
-			# self.template_type = "Template"
-			# self.template_name = :Template
 			self.save
-			# logger.info("/*/*/*/ #{self.application_type} /*/*/*/")
-			# self.setting.init(setting_flags)
 		end
 		return self.module_loaded
 	end

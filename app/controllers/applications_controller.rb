@@ -4,60 +4,10 @@ class ApplicationsController < ApplicationController
 	before_action :authenticate
 	before_action :set_admin, :except => [:index]
 	before_action :get_application, :except => [:index, :create]
-	before_action :load_module, :except => [:index, :create, :template_update]
+	before_action :load_module, :except => [:index, :create]
 	before_action :dispatch_module, :except => [
 		:destroy,
 	]
-
-	# 
-	# CSS
-	# 
-	def generate_css(content)
-		path = "#{Rails.root}/app/assets/stylesheets/application_stylesheets/#{@application.checksum}/"
-		FileUtils.mkdir_p(path) unless File.directory?(path)
-		css_file = path + "styles.css"
-		File.open(css_file, "w+") do |f|
-			f.write(content)
-		end
-		upload_css_to_s3(css_file)
-	end
-	def upload_css_to_s3(css_file)
-		asset = @application.application_assets.new
-		asset.attachment = File.open(css_file)
-		asset.attachment_content_type = "text/css"
-		asset.save!
-		cleanup_local_css_files(css_file)
-		return {status: "success", path: asset.as_json(:methods => [:asset_url])}
-	end
-	def cleanup_local_css_files(file)
-		File.delete(file) if File.exist?(file)
-		FileUtils.remove_dir "#{Rails.root}/app/assets/stylesheets/application_stylesheets/#{@application.checksum}", false
-	end
-
-	# 
-	# STATIC MESSAGES
-	# 
-	def generate_messages(content)
-		path = "#{Rails.root}/app/assets/json/application_messages/#{@application.checksum}/"
-		FileUtils.mkdir_p(path) unless File.directory?(path)
-		json_file = path + "messages.json"
-		File.open(json_file, "w+") do |f|
-			f.write(content)
-		end
-		@response = upload_json_to_s3(json_file)
-	end
-	def upload_json_to_s3(json_file)
-		@asset = @application.application_assets.new
-		@asset.attachment = File.open(json_file)
-		@asset.attachment_content_type = "application/json"
-		@asset.save!
-		cleanup_local_json_files(json_file)
-		return {status: "success", path: @asset.as_json(:methods => [:asset_url])}
-	end
-	def cleanup_local_json_files(file)
-		File.delete(file) if File.exist?(file)
-		FileUtils.remove_dir "#{Rails.root}/app/assets/json/application_messages/#{@application.checksum}", false
-	end
 
 	def index
 		response = {
@@ -110,9 +60,7 @@ class ApplicationsController < ApplicationController
 	end
 
 	def install
-		install_result = @application.test_install
-		logger.info('install result')
-		logger.info(install_result)
+		install_result = @application.install
 		if install_result == :ok
 			@application.install_callback
 			respond_to do |format|
@@ -120,12 +68,12 @@ class ApplicationsController < ApplicationController
 			end
 		else
 			respond_to do |format|
-				format.json { render json: {status: install_result} }
+				format.json { render json: { status: install_result } }
 			end
 		end
 	end
 	def uninstall
-		uninstall_result = @application.test_uninstall
+		uninstall_result = @application.uninstall
 		if uninstall_result == :ok
 			@application.uninstall_callback
 			respond_to do |format|
@@ -180,5 +128,55 @@ class ApplicationsController < ApplicationController
 		unless @module.nil?
 			@module.dispatch! self, :backend, @application
 		end
+	end
+
+	# 
+	# CSS
+	# 
+	def generate_css(content)
+		path = "#{Rails.root}/app/assets/stylesheets/application_stylesheets/#{@application.checksum}/"
+		FileUtils.mkdir_p(path) unless File.directory?(path)
+		css_file = path + "styles.css"
+		File.open(css_file, "w+") do |f|
+			f.write(content)
+		end
+		upload_css_to_s3(css_file)
+	end
+	def upload_css_to_s3(css_file)
+		asset = @application.application_assets.new
+		asset.attachment = File.open(css_file)
+		asset.attachment_content_type = "text/css"
+		asset.save!
+		cleanup_local_css_files(css_file)
+		return {status: "success", path: asset.as_json(:methods => [:asset_url])}
+	end
+	def cleanup_local_css_files(file)
+		File.delete(file) if File.exist?(file)
+		FileUtils.remove_dir "#{Rails.root}/app/assets/stylesheets/application_stylesheets/#{@application.checksum}", false
+	end
+
+	# 
+	# STATIC MESSAGES
+	# 
+	def generate_messages(content)
+		path = "#{Rails.root}/app/assets/json/application_messages/#{@application.checksum}/"
+		FileUtils.mkdir_p(path) unless File.directory?(path)
+		json_file = path + "messages.json"
+		File.open(json_file, "w+") do |f|
+			f.write(content)
+		end
+		@response = upload_json_to_s3(json_file)
+	end
+	def upload_json_to_s3(json_file)
+		@asset = @application.application_assets.new
+		@asset.attachment = File.open(json_file)
+		@asset.attachment_content_type = "application/json"
+		@asset.save!
+		cleanup_local_json_files(json_file)
+		return {status: "success", path: @asset.as_json(:methods => [:asset_url])}
+	end
+	def cleanup_local_json_files(file)
+		File.delete(file) if File.exist?(file)
+		FileUtils.remove_dir "#{Rails.root}/app/assets/json/application_messages/#{@application.checksum}", false
 	end
 end

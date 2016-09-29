@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 	# 
 	# CANVAS
 	# 
-	match '/test_auth.json', to: "canvas#test_auth", via: [:post]
+	match '/auth.json', to: "canvas#auth", via: [:post]
 	match '/standalone_auth.json', to: "canvas#standalone_auth", via: [:post]
 	match '/:checksum/:action.json', to: "canvas#:action", via: [:get, :post]
 

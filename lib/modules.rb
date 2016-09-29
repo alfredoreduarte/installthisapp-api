@@ -11,12 +11,12 @@ module Modules
 				end
 				ActionController::Base.prepend_view_path(Rails.root.join('modules'))
 				load_applications      
-				true
+				return true
 			end
 			def load_applications
-				@applications = [];
+				@applications = []
 				@modules_config.each do |app|
-					@applications << ApplicationDefinition.new(app);
+					@applications << ApplicationDefinition.new(app)
 				end
 			end
 			def find_by_name(name)
@@ -118,8 +118,7 @@ module Modules
 		end
 		
 		def load_associations  
-			t1 = Time.now.utc  	 
-			# ActiveRecord::Base.logger.debug "Assotiaciton : #{@attrs[1]["counter"]}" 
+			t1 = Time.now.utc
 			unless (@attrs[1]["associations"].blank? rescue true)
 				i=0
 				loop do
@@ -128,34 +127,19 @@ module Modules
 					eval ("#{assocs[0]}.send :#{assocs[1]}, :#{assocs[2]}" + (assocs[3].nil? ? "" : ", :class_name => '#{assocs[3]}'"))
 					i+=1
 				end
-			end 
-			# if (@attrs[1]["counter"].to_s == "true")
-			# 	Application.send :has_one, :counter
-			# end
-			# ActiveRecord::Base.logger.info "MODULE LOAD ASSOCIATIONS TIME: #{Time.now.utc-t1}"      		 
+			end
 			return true		 
 		end
 		
 	end
 		
 	module BaseController  
-				
+		
 		def method_for_action(action_name)
 			Modules::Base.reload!
 			action_name
 		end
 		
-		# def render(*args)
-		# 	# ActiveRecord::Base.logger.info "************************** el template **************************"
-		# 	if !@module.nil? && @module.render
-		# 		options = args.extract_options!
-		# 		options[:template] = File.join("../../modules/", @module.name.to_s , "views", action_name).to_s if options[:no_module_views].nil?
-		# 		super(*(args << options))
-		# 	else 
-		# 		super(*args)
-		# 	end
-		# end
-				
 	end
 	
 end

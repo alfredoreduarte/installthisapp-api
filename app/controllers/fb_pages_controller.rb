@@ -4,7 +4,7 @@ class FbPagesController < ApplicationController
 	def fetch
 		total_likes_count = 0
 		fb_pages = []
-		profile = $admin_user.get_fb_profile($admin_user.access_token)
+		profile = $admin_user.get_fb_profile
 		fan_pages = profile.accounts({:fields => "id,name,likes,country_page_likes"}).collect{|p| p unless p.category=="Application"}.compact
 		unless fan_pages.nil?
 			for fan_page in fan_pages
@@ -16,7 +16,6 @@ class FbPagesController < ApplicationController
 			$admin_user.fb_pages = fb_pages
 			$admin_user.save
 		end
-
 		response = {
 			apps: $admin_user.applications,
 			pages: $admin_user.fb_pages,
