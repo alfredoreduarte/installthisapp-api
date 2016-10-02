@@ -35,6 +35,7 @@ class AdminUsersController < ApplicationController
 	end
 
 	def update
+		1 / 0
 		$admin_user.update_attributes(admin_user_params)
 		respond_to do |format|
 			format.json { render json: $admin_user.as_json }
