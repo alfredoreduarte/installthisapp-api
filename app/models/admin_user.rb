@@ -28,23 +28,21 @@ class AdminUser < ApplicationRecord
 	def self.identify(fb_auth, signed_request, lang=nil, create_trial=true)
 
 		# Get existing admin user or initialise a new one
-		admin_user = AdminUser.where(identifier: signed_request.identifier).first_or_initialize
-
-		# Extend access token lifetime
-		fb_auth.fb_exchange_token 	= signed_request.access_token
-		admin_user.access_token = fb_auth.access_token!
-
-		# Get FB Profile for Admin User
-		profile = admin_user.get_fb_profile
-
-		# Save Admin Metadata
-		admin_user.name 		= profile.name
-		admin_user.first_name 	= profile.first_name
-		admin_user.last_name 	= profile.last_name
-		admin_user.email 		= profile.email
-		admin_user.locale 		= profile.locale
-		admin_user.timezone 	= profile.timezone rescue 0
-
+		admin_user = AdminUser.where(identifier: signed_request.identifier).first_or_initialize do |admin|
+			# Extend access token lifetime
+			fb_auth.fb_exchange_token 	= signed_request.access_token
+			admin.access_token = fb_auth.access_token!
+			# Get FB Profile for Admin User
+			profile = admin.get_fb_profile
+			# Save Admin Metadata
+			admin.name 			= profile.name
+			admin.first_name 	= profile.first_name
+			admin.last_name 	= profile.last_name
+			admin.email 		= profile.email
+			admin.locale 		= profile.locale
+			admin.timezone 		= profile.timezone rescue 0
+		end
+		
 		if admin_user.save
 
 		else
