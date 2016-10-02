@@ -19,13 +19,13 @@ class Application
 				},
 				{
 					label: 'Max. score',
-					value: self.user_summaries.maximum(:qualification)
+					value: "#{self.user_summaries.maximum(:qualification).to_i}%"
 				},
 			]
 		}
 	end
 
 	def average_score_all_users
-		return self.user_summaries.average(:qualification).to_i || 0
+		return "#{self.user_summaries.average(:qualification).to_i || 0}%"
 	end
 end
