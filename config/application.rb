@@ -14,6 +14,14 @@ module ItaApi
 
     config.autoload_paths << Rails.root.join('modules').to_s
     # config.force_ssl = true
+
+    # 
+    # This makes active_record the default generator again, after installing mongoid
+    # http://stackoverflow.com/questions/6372626/using-active-record-generators-after-mongoid-installation
+    # 
+    config.generators do |g| 
+		g.orm :active_record 
+	end
   end
   require Rails.root.join('lib', 'modules.rb').to_s
   Modules::Base.initialize!

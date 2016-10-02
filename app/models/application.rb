@@ -14,7 +14,6 @@ class Application < ApplicationRecord
 
 	attr_accessor 			:module_loaded
 	attr_accessor 			:facebook_page_loaded
-	attr_accessor 			:admin_user_logged_loaded
 
 	def generate_checksum
 		code = nil
@@ -55,7 +54,7 @@ class Application < ApplicationRecord
 			return :fb_permission_issue
 		end
 		user_graph = Koala::Facebook::API.new($admin_user.access_token)
-		page_token = user_graph.get_page_access_token(self.test_graph_facebook_page.identifier)
+		page_token = user_graph.get_page_access_token(self.graph_facebook_page.identifier)
 		koala = Koala::Facebook::API.new(page_token)
 		params = {
 			app_id: self.fb_application.app_id,
@@ -71,7 +70,7 @@ class Application < ApplicationRecord
 	def uninstall
 		if self.installed?
 			self.uninstalled!
-			if self.test_delete_tab_on_facebook
+			if self.delete_tab_on_facebook
 				save_result = self.save!
 				if save_result
 					return :ok
@@ -86,9 +85,9 @@ class Application < ApplicationRecord
 		end
 	end
 
-	def test_delete_tab_on_facebook
+	def delete_tab_on_facebook
 		user_graph = Koala::Facebook::API.new($admin_user.access_token)
-		page_token = user_graph.get_page_access_token(self.test_graph_facebook_page.identifier)
+		page_token = user_graph.get_page_access_token(self.graph_facebook_page.identifier)
 		koala = Koala::Facebook::API.new(page_token)
 		params = {
 			tab: 'app_' + self.fb_application.app_id
@@ -100,7 +99,7 @@ class Application < ApplicationRecord
 		end
 	end
 
-	def test_graph_facebook_page
+	def graph_facebook_page
 		fb_page = FbPage.find(self.fb_page_id)
 		facebook_page_loaded = FbGraph2::Page.new(fb_page.identifier).fetch(:access_token => $admin_user.access_token, :fields => :access_token)
 		return facebook_page_loaded

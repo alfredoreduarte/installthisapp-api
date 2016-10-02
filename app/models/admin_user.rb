@@ -1,4 +1,6 @@
 class AdminUser < ApplicationRecord
+	enum utype: { admin: 0, super_admin: 1 }
+	enum status: { pending: 0, sent: 1, verified: 2 }
 	has_many :applications, -> {where.not(status: :deleted)}
 	has_and_belongs_to_many :fb_pages
 	has_many :api_key, foreign_key: "admin_user_id", class_name: "AdminUserApiKey"
@@ -41,7 +43,6 @@ class AdminUser < ApplicationRecord
 		admin_user.last_name 	= profile.last_name
 		admin_user.email 		= profile.email
 		admin_user.locale 		= profile.locale
-		admin_user.utype 		= :admin
 		admin_user.timezone 	= profile.timezone rescue 0
 
 		if admin_user.save

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160927073438) do
+ActiveRecord::Schema.define(version: 20161001235326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,12 +42,12 @@ ActiveRecord::Schema.define(version: 20160927073438) do
     t.string   "last_name"
     t.string   "email"
     t.string   "locale"
-    t.string   "utype"
     t.integer  "total_likes_count"
     t.integer  "timezone"
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
-    t.string   "status",                       default: "pending"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.integer  "utype",                        default: 0
+    t.integer  "status",                       default: 0
   end
 
   create_table "admin_users_fb_pages", id: false, force: :cascade do |t|
