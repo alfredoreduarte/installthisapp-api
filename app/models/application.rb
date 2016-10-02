@@ -113,4 +113,11 @@ class Application < ApplicationRecord
 		end
 		return self.module_loaded
 	end
+
+	def stats_summary
+		logger.info("/*/*/*/*/*/ STATS SUMMARY: OVERRIDE THIS! /*/*/*/*/*/")
+		return {
+			stats_summary: []
+		}
+	end
 end

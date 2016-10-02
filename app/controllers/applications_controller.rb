@@ -33,6 +33,11 @@ class ApplicationsController < ApplicationController
 			format.json { render json: response }
 		end
 	end
+	def stats_summary
+		respond_to do |format|
+			format.json { render json: @application.stats_summary }
+		end
+	end
 
 	def create
 		@application = $admin_user.applications.new(application_params)

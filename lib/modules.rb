@@ -76,7 +76,7 @@ module Modules
 			# t1 = Time.now.utc
 			Rails.logger.info("levanta modelos")
 			# models = Dir[Rails.root.join('modules', @name.to_s, 'models', '{setting.rb,application.rb}').to_s]
-			models = Dir[Rails.root.join('modules', @name.to_s, 'models', '{application.rb}').to_s]
+			models = Dir[Rails.root.join('modules', @name.to_s, 'models', 'application.rb').to_s]
 			Rails.logger.info(models.inspect)
 			# levanto las clases
 			models.each {|file|                             

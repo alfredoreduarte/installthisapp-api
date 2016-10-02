@@ -21,7 +21,7 @@ class AdminUsersController < ApplicationController
 			admin_user: $admin_user.as_json(
 				include: {
 					applications: {
-						include: [:users, :fb_application, :fb_page]
+						include: [:users, :fb_application, :fb_page],
 					},
 					fb_pages: {}
 				}
