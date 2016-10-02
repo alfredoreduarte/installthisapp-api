@@ -68,3 +68,5 @@ gem 'rack-cors'
 gem 'mongoid', '~> 6.0.0'
 
 gem 'faraday'
+
+gem 'sentry-raven'
