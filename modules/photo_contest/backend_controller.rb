@@ -30,4 +30,14 @@ module BackendController
 			format.json { render json: {status: 'ok'} }
 		end
 	end
+
+	def votes_destroy
+		votes = @application.votes.find(params[:id])
+		votes.each do |vote|
+			vote.destroy
+		end
+		respond_to do |format|
+			format.json { render json: {status: 'ok'} }
+		end
+	end
 end

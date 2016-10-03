@@ -21,13 +21,11 @@ class AdminUsersController < ApplicationController
 			admin_user: $admin_user.as_json(
 				include: {
 					applications: {
-						include: [:users, :fb_application, :fb_page],
+						include: [:users, :fb_application, :fb_page, :setting],
 					},
 					fb_pages: {}
 				}
 			),
-			# apps: $admin_user.applications.as_json(include: [:users, :fb_application]),
-			# pages: $admin_user.fb_pages,
 		}
 		respond_to do |format|
 			format.json { render json: response }
