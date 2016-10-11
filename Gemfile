@@ -70,3 +70,7 @@ gem 'mongoid', '~> 6.0.0'
 gem 'faraday'
 
 gem 'sentry-raven'
+
+gem 'devise'
+gem 'omniauth'
+gem 'devise_token_auth'

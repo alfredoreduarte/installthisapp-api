@@ -67,4 +67,10 @@ Rails.application.configure do
       :secret_access_key => ENV['S3_SECRET_ACCESS_KEY']
     }
   }
+
+  Rails.application.configure do
+    config.action_mailer.default_url_options = { :host => 'https://localhost.ssl:3000' }
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = { :address => 'localhost.ssl', :port => 1025 }
+  end
 end

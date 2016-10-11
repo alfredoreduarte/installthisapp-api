@@ -10,180 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161001235326) do
+ActiveRecord::Schema.define(version: 20161011033131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "access_tokens", force: :cascade do |t|
-    t.string   "token"
-    t.integer  "user_id"
-    t.integer  "application_id"
-    t.string   "checksum"
-    t.boolean  "processed"
-    t.string   "user_identifier"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
-  create_table "admin_user_api_keys", force: :cascade do |t|
-    t.string   "token"
-    t.integer  "admin_user_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.index ["admin_user_id"], name: "index_admin_user_api_keys_on_admin_user_id", using: :btree
-  end
-
-  create_table "admin_users", force: :cascade do |t|
-    t.string   "identifier",        limit: 20
-    t.string   "access_token"
+  create_table "admins", force: :cascade do |t|
+    t.string   "provider",               default: "email", null: false
+    t.string   "uid",                    default: "",      null: false
+    t.string   "encrypted_password",     default: "",      null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,       null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
     t.string   "name"
-    t.string   "first_name"
-    t.string   "last_name"
+    t.string   "nickname"
+    t.string   "image"
     t.string   "email"
-    t.string   "locale"
-    t.integer  "total_likes_count"
-    t.integer  "timezone"
+    t.json     "tokens"
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
-    t.integer  "utype",                        default: 0
-    t.integer  "status",                       default: 0
+    t.index ["email"], name: "index_admins_on_email", using: :btree
+    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
+    t.index ["uid", "provider"], name: "index_admins_on_uid_and_provider", unique: true, using: :btree
   end
 
-  create_table "admin_users_fb_pages", id: false, force: :cascade do |t|
-    t.integer "admin_user_id", null: false
-    t.integer "fb_page_id",    null: false
-  end
-
-  create_table "application_assets", force: :cascade do |t|
-    t.string   "type"
-    t.string   "attachment_file_name"
-    t.string   "attachment_content_type"
-    t.integer  "application_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-  end
-
-  create_table "applications", force: :cascade do |t|
-    t.string   "title"
-    t.string   "checksum"
-    t.string   "application_type"
-    t.integer  "status",                  default: 0
-    t.integer  "fb_application_id"
-    t.integer  "admin_user_id"
-    t.integer  "users_count",             default: 0
-    t.integer  "fb_page_id"
-    t.integer  "timezone"
-    t.datetime "first_time_installed_on"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-  end
-
-  create_table "fb_applications", force: :cascade do |t|
-    t.string   "name"
-    t.string   "app_id"
-    t.string   "secret_key"
-    t.string   "application_type"
-    t.string   "canvas_id"
-    t.string   "namespace"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-  end
-
-  create_table "fb_pages", force: :cascade do |t|
-    t.string   "name",               limit: 255
-    t.integer  "fan_count"
-    t.bigint   "identifier"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
-    t.boolean  "webhook_subscribed",             default: false
-  end
-
-  create_table "module_photo_contest_photos", force: :cascade do |t|
-    t.integer  "application_id",                                  null: false
-    t.integer  "user_id",                                         null: false
-    t.text     "caption"
-    t.integer  "votes_count",                         default: 0
-    t.string   "attachment_file_name",    limit: 255
-    t.string   "attachment_content_type", limit: 255
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
-  end
-
-  create_table "module_photo_contest_votes", force: :cascade do |t|
-    t.integer  "application_id", null: false
-    t.integer  "user_id",        null: false
-    t.integer  "photo_id",       null: false
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-  end
-
-  create_table "module_trivia_answers", force: :cascade do |t|
-    t.integer  "correct",         limit: 2, default: 0
-    t.integer  "option_id",                             null: false
-    t.integer  "question_id",                           null: false
-    t.integer  "application_id",                        null: false
-    t.integer  "user_id",                   default: 0
-    t.integer  "user_summary_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-  end
-
-  create_table "module_trivia_options", force: :cascade do |t|
-    t.string   "text",        limit: 255
-    t.boolean  "correct",                 default: true
-    t.integer  "question_id",                            null: false
-    t.integer  "position",                default: 0
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-  end
-
-  create_table "module_trivia_questions", force: :cascade do |t|
-    t.string   "text",           limit: 255
-    t.integer  "application_id",                            null: false
-    t.boolean  "active",                     default: true
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-  end
-
-  create_table "module_trivia_user_summaries", force: :cascade do |t|
-    t.integer  "total_answers",         default: 0
-    t.integer  "total_correct_answers", default: 0
-    t.float    "qualification",         default: 0.0
-    t.integer  "application_id",        default: 0
-    t.integer  "user_id",               default: 0
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-  end
-
-  create_table "settings", force: :cascade do |t|
-    t.json     "conf"
-    t.integer  "application_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.index ["application_id"], name: "index_settings_on_application_id", using: :btree
-  end
-
-  create_table "user_api_keys", force: :cascade do |t|
-    t.string   "token"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_user_api_keys_on_user_id", using: :btree
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "identifier"
-    t.string   "email"
-    t.string   "token_for_business"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-  end
-
-  add_foreign_key "admin_user_api_keys", "admin_users"
-  add_foreign_key "settings", "applications"
-  add_foreign_key "user_api_keys", "users"
 end
