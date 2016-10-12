@@ -1,9 +1,9 @@
 class AccessToken < ApplicationRecord
 	belongs_to :application
-	belongs_to :user
+	belongs_to :fb_user
 	
-	validates_presence_of :token, :user_id, :application_id
-	validates_uniqueness_of :application_id, :scope => :user_id
+	validates_presence_of :token, :fb_user_id, :application_id
+	validates_uniqueness_of :application_id, :scope => :fb_user_id
 	
 	before_create :regenerate_checksum
 	after_create :count_users_on_applications
@@ -17,7 +17,7 @@ class AccessToken < ApplicationRecord
 	 end
 	
 	def regenerate_checksum
-		 self.checksum = Digest::SHA1.hexdigest("#{Time.now}#{self.application_id}#{self.user_id}#{self.token}#{Time.now}lalalala")
+		 self.checksum = Digest::SHA1.hexdigest("#{Time.now}#{self.application_id}#{self.fb_user_id}#{self.token}#{Time.now}lalalala")
 	end
 	
 	def profile

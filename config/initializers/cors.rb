@@ -6,14 +6,11 @@
 # Read more: https://github.com/cyu/rack-cors
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
-  allow do
-#     origins 'example.com'
-    # origins 'localui.installthisapp.com:4000'
-    # origins 'http://petstore.swagger.io/'
-    origins '*'
-#
-    resource '*',
-      headers: :any,
-      methods: [:get, :post, :put, :patch, :delete, :options, :head]
-  end
+	allow do
+		origins "#{ENV['AUTHORIZED_CLIENT_APP_URL']}"
+		resource '*',
+			headers: :any,
+			expose: ['access-token', 'client', 'uid', 'token-type'],
+			methods: [:get, :post, :put, :patch, :delete, :options, :head]
+	end
 end

@@ -2,8 +2,8 @@
 
 one:
   token: MyString
-  user: one
+  fb_user: one
 
 two:
   token: MyString
-  user: two
+  fb_user: two

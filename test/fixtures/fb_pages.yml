@@ -2,10 +2,10 @@
 
 one:
   name: MyString
-  fan_count: 1
-  identifier: 1
+  like_count: 1
+  identifier: MyString
 
 two:
   name: MyString
-  fan_count: 1
-  identifier: 1
+  like_count: 1
+  identifier: MyString

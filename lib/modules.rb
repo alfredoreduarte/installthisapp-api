@@ -4,13 +4,17 @@ module Modules
 			def reload!
 				load_applications
 			end
+			# 
+			# Call this inside config/application.rb like this `Modules::Base.initialize!`
+			# Loads all modules declared inside config/modules.yml
+			# 
 			def initialize!
 				unless @modules_config = YAML::load(File.open(Rails.root.join('config', 'modules.yml'))) rescue false
 					$stderr.puts %Q(This app requires a valid modules config file. Please check `modules.yml` in the config folder.)
 					exit 1
 				end
-				ActionController::Base.prepend_view_path(Rails.root.join('modules'))
-				load_applications      
+				# ActionController::Base.prepend_view_path(Rails.root.join('modules'))
+				load_applications
 				return true
 			end
 			def load_applications
@@ -20,6 +24,8 @@ module Modules
 				end
 			end
 			def find_by_name(name)
+				Rails.logger.info('el findo name')
+				Rails.logger.info(@applications.inspect)
 				@applications.each do |app|
 					Rails.logger.info('find_by_name')
 					Rails.logger.info(app.name.to_s == name.to_s)
@@ -41,40 +47,33 @@ module Modules
 	 
 	class ApplicationDefinition
 		
-		attr_reader :name, :layout
+		attr_reader :name
 		attr_reader :loaded_models
-		# attr_accessor :render
 		attr_accessor :platform
 		
-		def initialize attrs
-			@attrs = attrs;
-			@name = @attrs[0].to_sym;
-			# @render = false 
+		def initialize( attrs )
+			@attrs = attrs
+			@name = @attrs[0].to_sym
 			@loaded_models = []
 		end
 		
-		def method_missing(sym, *args, &block)    
+		def method_missing( sym, *args, &block )    
 			super unless ret = @attrs[1][sym.to_s] rescue false
 			ret
 		end
 		
-		def init!(restriction=nil)
-			# Rails.logger.info('module 2?')
-			# Rails.logger.info("module 2? #{@name}")
-			t1 = Time.now.utc
+		def init!
+			# t1 = Time.now.utc
 			self.load_models
-			unless restriction == :database_only 
-				# Rails.logger.info("module 2? no db only")
-				load Rails.root.join('modules', @name.to_s, 'backend_controller.rb')
-				load Rails.root.join('modules', @name.to_s, 'frontend_controller.rb')
-			end
+			load Rails.root.join('modules', @name.to_s, 'backend_controller.rb')
+			load Rails.root.join('modules', @name.to_s, 'frontend_controller.rb')
 			# ActiveRecord::Base.logger.info "MODULE INIT TIME: #{Time.now.utc-t1}"  
 			return self
 		end
 
 		def load_models
 			# t1 = Time.now.utc
-			Rails.logger.info("levanta modelos")
+			# Rails.logger.info("levanta modelos")
 			# models = Dir[Rails.root.join('modules', @name.to_s, 'models', '{setting.rb,application.rb}').to_s]
 			models = Dir[Rails.root.join('modules', @name.to_s, 'models', 'application.rb').to_s]
 			Rails.logger.info(models.inspect)
@@ -97,13 +96,11 @@ module Modules
 		end
 		
 		# NO BORRAR - ejemplo de como traer una vista de módulo
-		def sidebar_options_path
-			File.join(@name.to_s, 'views', 'backend', 'sidebar_options').to_s
-		end
+		# def sidebar_options_path
+		# 	File.join(@name.to_s, 'views', 'backend', 'sidebar_options').to_s
+		# end
 		
 		def dispatch!(base, from, app)
-			# @render = true
-			@layout = from
 			case from
 				when :backend
 					controller_name = BackendController
@@ -118,7 +115,7 @@ module Modules
 		end
 		
 		def load_associations  
-			t1 = Time.now.utc
+			# t1 = Time.now.utc
 			unless (@attrs[1]["associations"].blank? rescue true)
 				i=0
 				loop do

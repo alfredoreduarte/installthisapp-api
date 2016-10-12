@@ -4,7 +4,7 @@ one:
   name: MyString
   app_id: MyString
   secret_key: MyString
-  applicatio_type: MyString
+  application_type: MyString
   canvas_id: MyString
   namespace: MyString
 
@@ -12,6 +12,6 @@ two:
   name: MyString
   app_id: MyString
   secret_key: MyString
-  applicatio_type: MyString
+  application_type: MyString
   canvas_id: MyString
   namespace: MyString

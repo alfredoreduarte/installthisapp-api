@@ -1,0 +1,2 @@
+module FbUsersHelper
+end

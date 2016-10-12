@@ -1,8 +1,9 @@
 class ApplicationsController < ApplicationController
+	before_action :authenticate_admin!
 	require 'fileutils'
 	include Modules::BaseController
-	before_action :authenticate
-	before_action :set_admin, :except => [:index]
+	# before_action :authenticate
+	# before_action :set_admin, :except => [:index]
 	before_action :get_application, :except => [:index, :create]
 	before_action :load_module, :except => [:index, :create]
 	before_action :dispatch_module, :except => [
@@ -11,36 +12,28 @@ class ApplicationsController < ApplicationController
 
 	def index
 		response = {
-			apps: $admin_user.applications.as_json(include: :fb_application),
+			apps: current_admin.applications.as_json(include: :fb_application),
 		}
-		respond_to do |format|
-			format.json { render json: response }
-		end
+		render json: response
 	end
 	def styles
 		response = {
 			stylesheet_url: @application.application_assets.where(attachment_file_name: "styles.css").last.asset_url,
 		}
-		respond_to do |format|
-			format.json { render json: response }
-		end
+		render json: response
 	end
 	def messages
 		response = {
 			messages_url: @application.application_assets.where(attachment_file_name: "messages.json").last.asset_url,
 		}
-		respond_to do |format|
-			format.json { render json: response }
-		end
+		render json: response
 	end
 	def stats_summary
-		respond_to do |format|
-			format.json { render json: @application.stats_summary }
-		end
+		render json: @application.stats_summary
 	end
 
 	def create
-		@application = $admin_user.applications.new(application_params)
+		@application = current_admin.applications.new(application_params)
 		response = ''
 		if (@application.save!)
 			load_module
@@ -49,45 +42,34 @@ class ApplicationsController < ApplicationController
 			response = @application.as_json
 		else
 			response = {
-				status: 'error',
+				success: false,
+				message: "Failed to save instantiated application"
 			}
 		end
-		respond_to do |format|
-			format.json { render json: response }
-		end
+		render json: response
 	end
 
 	def update
 		@application.update_attributes(application_params)
-		respond_to do |format|
-			format.json { render json: @application.as_json(include: [:users, :fb_application]) }
-		end
+		render json: @application.as_json(include: [:users, :fb_application])
 	end
 
 	def install
 		install_result = @application.install
 		if install_result == :ok
 			@application.install_callback
-			respond_to do |format|
-				format.json { render json: @application.as_json(include: [:users, :fb_application]) }
-			end
+			render json: @application.as_json(include: [:users, :fb_application])
 		else
-			respond_to do |format|
-				format.json { render json: { status: install_result } }
-			end
+			render json: { status: install_result }
 		end
 	end
 	def uninstall
 		uninstall_result = @application.uninstall
 		if uninstall_result == :ok
 			@application.uninstall_callback
-			respond_to do |format|
-				format.json { render json: @application.as_json(include: [:users, :fb_application]) }
-			end
+			render json: @application.as_json(include: [:users, :fb_application])
 		else
-			respond_to do |format|
-				format.json { render json: {status: uninstall_result} }
-			end
+			render json: {status: uninstall_result}
 		end
 	end
 	def destroy
@@ -98,16 +80,12 @@ class ApplicationsController < ApplicationController
 	def save_app_from_editor
 		generate_css(params[:css])
 		generate_messages(params[:messages])
-		respond_to do |format|
-			format.json { render json: @response }
-		end
+		render json: @response
 	end
 	def save_image_from_new_editor
 		par = asset_params
 		asset = @application.application_assets.create(par)
-		respond_to do |format|
-			format.json { render json: asset.as_json(methods: [:asset_url])}
-		end
+		render json: asset.as_json(methods: [:asset_url])
 	end
 
 
@@ -118,7 +96,9 @@ class ApplicationsController < ApplicationController
 	end
 
 	def get_application
-		@application = get_application_for_admin
+		# @application = get_application_for_admin
+		checksum = params[:checksum] || params[:id]
+		@application = current_admin.applications.find_by(checksum: checksum)
 	end
 
 	def asset_params
@@ -153,7 +133,7 @@ class ApplicationsController < ApplicationController
 		asset.attachment_content_type = "text/css"
 		asset.save!
 		cleanup_local_css_files(css_file)
-		return {status: "success", path: asset.as_json(:methods => [:asset_url])}
+		return { status: "success", path: asset.as_json(:methods => [:asset_url]) }
 	end
 	def cleanup_local_css_files(file)
 		File.delete(file) if File.exist?(file)

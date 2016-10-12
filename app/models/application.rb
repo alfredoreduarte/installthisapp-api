@@ -1,19 +1,20 @@
 class Application < ApplicationRecord
 	enum status: { ready: 0, installed: 1, uninstalled: 2, deleted: 3 }
-	belongs_to		:admin_user
-	belongs_to  	:fb_application, optional: true
+	belongs_to		:admin
+	# belongs_to  	:fb_application, optional: true
 	# Optional true para poder tener apps no asociadas a fb_page alguno
-	belongs_to 		:fb_page, optional: true
+	# belongs_to 		:fb_page, optional: true
 	has_many 		:access_tokens
 	has_many 		:application_assets
-	has_many 		:users, :through => :access_tokens
+	# has_many 		:users, :through => :access_tokens
+	has_many 		:fb_users, :through => :access_tokens
 	has_one 		:setting
 
-	before_create 			:generate_checksum
-	after_create 			:create_setting
+	before_create 	:generate_checksum
+	after_create 	:create_setting
 
-	attr_accessor 			:module_loaded
-	attr_accessor 			:facebook_page_loaded
+	attr_accessor 	:module_loaded
+	attr_accessor 	:facebook_page_loaded
 
 	def generate_checksum
 		code = nil

@@ -1,7 +1,7 @@
-class UserApiKey < ApplicationRecord
+class FbUserApiKey < ApplicationRecord
 	before_create :generate_token
 
-	belongs_to :user
+	belongs_to :fb_user
 
 	private
 

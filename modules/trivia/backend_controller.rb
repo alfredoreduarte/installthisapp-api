@@ -1,5 +1,4 @@
 module BackendController
-	
 	# JSON FOR MODULES
 	def jsontest
 		respond_to do |format|
@@ -9,13 +8,13 @@ module BackendController
 	# JSON FOR MODULES
 
 	def questions
+		logger.info('se autentica?')
+		logger.info(current_admin)
 		response = {
 			questions: @application.questions.as_json(include: :options),
-			answers: @application.user_summaries.as_json(include: :user)
+			answers: @application.user_summaries.as_json(include: :fb_users)
 		}
-		respond_to do |format|
-			format.json { render json: response }
-		end
+		render json: response
 	end
 
 	def questions_create
