@@ -6,15 +6,15 @@ class AdminsController < ApplicationController
 	def entities
 		render json: {
 			admin: current_admin.as_json(
-				include: [:applications]
+				# include: [:applications]
 				# except: [:image, :nickname, :provider, :created_at, :updated_at],
-				# include: {
-					# applications: {
+				include: {
+					applications: {
 						# include: [:users, :fb_application, :fb_page, :setting],
-						# include: [ :setting ],
-					# },
+						include: [ :setting ],
+					},
 					# fb_pages: {}
-				# }
+				}
 			)
 		}
 	end

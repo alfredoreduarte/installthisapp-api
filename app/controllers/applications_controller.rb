@@ -51,14 +51,14 @@ class ApplicationsController < ApplicationController
 
 	def update
 		@application.update_attributes(application_params)
-		render json: @application.as_json(include: [:users, :fb_application])
+		render json: @application.as_json(include: [:fb_users, :fb_application])
 	end
 
 	def install
 		install_result = @application.install
 		if install_result == :ok
 			@application.install_callback
-			render json: @application.as_json(include: [:users, :fb_application])
+			render json: @application.as_json(include: [:fb_users, :fb_application])
 		else
 			render json: { status: install_result }
 		end
@@ -67,7 +67,7 @@ class ApplicationsController < ApplicationController
 		uninstall_result = @application.uninstall
 		if uninstall_result == :ok
 			@application.uninstall_callback
-			render json: @application.as_json(include: [:users, :fb_application])
+			render json: @application.as_json(include: [:fb_users, :fb_application])
 		else
 			render json: {status: uninstall_result}
 		end
@@ -111,7 +111,7 @@ class ApplicationsController < ApplicationController
 
 	def dispatch_module
 		unless @module.nil?
-			@module.dispatch! self, :backend, @application
+			@module.dispatch!(self, :backend, @application)
 		end
 	end
 

@@ -38,9 +38,9 @@ module Modules
 				# @applications.sort_by{|a|a.order}
 				return @applications
 			end
-			def load_by_name(name, restriction=nil)
+			def load_by_name(name)
 				Rails.logger.info('module 3?')
-				find_by_name(name).init!(restriction)
+				find_by_name(name).init!
 			end
 		end
 	end
