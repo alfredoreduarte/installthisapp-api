@@ -1,7 +1,7 @@
 class Application < ApplicationRecord
 	enum status: { ready: 0, installed: 1, uninstalled: 2, deleted: 3 }
 	belongs_to		:admin
-	# belongs_to  	:fb_application, optional: true
+	belongs_to  	:fb_application, optional: true
 	# Optional true para poder tener apps no asociadas a fb_page alguno
 	# belongs_to 		:fb_page, optional: true
 	has_many 		:access_tokens
@@ -37,6 +37,14 @@ class Application < ApplicationRecord
 	end
 
 	def install
+		free_fb_application = FbApplication.find_by(application_type: self.application_type)
+		self.fb_application = free_fb_application
+		self.installed!
+		self.save!
+		return :ok
+	end
+
+	def put_tab_on_facebook
 		fb_page = FbPage.find(self.fb_page_id)
 		installed_apps = Application.installed.where("fb_page_id = '#{fb_page.id}' and application_type = '#{self.application_type}'")
 		if installed_apps.length > 0
@@ -71,16 +79,16 @@ class Application < ApplicationRecord
 	def uninstall
 		if self.installed?
 			self.uninstalled!
-			if self.delete_tab_on_facebook
+			# if self.delete_tab_on_facebook
 				save_result = self.save!
 				if save_result
 					return :ok
 				else
 					return :error
 				end
-			else
-				return :tab_delete_error
-			end
+			# else
+				# return :tab_delete_error
+			# end
 		else
 			return :error_was_not_installed
 		end

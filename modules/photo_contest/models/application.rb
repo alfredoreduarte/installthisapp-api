@@ -15,7 +15,7 @@ class Application
 			stats_summary: [
 				{
 					label: 'Users',
-					value: self.users.count
+					value: self.fb_users.count
 				},
 				{
 					label: 'Photos',

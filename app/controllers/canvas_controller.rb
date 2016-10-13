@@ -46,18 +46,18 @@ class CanvasController < ApplicationController
 	def load_application
 		$application = Application.find_by(checksum: params[:checksum])
 		application_module = $application.module
-		application_module.dispatch! self, :frontend, $application
+		application_module.dispatch!(self, :frontend, $application)
 	end
 
 	private
 
 	def authenticate_user
 		authenticate_or_request_with_http_token do |token, options|
-			api_key = UserApiKey.find_by(token: token)
+			api_key = FbUserApiKey.find_by(token: token)
 			logger.info('el token')
 			logger.info(api_key.token)
-			$user = User.find(api_key.user_id)
-			if $user
+			$fb_user = FbUser.find(api_key.fb_user_id)
+			if $fb_user
 				return true
 			else
 				return false

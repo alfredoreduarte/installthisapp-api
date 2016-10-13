@@ -5,7 +5,7 @@ class FbUser < ApplicationRecord
 	# =======================
 	# New API stuff
 	# =======================
-	has_many :api_key, foreign_key: "user_id", class_name: "UserApiKey"
+	has_many :api_key, foreign_key: "fb_user_id", class_name: "FbUserApiKey"
 
 	def self.auth(fb_application)
 		begin
@@ -40,11 +40,11 @@ class FbUser < ApplicationRecord
 
 		# Intentar traer el user by token_for_business
 		token_for_business =  user_data.raw_attributes[:token_for_business]
-		user = User.find_by(token_for_business: token_for_business)
+		user = FbUser.find_by(token_for_business: token_for_business)
 		if user.nil?
-			user = User.find_by(identifier: user_data.id)
+			user = FbUser.find_by(identifier: user_data.id)
 			if user.nil?
-				user = User.find_or_initialize_by(token_for_business: token_for_business)
+				user = FbUser.find_or_initialize_by(token_for_business: token_for_business)
 			else
 				user.token_for_business = token_for_business
 			end
@@ -57,7 +57,7 @@ class FbUser < ApplicationRecord
 
 		# Create or save access_token
 		# access_token = AccessToken.where(application_id: signed_request.identifier).first_or_initialize
-		access_token = AccessToken.find_or_initialize_by(user_id: user.id, application_id: application.id)
+		access_token = AccessToken.find_or_initialize_by(fb_user_id: user.id, application_id: application.id)
 		# access_token = AccessToken.new(
 		# 	application_id: application.id, 
 		# 	user_id: user.id, 
@@ -69,7 +69,7 @@ class FbUser < ApplicationRecord
 
 		user.update_basic_information_from_facebook(user_data)
 
-		user = access_token.user
+		user = access_token.fb_user
 
 		return user
 

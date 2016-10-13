@@ -1,24 +1,24 @@
 module FrontendController
 	def viewmodel
-		respond_to do |format|
-			format.json { render "./photo_contest/views/viewmodel.json" }
-		end
+		@application = $application
+		@photos = $application.photos.includes(:votes, :fb_user)
 	end
 	def upload
 		photo = $application.photos.new(photo_params)
-		photo.user_id = $user.id
+		photo.fb_user_id = $fb_user.id
 		photo.save
-		respond_to do |format|
-			format.json { render json: photo.as_json }
-		end
+		@photo = photo
+		# respond_to do |format|
+		# 	format.json { render json: photo.as_json }
+		# end
 	end
 	def vote
 		vote = $application.votes.new(vote_params)
-		vote.user_id = $user.id
+		vote.fb_user_id = $fb_user.id
 		vote.save
 		respond_to do |format|
 			format.json { render json: vote.photo.as_json(
-				include: [:votes, :user], methods: [:thumbnail_url, :asset_url] 
+				include: [:votes, :fb_user], methods: [:thumbnail_url, :asset_url] 
 			) }
 		end
 	end

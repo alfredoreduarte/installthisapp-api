@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-	respond_to :json
+	# respond_to :json
 	include DeviseTokenAuth::Concerns::SetUserByToken
 
 	# def get_application_for_admin(include_super_admin=true)

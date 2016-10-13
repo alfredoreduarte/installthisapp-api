@@ -4,19 +4,23 @@ class AdminsController < ApplicationController
 	# before_action 	:set_admin, except: [:create, :jsonmock]
 
 	def entities
-		render json: {
-			admin: current_admin.as_json(
+		@admin = current_admin
+		# @applications = current_admin.applications
+		# @applications = current_admin.applications
+		# render json: {
+			# admin: current_admin.as_json(
 				# include: [:applications]
 				# except: [:image, :nickname, :provider, :created_at, :updated_at],
-				include: {
-					applications: {
-						# include: [:users, :fb_application, :fb_page, :setting],
-						include: [ :setting ],
-					},
+				# include: {
+					# applications: {
+						# include: [:fb_users, :fb_application, :fb_page, :setting],
+						# include: [:fb_users, :fb_application, :setting],
+						# include: [ :fb_users, :setting ],
+					# },
 					# fb_pages: {}
-				}
-			)
-		}
+		# 		}
+		# 	)
+		# }
 	end
 
 	def index

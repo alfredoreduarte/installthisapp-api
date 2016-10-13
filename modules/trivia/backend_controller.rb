@@ -1,20 +1,8 @@
 module BackendController
-	# JSON FOR MODULES
-	def jsontest
-		respond_to do |format|
-			format.json { render "./trivia/views/viewmodelbackend.json" }
-		end
-	end
-	# JSON FOR MODULES
 
-	def questions
-		logger.info('se autentica?')
-		logger.info(current_admin)
-		response = {
-			questions: @application.questions.as_json(include: :options),
-			answers: @application.user_summaries.as_json(include: :fb_users)
-		}
-		render json: response
+	def entities
+		@questions = @application.questions
+		@answers = @application.user_summaries
 	end
 
 	def questions_create

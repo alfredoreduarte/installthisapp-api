@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-	resources :fb_users
+	# resources :fb_users
+	resources :fb_users, path: 'users'
 	resources :applications
 	resources :fb_applications
 	resources :fb_pages
@@ -20,7 +21,7 @@ Rails.application.routes.draw do
 		# end
 	# end
 	get 'admins/entities', to: 'admins#entities'
-	match '/applications/:checksum/:action.json', to: "applications#:action", via: [:get, :post]
+	match '/applications/:checksum/:action.json', to: "applications#:action", via: [:get, :post, :delete, :put, :patch]
 
 	# 
 	# CANVAS
@@ -37,7 +38,7 @@ Rails.application.routes.draw do
 	# 
 	# FB Page realtime subscriptions
 	# 
-	match '/top_fans_stats', to: "fb_page_subscription#top_fans_stats", via: [:get]
-	match '/likes_by_page', to: "fb_page_subscription#likes_by_page", via: [:get]
+	# match '/top_fans_stats', to: "fb_page_subscription#top_fans_stats", via: [:get]
+	# match '/likes_by_page', to: "fb_page_subscription#likes_by_page", via: [:get]
 	match '/subscription', to: "fb_page_subscription#subscription", via: [:get, :post]
 end

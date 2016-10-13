@@ -5,7 +5,7 @@
 	},
 	"payload": {
 		"photos": <%= $application.photos.to_json(
-			include: [:votes, :user], methods: [:thumbnail_url, :asset_url] 
+			include: [:votes, :fb_user], methods: [:thumbnail_url, :asset_url] 
 		).html_safe %>
 	}
 }

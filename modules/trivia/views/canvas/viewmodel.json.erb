@@ -1,6 +1,6 @@
 <%
 @already_answered = []
-entries = $application.answers.where(user_id: $user.id)
+entries = $application.answers.where(fb_user_id: $fb_user.id)
 for entry in entries
 	@already_answered << entry.question_id
 end

@@ -11,10 +11,10 @@ class ApplicationsController < ApplicationController
 	]
 
 	def index
-		response = {
-			apps: current_admin.applications.as_json(include: :fb_application),
+		render json: {
+			# apps: current_admin.applications.as_json(include: :fb_application),
+			apps: current_admin.applications.as_json,
 		}
-		render json: response
 	end
 	def styles
 		response = {
@@ -52,6 +52,7 @@ class ApplicationsController < ApplicationController
 	def update
 		@application.update_attributes(application_params)
 		render json: @application.as_json(include: [:fb_users, :fb_application])
+		# render json: @application.as_json(include: [:fb_users])
 	end
 
 	def install
@@ -59,6 +60,7 @@ class ApplicationsController < ApplicationController
 		if install_result == :ok
 			@application.install_callback
 			render json: @application.as_json(include: [:fb_users, :fb_application])
+			# render json: @application.as_json(include: [:fb_users])
 		else
 			render json: { status: install_result }
 		end
@@ -68,8 +70,9 @@ class ApplicationsController < ApplicationController
 		if uninstall_result == :ok
 			@application.uninstall_callback
 			render json: @application.as_json(include: [:fb_users, :fb_application])
+			# render json: @application.as_json(include: [:fb_users])
 		else
-			render json: {status: uninstall_result}
+			render json: { status: uninstall_result }
 		end
 	end
 	def destroy

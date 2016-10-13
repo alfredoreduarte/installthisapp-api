@@ -107,9 +107,12 @@ module Modules
 					base.default_url_options = {
 						:checksum => app.checksum
 					}
+					base.prepend_view_path(Rails.root.join('modules', @name.to_s ,'views'))
 				when :frontend
 					controller_name = FrontendController
+					Rails.logger.info('debería levantar vistas')
 					# base.prepend_view_path(Rails.root.join('modules', @name.to_s ,'views','frontend'))  
+					base.prepend_view_path(Rails.root.join('modules', @name.to_s ,'views'))  
 			end
 			base.extend(controller_name)
 		end
