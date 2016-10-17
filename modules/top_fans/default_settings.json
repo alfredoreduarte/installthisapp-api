@@ -1,5 +1,6 @@
 {
 	"preferences": {
+		"subscripted_fb_page_identifier": "",
 		"points_per_like": 3,
 		"points_per_comment": 2,
 		"ignored_user_identifiers": []

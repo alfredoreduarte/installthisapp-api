@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 	# resources :fb_users
+
+	get 'fb_profiles/fetch_fb_pages.json', to: 'fb_profiles#fetch_fb_pages'
 	resources :fb_users, path: 'users'
 	resources :applications
 	resources :fb_applications

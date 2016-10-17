@@ -65,6 +65,22 @@ class ApplicationsController < ApplicationController
 			render json: { status: install_result }
 		end
 	end
+	def install_tab
+		response = @application.put_tab_on_facebook(params[:fb_page_identifier])
+		@application.install_tab_callback
+		# render json: @application.as_json(include: [:fb_users, :fb_application])
+		@admin = current_admin
+		render 'admins/entities'
+		# render json: @application.as_json(include: [:fb_users, :fb_application])
+	end
+	def uninstall_tab
+		response = @application.delete_tab_on_facebook
+		@application.install_tab_callback
+		# render json: @application.as_json(include: [:fb_users, :fb_application])
+		# render json: @application.as_json(include: [:fb_users, :fb_application])
+		@admin = current_admin
+		render 'admins/entities'
+	end
 	def uninstall
 		uninstall_result = @application.uninstall
 		if uninstall_result == :ok

@@ -3,14 +3,20 @@ class Application
 	end
 
 	def uninstall_callback
-		if self.fb_page
-			self.fb_page.unsubscribe_to_realtime($admin_user)
-		end			
 	end
 
 	def install_callback
+	end
+
+	def uninstall_tab_callback
 		if self.fb_page
-			self.fb_page.subscribe_to_realtime($admin_user, self.fb_application)
+			self.fb_page.unsubscribe_to_realtime(self.admin)
+		end	
+	end
+
+	def install_tab_callback
+		if self.fb_page
+			self.fb_page.subscribe_to_realtime(self.admin, self.fb_application)
 		end
 	end
 
@@ -19,7 +25,7 @@ class Application
 			stats_summary: [
 				{
 					label: 'Users',
-					value: self.users.count
+					value: self.fb_users.count
 				},
 				{
 					label: 'Average score',

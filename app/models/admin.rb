@@ -5,5 +5,6 @@ class Admin < ActiveRecord::Base
 	      :confirmable, :omniauthable
 	include DeviseTokenAuth::Concerns::User
 	has_one :fb_profile
+	has_many :fb_pages, through: :fb_profile
 	has_many :applications, -> {where.not(status: :deleted)}
 end

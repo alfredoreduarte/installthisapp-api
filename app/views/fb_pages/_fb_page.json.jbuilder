@@ -1,0 +1,1 @@
+json.extract! fb_page, :id, :name, :like_count, :identifier

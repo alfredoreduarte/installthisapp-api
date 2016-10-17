@@ -3,7 +3,7 @@ class Application < ApplicationRecord
 	belongs_to		:admin
 	belongs_to  	:fb_application, optional: true
 	# Optional true para poder tener apps no asociadas a fb_page alguno
-	# belongs_to 		:fb_page, optional: true
+	belongs_to 		:fb_page, optional: true
 	has_many 		:access_tokens
 	has_many 		:application_assets
 	# has_many 		:users, :through => :access_tokens
@@ -44,16 +44,18 @@ class Application < ApplicationRecord
 		return :ok
 	end
 
-	def put_tab_on_facebook
-		fb_page = FbPage.find(self.fb_page_id)
-		installed_apps = Application.installed.where("fb_page_id = '#{fb_page.id}' and application_type = '#{self.application_type}'")
-		if installed_apps.length > 0
-			free_fb_application = FbApplication::where("id not in (#{installed_apps.collect{|o| o.fb_application_id}.join(",")}) and application_type = '#{self.application_type}'").first
-		else
-			free_fb_application = FbApplication::where("application_type='#{self.application_type}'").first
-		end
-		self.fb_application = free_fb_application
-		pages = FbGraph2::User.me($admin_user.access_token).accounts
+	def put_tab_on_facebook(fb_page_identifier)
+		# fb_page = FbPage.find(self.fb_page_id)
+		fb_page = FbPage.find_by(identifier: fb_page_identifier)
+		self.fb_page = fb_page
+		# installed_apps = Application.installed.where("fb_page_id = '#{fb_page.id}' and application_type = '#{self.application_type}'")
+		# if installed_apps.length > 0
+			# free_fb_application = FbApplication::where("id not in (#{installed_apps.collect{|o| o.fb_application_id}.join(",")}) and application_type = '#{self.application_type}'").first
+		# else
+			# free_fb_application = FbApplication::where("application_type='#{self.application_type}'").first
+		# end
+		# self.fb_application = free_fb_application
+		pages = FbGraph2::User.me(self.admin.fb_profile.access_token).accounts
 		index = pages.find_index{|p| p.id.to_i == fb_page.identifier.to_i}
 		unless index.nil?
 			if !pages[index].perms.include?("CREATE_CONTENT")
@@ -62,8 +64,9 @@ class Application < ApplicationRecord
 		else
 			return :fb_permission_issue
 		end
-		user_graph = Koala::Facebook::API.new($admin_user.access_token)
-		page_token = user_graph.get_page_access_token(self.graph_facebook_page.identifier)
+		user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
+		# graph_fb_p = self.graph_facebook_page(fb_page_identifier)
+		page_token = user_graph.get_page_access_token(fb_page_identifier)
 		koala = Koala::Facebook::API.new(page_token)
 		params = {
 			app_id: self.fb_application.app_id,
@@ -95,12 +98,15 @@ class Application < ApplicationRecord
 	end
 
 	def delete_tab_on_facebook
-		user_graph = Koala::Facebook::API.new($admin_user.access_token)
-		page_token = user_graph.get_page_access_token(self.graph_facebook_page.identifier)
+		user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
+		# page_token = user_graph.get_page_access_token(self.graph_facebook_page.identifier)
+		page_token = user_graph.get_page_access_token(self.fb_page.identifier)
 		koala = Koala::Facebook::API.new(page_token)
 		params = {
 			tab: 'app_' + self.fb_application.app_id
 		}
+		self.fb_page = nil
+		self.save!
 		if koala.delete_connections('me', 'tabs', params)
 			return true
 		else
@@ -108,9 +114,10 @@ class Application < ApplicationRecord
 		end
 	end
 
-	def graph_facebook_page
-		fb_page = FbPage.find(self.fb_page_id)
-		facebook_page_loaded = FbGraph2::Page.new(fb_page.identifier).fetch(:access_token => $admin_user.access_token, :fields => :access_token)
+	def graph_facebook_page(fb_page_identifier)
+		# fb_page = FbPage.find(self.fb_page_id)
+		fb_page = FbPage.find_by(identifier: fb_page_identifier)
+		facebook_page_loaded = FbGraph2::Page.new(fb_page.identifier).fetch(:access_token => self.admin.fb_profile.access_token, :fields => :access_token)
 		return facebook_page_loaded
 	end
 

@@ -71,11 +71,13 @@ ActiveRecord::Schema.define(version: 20161011041231) do
     t.integer  "status",            default: 0
     t.integer  "fb_users_count"
     t.integer  "fb_application_id"
+    t.integer  "fb_page_id"
     t.integer  "admin_id"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.index ["admin_id"], name: "index_applications_on_admin_id", using: :btree
     t.index ["fb_application_id"], name: "index_applications_on_fb_application_id", using: :btree
+    t.index ["fb_page_id"], name: "index_applications_on_fb_page_id", using: :btree
   end
 
   create_table "applications_fb_applications", id: false, force: :cascade do |t|
@@ -214,6 +216,7 @@ ActiveRecord::Schema.define(version: 20161011041231) do
   add_foreign_key "application_assets", "applications"
   add_foreign_key "applications", "admins"
   add_foreign_key "applications", "fb_applications"
+  add_foreign_key "applications", "fb_pages"
   add_foreign_key "fb_profiles", "admins"
   add_foreign_key "fb_user_api_keys", "fb_users"
   add_foreign_key "settings", "applications"
