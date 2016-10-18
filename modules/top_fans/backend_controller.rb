@@ -3,8 +3,7 @@ module BackendController
 		render json: @application.setting
 	end
 	def entries
-		# identifier = @application.fb_page.identifier
-		identifier = @application.setting.conf["preferences"]["subscripted_fb_page_identifier"]
+		identifier = @application.fb_page.identifier
 		if identifier.length > 1
 			results_likes = TopFansLike.likes_by_page(identifier)
 			results_comments = TopFansComment.comments_by_page(identifier)
