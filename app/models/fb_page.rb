@@ -16,7 +16,7 @@ class FbPage < ApplicationRecord
 		require 'fb_api'
 		if !self.webhook_subscribed
 			# begin
-				f_page = FbGraph2::Page.new(self.identifier).fetch(:access_token => admin_user.access_token, :fields => :access_token)
+				f_page = FbGraph2::Page.new(self.identifier).fetch(:access_token => admin_user.fb_profile.access_token, :fields => :access_token)
 				result = FbApi::subscribe_app(f_page.raw_attributes["access_token"], self.identifier)
 				if result["success"] == true
 					self.webhook_subscribed = true
