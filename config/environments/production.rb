@@ -100,9 +100,20 @@ Rails.application.configure do
     }
   }
 
-  Rails.application.configure do
-    config.action_mailer.default_url_options = { :host => ENV['HOST_URL'] }
-    config.action_mailer.delivery_method = :smtp
-    config.action_mailer.smtp_settings = { :address => 'localhost.ssl', :port => 1025 }
-  end
+  # Rails.application.configure do
+  #   config.action_mailer.default_url_options = { :host => ENV['HOST_URL'] }
+  #   config.action_mailer.delivery_method = :smtp
+  #   config.action_mailer.smtp_settings = { :address => 'localhost.ssl', :port => 1025 }
+  # end
+
+  config.action_mailer.default_url_options = { :host => 'localhost.ssl:3000' }
+  ActionMailer::Base.smtp_settings = {
+    :address        => "smtp.sendgrid.net",
+    :port           => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true,
+    :user_name      => ENV['SENDGRID_USERNAME'],
+    :password       => ENV['SENDGRID_PASSWORD'],
+    :domain         => ENV['HOST_URL']
+  }
 end
