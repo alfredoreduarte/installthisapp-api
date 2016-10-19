@@ -20,13 +20,14 @@ class TopFansLike
 		return self.collection.aggregate([group])
 	end
 
-	def self.likes_by_page(identifier, ignored_ids)
-		Rails.cache.fetch("top_fans_likes_for_#{identifier}", :expires_in => 5.minutes) do
-			TopFansLike.likes_by_page_uncached(identifier, ignored_ids)
-		end
-	end
+	# def self.likes_by_page(identifier, ignored_ids)
+	# 	Rails.cache.fetch("top_fans_likes_for_#{identifier}", :expires_in => 5.minutes) do
+	# 		TopFansLike.likes_by_page_uncached(identifier, ignored_ids)
+	# 	end
+	# end
 	
-	def self.likes_by_page_uncached(identifier, ignored_ids)
+	# def self.likes_by_page_uncached(identifier, ignored_ids)
+	def self.likes_by_page(identifier, ignored_ids)
 		match = {
 			'$match': {
 				page_id: identifier.to_s,
