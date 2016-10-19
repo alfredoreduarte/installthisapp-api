@@ -24,11 +24,11 @@ module Modules
 				end
 			end
 			def find_by_name(name)
-				Rails.logger.info('el findo name')
-				Rails.logger.info(@applications.inspect)
+				# Rails.logger.info('el findo name')
+				# Rails.logger.info(@applications.inspect)
 				@applications.each do |app|
-					Rails.logger.info('find_by_name')
-					Rails.logger.info(app.name.to_s == name.to_s)
+					# Rails.logger.info('find_by_name')
+					# Rails.logger.info(app.name.to_s == name.to_s)
 					return app if app.name.to_s == name.to_s
 				end
 				return nil
@@ -39,7 +39,7 @@ module Modules
 				return @applications
 			end
 			def load_by_name(name)
-				Rails.logger.info('module 3?')
+				# Rails.logger.info('module 3?')
 				find_by_name(name).init!
 			end
 		end
@@ -76,7 +76,7 @@ module Modules
 			# Rails.logger.info("levanta modelos")
 			# models = Dir[Rails.root.join('modules', @name.to_s, 'models', '{setting.rb,application.rb}').to_s]
 			models = Dir[Rails.root.join('modules', @name.to_s, 'models', 'application.rb').to_s]
-			Rails.logger.info(models.inspect)
+			# Rails.logger.info(models.inspect)
 			# levanto las clases
 			models.each {|file|                             
 				load(file)
@@ -110,7 +110,7 @@ module Modules
 					base.prepend_view_path(Rails.root.join('modules', @name.to_s ,'views'))
 				when :frontend
 					controller_name = FrontendController
-					Rails.logger.info('debería levantar vistas')
+					# Rails.logger.info('debería levantar vistas')
 					# base.prepend_view_path(Rails.root.join('modules', @name.to_s ,'views','frontend'))  
 					base.prepend_view_path(Rails.root.join('modules', @name.to_s ,'views'))  
 			end

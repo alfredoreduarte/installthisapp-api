@@ -6,8 +6,8 @@ module FrontendController
 	end
 	def entries
 		identifier = $application.fb_page.identifier
-		results_likes = TopFansLike.likes_by_page(identifier)
-		results_comments = TopFansComment.comments_by_page(identifier)
+		results_likes = TopFansLike.likes_by_page(identifier, $application.setting.conf["preferences"]["ignored_user_identifiers"])
+		results_comments = TopFansComment.comments_by_page(identifier, $application.setting.conf["preferences"]["ignored_user_identifiers"])
 		response = {
 			status: 'ok',
 			likes: results_likes,

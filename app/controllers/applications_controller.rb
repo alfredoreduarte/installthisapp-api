@@ -51,8 +51,13 @@ class ApplicationsController < ApplicationController
 
 	def update
 		@application.update_attributes(application_params)
-		render json: @application.as_json(include: [:fb_users, :fb_application])
-		# render json: @application.as_json(include: [:fb_users])
+		render partial: 'applications/application', locals: {application: @application}
+	end
+
+	def update_setting
+		@application.setting.conf["preferences"] = params[:setting]
+		@application.setting.save!
+		render partial: 'applications/application', locals: {application: @application}
 	end
 
 	def install
