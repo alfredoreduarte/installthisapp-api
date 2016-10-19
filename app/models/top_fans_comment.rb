@@ -26,8 +26,6 @@ class TopFansComment
 		match = {
 			'$match': {
 				page_id: identifier.to_s,
-				# sender_id: { '$ne': 272699880986 }
-				# sender_id: { '$nin': [272699880986, 10209615042475034] }
 				sender_id: { '$nin': ignored_ids }
 			}
 		}
