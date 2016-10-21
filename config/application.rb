@@ -20,6 +20,9 @@ module ItaApi
 
     config.cache_store = :memory_store, { size: 64.megabytes }
 
+    config.active_record.raise_in_transactional_callbacks = true
+    config.active_job.queue_adapter = :resque
+
     # 
     # This sets active_record the default generator again, after installing mongoid
     # http://stackoverflow.com/questions/6372626/using-active-record-generators-after-mongoid-installation

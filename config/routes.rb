@@ -1,5 +1,8 @@
+require 'resque/server'
 Rails.application.routes.draw do
 	root 'main#index'
+	# mount Resque::Server.new, :at => "/resque"
+	mount Resque::Server => '/resque'
 	# resources :fb_users
 	get 'fb_profiles/fetch_fb_pages.json', to: 'fb_profiles#fetch_fb_pages'
 	resources :fb_users, path: 'users'
