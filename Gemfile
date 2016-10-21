@@ -75,3 +75,8 @@ gem 'devise'
 gem 'omniauth'
 gem 'devise_token_auth'
 gem 'sendgrid-ruby'
+
+# gem 'resque', "~> 1.22.0"
+# gem 'resque', "~> 1.24.1"
+gem 'resque'
+gem 'sinatra', github: 'sinatra'

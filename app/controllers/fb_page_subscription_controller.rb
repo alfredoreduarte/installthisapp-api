@@ -48,44 +48,41 @@ class FbPageSubscriptionController < ApplicationController
 	private
 
 	def add_like(page_id, value)
-		TopFansLike.create(
+		SaveFbLikeJob.perform_later(page_id, {
 			parent_id: value[:parent_id],
 			sender_name: value[:sender_name],
 			sender_id: value[:sender_id],
 			created_time: value[:created_time],
-			post_id: value[:post_id],
-			page_id: page_id,
-		)
+			post_id: value[:post_id]
+		})
 	end
 
 	def remove_like(page_id, value)
-		TopFansLike.where(
+		DestroyFbLikeJob.perform_later(page_id, {
 			parent_id: value[:parent_id],
 			sender_id: value[:sender_id],
-			post_id: value[:post_id],
-			page_id: page_id,
-		).delete
+			post_id: value[:post_id]
+		})
 	end
 
 	def add_comment(page_id, value)
-		TopFansComment.create(
+		SaveFbCommentJob.perform_later(page_id, {
 			post_id: value[:post_id],
 			comment_id: value[:comment_id],
 			message: value[:message],
 			parent_id: value[:parent_id],
 			sender_name: value[:sender_name],
 			created_time: value[:created_time],
-			sender_id: value[:sender_id],
-			page_id: page_id,
-		)
+			sender_id: value[:sender_id]
+		})
 	end
 
 	def remove_comment(page_id, value)
-		TopFansComment.where(
+		DestroyFbCommentJob.perform_later(page_id, {
 			comment_id: value[:comment_id],
 			parent_id: value[:parent_id],
 			sender_id: value[:sender_id],
-		).delete
+		})
 	end
 
 	# def subscription_params
