@@ -5,8 +5,8 @@ module BackendController
 	def entries
 		identifier = @application.fb_page.identifier
 		if identifier.length > 1
-			results_likes = TopFansLike.likes_by_page(identifier, @application.setting.conf["preferences"]["ignored_user_identifiers"])
-			results_comments = TopFansComment.comments_by_page(identifier, @application.setting.conf["preferences"]["ignored_user_identifiers"])
+			results_likes = TopFansLike.likes_by_page(identifier, @application.setting.conf["preferences"]["ignored_user_identifiers"], 100)
+			results_comments = TopFansComment.comments_by_page(identifier, @application.setting.conf["preferences"]["ignored_user_identifiers"], 100)
 			response = {
 				status: "success",
 				payload: {

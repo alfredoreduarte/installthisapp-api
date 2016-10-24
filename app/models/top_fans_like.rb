@@ -27,12 +27,15 @@ class TopFansLike
 	# end
 	
 	# def self.likes_by_page_uncached(identifier, ignored_ids)
-	def self.likes_by_page(identifier, ignored_ids)
+	def self.likes_by_page(identifier, ignored_ids, query_limit)
 		match = {
 			'$match': {
 				page_id: identifier.to_s,
 				sender_id: { '$nin': ignored_ids }
 			}
+		}
+		limit = {
+			'$limit': query_limit
 		}
 		group = {
 			'$group': {
@@ -55,6 +58,6 @@ class TopFansLike
 				sender_name: 1,
 			}
 		}
-		return self.collection.aggregate([match, group, sort, project])
+		return self.collection.aggregate([match, limit, group, sort, project])
 	end
 end

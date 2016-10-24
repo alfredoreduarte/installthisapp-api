@@ -5,10 +5,10 @@ module FrontendController
 		end
 	end
 	def entries
-		expires_in 5.minutes, public: true
+		# expires_in 5.minutes, public: true
 		identifier = $application.fb_page.identifier
-		results_likes = TopFansLike.likes_by_page(identifier, $application.setting.conf["preferences"]["ignored_user_identifiers"])
-		results_comments = TopFansComment.comments_by_page(identifier, $application.setting.conf["preferences"]["ignored_user_identifiers"])
+		results_likes = TopFansLike.likes_by_page(identifier, $application.setting.conf["preferences"]["ignored_user_identifiers"], 10)
+		results_comments = TopFansComment.comments_by_page(identifier, $application.setting.conf["preferences"]["ignored_user_identifiers"], 10)
 		response = {
 			status: 'ok',
 			likes: results_likes,

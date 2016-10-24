@@ -22,12 +22,15 @@ class TopFansComment
 		return self.collection.aggregate([group])
 	end
 
-	def self.comments_by_page(identifier, ignored_ids)
+	def self.comments_by_page(identifier, ignored_ids, query_limit)
 		match = {
 			'$match': {
 				page_id: identifier.to_s,
 				sender_id: { '$nin': ignored_ids }
 			}
+		}
+		limit = {
+			'$limit': query_limit
 		}
 		group = {
 			'$group': {
@@ -50,6 +53,6 @@ class TopFansComment
 				sender_name: 1,
 			}
 		}
-		return self.collection.aggregate([match, group, sort, project])
+		return self.collection.aggregate([match, limit, group, sort, project])
 	end
 end

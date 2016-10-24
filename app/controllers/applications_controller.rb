@@ -1,5 +1,5 @@
 class ApplicationsController < ApplicationController
-	before_action :authenticate_admin!
+	before_action :authenticate_admin!, except: [:index]
 	require 'fileutils'
 	include Modules::BaseController
 	# before_action :authenticate
@@ -13,7 +13,8 @@ class ApplicationsController < ApplicationController
 	def index
 		render json: {
 			# apps: current_admin.applications.as_json(include: :fb_application),
-			apps: current_admin.applications.as_json,
+			# apps: current_admin.applications.as_json,
+			apps: Application.installed.as_json,
 		}
 	end
 	def styles
