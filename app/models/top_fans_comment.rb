@@ -53,6 +53,6 @@ class TopFansComment
 				sender_name: 1,
 			}
 		}
-		return self.collection.aggregate([match, limit, group, sort, project])
+		return self.collection.aggregate([match, group, sort, project, limit])
 	end
 end
