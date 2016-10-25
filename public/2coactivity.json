@@ -97,7 +97,7 @@
     "email": "maurico92@hotmail.com",
     "datePaid": "2013-04-02",
     "refund": "Yes",
-    "redundDate": "05-08-2013",
+    "redundDate": "05-Aug-2013",
     "chargeback": "",
     "chargebackDate": "",
     "productName": "Starter Monthly Plan",
@@ -266,7 +266,7 @@
     "email": "maurico92@hotmail.com",
     "datePaid": "2013-05-02",
     "refund": "Yes",
-    "redundDate": "05-08-2013",
+    "redundDate": "05-Aug-2013",
     "chargeback": "",
     "chargebackDate": "",
     "productName": "Starter Monthly Plan",
@@ -279,7 +279,7 @@
     "email": "maurico92@hotmail.com",
     "datePaid": "2013-08-06",
     "refund": "Yes",
-    "redundDate": "05-08-2013",
+    "redundDate": "05-Aug-2013",
     "chargeback": "",
     "chargebackDate": "",
     "productName": "Starter Monthly Plan",
@@ -617,7 +617,7 @@
     "email": "maurico92@hotmail.com",
     "datePaid": "2013-06-16",
     "refund": "Yes",
-    "redundDate": "05-08-2013",
+    "redundDate": "05-Aug-2013",
     "chargeback": "",
     "chargebackDate": "",
     "productName": "Starter Monthly Plan",
@@ -630,7 +630,7 @@
     "email": "maurico92@hotmail.com",
     "datePaid": "2013-08-06",
     "refund": "Yes",
-    "redundDate": "05-08-2013",
+    "redundDate": "05-Aug-2013",
     "chargeback": "",
     "chargebackDate": "",
     "productName": "Starter Monthly Plan",
@@ -708,7 +708,7 @@
     "email": "maurico92@hotmail.com",
     "datePaid": "2013-07-02",
     "refund": "Yes",
-    "redundDate": "05-08-2013",
+    "redundDate": "05-Aug-2013",
     "chargeback": "",
     "chargebackDate": "",
     "productName": "Starter Monthly Plan",
@@ -721,7 +721,7 @@
     "email": "maurico92@hotmail.com",
     "datePaid": "2013-08-06",
     "refund": "Yes",
-    "redundDate": "05-08-2013",
+    "redundDate": "05-Aug-2013",
     "chargeback": "",
     "chargebackDate": "",
     "productName": "Starter Monthly Plan",
@@ -955,7 +955,7 @@
     "email": "maurico92@hotmail.com",
     "datePaid": "2013-08-02",
     "refund": "Yes",
-    "redundDate": "05-08-2013",
+    "redundDate": "05-Aug-2013",
     "chargeback": "",
     "chargebackDate": "",
     "productName": "Starter Monthly Plan",
@@ -968,7 +968,7 @@
     "email": "maurico92@hotmail.com",
     "datePaid": "2013-08-06",
     "refund": "Yes",
-    "redundDate": "05-08-2013",
+    "redundDate": "05-Aug-2013",
     "chargeback": "",
     "chargebackDate": "",
     "productName": "Starter Monthly Plan",
@@ -1003,7 +1003,7 @@
   {
     "sale": 5005734204,
     "total": 49,
-    "datePlaced": "2013-08-01T00:01:00Z",
+    "datePlaced": "2013-Aug-01T00:01:00Z",
     "email": "emilce@sd.com.py",
     "datePaid": "2013-08-03",
     "refund": "",
@@ -1016,7 +1016,7 @@
   {
     "sale": 5051382628,
     "total": 14,
-    "datePlaced": "2013-08-01T00:01:00Z",
+    "datePlaced": "2013-Aug-01T00:01:00Z",
     "email": "urreacatalina@gmail.com",
     "datePaid": "2013-08-01",
     "refund": "",
@@ -1029,7 +1029,7 @@
   {
     "sale": 5052030954,
     "total": 29,
-    "datePlaced": "2013-08-02T00:01:00Z",
+    "datePlaced": "2013-Aug-02T00:01:00Z",
     "email": "rmartinez@grupoarmonia.com.mx",
     "datePaid": "2013-08-04",
     "refund": "Yes",
@@ -1042,7 +1042,7 @@
   {
     "sale": 5006549497,
     "total": 49,
-    "datePlaced": "2013-08-03T00:01:00Z",
+    "datePlaced": "2013-Aug-03T00:01:00Z",
     "email": "dana@scarletxmarketing.com",
     "datePaid": "2013-08-05",
     "refund": "",
@@ -1055,7 +1055,7 @@
   {
     "sale": 5029903550,
     "total": 14,
-    "datePlaced": "2013-08-04T00:01:00Z",
+    "datePlaced": "2013-Aug-04T00:01:00Z",
     "email": "juannunezpy@gmail.com",
     "datePaid": "2013-08-06",
     "refund": "",
@@ -1068,7 +1068,7 @@
   {
     "sale": 5054060543,
     "total": 29,
-    "datePlaced": "2013-08-05T00:01:00Z",
+    "datePlaced": "2013-Aug-05T00:01:00Z",
     "email": "ceci@estudiomadre.com",
     "datePaid": "2013-08-07",
     "refund": "",
@@ -1081,7 +1081,7 @@
   {
     "sale": 5055021574,
     "total": 114,
-    "datePlaced": "2013-08-06T00:01:00Z",
+    "datePlaced": "2013-Aug-06T00:01:00Z",
     "email": "rosaritoleiva@gmail.com",
     "datePaid": "2013-08-08",
     "refund": "",
@@ -1094,7 +1094,7 @@
   {
     "sale": 5055021574,
     "total": 114,
-    "datePlaced": "2013-08-06T00:01:00Z",
+    "datePlaced": "2013-Aug-06T00:01:00Z",
     "email": "rosaritoleiva@gmail.com",
     "datePaid": "2013-08-08",
     "refund": "",
@@ -1107,7 +1107,7 @@
   {
     "sale": 5055807276,
     "total": 29,
-    "datePlaced": "2013-08-07T00:01:00Z",
+    "datePlaced": "2013-Aug-07T00:01:00Z",
     "email": "valecita.riera@gmail.com",
     "datePaid": "2013-08-09",
     "refund": "",
@@ -1120,7 +1120,7 @@
   {
     "sale": 5055872247,
     "total": 14,
-    "datePlaced": "2013-08-07T00:01:00Z",
+    "datePlaced": "2013-Aug-07T00:01:00Z",
     "email": "crea111@hotmail.com",
     "datePaid": "2013-08-09",
     "refund": "",
@@ -1133,7 +1133,7 @@
   {
     "sale": 5012948449,
     "total": 14,
-    "datePlaced": "2013-08-11T00:01:00Z",
+    "datePlaced": "2013-Aug-11T00:01:00Z",
     "email": "danielf.arboleda@gmail.com",
     "datePaid": "2013-08-13",
     "refund": "",
@@ -1146,7 +1146,7 @@
   {
     "sale": 5060991602,
     "total": 14,
-    "datePlaced": "2013-08-14T00:01:00Z",
+    "datePlaced": "2013-Aug-14T00:01:00Z",
     "email": "info@hiposocialmedia.com",
     "datePaid": "2013-08-16",
     "refund": "",
@@ -1159,7 +1159,7 @@
   {
     "sale": 4997248024,
     "total": 49,
-    "datePlaced": "2013-08-20T00:01:00Z",
+    "datePlaced": "2013-Aug-20T00:01:00Z",
     "email": "hector@recital.cl",
     "datePaid": "2013-08-22",
     "refund": "",
@@ -1172,7 +1172,7 @@
   {
     "sale": 5044356657,
     "total": 89,
-    "datePlaced": "2013-08-23T00:01:00Z",
+    "datePlaced": "2013-Aug-23T00:01:00Z",
     "email": "produccion2@venus.com.py",
     "datePaid": "2013-08-25",
     "refund": "",
@@ -1185,7 +1185,7 @@
   {
     "sale": 5002036182,
     "total": 14,
-    "datePlaced": "2013-08-27T00:01:00Z",
+    "datePlaced": "2013-Aug-27T00:01:00Z",
     "email": "viwtor@gmail.com",
     "datePaid": "2013-08-29",
     "refund": "",
@@ -6272,7 +6272,7 @@
     "email": "guada@estudiomadre.com",
     "datePaid": "2015-07-29",
     "refund": "Yes",
-    "redundDate": "12-08-2015",
+    "redundDate": "12-Aug-2015",
     "chargeback": "",
     "chargebackDate": "",
     "productName": "Premium Monthly Plan",
@@ -6285,7 +6285,7 @@
     "email": "guada@estudiomadre.com",
     "datePaid": "2015-08-04",
     "refund": "Yes",
-    "redundDate": "12-08-2015",
+    "redundDate": "12-Aug-2015",
     "chargeback": "",
     "chargebackDate": "",
     "productName": "Premium Monthly Plan",
@@ -6294,7 +6294,7 @@
   {
     "sale": 105670414254,
     "total": 29,
-    "datePlaced": "2015-08-18T00:01:00Z",
+    "datePlaced": "2015-Aug-18T00:01:00Z",
     "email": "david@thecocofact.com",
     "datePaid": "2015-08-20",
     "refund": "",
@@ -6307,7 +6307,7 @@
   {
     "sale": 205234106272,
     "total": 149,
-    "datePlaced": "2015-08-20T00:01:00Z",
+    "datePlaced": "2015-Aug-20T00:01:00Z",
     "email": "alexmillan@spiritmedia.mx",
     "datePaid": "2015-08-22",
     "refund": "",
@@ -6320,7 +6320,7 @@
   {
     "sale": 105671815749,
     "total": 399,
-    "datePlaced": "2015-08-20T00:01:00Z",
+    "datePlaced": "2015-Aug-20T00:01:00Z",
     "email": "egypt@enovaworld.com",
     "datePaid": "2015-08-22",
     "refund": "",
@@ -6333,7 +6333,7 @@
   {
     "sale": 105540256242,
     "total": 29,
-    "datePlaced": "2015-08-21T00:01:00Z",
+    "datePlaced": "2015-Aug-21T00:01:00Z",
     "email": "joaquinantunezvivas@gmail.com",
     "datePaid": "2015-08-23",
     "refund": "",
@@ -6346,7 +6346,7 @@
   {
     "sale": 105407196563,
     "total": 49,
-    "datePlaced": "2015-08-22T00:01:00Z",
+    "datePlaced": "2015-Aug-22T00:01:00Z",
     "email": "andres@isenbergroup.com",
     "datePaid": "2015-08-24",
     "refund": "",
@@ -6359,7 +6359,7 @@
   {
     "sale": 205486303112,
     "total": 29,
-    "datePlaced": "2015-08-22T00:01:00Z",
+    "datePlaced": "2015-Aug-22T00:01:00Z",
     "email": "kristjan@tradehouse.ee",
     "datePaid": "2015-08-24",
     "refund": "",
@@ -6372,7 +6372,7 @@
   {
     "sale": 105673927977,
     "total": 10,
-    "datePlaced": "2015-08-22T00:01:00Z",
+    "datePlaced": "2015-Aug-22T00:01:00Z",
     "email": "danymfd@gmail.com",
     "datePaid": "2015-08-24",
     "refund": "",
@@ -6385,7 +6385,7 @@
   {
     "sale": 105673927977,
     "total": 10,
-    "datePlaced": "2015-08-22T00:01:00Z",
+    "datePlaced": "2015-Aug-22T00:01:00Z",
     "email": "danymfd@gmail.com",
     "datePaid": "2015-08-24",
     "refund": "",
@@ -6398,7 +6398,7 @@
   {
     "sale": 105434018229,
     "total": 149,
-    "datePlaced": "2015-08-23T00:01:00Z",
+    "datePlaced": "2015-Aug-23T00:01:00Z",
     "email": "cece@bcvevolve.com",
     "datePaid": "2015-08-25",
     "refund": "",
@@ -6411,7 +6411,7 @@
   {
     "sale": 205515888218,
     "total": 149,
-    "datePlaced": "2015-08-23T00:01:00Z",
+    "datePlaced": "2015-Aug-23T00:01:00Z",
     "email": "info@novelus.si",
     "datePaid": "2015-08-25",
     "refund": "",
@@ -6424,7 +6424,7 @@
   {
     "sale": 105621317904,
     "total": 49,
-    "datePlaced": "2015-08-24T00:01:00Z",
+    "datePlaced": "2015-Aug-24T00:01:00Z",
     "email": "hamza@djin-agency.com",
     "datePaid": "2015-08-24",
     "refund": "",
@@ -6437,7 +6437,7 @@
   {
     "sale": 105675494946,
     "total": 29,
-    "datePlaced": "2015-08-24T00:01:00Z",
+    "datePlaced": "2015-Aug-24T00:01:00Z",
     "email": "lior@eglobe.co.il",
     "datePaid": "2015-08-24",
     "refund": "",
@@ -6450,7 +6450,7 @@
   {
     "sale": 105677586789,
     "total": 8,
-    "datePlaced": "2015-08-26T00:01:00Z",
+    "datePlaced": "2015-Aug-26T00:01:00Z",
     "email": "diegoteku@hotmail.com",
     "datePaid": "2015-08-26",
     "refund": "",
@@ -6463,7 +6463,7 @@
   {
     "sale": 105677586789,
     "total": 8,
-    "datePlaced": "2015-08-26T00:01:00Z",
+    "datePlaced": "2015-Aug-26T00:01:00Z",
     "email": "diegoteku@hotmail.com",
     "datePaid": "2015-08-26",
     "refund": "",
@@ -6476,7 +6476,7 @@
   {
     "sale": 105678540846,
     "total": 49,
-    "datePlaced": "2015-08-27T00:01:00Z",
+    "datePlaced": "2015-Aug-27T00:01:00Z",
     "email": "hola@zoocialdigital.com",
     "datePaid": "2015-08-29",
     "refund": "",
@@ -6489,7 +6489,7 @@
   {
     "sale": 105598999218,
     "total": 29,
-    "datePlaced": "2015-08-29T00:01:00Z",
+    "datePlaced": "2015-Aug-29T00:01:00Z",
     "email": "delia.relancio@gmail.com",
     "datePaid": "2015-08-29",
     "refund": "",
@@ -6502,7 +6502,7 @@
   {
     "sale": 105680078583,
     "total": 29,
-    "datePlaced": "2015-08-29T00:01:00Z",
+    "datePlaced": "2015-Aug-29T00:01:00Z",
     "email": "lukasz@studiogo.pl",
     "datePaid": "2015-08-31",
     "refund": "",
@@ -6515,7 +6515,7 @@
   {
     "sale": 205266435167,
     "total": 29,
-    "datePlaced": "2015-08-30T00:01:00Z",
+    "datePlaced": "2015-Aug-30T00:01:00Z",
     "email": "infobioderma@bioderma.com.pe",
     "datePaid": "2015-09-01",
     "refund": "",
@@ -6528,7 +6528,7 @@
   {
     "sale": 105681607770,
     "total": 29,
-    "datePlaced": "2015-08-31T00:01:00Z",
+    "datePlaced": "2015-Aug-31T00:01:00Z",
     "email": "weebizmedia@gmail.com",
     "datePaid": "2015-08-31",
     "refund": "",
@@ -6541,7 +6541,7 @@
   {
     "sale": 105681867840,
     "total": 29,
-    "datePlaced": "2015-08-31T00:01:00Z",
+    "datePlaced": "2015-Aug-31T00:01:00Z",
     "email": "myromarketing@gmail.com",
     "datePaid": "",
     "refund": "",
@@ -6554,7 +6554,7 @@
   {
     "sale": 105681958629,
     "total": 29,
-    "datePlaced": "2015-08-31T00:01:00Z",
+    "datePlaced": "2015-Aug-31T00:01:00Z",
     "email": "dabor238@gmail.com",
     "datePaid": "2015-09-02",
     "refund": "",
@@ -14081,7 +14081,7 @@
   {
     "sale": 105956271825,
     "total": 29,
-    "datePlaced": "2016-08-01T00:01:00Z",
+    "datePlaced": "2016-Aug-01T00:01:00Z",
     "email": "eli@basement.com.py",
     "datePaid": "2016-08-03",
     "refund": "",
@@ -14094,7 +14094,7 @@
   {
     "sale": 105981333144,
     "total": 37.25,
-    "datePlaced": "2016-08-02T00:01:00Z",
+    "datePlaced": "2016-Aug-02T00:01:00Z",
     "email": "jcabal2010@gmail.com",
     "datePaid": "",
     "refund": "",
@@ -14107,7 +14107,7 @@
   {
     "sale": 105981333144,
     "total": 37.25,
-    "datePlaced": "2016-08-02T00:01:00Z",
+    "datePlaced": "2016-Aug-02T00:01:00Z",
     "email": "jcabal2010@gmail.com",
     "datePaid": "",
     "refund": "",
@@ -14120,7 +14120,7 @@
   {
     "sale": 105982296843,
     "total": 29,
-    "datePlaced": "2016-08-03T00:01:00Z",
+    "datePlaced": "2016-Aug-03T00:01:00Z",
     "email": "christmolinas@gmail.com",
     "datePaid": "2016-08-05",
     "refund": "",
@@ -14133,7 +14133,7 @@
   {
     "sale": 205907451221,
     "total": 29,
-    "datePlaced": "2016-08-04T00:01:00Z",
+    "datePlaced": "2016-Aug-04T00:01:00Z",
     "email": "gianluca.torrini@sowhatfactory.it",
     "datePaid": "2016-08-04",
     "refund": "",
@@ -14146,7 +14146,7 @@
   {
     "sale": 105983388921,
     "total": 37.25,
-    "datePlaced": "2016-08-04T00:01:00Z",
+    "datePlaced": "2016-Aug-04T00:01:00Z",
     "email": "jcabal2010@gmail.com",
     "datePaid": "",
     "refund": "",
@@ -14159,7 +14159,7 @@
   {
     "sale": 105983388921,
     "total": 37.25,
-    "datePlaced": "2016-08-04T00:01:00Z",
+    "datePlaced": "2016-Aug-04T00:01:00Z",
     "email": "jcabal2010@gmail.com",
     "datePaid": "",
     "refund": "",
@@ -14172,7 +14172,7 @@
   {
     "sale": 105983580915,
     "total": 29,
-    "datePlaced": "2016-08-04T00:01:00Z",
+    "datePlaced": "2016-Aug-04T00:01:00Z",
     "email": "rosangela@wcomunica.com.br",
     "datePaid": "2016-08-06",
     "refund": "Yes",
@@ -14185,7 +14185,7 @@
   {
     "sale": 205499318471,
     "total": 29,
-    "datePlaced": "2016-08-05T00:01:00Z",
+    "datePlaced": "2016-Aug-05T00:01:00Z",
     "email": "info@ecomatpapel.es",
     "datePaid": "2016-08-05",
     "refund": "",
@@ -14198,7 +14198,7 @@
   {
     "sale": 105578540040,
     "total": 49,
-    "datePlaced": "2016-08-05T00:01:00Z",
+    "datePlaced": "2016-Aug-05T00:01:00Z",
     "email": "lghany@memorybanktt.com",
     "datePaid": "2016-08-07",
     "refund": "",
@@ -14211,7 +14211,7 @@
   {
     "sale": 105712042974,
     "total": 49,
-    "datePlaced": "2016-08-05T00:01:00Z",
+    "datePlaced": "2016-Aug-05T00:01:00Z",
     "email": "mvintimilla@gmail.com",
     "datePaid": "2016-08-07",
     "refund": "",
@@ -14224,7 +14224,7 @@
   {
     "sale": 105794271450,
     "total": 499,
-    "datePlaced": "2016-08-05T00:01:00Z",
+    "datePlaced": "2016-Aug-05T00:01:00Z",
     "email": "netmediatama@gmail.com",
     "datePaid": "2016-08-07",
     "refund": "",
@@ -14237,7 +14237,7 @@
   {
     "sale": 105935383506,
     "total": 89,
-    "datePlaced": "2016-08-06T00:01:00Z",
+    "datePlaced": "2016-Aug-06T00:01:00Z",
     "email": "thinkdptodigital@gmail.com",
     "datePaid": "2016-08-08",
     "refund": "",
@@ -14250,7 +14250,7 @@
   {
     "sale": 105714088866,
     "total": 49,
-    "datePlaced": "2016-08-07T00:01:00Z",
+    "datePlaced": "2016-Aug-07T00:01:00Z",
     "email": "rgutierrez@once-8.com",
     "datePaid": "2016-08-07",
     "refund": "",
@@ -14263,7 +14263,7 @@
   {
     "sale": 105936237279,
     "total": 29,
-    "datePlaced": "2016-08-07T00:01:00Z",
+    "datePlaced": "2016-Aug-07T00:01:00Z",
     "email": "caio@morumbi.net",
     "datePaid": "2016-08-09",
     "refund": "",
@@ -14276,7 +14276,7 @@
   {
     "sale": 105633066822,
     "total": 49,
-    "datePlaced": "2016-08-07T00:01:00Z",
+    "datePlaced": "2016-Aug-07T00:01:00Z",
     "email": "melina.ezeiza@tradewingsarg.com",
     "datePaid": "2016-08-09",
     "refund": "",
@@ -14289,7 +14289,7 @@
   {
     "sale": 205297586715,
     "total": 29,
-    "datePlaced": "2016-08-08T00:01:00Z",
+    "datePlaced": "2016-Aug-08T00:01:00Z",
     "email": "info@celico.com.ar",
     "datePaid": "2016-08-10",
     "refund": "",
@@ -14302,7 +14302,7 @@
   {
     "sale": 105715101762,
     "total": 49,
-    "datePlaced": "2016-08-08T00:01:00Z",
+    "datePlaced": "2016-Aug-08T00:01:00Z",
     "email": "one.digital@grupoone.com",
     "datePaid": "2016-08-10",
     "refund": "",
@@ -14315,7 +14315,7 @@
   {
     "sale": 105986144259,
     "total": 37.25,
-    "datePlaced": "2016-08-08T00:01:00Z",
+    "datePlaced": "2016-Aug-08T00:01:00Z",
     "email": "jcabal2010@gmail.com",
     "datePaid": "",
     "refund": "",
@@ -14328,7 +14328,7 @@
   {
     "sale": 105986144259,
     "total": 37.25,
-    "datePlaced": "2016-08-08T00:01:00Z",
+    "datePlaced": "2016-Aug-08T00:01:00Z",
     "email": "jcabal2010@gmail.com",
     "datePaid": "",
     "refund": "",
@@ -14341,7 +14341,7 @@
   {
     "sale": 205911619574,
     "total": 29,
-    "datePlaced": "2016-08-09T00:01:00Z",
+    "datePlaced": "2016-Aug-09T00:01:00Z",
     "email": "hayley@sixunderground.net.au",
     "datePaid": "2016-08-11",
     "refund": "",
@@ -14354,7 +14354,7 @@
   {
     "sale": 105764752500,
     "total": 29,
-    "datePlaced": "2016-08-09T00:01:00Z",
+    "datePlaced": "2016-Aug-09T00:01:00Z",
     "email": "omar@limonpartido.mx",
     "datePaid": "2016-08-11",
     "refund": "",
@@ -14367,7 +14367,7 @@
   {
     "sale": 105987083121,
     "total": 37.25,
-    "datePlaced": "2016-08-09T00:01:00Z",
+    "datePlaced": "2016-Aug-09T00:01:00Z",
     "email": "jcabal2010@gmail.com",
     "datePaid": "2016-08-09",
     "refund": "",
@@ -14380,7 +14380,7 @@
   {
     "sale": 105987083121,
     "total": 37.25,
-    "datePlaced": "2016-08-09T00:01:00Z",
+    "datePlaced": "2016-Aug-09T00:01:00Z",
     "email": "jcabal2010@gmail.com",
     "datePaid": "2016-08-09",
     "refund": "",
@@ -14393,7 +14393,7 @@
   {
     "sale": 105933277185,
     "total": 299,
-    "datePlaced": "2016-08-10T00:01:00Z",
+    "datePlaced": "2016-Aug-10T00:01:00Z",
     "email": "evelin.bauer@scholasoccurrentes.org",
     "datePaid": "2016-08-12",
     "refund": "",
@@ -14406,7 +14406,7 @@
   {
     "sale": 105557625798,
     "total": 29,
-    "datePlaced": "2016-08-12T00:01:00Z",
+    "datePlaced": "2016-Aug-12T00:01:00Z",
     "email": "lucy@emelvi.eu",
     "datePaid": "2016-08-12",
     "refund": "",
@@ -14419,7 +14419,7 @@
   {
     "sale": 105964119744,
     "total": 29,
-    "datePlaced": "2016-08-12T00:01:00Z",
+    "datePlaced": "2016-Aug-12T00:01:00Z",
     "email": "biuro@studiogo.pl",
     "datePaid": "2016-08-14",
     "refund": "",
@@ -14432,7 +14432,7 @@
   {
     "sale": 205531848035,
     "total": 29,
-    "datePlaced": "2016-08-12T00:01:00Z",
+    "datePlaced": "2016-Aug-12T00:01:00Z",
     "email": "peterautoguia@gmail.com",
     "datePaid": "2016-08-14",
     "refund": "",
@@ -14445,7 +14445,7 @@
   {
     "sale": 105965207037,
     "total": 49,
-    "datePlaced": "2016-08-13T00:01:00Z",
+    "datePlaced": "2016-Aug-13T00:01:00Z",
     "email": "tchristian@kw2ideas.com",
     "datePaid": "2016-08-15",
     "refund": "",
@@ -14458,7 +14458,7 @@
   {
     "sale": 105966052308,
     "total": 149,
-    "datePlaced": "2016-08-14T00:01:00Z",
+    "datePlaced": "2016-Aug-14T00:01:00Z",
     "email": "mohamed.rady@grayling.com",
     "datePaid": "2016-08-16",
     "refund": "",
@@ -14471,7 +14471,7 @@
   {
     "sale": 205613316875,
     "total": 29,
-    "datePlaced": "2016-08-15T00:01:00Z",
+    "datePlaced": "2016-Aug-15T00:01:00Z",
     "email": "eduardo.martins@extensaomedica.com",
     "datePaid": "2016-08-17",
     "refund": "",
@@ -14484,7 +14484,7 @@
   {
     "sale": 105722170368,
     "total": 29,
-    "datePlaced": "2016-08-16T00:01:00Z",
+    "datePlaced": "2016-Aug-16T00:01:00Z",
     "email": "gombosdaniel@gmail.com",
     "datePaid": "2016-08-16",
     "refund": "",
@@ -14497,7 +14497,7 @@
   {
     "sale": 105967747494,
     "total": 29,
-    "datePlaced": "2016-08-16T00:01:00Z",
+    "datePlaced": "2016-Aug-16T00:01:00Z",
     "email": "jonathan.costa@gibwork.com",
     "datePaid": "2016-08-18",
     "refund": "",
@@ -14510,7 +14510,7 @@
   {
     "sale": 105642629619,
     "total": 29,
-    "datePlaced": "2016-08-17T00:01:00Z",
+    "datePlaced": "2016-Aug-17T00:01:00Z",
     "email": "hotelsplans@yahoo.com",
     "datePaid": "2016-08-17",
     "refund": "",
@@ -14523,7 +14523,7 @@
   {
     "sale": 205866720938,
     "total": 49,
-    "datePlaced": "2016-08-17T00:01:00Z",
+    "datePlaced": "2016-Aug-17T00:01:00Z",
     "email": "kike2k10@gmail.com",
     "datePaid": "2016-08-17",
     "refund": "",
@@ -14536,7 +14536,7 @@
   {
     "sale": 105456297018,
     "total": 49,
-    "datePlaced": "2016-08-17T00:01:00Z",
+    "datePlaced": "2016-Aug-17T00:01:00Z",
     "email": "info@rifraf.it",
     "datePaid": "2016-08-17",
     "refund": "",
@@ -14549,7 +14549,7 @@
   {
     "sale": 105944915190,
     "total": 49,
-    "datePlaced": "2016-08-17T00:01:00Z",
+    "datePlaced": "2016-Aug-17T00:01:00Z",
     "email": "c.zapata@bioderma.com.pe",
     "datePaid": "2016-08-19",
     "refund": "",
@@ -14562,7 +14562,7 @@
   {
     "sale": 105841262397,
     "total": 49,
-    "datePlaced": "2016-08-19T00:01:00Z",
+    "datePlaced": "2016-Aug-19T00:01:00Z",
     "email": "rodrigo@mimetiza.mx",
     "datePaid": "2016-08-19",
     "refund": "",
@@ -14575,7 +14575,7 @@
   {
     "sale": 105700057680,
     "total": 29,
-    "datePlaced": "2016-08-21T00:01:00Z",
+    "datePlaced": "2016-Aug-21T00:01:00Z",
     "email": "martina@coqbull.com",
     "datePaid": "2016-08-21",
     "refund": "",
@@ -14588,7 +14588,7 @@
   {
     "sale": 105896617167,
     "total": 49,
-    "datePlaced": "2016-08-21T00:01:00Z",
+    "datePlaced": "2016-Aug-21T00:01:00Z",
     "email": "toka@bymalenebirger.com",
     "datePaid": "2016-08-23",
     "refund": "",
@@ -14601,7 +14601,7 @@
   {
     "sale": 105947703915,
     "total": 29,
-    "datePlaced": "2016-08-21T00:01:00Z",
+    "datePlaced": "2016-Aug-21T00:01:00Z",
     "email": "de_badalona75@hotmail.com",
     "datePaid": "2016-08-23",
     "refund": "",
@@ -14614,7 +14614,7 @@
   {
     "sale": 105972060945,
     "total": 49,
-    "datePlaced": "2016-08-21T00:01:00Z",
+    "datePlaced": "2016-Aug-21T00:01:00Z",
     "email": "juanesdelosrios@gmail.com",
     "datePaid": "2016-08-23",
     "refund": "",
@@ -14627,7 +14627,7 @@
   {
     "sale": 105998034471,
     "total": 29,
-    "datePlaced": "2016-08-22T00:01:00Z",
+    "datePlaced": "2016-Aug-22T00:01:00Z",
     "email": "hudigiplus@gmail.com",
     "datePaid": "2016-08-24",
     "refund": "",
@@ -14640,7 +14640,7 @@
   {
     "sale": 105434018229,
     "total": 149,
-    "datePlaced": "2016-08-23T00:01:00Z",
+    "datePlaced": "2016-Aug-23T00:01:00Z",
     "email": "cece@bcvevolve.com",
     "datePaid": "2016-08-25",
     "refund": "",
@@ -14653,7 +14653,7 @@
   {
     "sale": 105974385243,
     "total": 49,
-    "datePlaced": "2016-08-25T00:01:00Z",
+    "datePlaced": "2016-Aug-25T00:01:00Z",
     "email": "dejan@lunatbwa.ba",
     "datePaid": "2016-08-27",
     "refund": "",
@@ -14666,7 +14666,7 @@
   {
     "sale": 106000568907,
     "total": 8,
-    "datePlaced": "2016-08-25T00:01:00Z",
+    "datePlaced": "2016-Aug-25T00:01:00Z",
     "email": "adis.avdic@gmail.com",
     "datePaid": "2016-08-27",
     "refund": "",
@@ -14679,7 +14679,7 @@
   {
     "sale": 106000568907,
     "total": 8,
-    "datePlaced": "2016-08-25T00:01:00Z",
+    "datePlaced": "2016-Aug-25T00:01:00Z",
     "email": "adis.avdic@gmail.com",
     "datePaid": "2016-08-27",
     "refund": "",
@@ -14692,7 +14692,7 @@
   {
     "sale": 105953291844,
     "total": 29,
-    "datePlaced": "2016-08-28T00:01:00Z",
+    "datePlaced": "2016-Aug-28T00:01:00Z",
     "email": "novoesthetique.ventas@gmail.com",
     "datePaid": "2016-08-30",
     "refund": "",
@@ -14705,7 +14705,7 @@
   {
     "sale": 105953497551,
     "total": 49,
-    "datePlaced": "2016-08-28T00:01:00Z",
+    "datePlaced": "2016-Aug-28T00:01:00Z",
     "email": "andres.calvo@spacelab.cr",
     "datePaid": "2016-08-30",
     "refund": "",
@@ -14718,7 +14718,7 @@
   {
     "sale": 105598999218,
     "total": 29,
-    "datePlaced": "2016-08-29T00:01:00Z",
+    "datePlaced": "2016-Aug-29T00:01:00Z",
     "email": "delia.relancio@gmail.com",
     "datePaid": "2016-08-29",
     "refund": "",
@@ -14731,7 +14731,7 @@
   {
     "sale": 105954533655,
     "total": 49,
-    "datePlaced": "2016-08-29T00:01:00Z",
+    "datePlaced": "2016-Aug-29T00:01:00Z",
     "email": "carrieta@cafedorado.com",
     "datePaid": "2016-08-31",
     "refund": "",
@@ -14744,7 +14744,7 @@
   {
     "sale": 105681607770,
     "total": 29,
-    "datePlaced": "2016-08-31T00:01:00Z",
+    "datePlaced": "2016-Aug-31T00:01:00Z",
     "email": "weebizmedia@gmail.com",
     "datePaid": "2016-08-31",
     "refund": "",
@@ -14757,7 +14757,7 @@
   {
     "sale": 105878739246,
     "total": 399,
-    "datePlaced": "2016-08-31T00:01:00Z",
+    "datePlaced": "2016-Aug-31T00:01:00Z",
     "email": "ula@dogooder.com.tw",
     "datePaid": "2016-09-02",
     "refund": "",
@@ -15806,6 +15806,58 @@
     "chargebackDate": "",
     "productName": "Premium Monthly Plan",
     "installmentNumber": 7
+  },
+  {
+    "sale": 106023840168,
+    "total": 149,
+    "datePlaced": "2016-10-23T00:01:00Z",
+    "email": "elias@wikreate.net",
+    "datePaid": "2016-10-23",
+    "refund": "",
+    "refundDate": "",
+    "chargeback": "",
+    "chargebackDate": "",
+    "productName": "Agency Monthly Plan",
+    "installmentNumber": ""
+  },
+  {
+    "sale": 106024759215,
+    "total": 149,
+    "datePlaced": "2016-10-24T00:01:00Z",
+    "email": "n.youssef@nmedia-group.com",
+    "datePaid": "",
+    "refund": "",
+    "refundDate": "",
+    "chargeback": "",
+    "chargebackDate": "",
+    "productName": "Agency Monthly Plan",
+    "installmentNumber": 2
+  },
+  {
+    "sale": 106049524833,
+    "total": 67.64,
+    "datePlaced": "2016-10-24T00:01:00Z",
+    "email": "carrrieta@cafedora.com",
+    "datePaid": "",
+    "refund": "",
+    "refundDate": "",
+    "chargeback": "",
+    "chargebackDate": "",
+    "productName": "Professional Monthly Plan",
+    "installmentNumber": 1
+  },
+  {
+    "sale": 106049524833,
+    "total": 67.64,
+    "datePlaced": "2016-10-24T00:01:00Z",
+    "email": "carrrieta@cafedora.com",
+    "datePaid": "",
+    "refund": "",
+    "refundDate": "",
+    "chargeback": "",
+    "chargebackDate": "",
+    "productName": "ARRIETA",
+    "installmentNumber": ""
   },
   {
     "sale": 5149679543,
@@ -21027,7 +21079,7 @@
     "email": "abraham.escobar@ef.com",
     "datePaid": "2014-07-22",
     "refund": "Yes",
-    "redundDate": "29-08-2014",
+    "redundDate": "29-Aug-2014",
     "chargeback": "",
     "chargebackDate": "",
     "productName": "Agency Monthly Plan",
@@ -21040,7 +21092,7 @@
     "email": "abraham.escobar@ef.com",
     "datePaid": "2014-08-28",
     "refund": "Yes",
-    "redundDate": "29-08-2014",
+    "redundDate": "29-Aug-2014",
     "chargeback": "",
     "chargebackDate": "",
     "productName": "Agency Monthly Plan",
@@ -21218,7 +21270,7 @@
   {
     "sale": 205243060870,
     "total": 29,
-    "datePlaced": "2014-08-01T00:01:00Z",
+    "datePlaced": "2014-Aug-01T00:01:00Z",
     "email": "advancedretailgroupinc@gmail.com",
     "datePaid": "2014-07-31",
     "refund": "",
@@ -21231,7 +21283,7 @@
   {
     "sale": 205258011840,
     "total": 29,
-    "datePlaced": "2014-08-01T00:01:00Z",
+    "datePlaced": "2014-Aug-01T00:01:00Z",
     "email": "aalexlevitt@gmail.con",
     "datePaid": "2014-07-31",
     "refund": "",
@@ -21244,7 +21296,7 @@
   {
     "sale": 205315451132,
     "total": 149,
-    "datePlaced": "2014-08-01T00:01:00Z",
+    "datePlaced": "2014-Aug-01T00:01:00Z",
     "email": "caluopey@smcimport.com",
     "datePaid": "2014-08-03",
     "refund": "",
@@ -21257,7 +21309,7 @@
   {
     "sale": 205341431824,
     "total": 59,
-    "datePlaced": "2014-08-01T00:01:00Z",
+    "datePlaced": "2014-Aug-01T00:01:00Z",
     "email": "coviedo@next.com.py",
     "datePaid": "2014-08-03",
     "refund": "",
@@ -21270,7 +21322,7 @@
   {
     "sale": 205341431824,
     "total": 59,
-    "datePlaced": "2014-08-01T00:01:00Z",
+    "datePlaced": "2014-Aug-01T00:01:00Z",
     "email": "coviedo@next.com.py",
     "datePaid": "2014-08-03",
     "refund": "",
@@ -21283,7 +21335,7 @@
   {
     "sale": 205292580923,
     "total": 29,
-    "datePlaced": "2014-08-02T00:01:00Z",
+    "datePlaced": "2014-Aug-02T00:01:00Z",
     "email": "rafael@rafamemmel.com",
     "datePaid": "2014-08-04",
     "refund": "",
@@ -21296,7 +21348,7 @@
   {
     "sale": 205341748188,
     "total": 29,
-    "datePlaced": "2014-08-02T00:01:00Z",
+    "datePlaced": "2014-Aug-02T00:01:00Z",
     "email": "kostanjsek.bostjan@gmail.com",
     "datePaid": "2014-08-04",
     "refund": "",
@@ -21309,7 +21361,7 @@
   {
     "sale": 205293737416,
     "total": 29,
-    "datePlaced": "2014-08-03T00:01:00Z",
+    "datePlaced": "2014-Aug-03T00:01:00Z",
     "email": "patricia@influentialcreations.nl",
     "datePaid": "2014-08-02",
     "refund": "",
@@ -21322,7 +21374,7 @@
   {
     "sale": 5148634024,
     "total": 49,
-    "datePlaced": "2014-08-04T00:01:00Z",
+    "datePlaced": "2014-Aug-04T00:01:00Z",
     "email": "ceci@estudiomadre.com",
     "datePaid": "2014-08-06",
     "refund": "Yes",
@@ -21335,7 +21387,7 @@
   {
     "sale": 205343251175,
     "total": 8,
-    "datePlaced": "2014-08-04T00:01:00Z",
+    "datePlaced": "2014-Aug-04T00:01:00Z",
     "email": "gabmartin1@aol.com",
     "datePaid": "2014-08-06",
     "refund": "",
@@ -21348,7 +21400,7 @@
   {
     "sale": 205343251175,
     "total": 8,
-    "datePlaced": "2014-08-04T00:01:00Z",
+    "datePlaced": "2014-Aug-04T00:01:00Z",
     "email": "gabmartin1@aol.com",
     "datePaid": "2014-08-06",
     "refund": "",
@@ -21361,7 +21413,7 @@
   {
     "sale": 205344374180,
     "total": 12,
-    "datePlaced": "2014-08-05T00:01:00Z",
+    "datePlaced": "2014-Aug-05T00:01:00Z",
     "email": "estebandavidat@gmail.com",
     "datePaid": "2014-08-07",
     "refund": "",
@@ -21374,7 +21426,7 @@
   {
     "sale": 205344374180,
     "total": 12,
-    "datePlaced": "2014-08-05T00:01:00Z",
+    "datePlaced": "2014-Aug-05T00:01:00Z",
     "email": "estebandavidat@gmail.com",
     "datePaid": "2014-08-07",
     "refund": "",
@@ -21387,7 +21439,7 @@
   {
     "sale": 205198633973,
     "total": 149,
-    "datePlaced": "2014-08-06T00:01:00Z",
+    "datePlaced": "2014-Aug-06T00:01:00Z",
     "email": "ever4vr@hotmail.com",
     "datePaid": "2014-08-08",
     "refund": "",
@@ -21400,7 +21452,7 @@
   {
     "sale": 205345486272,
     "total": 29,
-    "datePlaced": "2014-08-06T00:01:00Z",
+    "datePlaced": "2014-Aug-06T00:01:00Z",
     "email": "edgar@bacacomunicacion.com",
     "datePaid": "2014-08-08",
     "refund": "",
@@ -21413,7 +21465,7 @@
   {
     "sale": 205242343420,
     "total": 29,
-    "datePlaced": "2014-08-07T00:01:00Z",
+    "datePlaced": "2014-Aug-07T00:01:00Z",
     "email": "com@ladauradabeachclub.com",
     "datePaid": "2014-08-09",
     "refund": "",
@@ -21426,7 +21478,7 @@
   {
     "sale": 205319939123,
     "total": 29,
-    "datePlaced": "2014-08-07T00:01:00Z",
+    "datePlaced": "2014-Aug-07T00:01:00Z",
     "email": "sergio@tuyyoque.com",
     "datePaid": "2014-08-09",
     "refund": "",
@@ -21439,7 +21491,7 @@
   {
     "sale": 205346238397,
     "total": 39,
-    "datePlaced": "2014-08-07T00:01:00Z",
+    "datePlaced": "2014-Aug-07T00:01:00Z",
     "email": "valerie@etlgroup.com",
     "datePaid": "2014-08-07",
     "refund": "",
@@ -21452,7 +21504,7 @@
   {
     "sale": 205346238397,
     "total": 39,
-    "datePlaced": "2014-08-07T00:01:00Z",
+    "datePlaced": "2014-Aug-07T00:01:00Z",
     "email": "valerie@etlgroup.com",
     "datePaid": "2014-08-07",
     "refund": "",
@@ -21465,7 +21517,7 @@
   {
     "sale": 205320758879,
     "total": 49,
-    "datePlaced": "2014-08-08T00:01:00Z",
+    "datePlaced": "2014-Aug-08T00:01:00Z",
     "email": "nicoowen21@gmail.com",
     "datePaid": "2014-08-07",
     "refund": "",
@@ -21478,7 +21530,7 @@
   {
     "sale": 205297552863,
     "total": 29,
-    "datePlaced": "2014-08-08T00:01:00Z",
+    "datePlaced": "2014-Aug-08T00:01:00Z",
     "email": "marina.leal@schultz.com.br",
     "datePaid": "2014-08-10",
     "refund": "",
@@ -21491,7 +21543,7 @@
   {
     "sale": 205297586715,
     "total": 29,
-    "datePlaced": "2014-08-08T00:01:00Z",
+    "datePlaced": "2014-Aug-08T00:01:00Z",
     "email": "info@celico.com.ar",
     "datePaid": "2014-08-10",
     "refund": "",
@@ -21504,7 +21556,7 @@
   {
     "sale": 5080812259,
     "total": 14,
-    "datePlaced": "2014-08-09T00:01:00Z",
+    "datePlaced": "2014-Aug-09T00:01:00Z",
     "email": "ivan.burgos.murillo@gmail.com",
     "datePaid": "2014-08-08",
     "refund": "",
@@ -21517,7 +21569,7 @@
   {
     "sale": 205224924832,
     "total": 29,
-    "datePlaced": "2014-08-09T00:01:00Z",
+    "datePlaced": "2014-Aug-09T00:01:00Z",
     "email": "joaquin.munoz@thelaunchpadtlp.com",
     "datePaid": "2014-08-08",
     "refund": "",
@@ -21530,7 +21582,7 @@
   {
     "sale": 205298009182,
     "total": 299,
-    "datePlaced": "2014-08-09T00:01:00Z",
+    "datePlaced": "2014-Aug-09T00:01:00Z",
     "email": "m.rady@enovaworld.com",
     "datePaid": "2014-08-11",
     "refund": "",
@@ -21543,7 +21595,7 @@
   {
     "sale": 205347388821,
     "total": 29,
-    "datePlaced": "2014-08-09T00:01:00Z",
+    "datePlaced": "2014-Aug-09T00:01:00Z",
     "email": "frankie.lau@cohnwolfe.com",
     "datePaid": "2014-08-11",
     "refund": "",
@@ -21556,7 +21608,7 @@
   {
     "sale": 205348502154,
     "total": 29,
-    "datePlaced": "2014-08-11T00:01:00Z",
+    "datePlaced": "2014-Aug-11T00:01:00Z",
     "email": "eddie.vera@gmail.com",
     "datePaid": "2014-08-10",
     "refund": "",
@@ -21569,7 +21621,7 @@
   {
     "sale": 205324240869,
     "total": 29,
-    "datePlaced": "2014-08-12T00:01:00Z",
+    "datePlaced": "2014-Aug-12T00:01:00Z",
     "email": "stacy@birdstackle.com",
     "datePaid": "2014-08-11",
     "refund": "",
@@ -21582,7 +21634,7 @@
   {
     "sale": 205350347004,
     "total": 29,
-    "datePlaced": "2014-08-13T00:01:00Z",
+    "datePlaced": "2014-Aug-13T00:01:00Z",
     "email": "snacher77@gmail.com",
     "datePaid": "2014-08-13",
     "refund": "Yes",
@@ -21595,7 +21647,7 @@
   {
     "sale": 205351214104,
     "total": 29,
-    "datePlaced": "2014-08-14T00:01:00Z",
+    "datePlaced": "2014-Aug-14T00:01:00Z",
     "email": "bvega@comred.co.cr",
     "datePaid": "2014-08-13",
     "refund": "",
@@ -21608,7 +21660,7 @@
   {
     "sale": 205326685234,
     "total": 29,
-    "datePlaced": "2014-08-15T00:01:00Z",
+    "datePlaced": "2014-Aug-15T00:01:00Z",
     "email": "marketing@grupor3.com.mx",
     "datePaid": "2014-08-17",
     "refund": "",
@@ -21621,7 +21673,7 @@
   {
     "sale": 205326685234,
     "total": 29,
-    "datePlaced": "2014-08-15T00:01:00Z",
+    "datePlaced": "2014-Aug-15T00:01:00Z",
     "email": "marketing@grupor3.com.mx",
     "datePaid": "2014-09-08",
     "refund": "",
@@ -21634,7 +21686,7 @@
   {
     "sale": 205352636312,
     "total": 29,
-    "datePlaced": "2014-08-15T00:01:00Z",
+    "datePlaced": "2014-Aug-15T00:01:00Z",
     "email": "hna_llc@yahoo.com",
     "datePaid": "2014-08-17",
     "refund": "",
@@ -21647,7 +21699,7 @@
   {
     "sale": 205327431043,
     "total": 49,
-    "datePlaced": "2014-08-16T00:01:00Z",
+    "datePlaced": "2014-Aug-16T00:01:00Z",
     "email": "silvia.denuccio@bardelli.com",
     "datePaid": "2014-08-18",
     "refund": "",
@@ -21660,7 +21712,7 @@
   {
     "sale": 205327730521,
     "total": 149,
-    "datePlaced": "2014-08-16T00:01:00Z",
+    "datePlaced": "2014-Aug-16T00:01:00Z",
     "email": "phamthaison231@gmail.com",
     "datePaid": "2014-08-18",
     "refund": "",
@@ -21673,7 +21725,7 @@
   {
     "sale": 205231063162,
     "total": 29,
-    "datePlaced": "2014-08-17T00:01:00Z",
+    "datePlaced": "2014-Aug-17T00:01:00Z",
     "email": "martingross@leopoldogross.com.uy",
     "datePaid": "2014-08-19",
     "refund": "",
@@ -21686,7 +21738,7 @@
   {
     "sale": 205232163583,
     "total": 149,
-    "datePlaced": "2014-08-18T00:01:00Z",
+    "datePlaced": "2014-Aug-18T00:01:00Z",
     "email": "axel@grindelwerk.de",
     "datePaid": "2014-08-17",
     "refund": "",
@@ -21699,7 +21751,7 @@
   {
     "sale": 205209197964,
     "total": 29,
-    "datePlaced": "2014-08-18T00:01:00Z",
+    "datePlaced": "2014-Aug-18T00:01:00Z",
     "email": "maurigulino92@gmail.com",
     "datePaid": "2014-08-20",
     "refund": "",
@@ -21712,7 +21764,7 @@
   {
     "sale": 205354337808,
     "total": 29,
-    "datePlaced": "2014-08-18T00:01:00Z",
+    "datePlaced": "2014-Aug-18T00:01:00Z",
     "email": "andresfuseau@hotmail.com",
     "datePaid": "2014-08-18",
     "refund": "",
@@ -21725,7 +21777,7 @@
   {
     "sale": 205354644947,
     "total": 29,
-    "datePlaced": "2014-08-18T00:01:00Z",
+    "datePlaced": "2014-Aug-18T00:01:00Z",
     "email": "pablovourliotis@gmail.com",
     "datePaid": "2014-08-20",
     "refund": "",
@@ -21738,7 +21790,7 @@
   {
     "sale": 205306438316,
     "total": 29,
-    "datePlaced": "2014-08-19T00:01:00Z",
+    "datePlaced": "2014-Aug-19T00:01:00Z",
     "email": "mvintimilla@gmail.com",
     "datePaid": "2014-08-21",
     "refund": "",
@@ -21751,7 +21803,7 @@
   {
     "sale": 205355029253,
     "total": 10.5,
-    "datePlaced": "2014-08-19T00:01:00Z",
+    "datePlaced": "2014-Aug-19T00:01:00Z",
     "email": "mair.oruc@lunatbwa.ba",
     "datePaid": "2014-08-21",
     "refund": "",
@@ -21764,7 +21816,7 @@
   {
     "sale": 205355029253,
     "total": 10.5,
-    "datePlaced": "2014-08-19T00:01:00Z",
+    "datePlaced": "2014-Aug-19T00:01:00Z",
     "email": "mair.oruc@lunatbwa.ba",
     "datePaid": "2014-08-21",
     "refund": "",
@@ -21777,7 +21829,7 @@
   {
     "sale": 205355072213,
     "total": 22,
-    "datePlaced": "2014-08-19T00:01:00Z",
+    "datePlaced": "2014-Aug-19T00:01:00Z",
     "email": "jose@zaguanestudio.com",
     "datePaid": "2014-08-19",
     "refund": "",
@@ -21790,7 +21842,7 @@
   {
     "sale": 205355072213,
     "total": 22,
-    "datePlaced": "2014-08-19T00:01:00Z",
+    "datePlaced": "2014-Aug-19T00:01:00Z",
     "email": "jose@zaguanestudio.com",
     "datePaid": "2014-08-19",
     "refund": "",
@@ -21803,7 +21855,7 @@
   {
     "sale": 205258011840,
     "total": 29,
-    "datePlaced": "2014-08-20T00:01:00Z",
+    "datePlaced": "2014-Aug-20T00:01:00Z",
     "email": "aalexlevitt@gmail.con",
     "datePaid": "2014-08-19",
     "refund": "",
@@ -21816,7 +21868,7 @@
   {
     "sale": 205184753235,
     "total": 29,
-    "datePlaced": "2014-08-20T00:01:00Z",
+    "datePlaced": "2014-Aug-20T00:01:00Z",
     "email": "info@biral.es",
     "datePaid": "2014-08-19",
     "refund": "",
@@ -21829,7 +21881,7 @@
   {
     "sale": 205234106272,
     "total": 149,
-    "datePlaced": "2014-08-20T00:01:00Z",
+    "datePlaced": "2014-Aug-20T00:01:00Z",
     "email": "alexmillan@spiritmedia.mx",
     "datePaid": "2014-08-22",
     "refund": "",
@@ -21842,7 +21894,7 @@
   {
     "sale": 205307124380,
     "total": 49,
-    "datePlaced": "2014-08-20T00:01:00Z",
+    "datePlaced": "2014-Aug-20T00:01:00Z",
     "email": "marketing@diver.com.pt",
     "datePaid": "2014-08-22",
     "refund": "",
@@ -21855,7 +21907,7 @@
   {
     "sale": 205307302265,
     "total": 29,
-    "datePlaced": "2014-08-20T00:01:00Z",
+    "datePlaced": "2014-Aug-20T00:01:00Z",
     "email": "samuelluz@gmail.com",
     "datePaid": "2014-08-22",
     "refund": "",
@@ -21868,11 +21920,11 @@
   {
     "sale": 205332844809,
     "total": 149,
-    "datePlaced": "2014-08-22T00:01:00Z",
+    "datePlaced": "2014-Aug-22T00:01:00Z",
     "email": "abraham.escobar@ef.com",
     "datePaid": "2014-08-21",
     "refund": "Yes",
-    "redundDate": "29-08-2014",
+    "redundDate": "29-Aug-2014",
     "chargeback": "",
     "chargebackDate": "",
     "productName": "Agency Monthly Plan",
@@ -21881,11 +21933,11 @@
   {
     "sale": 205332844809,
     "total": 149,
-    "datePlaced": "2014-08-22T00:01:00Z",
+    "datePlaced": "2014-Aug-22T00:01:00Z",
     "email": "abraham.escobar@ef.com",
     "datePaid": "2014-08-28",
     "refund": "Yes",
-    "redundDate": "29-08-2014",
+    "redundDate": "29-Aug-2014",
     "chargeback": "",
     "chargebackDate": "",
     "productName": "Agency Monthly Plan",
@@ -21894,7 +21946,7 @@
   {
     "sale": 5138566323,
     "total": 49,
-    "datePlaced": "2014-08-22T00:01:00Z",
+    "datePlaced": "2014-Aug-22T00:01:00Z",
     "email": "ventas@ajonegro.com.ar",
     "datePaid": "2014-08-24",
     "refund": "",
@@ -21907,7 +21959,7 @@
   {
     "sale": 205332102261,
     "total": 29,
-    "datePlaced": "2014-08-22T00:01:00Z",
+    "datePlaced": "2014-Aug-22T00:01:00Z",
     "email": "beatrix_pratisari@yahoo.com",
     "datePaid": "2014-08-24",
     "refund": "",
@@ -21920,7 +21972,7 @@
   {
     "sale": 205309401319,
     "total": 29,
-    "datePlaced": "2014-08-23T00:01:00Z",
+    "datePlaced": "2014-Aug-23T00:01:00Z",
     "email": "ventasproinmobiliaria@gmail.com",
     "datePaid": "2014-08-25",
     "refund": "",
@@ -21933,7 +21985,7 @@
   {
     "sale": 205309569922,
     "total": 49,
-    "datePlaced": "2014-08-23T00:01:00Z",
+    "datePlaced": "2014-Aug-23T00:01:00Z",
     "email": "rrpp-group@hotmail.com",
     "datePaid": "2014-08-25",
     "refund": "",
@@ -21946,7 +21998,7 @@
   {
     "sale": 205309841347,
     "total": 49,
-    "datePlaced": "2014-08-24T00:01:00Z",
+    "datePlaced": "2014-Aug-24T00:01:00Z",
     "email": "beatriz.mijan@laquerida.net",
     "datePaid": "2014-08-26",
     "refund": "",
@@ -21959,7 +22011,7 @@
   {
     "sale": 205237724093,
     "total": 49,
-    "datePlaced": "2014-08-25T00:01:00Z",
+    "datePlaced": "2014-Aug-25T00:01:00Z",
     "email": "paulo.c.martins@me.com",
     "datePaid": "2014-08-27",
     "refund": "",
@@ -21972,7 +22024,7 @@
   {
     "sale": 205359780889,
     "total": 29,
-    "datePlaced": "2014-08-25T00:01:00Z",
+    "datePlaced": "2014-Aug-25T00:01:00Z",
     "email": "andruack@gmail.com",
     "datePaid": "2014-08-25",
     "refund": "",
@@ -21985,7 +22037,7 @@
   {
     "sale": 205360842097,
     "total": 29,
-    "datePlaced": "2014-08-26T00:01:00Z",
+    "datePlaced": "2014-Aug-26T00:01:00Z",
     "email": "faso@deguatemala.net",
     "datePaid": "2014-08-28",
     "refund": "",
@@ -21998,7 +22050,7 @@
   {
     "sale": 205362188374,
     "total": 18,
-    "datePlaced": "2014-08-28T00:01:00Z",
+    "datePlaced": "2014-Aug-28T00:01:00Z",
     "email": "mair.oruc@lunatbwa.ba",
     "datePaid": "2014-08-30",
     "refund": "",
@@ -22011,7 +22063,7 @@
   {
     "sale": 205362188374,
     "total": 18,
-    "datePlaced": "2014-08-28T00:01:00Z",
+    "datePlaced": "2014-Aug-28T00:01:00Z",
     "email": "mair.oruc@lunatbwa.ba",
     "datePaid": "2014-08-30",
     "refund": "",
@@ -22024,7 +22076,7 @@
   {
     "sale": 205240595271,
     "total": 29,
-    "datePlaced": "2014-08-28T00:01:00Z",
+    "datePlaced": "2014-Aug-28T00:01:00Z",
     "email": "burrutia@kausa.com.py",
     "datePaid": "2014-08-30",
     "refund": "",
@@ -22037,7 +22089,7 @@
   {
     "sale": 205266435167,
     "total": 29,
-    "datePlaced": "2014-08-30T00:01:00Z",
+    "datePlaced": "2014-Aug-30T00:01:00Z",
     "email": "infobioderma@bioderma.com.pe",
     "datePaid": "2014-09-01",
     "refund": "",
@@ -22050,7 +22102,7 @@
   {
     "sale": 205363862073,
     "total": 49,
-    "datePlaced": "2014-08-30T00:01:00Z",
+    "datePlaced": "2014-Aug-30T00:01:00Z",
     "email": "ljubica.kostanjsek@gmail.com",
     "datePaid": "2014-09-01",
     "refund": "",
@@ -22063,7 +22115,7 @@
   {
     "sale": 205242343420,
     "total": 29,
-    "datePlaced": "2014-08-31T00:01:00Z",
+    "datePlaced": "2014-Aug-31T00:01:00Z",
     "email": "com@ladauradabeachclub.com",
     "datePaid": "2014-09-02",
     "refund": "",
@@ -22076,7 +22128,7 @@
   {
     "sale": 205261590723,
     "total": 29,
-    "datePlaced": "2014-08-31T00:01:00Z",
+    "datePlaced": "2014-Aug-31T00:01:00Z",
     "email": "cchinen@samcorp.com.pe",
     "datePaid": "2014-09-02",
     "refund": "",
@@ -22089,7 +22141,7 @@
   {
     "sale": 205364574045,
     "total": 29,
-    "datePlaced": "2014-08-31T00:01:00Z",
+    "datePlaced": "2014-Aug-31T00:01:00Z",
     "email": "info@ecomatpapel.es",
     "datePaid": "2014-08-31",
     "refund": "",
@@ -29343,7 +29395,7 @@
   {
     "sale": 205655131544,
     "total": 254,
-    "datePlaced": "2015-08-01T00:01:00Z",
+    "datePlaced": "2015-Aug-01T00:01:00Z",
     "email": "lima@the360arc.com",
     "datePaid": "2015-08-03",
     "refund": "",
@@ -29356,7 +29408,7 @@
   {
     "sale": 205655131544,
     "total": 254,
-    "datePlaced": "2015-08-01T00:01:00Z",
+    "datePlaced": "2015-Aug-01T00:01:00Z",
     "email": "lima@the360arc.com",
     "datePaid": "2015-08-03",
     "refund": "",
@@ -29369,7 +29421,7 @@
   {
     "sale": 205390557746,
     "total": 29,
-    "datePlaced": "2015-08-02T00:01:00Z",
+    "datePlaced": "2015-Aug-02T00:01:00Z",
     "email": "jose@zaguanestudio.com",
     "datePaid": "2015-08-02",
     "refund": "",
@@ -29382,7 +29434,7 @@
   {
     "sale": 205367710959,
     "total": 49,
-    "datePlaced": "2015-08-03T00:01:00Z",
+    "datePlaced": "2015-Aug-03T00:01:00Z",
     "email": "mvintimilla@gmail.com",
     "datePaid": "2015-08-05",
     "refund": "",
@@ -29395,7 +29447,7 @@
   {
     "sale": 205657268522,
     "total": 29,
-    "datePlaced": "2015-08-03T00:01:00Z",
+    "datePlaced": "2015-Aug-03T00:01:00Z",
     "email": "ezequiel72@gmail.com",
     "datePaid": "2015-08-05",
     "refund": "",
@@ -29408,7 +29460,7 @@
   {
     "sale": 105392359307,
     "total": 149,
-    "datePlaced": "2015-08-04T00:01:00Z",
+    "datePlaced": "2015-Aug-04T00:01:00Z",
     "email": "produccion2@venus.com.py",
     "datePaid": "2015-08-06",
     "refund": "",
@@ -29421,7 +29473,7 @@
   {
     "sale": 105577333776,
     "total": 29,
-    "datePlaced": "2015-08-04T00:01:00Z",
+    "datePlaced": "2015-Aug-04T00:01:00Z",
     "email": "damir@spancirfest.com",
     "datePaid": "2015-08-06",
     "refund": "",
@@ -29434,7 +29486,7 @@
   {
     "sale": 105627799026,
     "total": 29,
-    "datePlaced": "2015-08-04T00:01:00Z",
+    "datePlaced": "2015-Aug-04T00:01:00Z",
     "email": "lifeorregret@gmail.com",
     "datePaid": "2015-08-06",
     "refund": "",
@@ -29447,7 +29499,7 @@
   {
     "sale": 105631310178,
     "total": 29,
-    "datePlaced": "2015-08-05T00:01:00Z",
+    "datePlaced": "2015-Aug-05T00:01:00Z",
     "email": "gombosdaniel@gmail.com",
     "datePaid": "2015-08-05",
     "refund": "",
@@ -29460,7 +29512,7 @@
   {
     "sale": 205499318471,
     "total": 29,
-    "datePlaced": "2015-08-05T00:01:00Z",
+    "datePlaced": "2015-Aug-05T00:01:00Z",
     "email": "info@ecomatpapel.es",
     "datePaid": "2015-08-05",
     "refund": "",
@@ -29473,7 +29525,7 @@
   {
     "sale": 205658380787,
     "total": 49,
-    "datePlaced": "2015-08-05T00:01:00Z",
+    "datePlaced": "2015-Aug-05T00:01:00Z",
     "email": "ismar.dzaferovic@gmail.com",
     "datePaid": "2015-08-07",
     "refund": "",
@@ -29486,7 +29538,7 @@
   {
     "sale": 105418936757,
     "total": 29,
-    "datePlaced": "2015-08-05T00:01:00Z",
+    "datePlaced": "2015-Aug-05T00:01:00Z",
     "email": "babysleepchile@gmail.com",
     "datePaid": "2015-08-07",
     "refund": "",
@@ -29499,7 +29551,7 @@
   {
     "sale": 105578540040,
     "total": 49,
-    "datePlaced": "2015-08-05T00:01:00Z",
+    "datePlaced": "2015-Aug-05T00:01:00Z",
     "email": "lghany@memorybanktt.com",
     "datePaid": "2015-08-07",
     "refund": "",
@@ -29512,7 +29564,7 @@
   {
     "sale": 105605626293,
     "total": 29,
-    "datePlaced": "2015-08-05T00:01:00Z",
+    "datePlaced": "2015-Aug-05T00:01:00Z",
     "email": "irina160570@rambler.ru",
     "datePaid": "2015-08-07",
     "refund": "",
@@ -29525,7 +29577,7 @@
   {
     "sale": 205658927198,
     "total": 49,
-    "datePlaced": "2015-08-05T00:01:00Z",
+    "datePlaced": "2015-Aug-05T00:01:00Z",
     "email": "rgutierrez@once-8.com",
     "datePaid": "2015-08-07",
     "refund": "",
@@ -29538,7 +29590,7 @@
   {
     "sale": 105553313748,
     "total": 29,
-    "datePlaced": "2015-08-06T00:01:00Z",
+    "datePlaced": "2015-Aug-06T00:01:00Z",
     "email": "sales@nemski-centar.com",
     "datePaid": "2015-08-06",
     "refund": "",
@@ -29551,7 +29603,7 @@
   {
     "sale": 105419375453,
     "total": 29,
-    "datePlaced": "2015-08-06T00:01:00Z",
+    "datePlaced": "2015-Aug-06T00:01:00Z",
     "email": "cjfallowfield.author@gmail.com",
     "datePaid": "2015-08-06",
     "refund": "",
@@ -29564,7 +29616,7 @@
   {
     "sale": 105579708879,
     "total": 29,
-    "datePlaced": "2015-08-06T00:01:00Z",
+    "datePlaced": "2015-Aug-06T00:01:00Z",
     "email": "mvolpe@inet.hr",
     "datePaid": "2015-08-06",
     "refund": "",
@@ -29577,7 +29629,7 @@
   {
     "sale": 205632368402,
     "total": 49,
-    "datePlaced": "2015-08-06T00:01:00Z",
+    "datePlaced": "2015-Aug-06T00:01:00Z",
     "email": "daragaleano@gmail.com",
     "datePaid": "2015-09-26",
     "refund": "Yes",
@@ -29590,7 +29642,7 @@
   {
     "sale": 205632368402,
     "total": 49,
-    "datePlaced": "2015-08-06T00:01:00Z",
+    "datePlaced": "2015-Aug-06T00:01:00Z",
     "email": "daragaleano@gmail.com",
     "datePaid": "2015-08-08",
     "refund": "Yes",
@@ -29603,7 +29655,7 @@
   {
     "sale": 105633066822,
     "total": 49,
-    "datePlaced": "2015-08-07T00:01:00Z",
+    "datePlaced": "2015-Aug-07T00:01:00Z",
     "email": "melina.ezeiza@tradewingsarg.com",
     "datePaid": "2015-08-09",
     "refund": "",
@@ -29616,7 +29668,7 @@
   {
     "sale": 105580324548,
     "total": 89,
-    "datePlaced": "2015-08-07T00:01:00Z",
+    "datePlaced": "2015-Aug-07T00:01:00Z",
     "email": "bbmarketing.si@gmail.com",
     "datePaid": "2015-08-09",
     "refund": "",
@@ -29629,7 +29681,7 @@
   {
     "sale": 105607197807,
     "total": 29,
-    "datePlaced": "2015-08-08T00:01:00Z",
+    "datePlaced": "2015-Aug-08T00:01:00Z",
     "email": "budzak@fitliner.eu",
     "datePaid": "2015-08-08",
     "refund": "",
@@ -29642,7 +29694,7 @@
   {
     "sale": 205297586715,
     "total": 29,
-    "datePlaced": "2015-08-08T00:01:00Z",
+    "datePlaced": "2015-Aug-08T00:01:00Z",
     "email": "info@celico.com.ar",
     "datePaid": "2015-08-10",
     "refund": "",
@@ -29655,7 +29707,7 @@
   {
     "sale": 205474232630,
     "total": 29,
-    "datePlaced": "2015-08-08T00:01:00Z",
+    "datePlaced": "2015-Aug-08T00:01:00Z",
     "email": "lina.arlauskaite@yit.lt",
     "datePaid": "2015-08-10",
     "refund": "",
@@ -29668,7 +29720,7 @@
   {
     "sale": 205503103040,
     "total": 29,
-    "datePlaced": "2015-08-09T00:01:00Z",
+    "datePlaced": "2015-Aug-09T00:01:00Z",
     "email": "edgar@bacacomunicacion.com",
     "datePaid": "2015-08-11",
     "refund": "",
@@ -29681,7 +29733,7 @@
   {
     "sale": 205503124508,
     "total": 29,
-    "datePlaced": "2015-08-09T00:01:00Z",
+    "datePlaced": "2015-Aug-09T00:01:00Z",
     "email": "edgar@bacacomunicacion.com",
     "datePaid": "2015-08-11",
     "refund": "",
@@ -29694,7 +29746,7 @@
   {
     "sale": 205504207493,
     "total": 49,
-    "datePlaced": "2015-08-10T00:01:00Z",
+    "datePlaced": "2015-Aug-10T00:01:00Z",
     "email": "esaborioh@gmail.com",
     "datePaid": "2015-08-10",
     "refund": "",
@@ -29707,7 +29759,7 @@
   {
     "sale": 105557625798,
     "total": 29,
-    "datePlaced": "2015-08-10T00:01:00Z",
+    "datePlaced": "2015-Aug-10T00:01:00Z",
     "email": "lucy@emelvi.eu",
     "datePaid": "2015-08-10",
     "refund": "",
@@ -29720,7 +29772,7 @@
   {
     "sale": 105423686828,
     "total": 29,
-    "datePlaced": "2015-08-11T00:01:00Z",
+    "datePlaced": "2015-Aug-11T00:01:00Z",
     "email": "administration@culturalcomodoro.com",
     "datePaid": "2015-08-13",
     "refund": "",
@@ -29733,7 +29785,7 @@
   {
     "sale": 205531848035,
     "total": 29,
-    "datePlaced": "2015-08-12T00:01:00Z",
+    "datePlaced": "2015-Aug-12T00:01:00Z",
     "email": "peterautoguia@gmail.com",
     "datePaid": "2015-08-14",
     "refund": "",
@@ -29746,7 +29798,7 @@
   {
     "sale": 205478518658,
     "total": 149,
-    "datePlaced": "2015-08-13T00:01:00Z",
+    "datePlaced": "2015-Aug-13T00:01:00Z",
     "email": "produccion@venus.com.py",
     "datePaid": "2015-08-15",
     "refund": "",
@@ -29759,7 +29811,7 @@
   {
     "sale": 105638455074,
     "total": 29,
-    "datePlaced": "2015-08-13T00:01:00Z",
+    "datePlaced": "2015-Aug-13T00:01:00Z",
     "email": "madamme.lunna@hotmail.com",
     "datePaid": "2015-08-15",
     "refund": "",
@@ -29772,7 +29824,7 @@
   {
     "sale": 105639624861,
     "total": 29,
-    "datePlaced": "2015-08-14T00:01:00Z",
+    "datePlaced": "2015-Aug-14T00:01:00Z",
     "email": "jfuentes@cafedorado.com",
     "datePaid": "2015-08-16",
     "refund": "",
@@ -29785,7 +29837,7 @@
   {
     "sale": 205509011750,
     "total": 29,
-    "datePlaced": "2015-08-15T00:01:00Z",
+    "datePlaced": "2015-Aug-15T00:01:00Z",
     "email": "f.tirhi@icon-ad.com",
     "datePaid": "2015-08-17",
     "refund": "",
@@ -29798,7 +29850,7 @@
   {
     "sale": 205613316875,
     "total": 29,
-    "datePlaced": "2015-08-15T00:01:00Z",
+    "datePlaced": "2015-Aug-15T00:01:00Z",
     "email": "eduardo.martins@extensaomedica.com",
     "datePaid": "2015-08-17",
     "refund": "",
@@ -29811,7 +29863,7 @@
   {
     "sale": 205510068371,
     "total": 29,
-    "datePlaced": "2015-08-16T00:01:00Z",
+    "datePlaced": "2015-Aug-16T00:01:00Z",
     "email": "socialmedia.nat@gmail.com",
     "datePaid": "2015-08-18",
     "refund": "",
@@ -29824,7 +29876,7 @@
   {
     "sale": 105614229282,
     "total": 29,
-    "datePlaced": "2015-08-16T00:01:00Z",
+    "datePlaced": "2015-Aug-16T00:01:00Z",
     "email": "eslam@Paraguru.net",
     "datePaid": "2015-08-18",
     "refund": "",
@@ -29837,7 +29889,7 @@
   {
     "sale": 105456297018,
     "total": 49,
-    "datePlaced": "2015-08-17T00:01:00Z",
+    "datePlaced": "2015-Aug-17T00:01:00Z",
     "email": "info@rifraf.it",
     "datePaid": "2015-08-17",
     "refund": "",
@@ -29850,7 +29902,7 @@
   {
     "sale": 105642629619,
     "total": 29,
-    "datePlaced": "2015-08-17T00:01:00Z",
+    "datePlaced": "2015-Aug-17T00:01:00Z",
     "email": "hotelsplans@yahoo.com",
     "datePaid": "2015-08-17",
     "refund": "",
@@ -29863,7 +29915,7 @@
   {
     "sale": 105616280085,
     "total": 29,
-    "datePlaced": "2015-08-18T00:01:00Z",
+    "datePlaced": "2015-Aug-18T00:01:00Z",
     "email": "gordon@human-paths.com",
     "datePaid": "2015-08-18",
     "refund": "",
@@ -29876,7 +29928,7 @@
   {
     "sale": 205483326095,
     "total": 149,
-    "datePlaced": "2015-08-18T00:01:00Z",
+    "datePlaced": "2015-Aug-18T00:01:00Z",
     "email": "son.pham@what4web.com",
     "datePaid": "2015-08-18",
     "refund": "",
