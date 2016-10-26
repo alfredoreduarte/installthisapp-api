@@ -1,5 +1,4 @@
 module FbApi
-	# FACEBOOK_GRAPH_URL = "https://graph.facebook.com"
 	FACEBOOK_GRAPH_URL = ENV['FB_GRAPH_URL']
 
 
@@ -17,22 +16,13 @@ module FbApi
 	end
 
 	def self.subscribe_app(access_token,fb_page_id)
-		Rails.logger.info("/*/*/*/*/*/ SUBSCRIBE /*/*/*/*/*/")
 		conn = Faraday.new(FACEBOOK_GRAPH_URL) do |faraday|
 			faraday.request  :url_encoded
 			faraday.response :logger
 			faraday.adapter  Faraday.default_adapter
 		end
-		Rails.logger.info("/*/*/*/*/*/ ACCESS TOKEN /*/*/*/*/*/")
-		Rails.logger.info(access_token)
-		Rails.logger.info(fb_page_id)
-		Rails.logger.info(conn)
-		# response_stats = conn.post %{/v#{ENV['FB_API_VERSION']}/#{fb_page_id}/subscribed_apps?access_token=#{access_token}}, {"id" => fb_page_id}
 		url = "/v#{ENV['FB_API_VERSION']}/#{fb_page_id}/subscribed_apps?access_token=#{access_token}"
-		# response = conn.post(url, {access_token: access_token})
 		response = conn.post(url)
-		Rails.logger.info(response)
-		Rails.logger.info(response.body)
 		data = JSON::parse(response.body)
 		return data
 	end
