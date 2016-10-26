@@ -32,5 +32,18 @@ module BackendController
 		setting.conf["preferences"]["subscripted_fb_page_identifier"] = params[:fb_page_identifier]
 		render json: { status: 'success' }
 	end
+	def reset_scores_for_page
+		identifier = @application.fb_page.identifier
+		TopFansCleanupJob.perform_later(identifier)
+		render json: {
+			status: "success",
+			payload: {
+				"#{identifier}": {
+					likes: [],
+					comments: [],
+				}
+			}
+		}
+	end
 	private
 end
