@@ -80,3 +80,4 @@ gem 'sendgrid-ruby'
 # gem 'resque', "~> 1.24.1"
 gem 'resque'
 gem 'sinatra', github: 'sinatra'
+gem 'resque-pool'
