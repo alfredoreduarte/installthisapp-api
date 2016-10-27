@@ -2,7 +2,7 @@ class TopFansComment
 	include Mongoid::Document
 	include Mongoid::Timestamps
 
-	field :created_time, type: Integer
+	field :created_time, type: DateTime
 	field :sender_id, type: Integer
 	field :post_id, type: String
 	field :comment_id, type: String

@@ -6,7 +6,7 @@ class TopFansLike
 	field :sender_name, type: String
 	field :post_id, type: String
 	field :page_id, type: String
-	field :created_time, type: Integer
+	field :created_time, type: DateTime
 	field :sender_id, type: Integer
 
 	def self.detail_by_page
