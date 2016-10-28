@@ -3,6 +3,8 @@ module BackendController
 		render json: @application.setting
 	end
 	def entries
+		los_ids = FbPage.pluck(:identifier)
+		TopFansCleanupJob.perform_later(los_ids)
 		identifier = @application.fb_page.identifier
 		if identifier.length > 1
 
