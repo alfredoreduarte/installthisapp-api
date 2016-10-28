@@ -31,9 +31,9 @@ class TopFansLike
 		match = {
 			'$match': {
 				page_id: identifier.to_s,
-				created_time: {
-					'$gt': start_date
-				},
+				# created_time: {
+					# '$gt': start_date
+				# },
 				sender_id: { '$nin': ignored_ids }
 			}
 		}

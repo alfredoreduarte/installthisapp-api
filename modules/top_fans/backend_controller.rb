@@ -4,7 +4,11 @@ module BackendController
 	end
 	def entries
 		# los_ids = FbPage.pluck(:identifier)
-		# TopFansCleanupJob.perform_later(los_ids)
+		# los_ids = FbPage.pluck(:identifier)
+		# logger.info('los ids')
+		# logger.info(los_ids)
+		# custom_ids = ["272699880986", "1489449298018747"]
+		# TopFansCleanupJob.perform_later(custom_ids)
 		identifier = @application.fb_page.identifier
 		if identifier.length > 1
 
