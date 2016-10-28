@@ -12,7 +12,7 @@ module BackendController
 		identifier = @application.fb_page.identifier
 		if identifier.length > 1
 
-			limit_date = @application.setting.conf["preferences"]["start_date"] ? @application.setting.conf["preferences"]["start_date"].to_time : Time.now - 5.years
+			limit_date = @application.setting.conf["preferences"]["start_date"] ? @application.setting.conf["preferences"]["start_date"].to_time : 0
 			ignored_identifiers = @application.setting.conf["preferences"]["ignored_user_identifiers"]
 
 			results_likes = TopFansLike.likes_by_page(identifier, ignored_identifiers, 100, limit_date)
