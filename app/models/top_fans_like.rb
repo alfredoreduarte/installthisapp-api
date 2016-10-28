@@ -26,7 +26,6 @@ class TopFansLike
 	# 	end
 	# end
 	
-	# def self.likes_by_page_uncached(identifier, ignored_ids)
 	def self.likes_by_page(identifier, ignored_ids, query_limit, start_date)
 		if start_date.to_i > 0
 			match = {
