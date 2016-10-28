@@ -22,10 +22,13 @@ class TopFansComment
 		return self.collection.aggregate([group])
 	end
 
-	def self.comments_by_page(identifier, ignored_ids, query_limit)
+	def self.comments_by_page(identifier, ignored_ids, query_limit, start_date)
 		match = {
 			'$match': {
 				page_id: identifier.to_s,
+				created_time: {
+					'$gt': start_date
+				},
 				sender_id: { '$nin': ignored_ids }
 			}
 		}
@@ -35,6 +38,7 @@ class TopFansComment
 		group = {
 			'$group': {
 				_id: "$sender_id",
+				created_time: { "$last": "$created_time" },
 				sender_id: { "$first": "$sender_id" },
 				sender_name: { "$first": "$sender_name" },
 				comments: {"$sum": 1}
@@ -49,6 +53,7 @@ class TopFansComment
 			'$project': {
 				_id: 0,
 				comments: 1,
+				created_time: 1,
 				sender_id: 1,
 				sender_name: 1,
 			}

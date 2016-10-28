@@ -5,8 +5,21 @@ module BackendController
 	def entries
 		identifier = @application.fb_page.identifier
 		if identifier.length > 1
-			results_likes = TopFansLike.likes_by_page(identifier, @application.setting.conf["preferences"]["ignored_user_identifiers"], 100)
-			results_comments = TopFansComment.comments_by_page(identifier, @application.setting.conf["preferences"]["ignored_user_identifiers"], 100)
+
+			limit_date = @application.setting.conf["preferences"]["start_date"] ? @application.setting.conf["preferences"]["start_date"].to_time : Time.now - 1.years
+			ignored_identifiers = @application.setting.conf["preferences"]["ignored_user_identifiers"]
+
+			results_likes = TopFansLike.likes_by_page(identifier, ignored_identifiers, 100, limit_date)
+			results_comments = TopFansComment.comments_by_page(identifier, ignored_identifiers, 100, limit_date)
+
+			results_likes.each do |like|
+				logger.info('un like')
+				logger.info(like.inspect)
+			end
+			results_comments.each do |comment|
+				logger.info('un comment')
+				logger.info(comment.inspect)
+			end
 			response = {
 				status: "success",
 				payload: {
@@ -34,7 +47,9 @@ module BackendController
 	end
 	def reset_scores_for_page
 		identifier = @application.fb_page.identifier
-		TopFansCleanupJob.perform_later(identifier)
+		# TopFansCleanupJob.perform_later(identifier)
+		@application.setting.conf["preferences"]["start_date"] = Time.now.utc
+		@application.setting.save!
 		render json: {
 			status: "success",
 			payload: {

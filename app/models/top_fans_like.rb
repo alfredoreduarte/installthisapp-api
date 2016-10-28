@@ -27,10 +27,13 @@ class TopFansLike
 	# end
 	
 	# def self.likes_by_page_uncached(identifier, ignored_ids)
-	def self.likes_by_page(identifier, ignored_ids, query_limit)
+	def self.likes_by_page(identifier, ignored_ids, query_limit, start_date)
 		match = {
 			'$match': {
 				page_id: identifier.to_s,
+				created_time: {
+					'$gt': start_date
+				},
 				sender_id: { '$nin': ignored_ids }
 			}
 		}
