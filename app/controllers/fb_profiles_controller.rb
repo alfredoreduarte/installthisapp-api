@@ -6,7 +6,7 @@ class FbProfilesController < ApplicationController
 	end
 
 	def create
-		current_admin.fb_profile = FbProfile.new
+		current_admin.fb_profile = FbProfile.where(identifier: params[:identifier]).first_or_initialize
 		current_admin.fb_profile.signed_request = params[:signed_request]
 		if current_admin.fb_profile.sign_in
 			current_admin.fb_profile.save
