@@ -9,15 +9,32 @@ class CanvasController < ApplicationController
 	]
 	before_action :load_application, :except => [:auth, :standalone_auth]
 
+	def images
+		image_dict_assets = @application.application_assets.where(attachment_file_name: "images.json")
+		if image_dict_assets.length > 0
+			response = {
+				images_url: image_dict_assets.last.asset_url,
+				# images_url: '...',
+			}
+		else
+			response = {
+				images_url: nil,
+			}
+		end
+		render json: response
+	end
+
 	def standalone_auth
 		application = Application.find_by(checksum: params[:checksum])
+		image_dict_assets = application.application_assets.where(attachment_file_name: "images.json")
 		response = {
 			title: application.title,
 			checksum: application.checksum,
 			fb_application_id: application.fb_application.app_id,
 			stylesheet_url: application.application_assets.where(attachment_file_name: "styles.css").last.asset_url,
 			messages_url: application.application_assets.where(attachment_file_name: "messages.json").last.asset_url,
-			images_url: application.application_assets.where(attachment_file_name: "images.json").last.asset_url,
+			# images_url: application.application_assets.where(attachment_file_name: "images.json").last.asset_url,
+			images_url: image_dict_assets.length > 0 ? image_dict_assets.last.asset_url : nil,
 		}
 		respond_to do |format|
 			format.json { render json: response }
