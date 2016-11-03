@@ -27,6 +27,13 @@ class ApplicationsController < ApplicationController
 		}
 		render json: response
 	end
+	def images
+		response = {
+			images_url: @application.application_assets.where(attachment_file_name: "images.json").last.asset_url,
+			# images_url: '...',
+		}
+		render json: response
+	end
 	def stats_summary
 		render json: @application.stats_summary
 	end
@@ -38,6 +45,7 @@ class ApplicationsController < ApplicationController
 				load_module
 				generate_css(params[:initial_styles])
 				generate_messages(params[:initial_messages_json])
+				generate_images(params[:initial_images_json])
 				render json: {
 					success: true,
 					app: @application.as_json
@@ -105,6 +113,7 @@ class ApplicationsController < ApplicationController
 	def save_app_from_editor
 		generate_css(params[:css])
 		generate_messages(params[:messages])
+		generate_images(params[:images])
 		render json: @response
 	end
 	def save_image_from_new_editor
@@ -123,7 +132,11 @@ class ApplicationsController < ApplicationController
 	def get_application
 		# @application = get_application_for_admin
 		checksum = params[:checksum] || params[:id]
-		@application = current_admin.applications.find_by(checksum: checksum)
+		if current_admin.email == 'alfredoreduarte@gmail.com'
+			@application = Application.find_by(checksum: checksum)
+		else
+			@application = current_admin.applications.find_by(checksum: checksum)
+		end
 	end
 
 	def asset_params
@@ -188,5 +201,30 @@ class ApplicationsController < ApplicationController
 	def cleanup_local_json_files(file)
 		File.delete(file) if File.exist?(file)
 		FileUtils.remove_dir "#{Rails.root}/app/assets/json/application_messages/#{@application.checksum}", false
+	end
+
+	# 
+	# STATIC IMAGES
+	# 
+	def generate_images(content)
+		path = "#{Rails.root}/app/assets/json/application_images/#{@application.checksum}/"
+		FileUtils.mkdir_p(path) unless File.directory?(path)
+		json_file = path + "images.json"
+		File.open(json_file, "w+") do |f|
+			f.write(content)
+		end
+		@response = upload_images_json_to_s3(json_file)
+	end
+	def upload_images_json_to_s3(json_file)
+		@asset = @application.application_assets.new
+		@asset.attachment = File.open(json_file)
+		@asset.attachment_content_type = "application/json"
+		@asset.save!
+		cleanup_local_images_json_files(json_file)
+		return {status: "success", path: @asset.as_json(:methods => [:asset_url])}
+	end
+	def cleanup_local_images_json_files(file)
+		File.delete(file) if File.exist?(file)
+		FileUtils.remove_dir "#{Rails.root}/app/assets/json/application_images/#{@application.checksum}", false
 	end
 end

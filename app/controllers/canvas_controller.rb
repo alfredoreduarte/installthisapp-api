@@ -17,6 +17,7 @@ class CanvasController < ApplicationController
 			fb_application_id: application.fb_application.app_id,
 			stylesheet_url: application.application_assets.where(attachment_file_name: "styles.css").last.asset_url,
 			messages_url: application.application_assets.where(attachment_file_name: "messages.json").last.asset_url,
+			images_url: application.application_assets.where(attachment_file_name: "images.json").last.asset_url,
 		}
 		respond_to do |format|
 			format.json { render json: response }
@@ -37,6 +38,7 @@ class CanvasController < ApplicationController
 			fb_application_id: application.fb_application.app_id,
 			stylesheet_url: application.application_assets.where(attachment_file_name: "styles.css").last.asset_url,
 			messages_url: application.application_assets.where(attachment_file_name: "messages.json").last.asset_url,
+			images_url: application.application_assets.where(attachment_file_name: "images.json").last.asset_url,
 		}
 		respond_to do |format|
 			format.json { render json: response }

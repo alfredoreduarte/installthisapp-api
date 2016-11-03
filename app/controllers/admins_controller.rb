@@ -5,7 +5,7 @@ class AdminsController < ApplicationController
 
 	def entities
 		@admin = current_admin
-		@plans = Plan.all
+		# @plans = Plan.all
 		# @applications = current_admin.applications
 		# @applications = current_admin.applications
 		# render json: {

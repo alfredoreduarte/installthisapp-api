@@ -11,7 +11,7 @@ module FrontendController
 		results_likes = TopFansLike.likes_by_page(identifier, $application.setting.conf["preferences"]["ignored_user_identifiers"], 10, limit_date)
 		results_comments = TopFansComment.comments_by_page(identifier, $application.setting.conf["preferences"]["ignored_user_identifiers"], 10, limit_date)
 		response = {
-			status: 'ok',
+			success: false,
 			likes: results_likes,
 			comments: results_comments,
 		}

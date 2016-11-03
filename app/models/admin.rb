@@ -6,8 +6,6 @@ class Admin < ActiveRecord::Base
 	include DeviseTokenAuth::Concerns::User
 	has_one :fb_profile
 	has_many :fb_pages, through: :fb_profile
-	has_one :customer
-	has_one :subscription, through: :customer
 	has_many :applications, -> {where.not(status: :deleted)}
 
 	def has_subscription
