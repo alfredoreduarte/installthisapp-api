@@ -36,7 +36,7 @@ class ApplicationsController < ApplicationController
 			}
 		else
 			response = {
-				images_url: '',
+				images_url: nil,
 			}
 		end
 		render json: response
