@@ -16,7 +16,7 @@ module FrontendController
 			results_comments = []
 		end
 		response = {
-			success: false,
+			success: true,
 			likes: results_likes,
 			comments: results_comments,
 		}
