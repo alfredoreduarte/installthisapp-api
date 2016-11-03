@@ -1,5 +1,11 @@
 require 'resque/server'
 Rails.application.routes.draw do
+	resources :customers
+		get 'customers/card', to: 'customers#get_card'
+	resources :plans
+	resources :subscriptions
+	post 'subscriptions/update', to: 'subscriptions#update'
+	delete 'subscriptions/delete', to: 'subscriptions#delete'
 	root 'main#index'
 	# mount Resque::Server.new, :at => "/resque"
 	mount Resque::Server => '/resque'
@@ -29,7 +35,8 @@ Rails.application.routes.draw do
 	# 
 	# FB Page realtime subscriptions
 	# 
-	# match '/top_fans_stats', to: "fb_page_subscription#top_fans_stats", via: [:get]
-	# match '/likes_by_page', to: "fb_page_subscription#likes_by_page", via: [:get]
-	match '/subscription', to: "fb_page_subscription#subscription", via: [:get, :post]
+	match '/fb_webhook_top_fans', to: "fb_webhook#top_fans", via: [:get, :post]
+	# match '/subscription', to: "fb_webhook#top_fans", via: [:get, :post]
+
+	
 end

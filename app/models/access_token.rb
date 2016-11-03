@@ -7,7 +7,7 @@ class AccessToken < ApplicationRecord
 	
 	before_create :regenerate_checksum
 	
-	attr_accessor :fb_session	
+	attr_accessor :fb_session
 	attr_accessor :ac_perms_loaded
 	
 	def regenerate_checksum

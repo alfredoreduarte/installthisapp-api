@@ -81,17 +81,12 @@ class Application < ApplicationRecord
 
 	def uninstall
 		if self.installed?
-			self.uninstalled!
-			# if self.delete_tab_on_facebook
-				save_result = self.save!
-				if save_result
-					return :ok
-				else
-					return :error
-				end
-			# else
-				# return :tab_delete_error
-			# end
+			self.uninstalled! 
+			if self.save!
+				return :ok
+			else
+				return :error
+			end
 		else
 			return :error_was_not_installed
 		end
@@ -99,8 +94,11 @@ class Application < ApplicationRecord
 
 	def delete_tab_on_facebook
 		user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
+		logger.info('deleting')
+		logger.info(user_graph)
 		# page_token = user_graph.get_page_access_token(self.graph_facebook_page.identifier)
 		page_token = user_graph.get_page_access_token(self.fb_page.identifier)
+		logger.info(page_token)
 		koala = Koala::Facebook::API.new(page_token)
 		params = {
 			tab: 'app_' + self.fb_application.app_id

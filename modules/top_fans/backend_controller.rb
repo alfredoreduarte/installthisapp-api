@@ -7,9 +7,8 @@ module BackendController
 		los_ids = FbPage.pluck(:identifier)
 		TopFansCleanupJob.perform_later(los_ids)
 		# 
-		identifier = @application.fb_page.identifier
-		if identifier.length > 1
-
+		if @application.fb_page
+			identifier = @application.fb_page.identifier
 			limit_date = @application.setting.conf["preferences"]["start_date"] ? @application.setting.conf["preferences"]["start_date"].to_time : 0
 			ignored_identifiers = @application.setting.conf["preferences"]["ignored_user_identifiers"]
 

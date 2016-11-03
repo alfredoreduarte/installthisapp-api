@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161011041231) do
+ActiveRecord::Schema.define(version: 20161101024447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,14 @@ ActiveRecord::Schema.define(version: 20161011041231) do
   create_table "applications_fb_pages", id: false, force: :cascade do |t|
     t.integer "application_id", null: false
     t.integer "fb_page_id",     null: false
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.integer  "admin_id"
+    t.string   "external_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["admin_id"], name: "index_customers_on_admin_id", using: :btree
   end
 
   create_table "fb_applications", force: :cascade do |t|
@@ -203,6 +211,15 @@ ActiveRecord::Schema.define(version: 20161011041231) do
     t.datetime "updated_at",                          null: false
   end
 
+  create_table "plans", force: :cascade do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.float    "price"
+    t.integer  "interval",   default: 1
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "settings", force: :cascade do |t|
     t.json     "conf"
     t.integer  "application_id"
@@ -211,13 +228,27 @@ ActiveRecord::Schema.define(version: 20161011041231) do
     t.index ["application_id"], name: "index_settings_on_application_id", using: :btree
   end
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer  "customer_id"
+    t.integer  "plan_id"
+    t.string   "external_id"
+    t.date     "active_until"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["customer_id"], name: "index_subscriptions_on_customer_id", using: :btree
+    t.index ["plan_id"], name: "index_subscriptions_on_plan_id", using: :btree
+  end
+
   add_foreign_key "access_tokens", "applications"
   add_foreign_key "access_tokens", "fb_users"
   add_foreign_key "application_assets", "applications"
   add_foreign_key "applications", "admins"
   add_foreign_key "applications", "fb_applications"
   add_foreign_key "applications", "fb_pages"
+  add_foreign_key "customers", "admins"
   add_foreign_key "fb_profiles", "admins"
   add_foreign_key "fb_user_api_keys", "fb_users"
   add_foreign_key "settings", "applications"
+  add_foreign_key "subscriptions", "customers"
+  add_foreign_key "subscriptions", "plans"
 end

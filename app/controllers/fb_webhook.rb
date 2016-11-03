@@ -1,14 +1,6 @@
-class FbPageSubscriptionController < ApplicationController
-	def top_fans_stats
-		@results_likes = TopFansLike.detail_by_page
-		@results_comments = TopFansComment.detail_by_page
-	end
+class FbWebhookController < ApplicationController
 
-	def likes_by_page
-		@results_likes = TopFansLike.likes_by_page(params[:identifier])
-	end
-
-	def subscription
+	def top_fans
 		if params[:"hub.verify_token"]
 			logger.info('===== Top Fans Real time Verification =====')
 			logger.info("verify_token = #{params[:'hub.verify_token']}")

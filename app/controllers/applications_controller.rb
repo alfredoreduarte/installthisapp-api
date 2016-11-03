@@ -12,8 +12,6 @@ class ApplicationsController < ApplicationController
 
 	def index
 		render json: {
-			# apps: current_admin.applications.as_json(include: :fb_application),
-			# apps: current_admin.applications.as_json,
 			apps: Application.installed.as_json,
 		}
 	end
@@ -34,20 +32,26 @@ class ApplicationsController < ApplicationController
 	end
 
 	def create
-		@application = current_admin.applications.new(application_params)
-		response = ''
-		if (@application.save!)
-			load_module
-			generate_css(params[:initial_styles])
-			generate_messages(params[:initial_messages_json])
-			response = @application.as_json
+		if current_admin.can(:create_apps)
+			@application = current_admin.applications.new(application_params)
+			if (@application.save!)
+				load_module
+				generate_css(params[:initial_styles])
+				generate_messages(params[:initial_messages_json])
+				response = @application.as_json
+				render json: @application.as_json
+			else
+				render json: {
+					success: false,
+					message: "Failed to save instantiated application"
+				}
+			end
 		else
-			response = {
+			render json: {
 				success: false,
-				message: "Failed to save instantiated application"
+				message: "User can't create apps"
 			}
 		end
-		render json: response
 	end
 
 	def update
@@ -66,7 +70,6 @@ class ApplicationsController < ApplicationController
 		if install_result == :ok
 			@application.install_callback
 			render json: @application.as_json(include: [:fb_users, :fb_application])
-			# render json: @application.as_json(include: [:fb_users])
 		else
 			render json: { status: install_result }
 		end
@@ -74,16 +77,12 @@ class ApplicationsController < ApplicationController
 	def install_tab
 		response = @application.put_tab_on_facebook(params[:fb_page_identifier])
 		@application.install_tab_callback
-		# render json: @application.as_json(include: [:fb_users, :fb_application])
 		@admin = current_admin
 		render 'admins/entities'
-		# render json: @application.as_json(include: [:fb_users, :fb_application])
 	end
 	def uninstall_tab
 		response = @application.delete_tab_on_facebook
-		@application.install_tab_callback
-		# render json: @application.as_json(include: [:fb_users, :fb_application])
-		# render json: @application.as_json(include: [:fb_users, :fb_application])
+		@application.uninstall_tab_callback
 		@admin = current_admin
 		render 'admins/entities'
 	end
@@ -92,7 +91,6 @@ class ApplicationsController < ApplicationController
 		if uninstall_result == :ok
 			@application.uninstall_callback
 			render json: @application.as_json(include: [:fb_users, :fb_application])
-			# render json: @application.as_json(include: [:fb_users])
 		else
 			render json: { status: uninstall_result }
 		end
