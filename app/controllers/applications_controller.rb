@@ -28,10 +28,17 @@ class ApplicationsController < ApplicationController
 		render json: response
 	end
 	def images
-		response = {
-			images_url: @application.application_assets.where(attachment_file_name: "images.json").last.asset_url,
-			# images_url: '...',
-		}
+		image_dict_assets = @application.application_assets.where(attachment_file_name: "images.json")
+		if image_dict_assets.length > 0
+			response = {
+				images_url: image_dict_assets.last.asset_url,
+				# images_url: '...',
+			}
+		else
+			response = {
+				images_url: '',
+			}
+		end
 		render json: response
 	end
 	def stats_summary
