@@ -38,8 +38,10 @@ class ApplicationsController < ApplicationController
 				load_module
 				generate_css(params[:initial_styles])
 				generate_messages(params[:initial_messages_json])
-				response = @application.as_json
-				render json: @application.as_json
+				render json: {
+					success: true,
+					app: @application.as_json
+				}
 			else
 				render json: {
 					success: false,
