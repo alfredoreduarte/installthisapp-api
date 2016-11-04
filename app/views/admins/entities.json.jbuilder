@@ -2,7 +2,8 @@
 # end
 
 # json.admin do
-json.extract! @admin, :id, :name, :email, :fb_profile#, :customer #, :subscription
+# json.extract! @admin, :id, :name, :email, :fb_profile, :customer, :subscription
+json.extract! @admin, :id, :name, :email, :fb_profile, :created_at, :confirmed_at
 	# applications
 # end
 # json.subscription @admin.has_subscription
