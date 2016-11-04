@@ -10,7 +10,7 @@
 		},
 		{
 			"title": "Total Admins",
-			"value": <%= @admin_users.length %>
+			"value": <%= @admins.length %>
 		},
 		{
 			"title": "Total Orders",
@@ -18,13 +18,12 @@
 		}
 	],
 	"users": [
-		<% @admin_users.each do |user| %>
+		<% @admins.each do |user| %>
 		{
 			"id": <%= user.id %>,
 			"name": "<%= user.name %>",
 			"email": "<%= user.email %>",
-			"fbId": <%= user.identifier %>,
-			"fbLikes": <%= user.total_likes_count ? user.total_likes_count : 0 %>,
+			"fbId": <%= user.fb_profile ? user.fb_profile.identifier : 'null' %>,
 			"fbPages": <%= user.fb_pages.length %>,
 			"totalApps": <%= user.applications.length %>,
 			"createdAt": "<%= user.created_at %>",
@@ -36,14 +35,14 @@
 					"title": "<%= app.title %>",
 					"application_type": "<%= app.application_type %>",
 					"status": "<%= app.status %>",
-					"canvasId": "<%= app.installed? ? app.fb_application.canvas_id : nil %>",
-					"fbPageId": <%= app.fb_page.id %>,
-					"fbPageIdentifier": <%= app.fb_page.identifier %>,
-					"users": <%= app.users.length %>	
+					"canvasId": "<%= app.installed? ? app.fb_application.canvas_id : 'null' %>",
+					"fbPageId": <%= app.fb_page ? app.fb_page.id : 'null' %>,
+					"fbPageIdentifier": <%= app.fb_page ? app.fb_page.identifier : 'null' %>,
+					"users": <%= app.fb_users.length %>	
 				}<%=',' unless app == user.applications.last%>
 				<% end %>
 			]
-		}<%=',' unless user == @admin_users.last%>
+		}<%=',' unless user == @admins.last%>
 		<% end %>
 	],
 	"apps": [
@@ -55,9 +54,9 @@
 			"application_type": "<%= app.application_type %>",
 			"status": "<%= app.status %>",
 			"canvasId": "<%= app.installed? ? app.fb_application.canvas_id : nil %>",
-			"fbPageId": <%= app.fb_page.id %>,
-			"fbPageIdentifier": <%= app.fb_page.identifier %>,
-			"users": <%= app.users.length %>	
+			"fbPageId": <%= app.fb_page ? app.fb_page.id : 'null' %>,
+			"fbPageIdentifier": <%= app.fb_page ? app.fb_page.identifier : 'null' %>,
+			"users": <%= app.fb_users.length %>	
 		}<%=',' unless app == @apps.last%>
 		<% end %>
 	],

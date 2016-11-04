@@ -1,5 +1,5 @@
 class FbPage < ApplicationRecord
-	has_and_belongs_to_many :admin_users
+	has_and_belongs_to_many :fb_profiles
 	has_many :applications
 	validates_uniqueness_of  :identifier
 

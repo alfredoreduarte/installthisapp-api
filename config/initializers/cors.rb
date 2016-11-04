@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
 	allow do
-		origins "#{ENV['AUTHORIZED_CLIENT_APP_URL']}"
+		origins "#{ENV['AUTHORIZED_CLIENT_APP_URL']}", "localhost.ssl:4000"
 		resource '*',
 			headers: :any,
 			expose: ['access-token', 'client', 'uid', 'token-type'],
