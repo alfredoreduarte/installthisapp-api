@@ -2,15 +2,13 @@ require 'resque/server'
 Rails.application.routes.draw do
 	resources :customers
 		get 'customers/card', to: 'customers#get_card'
-	resources :plans
 	resources :subscriptions
-	post 'subscriptions/update', to: 'subscriptions#update'
-	delete 'subscriptions/delete', to: 'subscriptions#delete'
+		post 'subscriptions/update', to: 'subscriptions#update'
+		delete 'subscriptions/delete', to: 'subscriptions#delete'
 	root 'main#index'
-	# mount Resque::Server.new, :at => "/resque"
 	mount Resque::Server => '/resque'
-	# resources :fb_users
 	get 'fb_profiles/fetch_fb_pages.json', to: 'fb_profiles#fetch_fb_pages'
+	resources :plans
 	resources :fb_users, path: 'users'
 	resources :applications
 	resources :fb_applications
@@ -36,7 +34,5 @@ Rails.application.routes.draw do
 	# FB Page realtime subscriptions
 	# 
 	match '/fb_webhook_top_fans', to: "fb_webhook#top_fans", via: [:get, :post]
-	# match '/subscription', to: "fb_webhook#top_fans", via: [:get, :post]
 
-	
 end
