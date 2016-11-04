@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# if Rails.env == "production"
+if Rails.env == "production"
 # 	FbApplication.create(
 # 		name: "Trivia", 
 # 		app_id: "1524466891193222", 
@@ -31,7 +31,7 @@
 # 		canvas_id: "app3", 
 # 		namespace: "itapp_iii",
 # 	)
-# elsif Rails.env == "stage"
+elsif Rails.env == "staging"
 # 	FbApplication.create(
 # 		name: "Trivia", 
 # 		app_id: "966872033362481", 
@@ -56,29 +56,29 @@
 # 		canvas_id: "app3", 
 # 		namespace: "ita_stage_iii",
 # 	)
-# elsif Rails.env == "development"
-# 	FbApplication.create(
-# 		name: "Trivia", 
-# 		app_id: "1525778314395413",
-# 		secret_key: "8f2a3a93a7d3d41ee3ddb96e1062c9dd", 
-# 		application_type: "trivia", 
-# 		canvas_id: "app1", 
-# 		namespace: "ita_dev_i_i",
-# 	)
-# 	FbApplication.create(
-# 		name: "Top Fans", 
-# 		app_id: "1765290880276128", 
-# 		secret_key: "c451a330be8d758a3aa5ab107c794fec", 
-# 		application_type: "top_fans", 
-# 		canvas_id: "app2", 
-# 		namespace: "ita_dev_i_ii",
-# 	)
-# 	FbApplication.create(
-# 		name: "Photo Contest", 
-# 		app_id: "1194297433923796",
-# 		secret_key: "4f545ea335fb60992e1a05cbd5a80fee", 
-# 		application_type: "photo_contest", 
-# 		canvas_id: "app3", 
-# 		namespace: "ita_dev_i_iii",
-# 	)
-# end
+elsif Rails.env == "development"
+	FbApplication.create(
+		name: "Trivia", 
+		app_id: "1525778314395413",
+		secret_key: "8f2a3a93a7d3d41ee3ddb96e1062c9dd", 
+		application_type: "trivia", 
+		canvas_id: "app1", 
+		namespace: "ita_dev_i_i",
+	)
+	FbApplication.create(
+		name: "Top Fans", 
+		app_id: "1765290880276128", 
+		secret_key: "c451a330be8d758a3aa5ab107c794fec", 
+		application_type: "top_fans", 
+		canvas_id: "app2", 
+		namespace: "ita_dev_i_ii",
+	)
+	FbApplication.create(
+		name: "Photo Contest", 
+		app_id: "1194297433923796",
+		secret_key: "4f545ea335fb60992e1a05cbd5a80fee", 
+		application_type: "photo_contest", 
+		canvas_id: "app3", 
+		namespace: "ita_dev_i_iii",
+	)
+end
