@@ -7,8 +7,9 @@ module FrontendController
 	def entries
 		# expires_in 5.minutes, public: true
 		limit_date = $application.setting.conf["preferences"]["start_date"] ? $application.setting.conf["preferences"]["start_date"].to_time : 0
-		identifier = $application.fb_page.identifier
-		if identifier
+		fb_page = $application.fb_page
+		if fb_page
+			identifier = fb_page.identifier
 			results_likes = TopFansLike.likes_by_page(identifier, $application.setting.conf["preferences"]["ignored_user_identifiers"], 10, limit_date)
 			results_comments = TopFansComment.comments_by_page(identifier, $application.setting.conf["preferences"]["ignored_user_identifiers"], 10, limit_date)
 		else
