@@ -19,12 +19,6 @@ class TopFansLike
 		}
 		return self.collection.aggregate([group])
 	end
-
-	# def self.likes_by_page(identifier, ignored_ids)
-	# 	Rails.cache.fetch("top_fans_likes_for_#{identifier}", :expires_in => 5.minutes) do
-	# 		TopFansLike.likes_by_page_uncached(identifier, ignored_ids)
-	# 	end
-	# end
 	
 	def self.likes_by_page(identifier, ignored_ids, query_limit, start_date)
 		if start_date.to_i > 0
@@ -51,8 +45,9 @@ class TopFansLike
 		group = {
 			'$group': {
 				_id: "$sender_id",
-				sender_id: { "$first": "$sender_id" },
-				sender_name: { "$first": "$sender_name" },
+				createdTime: { "$last": "$created_time" },
+				senderId: { "$first": "$sender_id" },
+				senderName: { "$first": "$sender_name" },
 				likes: {"$sum": 1}
 			}
 		}
@@ -65,8 +60,9 @@ class TopFansLike
 			'$project': {
 				_id: 0,
 				likes: 1,
-				sender_id: 1,
-				sender_name: 1,
+				createdTime: 1,
+				senderId: 1,
+				senderName: 1,
 			}
 		}
 		return self.collection.aggregate([match, group, sort, project, limit])
