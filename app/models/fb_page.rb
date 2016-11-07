@@ -16,12 +16,15 @@ class FbPage < ApplicationRecord
 		require 'fb_api'
 		if !self.webhook_subscribed
 			# begin
+				logger.info('Fb Subscription request about to start')
 				f_page = FbGraph2::Page.new(self.identifier).fetch(:access_token => admin_user.fb_profile.access_token, :fields => :access_token)
 				result = FbApi::subscribe_app(f_page.raw_attributes["access_token"], self.identifier)
 				if result["success"] == true
+					logger.info('Fb Subscription request success')
 					self.webhook_subscribed = true
 					self.save
 				else
+					logger.info('Fb Subscription request denied')
 					self.webhook_subscribed = false
 					self.save
 				end
