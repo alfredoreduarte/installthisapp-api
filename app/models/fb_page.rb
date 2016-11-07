@@ -6,7 +6,8 @@ class FbPage < ApplicationRecord
 	def self.save_basic_data(data)
 		fb_page = FbPage.find_or_initialize_by(identifier: data.id)
 		fb_page.name = data.name
-		fb_page.fan_count = data.raw_attributes["country_page_likes"].nil? ? data.likes_count.to_i : data.raw_attributes["country_page_likes"].to_i
+		country_page_likes = data.raw_attributes["country_page_likes"]
+		fb_page.fan_count = country_page_likes.nil? ? data.likes_count.to_i : country_page_likes.to_i
 		fb_page.save
 		return fb_page
 	end
@@ -15,24 +16,21 @@ class FbPage < ApplicationRecord
 		require 'fb_graph2'
 		require 'fb_api'
 		if !self.webhook_subscribed
-			# begin
-				logger.info('Fb Subscription request about to start')
-				f_page = FbGraph2::Page.new(self.identifier).fetch(:access_token => admin_user.fb_profile.access_token, :fields => :access_token)
-				result = FbApi::subscribe_app(f_page.raw_attributes["access_token"], self.identifier)
-				if result["success"] == true
-					logger.info('Fb Subscription request success')
-					self.webhook_subscribed = true
-					self.save
-				else
-					logger.info('Fb Subscription request denied')
-					self.webhook_subscribed = false
-					self.save
-				end
-			# rescue Exception => e
-				# puts "ERROR al subscribir #{app.id} admin_user #{admin_user.id}"
-				# message = "We need to renew your permissions in order to update the scores table at Top Fans. Please uninstall your app and install it again."
-				# AdminNotification.send_notification(admin_user,:error,I18n.t(message, :locale => app.admin_user.choosen_locale), "http://installthisapp.com/backend/applications/#{app.checksum}/dashboard")
-			# end
+			logger.info('Fb Subscription request about to start')
+			f_page = FbGraph2::Page.new(self.identifier).fetch(
+				:access_token => admin_user.fb_profile.access_token, 
+				:fields => :access_token
+			)
+			result = FbApi::subscribe_app(f_page.raw_attributes["access_token"], self.identifier)
+			if result["success"] == true
+				logger.info('Fb Subscription request success')
+				self.webhook_subscribed = true
+				self.save
+			else
+				logger.info('Fb Subscription request denied')
+				self.webhook_subscribed = false
+				self.save
+			end
 		end
 	end
 
@@ -41,7 +39,10 @@ class FbPage < ApplicationRecord
 		require 'fb_api'
 		if self.webhook_subscribed
 			begin
-				f_page = FbGraph2::Page.new(self.identifier).fetch(:access_token => admin_user.access_token, :fields => :access_token)
+				f_page = FbGraph2::Page.new(self.identifier).fetch(
+					:access_token => admin_user.access_token, 
+					:fields => :access_token
+				)
 				result = FbApi::unsubscribe_app(f_page.raw_attributes["access_token"], self.identifier)
 				if result["success"] == true
 					self.webhook_subscribed = false
@@ -49,8 +50,6 @@ class FbPage < ApplicationRecord
 				end
 			rescue Exception => e
 				puts "ERROR al subscribir #{app.id} admin_user #{admin_user.id}"
-				message = "We need to renew your permissions in order to update the scores table at Top Fans. Please uninstall your app and install it again."
-				# AdminNotification.send_notification(admin_user,:error,I18n.t(message, :locale => app.admin_user.choosen_locale), "http://installthisapp.com/backend/applications/#{app.checksum}/dashboard")
 			end
 		end		
 	end
