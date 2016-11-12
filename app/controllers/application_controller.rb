@@ -2,37 +2,16 @@ class ApplicationController < ActionController::Base
 	# respond_to :json
 	include DeviseTokenAuth::Concerns::SetUserByToken
 
-	# def get_application_for_admin(include_super_admin=true)
-		# checksum = params[:checksum] || params[:id]
-		# app = $admin_user.applications.find_by(checksum: checksum)
-		# return app
-	# end
-
-	def add_application_id_by_default
-		self.default_url_options = {
-			:checksum => params[:checksum],
-			:controller => :applications
-		}
+	# 
+	# Godview for super admins
+	# Swaps the current authenticated super admin with a client account
+	# 
+	alias_method :devise_current_admin, :current_admin
+	def current_admin
+		if request.headers["spy-user"].to_i > 0
+			devise_current_admin = Admin.find(request.headers["spy-user"].to_i)
+		else
+			devise_current_admin = Admin.find_by(uid: request.headers["uid"])
+		end
 	end
-
-	# private
-
-	# def set_admin
-	# 	$admin_user = nil
-	# 	authenticate_or_request_with_http_token do |token, options|
-	# 		api_key = AdminUserApiKey.find_by(token: token)
-	# 		$admin_user = AdminUser.find(api_key.admin_user_id)
-	# 		if $admin_user
-	# 			return true
-	# 		else
-	# 			render json: {}, status: 401
-	# 		end
-	# 	end
-	# end
-
-	# def authenticate
-	# 	authenticate_or_request_with_http_token do |token, options|
-	# 		api_key = AdminUserApiKey.find_by(token: token)
-	# 	end
-	# end
 end
