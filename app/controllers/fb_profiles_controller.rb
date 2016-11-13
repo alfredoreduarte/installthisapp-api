@@ -6,6 +6,7 @@ class FbProfilesController < ApplicationController
 		current_admin.fb_profile.signed_request = params[:signed_request]
 		if current_admin.fb_profile.sign_in
 			current_admin.fb_profile.save
+			current_admin.fb_profile.fetch_fb_pages
 			@admin = current_admin
 			render 'admins/entities'
 		else

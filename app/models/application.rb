@@ -37,15 +37,21 @@ class Application < ApplicationRecord
 	end
 
 	def install
+		self.assign_fb_application
+		self.installed!
+		self.save
+		return :ok
+	end
+
+	def assign_fb_application
 		free_fb_application = FbApplication.find_by(application_type: self.application_type)
 		self.fb_application = free_fb_application
-		self.installed!
-		self.save!
-		return :ok
+		self.save
 	end
 
 	def put_tab_on_facebook(fb_page_identifier)
 		# fb_page = FbPage.find(self.fb_page_id)
+		self.assign_fb_application
 		fb_page = FbPage.find_by(identifier: fb_page_identifier)
 		self.fb_page = fb_page
 		# installed_apps = Application.installed.where("fb_page_id = '#{fb_page.id}' and application_type = '#{self.application_type}'")
@@ -104,6 +110,7 @@ class Application < ApplicationRecord
 			tab: 'app_' + self.fb_application.app_id
 		}
 		self.fb_page = nil
+		self.uninstalled!
 		self.save!
 		if koala.delete_connections('me', 'tabs', params)
 			return true
