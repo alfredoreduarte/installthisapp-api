@@ -17,6 +17,12 @@ class Application
 	def install_tab_callback
 		if self.fb_page
 			self.fb_page.subscribe_to_realtime(self.admin, self.fb_application)
+			if self.setting.conf["preferences"]["first_fetch_from_date"]
+				start_date = self.setting.conf["preferences"]["first_fetch_from_date"].to_datetime.to_i
+				identifier = self.fb_page.identifier
+				access_token = self.admin.fb_profile.access_token
+				TopFansResetJob.perform_later(identifier, access_token, start_date)
+			end
 		end
 	end
 

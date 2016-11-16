@@ -2,6 +2,8 @@
 	"preferences": {
 		"points_per_like": 3,
 		"points_per_comment": 2,
-		"ignored_user_identifiers": []
+		"ignored_user_identifiers": [],
+		"first_fetch_from_date": null,
+		"start_date": null
 	}
 }

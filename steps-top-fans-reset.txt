@@ -1,0 +1,18 @@
+|-----------X-------------HOY|
+
+0- Borrar todos los likes/comments contabilizados
+1- Tomar los posts a partir de X
+2- Contar likes/comments existentes en todos esos posts
+3- Suscribir a webhook para seguir actualizando en tiempo real, filtrando que los likes/comments que llegan sean hechos en esos posts entre X y HOY
+4- Cada vez que llega un like/comment via webhook verificamos que pertenezca a un post hecho entre X y HOY
+
+
+PLAN INICIAL:
+Dejamos para más tarde lo de ignorar likes/comments en posts mas viejos que X porque tendríamos que consultar la fecha del post con cada like que llega, haciendo más lento el conteo. Más adelante podemos guardar los posts en db, para de esa manera cachear la fecha del post.
+
+==== Mientras tanto: ====
+
+OK 1- Tomar todos los posts a partir de X (manejar paginacion)  
+2- Contar likes/comments existentes en todos esos posts (paginar likes y comentarios si son muchos)
+3- Suscribir a webhook y contabilizar todos los likes sin importar dónde se hagan. Lo de la fecha inicial se hace simplemente como un preload para no empezar con una tabla vieja, o para gente que quiera hacer un concurso con la actividad pasada.
+4- sacar el filtro por fecha ya que ahora vamos a borrar los datos cada vez que se reinicia la tabla, y ademas en los datos viejos no tenemos fecha de likes

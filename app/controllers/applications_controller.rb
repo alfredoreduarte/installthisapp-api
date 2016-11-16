@@ -53,10 +53,12 @@ class ApplicationsController < ApplicationController
 				generate_css(params[:initial_styles])
 				generate_messages(params[:initial_messages_json])
 				generate_images(params[:initial_images_json])
-				render json: {
-					success: true,
-					app: @application.as_json
-				}
+				@success = true
+				# render json: {
+				# 	success: true,
+				# 	app: @application.as_json
+				# }
+				render 'applications/create'
 			else
 				render json: {
 					success: false,
