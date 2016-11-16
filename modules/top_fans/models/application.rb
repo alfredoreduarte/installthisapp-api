@@ -18,6 +18,12 @@ class Application
 		if self.fb_page
 			self.fb_page.subscribe_to_realtime(self.admin, self.fb_application)
 			if self.setting.conf["preferences"]["first_fetch_from_date"]
+				TopFansLike.where(
+					page_id: identifier,
+				).delete
+				TopFansComment.where(
+					page_id: identifier,
+				).delete
 				start_date = self.setting.conf["preferences"]["first_fetch_from_date"].to_datetime.to_i
 				identifier = self.fb_page.identifier
 				access_token = self.admin.fb_profile.access_token
