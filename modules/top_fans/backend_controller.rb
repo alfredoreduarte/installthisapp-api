@@ -4,7 +4,6 @@ module BackendController
 	end
 
 	def reset
-		# falta: borrar todo antes de guardar de nuevo, para evitar duplicados
 		start_date = @application.setting.conf["preferences"]["first_fetch_from_date"].to_datetime.to_i
 		identifier = @application.fb_page.identifier
 		access_token = @application.admin.fb_profile.access_token
@@ -28,25 +27,15 @@ module BackendController
 
 	def entries
 		# remove this after dumping top fans in V2
-		# los_ids = FbPage.pluck(:identifier)
-		# TopFansCleanupJob.perform_later(los_ids)
+		los_ids = FbPage.pluck(:identifier)
+		TopFansCleanupJob.perform_later(los_ids)
 		# 
-		if @application.fb_page
-			identifier = @application.fb_page.identifier
-			limit_date = @application.setting.conf["preferences"]["start_date"] ? @application.setting.conf["preferences"]["start_date"].to_time : 0
+		fb_page = @application.fb_page
+		if fb_page
+			identifier = fb_page.identifier
 			ignored_identifiers = @application.setting.conf["preferences"]["ignored_user_identifiers"]
-
-			results_likes = TopFansLike.likes_by_page(identifier, ignored_identifiers, 100, limit_date)
-			results_comments = TopFansComment.comments_by_page(identifier, ignored_identifiers, 100, limit_date)
-
-			results_likes.each do |like|
-				logger.info('un like')
-				logger.info(like.inspect)
-			end
-			results_comments.each do |comment|
-				logger.info('un comment')
-				logger.info(comment.inspect)
-			end
+			results_likes = TopFansLike.likes_by_page(identifier, ignored_identifiers, 500)
+			results_comments = TopFansComment.comments_by_page(identifier, ignored_identifiers, 500)
 			response = {
 				status: "success",
 				payload: {

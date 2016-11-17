@@ -20,25 +20,13 @@ class TopFansLike
 		return self.collection.aggregate([group])
 	end
 	
-	def self.likes_by_page(identifier, ignored_ids, query_limit, start_date)
-		if start_date.to_i > 0
-			match = {
-				'$match': {
-					page_id: identifier.to_s,
-					created_time: {
-						'$gt': start_date
-					},
-					sender_id: { '$nin': ignored_ids }
-				}
-			}
-		else
-			match = {
+	def self.likes_by_page(identifier, ignored_ids, query_limit)
+		match = {
 			'$match': {
 				page_id: identifier.to_s,
 				sender_id: { '$nin': ignored_ids }
 			}
 		}
-		end
 		limit = {
 			'$limit': query_limit
 		}
