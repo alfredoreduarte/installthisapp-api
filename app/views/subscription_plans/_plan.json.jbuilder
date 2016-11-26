@@ -1,0 +1,1 @@
+json.extract! plan, :id, :name, :stripe_id, :amount, :interval

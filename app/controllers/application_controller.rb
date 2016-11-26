@@ -14,4 +14,8 @@ class ApplicationController < ActionController::Base
 	# 		devise_current_admin = Admin.find_by(uid: request.headers["uid"])
 	# 	end
 	# end
+
+	def payola_can_modify_subscription?(subscription)
+		subscription.owner == current_admin
+	end
 end

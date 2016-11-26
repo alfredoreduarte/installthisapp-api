@@ -82,4 +82,4 @@ gem 'resque'
 gem 'sinatra', github: 'sinatra'
 gem 'resque-pool'
 
-gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+gem 'payola-payments'

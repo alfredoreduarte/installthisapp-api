@@ -8,6 +8,10 @@ class Admin < ActiveRecord::Base
 	has_many :fb_pages, through: :fb_profile
 	has_many :applications, -> {where.not(status: :deleted)}
 
+	def subscription
+		return Payola::Subscription.find_by(owner_id: self.id)
+	end
+
 	def has_subscription
 		subscription = self.subscription
 		if subscription && subscription.active_until > Time.now

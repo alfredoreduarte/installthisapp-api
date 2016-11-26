@@ -1,10 +1,11 @@
 require 'resque/server'
 Rails.application.routes.draw do
+	mount Payola::Engine => '/payola', as: :payola
 	resources :customers
-		get 'customers/card', to: 'customers#get_card'
-	resources :subscriptions
-		post 'subscriptions/update', to: 'subscriptions#update'
-		delete 'subscriptions/delete', to: 'subscriptions#delete'
+		# get 'customers/card', to: 'customers#get_card'
+	# resources :subscriptions
+		# post 'subscriptions/update', to: 'subscriptions#update'
+		# delete 'subscriptions/delete', to: 'subscriptions#delete'
 	root 'main#index'
 	mount Resque::Server => '/resque'
 	get 'fb_profiles/fetch_fb_pages.json', to: 'fb_profiles#fetch_fb_pages'
