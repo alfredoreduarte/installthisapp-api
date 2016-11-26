@@ -9,7 +9,7 @@ class Admin < ActiveRecord::Base
 	has_many :applications, -> {where.not(status: :deleted)}
 
 	def subscription
-		return Payola::Subscription.find_by(owner_id: self.id)
+		return Payola::Subscription.find_by(owner_id: self.id, state: 'active')
 	end
 
 	def has_subscription
