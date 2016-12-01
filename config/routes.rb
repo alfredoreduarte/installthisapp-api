@@ -1,7 +1,7 @@
 require 'resque/server'
 Rails.application.routes.draw do
 	mount Payola::Engine => '/payola', as: :payola
-	resources :customers
+	# resources :customers
 		# get 'customers/card', to: 'customers#get_card'
 	# resources :subscriptions
 		# post 'subscriptions/update', to: 'subscriptions#update'

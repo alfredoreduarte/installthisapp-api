@@ -2,7 +2,8 @@ class Admin < ActiveRecord::Base
 	# Include default devise modules.
 	devise :database_authenticatable, :registerable,
 	      :recoverable, :rememberable, :trackable, :validatable,
-	      :confirmable, :omniauthable
+	      # :confirmable, :omniauthable
+	      :omniauthable
 	include DeviseTokenAuth::Concerns::User
 	has_one :fb_profile
 	has_many :fb_pages, through: :fb_profile
@@ -30,3 +31,10 @@ class Admin < ActiveRecord::Base
 		end
 	end
 end
+
+# class Admin::ParameterSanitizer < Devise::ParameterSanitizer
+# 	def initialize(*)
+# 		super
+# 		permit(:sign_up, keys: [:confirm_success_url])
+# 	end
+# end
