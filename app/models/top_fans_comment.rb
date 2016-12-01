@@ -29,9 +29,9 @@ class TopFansComment
 				sender_id: { '$nin': ignored_ids }
 			}
 		}
-		limit = {
-			'$limit': query_limit
-		}
+		# limit = {
+		# 	'$limit': query_limit
+		# }
 		group = {
 			'$group': {
 				_id: "$sender_id",
@@ -55,6 +55,7 @@ class TopFansComment
 				senderName: 1,
 			}
 		}
-		return self.collection.aggregate([match, group, sort, project, limit])
+		# return self.collection.aggregate([match, group, sort, project, limit])
+		return self.collection.aggregate([match, group, sort, project])
 	end
 end
