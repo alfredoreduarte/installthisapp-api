@@ -42,14 +42,14 @@ class FbProfile < ApplicationRecord
 		unless fan_pages.nil?
 			for fan_page in fan_pages
 				like_count = fan_page.raw_attributes["country_page_likes"].nil? ? fan_page.likes_count.to_i : fan_page.raw_attributes["country_page_likes"].to_i
-				fb_page = self.fb_pages.find_or_initialize_by(identifier: fan_page.id)
+				fb_page = self.fb_pages << FbPage.find_or_initialize_by(identifier: fan_page.id)
 				fb_page.name = fan_page.name
 				fb_page.like_count = like_count
-				logger.info("errorcito!")
-				logger.info(fb_page.errors.inspect)
+				# logger.info("errorcito!")
+				# logger.info(fb_page.errors.inspect)
 				fb_page.save
-				logger.info("errorcito dos!")
-				logger.info(fb_page.errors.inspect)
+				# logger.info("errorcito dos!")
+				# logger.info(fb_page.errors.inspect)
 			end
 			self.save
 		end
