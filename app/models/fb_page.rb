@@ -3,18 +3,18 @@ class FbPage < ApplicationRecord
 	has_many :applications
 	validates_uniqueness_of  :identifier
 
-	def self.save_basic_data(data)
-		fb_page = FbPage.find_or_initialize_by(identifier: data.id)
-		fb_page.name = data.name
-		country_page_likes = data.raw_attributes["country_page_likes"]
-		fb_page.fan_count = country_page_likes.nil? ? data.likes_count.to_i : country_page_likes.to_i
-		logger.info("errorcito!")
-		logger.info(fb_page.errors)
-		fb_page.save
-		logger.info("errorcito dos!")
-		logger.info(fb_page.errors)
-		return fb_page
-	end
+	# def self.save_basic_data(data)
+	# 	fb_page = FbPage.find_or_initialize_by(identifier: data.id)
+	# 	fb_page.name = data.name
+	# 	country_page_likes = data.raw_attributes["country_page_likes"]
+	# 	fb_page.fan_count = country_page_likes.nil? ? data.likes_count.to_i : country_page_likes.to_i
+	# 	logger.info("errorcito!")
+	# 	logger.info(fb_page.errors)
+	# 	fb_page.save
+	# 	logger.info("errorcito dos!")
+	# 	logger.info(fb_page.errors)
+	# 	return fb_page
+	# end
 
 	def subscribe_to_realtime(admin_user,app = nil)
 		require 'fb_graph2'
