@@ -46,10 +46,10 @@ class FbProfile < ApplicationRecord
 				fb_page.name = fan_page.name
 				fb_page.like_count = like_count
 				logger.info("errorcito!")
-				logger.info(fb_page.errors)
+				logger.info(fb_page.errors.inspect)
 				fb_page.save
 				logger.info("errorcito dos!")
-				logger.info(fb_page.errors)
+				logger.info(fb_page.errors.inspect)
 			end
 			self.save
 		end
