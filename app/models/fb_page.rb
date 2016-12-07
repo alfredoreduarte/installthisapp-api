@@ -8,11 +8,11 @@ class FbPage < ApplicationRecord
 		fb_page.name = data.name
 		country_page_likes = data.raw_attributes["country_page_likes"]
 		fb_page.fan_count = country_page_likes.nil? ? data.likes_count.to_i : country_page_likes.to_i
-		logger.info "errorcito!"
-		logger.info fb_page.errors
+		logger.info("errorcito!")
+		logger.info(fb_page.errors)
 		fb_page.save
-		logger.info "errorcito dos!"
-		logger.info fb_page.errors
+		logger.info("errorcito dos!")
+		logger.info(fb_page.errors)
 		return fb_page
 	end
 
