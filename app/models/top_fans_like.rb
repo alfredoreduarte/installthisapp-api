@@ -34,7 +34,7 @@ class TopFansLike
 		group = {
 			'$group': {
 				_id: "$sender_id",
-				createdTime: { "$last": "$created_time" },
+				# createdTime: { "$last": "$created_time" },
 				senderId: { "$first": "$sender_id" },
 				senderName: { "$first": "$sender_name" },
 				likes: {"$sum": 1}
@@ -49,7 +49,7 @@ class TopFansLike
 			'$project': {
 				_id: 0,
 				likes: 1,
-				createdTime: 1,
+				# createdTime: 1,
 				senderId: 1,
 				senderName: 1,
 			}

@@ -36,7 +36,7 @@ class TopFansComment
 		group = {
 			'$group': {
 				_id: "$sender_id",
-				createdTime: { "$last": "$created_time" },
+				# createdTime: { "$last": "$created_time" },
 				senderId: { "$first": "$sender_id" },
 				senderName: { "$first": "$sender_name" },
 				comments: {"$sum": 1}
@@ -51,7 +51,7 @@ class TopFansComment
 			'$project': {
 				_id: 0,
 				comments: 1,
-				createdTime: 1,
+				# createdTime: 1,
 				senderId: 1,
 				senderName: 1,
 			}
