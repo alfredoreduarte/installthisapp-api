@@ -28,9 +28,9 @@ class TopFansLike
 				sender_id: { '$nin': ignored_ids }
 			}
 		}
-		# limit = {
-		# 	'$limit': query_limit
-		# }
+		limit = {
+			'$limit': query_limit
+		}
 		group = {
 			'$group': {
 				_id: "$sender_id",
@@ -56,6 +56,7 @@ class TopFansLike
 		}
 		# return self.collection.aggregate([match, group, sort, project, limit])
 		result = Mongoid::QueryCache.cache { self.collection.aggregate([match, group, sort, project]) }
+		# result = Mongoid::QueryCache.cache { self.collection.aggregate([match, group, sort, project, limit]) }
 		# result = self.collection.aggregate([match, group, sort, project])
 		# return self.collection.aggregate([match, group, sort, project]).cache
 		return result

@@ -9,16 +9,16 @@ module FrontendController
 		if fb_page
 			identifier = fb_page.identifier
 			ignored_identifiers = $application.setting.conf["preferences"]["ignored_user_identifiers"]
-			results_likes = TopFansLike.likes_by_page(identifier, ignored_identifiers, 500)
-			results_comments = TopFansComment.comments_by_page(identifier, ignored_identifiers, 500)
+			results_likes = TopFansLike.likes_by_page(identifier, ignored_identifiers, 2500)
+			results_comments = TopFansComment.comments_by_page(identifier, ignored_identifiers, 2500)
 		else
 			results_likes = []
 			results_comments = []
 		end
 		response = {
 			success: true,
-			likes: results_likes,
-			comments: results_comments,
+			likes: results_likes.first(10),
+			comments: results_comments.first(10),
 		}
 		respond_to do |format|
 			format.json { render json: response }

@@ -40,8 +40,8 @@ module BackendController
 				status: "success",
 				payload: {
 					"#{identifier}": {
-						likes: results_likes,
-						comments: results_comments,
+						likes: results_likes.first(20),
+						comments: results_comments.first(20),
 					}
 				}
 			}

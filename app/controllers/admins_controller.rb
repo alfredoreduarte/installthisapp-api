@@ -17,7 +17,7 @@ class AdminsController < ApplicationController
 		render json: admins.as_json
 		# 		
 		# results_likes = TopFansLike.likes_by_page(272699880986)
-		# render json: results_likes.as_json
+		# render json: results_likes.first(3).as_json
 	end
 
 	# def create
