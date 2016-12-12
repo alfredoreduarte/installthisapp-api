@@ -83,3 +83,6 @@ gem 'sinatra', github: 'sinatra'
 gem 'resque-pool'
 
 gem 'payola-payments'
+
+# gem 'actionpack-action_caching'
+# gem 'actionpack-page_caching'

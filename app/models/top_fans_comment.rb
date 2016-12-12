@@ -1,4 +1,5 @@
 class TopFansComment
+	Mongoid::QueryCache.enabled = true
 	include Mongoid::Document
 	include Mongoid::Timestamps
 
@@ -22,7 +23,7 @@ class TopFansComment
 		return self.collection.aggregate([group])
 	end
 
-	def self.comments_by_page(identifier, ignored_ids, query_limit)
+	def self.comments_by_page(identifier, ignored_ids = [], query_limit = 500)
 		match = {
 			'$match': {
 				page_id: identifier.to_s,
@@ -56,6 +57,8 @@ class TopFansComment
 			}
 		}
 		# return self.collection.aggregate([match, group, sort, project, limit])
-		return self.collection.aggregate([match, group, sort, project])
+		# return self.collection.aggregate([match, group, sort, project])
+		result = Mongoid::QueryCache.cache { self.collection.aggregate([match, group, sort, project]) }
+		return result
 	end
 end

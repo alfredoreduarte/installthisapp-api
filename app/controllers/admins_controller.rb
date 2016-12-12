@@ -1,5 +1,6 @@
 class AdminsController < ApplicationController
 	before_action :authenticate_admin!, except: [:jsonmock]
+	# before_action :authenticate_admin!, except: [:jsonmock, :index]
 	# before_action 	:authenticate, except: [:create, :jsonmock]
 	# before_action 	:set_admin, except: [:create, :jsonmock]
 
@@ -9,7 +10,14 @@ class AdminsController < ApplicationController
 	end
 
 	def index
-		render json: Admins.all.as_json
+		# working:
+		admins = Rails.cache.fetch("all_adminss", :expires_in => 1.minute) do
+			Admin.all
+		end
+		render json: admins.as_json
+		# 		
+		# results_likes = TopFansLike.likes_by_page(272699880986)
+		# render json: results_likes.as_json
 	end
 
 	# def create
@@ -60,4 +68,6 @@ class AdminsController < ApplicationController
 	# def admin_user_params
 	# 	params.require(:admin_user).permit(:name, :email)
 	# end
+
+	# caches_page   :index
 end
