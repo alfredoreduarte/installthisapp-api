@@ -75,4 +75,15 @@ namespace :resque do
 			end
 		end
 	end
+
+	desc "Close workers stuck for more than 1 hour"
+	task :cleanup_stuck_workers => :environment do
+		allocated_time = 60 * 30
+		Resque::Worker.working.each do |worker|
+			if (worker.started <=> Time.now - allocated_time) < 1
+				worker.done_working
+				# Rails.logger.info(worker.inspect)
+			end
+		end
+	end
 end
