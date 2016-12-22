@@ -1,10 +1,15 @@
 Payola.configure do |config|
 
-  # config.secret_key = ENV["STRIPE_SECRET_KEY"]
-  # config.publishable_key = ENV["STRIPE_PUBLISHABLE_KEY"]
+  if Rails.env.development?
+    config.secret_key = "sk_test_d7IxwPNsxUZm3DUnemxzKZqM"
+    config.publishable_key = "pk_test_m1qT4u49pPqliYXWOCCXMd6k"
+  else
+    config.secret_key = "sk_live_NSXg9kkefTQSe8rqdY9xSZK0"
+    config.publishable_key = "pk_live_3GnDWMS8iGK9jiP0NWVhgr8W"
+  end
 
-  config.secret_key = "sk_test_d7IxwPNsxUZm3DUnemxzKZqM"
-  config.publishable_key = "pk_test_m1qT4u49pPqliYXWOCCXMd6k"
+  # config.secret_key = "sk_test_d7IxwPNsxUZm3DUnemxzKZqM"
+  # config.publishable_key = "pk_test_m1qT4u49pPqliYXWOCCXMd6k"
 
   # Example subscription:
   # 
