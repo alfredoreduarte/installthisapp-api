@@ -81,5 +81,17 @@
 			"namespace": "<%= fb_app.namespace %>"
 		}<%=',' unless fb_app == @fb_apps.last%>
 		<% end %>
+	],
+	"plans": [
+		<% @plans.each do |plan| %>
+		{
+			"id": <%= plan.id %>,
+			"name": "<%= plan.name %>",
+			"stripeId": "<%= plan.stripe_id %>",
+			"amount": "<%= plan.amount %>",
+			"interval": "<%= plan.interval %>",
+			"trialPeriodDays": "<%= plan.trial_period_days %>"
+		}<%=',' unless plan == @plans.last%>
+		<% end %>
 	]
 }

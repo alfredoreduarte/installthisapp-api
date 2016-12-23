@@ -4,6 +4,19 @@ class AdminsController < ApplicationController
 	# before_action 	:authenticate, except: [:create, :jsonmock]
 	# before_action 	:set_admin, except: [:create, :jsonmock]
 
+	# Godview data
+	def jsonmock
+		@admins = Admin.includes(:applications)
+		@apps = Application.all
+		@active_apps = Application.installed.all
+		@pages = FbPage.all
+		@fb_apps = FbApplication.all
+		@plans = SubscriptionPlan.all
+		respond_to do |format|
+			format.json
+		end
+	end
+
 	def entities
 		@admin = current_admin
 		@plans = SubscriptionPlan.all
@@ -51,17 +64,7 @@ class AdminsController < ApplicationController
 	# 	end
 	# end
 
-	# Godview data
-	def jsonmock
-		@admins = Admin.includes(:applications)
-		@apps = Application.all
-		@active_apps = Application.installed.all
-		@pages = FbPage.all
-		@fb_apps = FbApplication.all
-		respond_to do |format|
-			format.json
-		end
-	end
+	
 
 	# private
 
