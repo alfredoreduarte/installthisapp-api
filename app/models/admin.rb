@@ -4,7 +4,10 @@ class Admin < ActiveRecord::Base
 	      :recoverable, :rememberable, :trackable, :validatable,
 	      # :confirmable, :omniauthable
 	      :omniauthable
+	# TODO - BUG FIX
+	# Des-comentar para staging, ver cómo arreglar para normalizar entre staging y producción
 	# serialize :tokens, JSON
+	# 
 	include DeviseTokenAuth::Concerns::User
 	has_one :fb_profile
 	has_many :fb_pages, through: :fb_profile
