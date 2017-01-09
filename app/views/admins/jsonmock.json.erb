@@ -23,7 +23,7 @@
 			"id": <%= user.id %>,
 			"name": "<%= user.name %>",
 			"email": "<%= user.email %>",
-			"fbId": <%= user.fb_profile ? user.fb_profile.identifier : 'null' %>,
+			"fbId": <%= user.fb_profile ? user.fb_profile.identifier : 0 %>,
 			"fbPages": <%= user.fb_pages.length %>,
 			"totalApps": <%= user.applications.length %>,
 			"createdAt": "<%= user.created_at %>",
