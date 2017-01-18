@@ -125,11 +125,12 @@ class ApplicationsController < ApplicationController
 		generate_images(params[:images])
 		render json: @response
 	end
-	def save_image_from_new_editor
-		par = asset_params
-		asset = @application.application_assets.create(par)
-		render json: asset.as_json(methods: [:asset_url])
-	end
+	# Deprecated:
+	# def save_image_from_new_editor
+	# 	par = asset_params
+	# 	asset = @application.application_assets.create(par)
+	# 	render json: asset.as_json(methods: [:asset_url])
+	# end
 
 
 	private
