@@ -6,7 +6,7 @@ class Admin < ActiveRecord::Base
 	      :omniauthable
 	# TODO - BUG FIX
 	# Des-comentar para staging, ver cómo arreglar para normalizar entre staging y producción
-	# serialize :tokens, JSON
+	serialize :tokens, JSON
 	# 
 	include DeviseTokenAuth::Concerns::User
 	has_one :fb_profile
