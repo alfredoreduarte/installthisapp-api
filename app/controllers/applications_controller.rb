@@ -94,13 +94,15 @@ class ApplicationsController < ApplicationController
 		end
 	end
 	def install_tab
-		response = @application.put_tab_on_facebook(params[:fb_page_identifier])
+		# response = @application.put_tab_on_facebook(params[:fb_page_identifier])
+		@application.put_tab_on_facebook(params[:fb_page_identifier])
 		@application.install_tab_callback
 		@admin = current_admin
 		render 'admins/entities'
 	end
 	def uninstall_tab
-		response = @application.delete_tab_on_facebook
+		# response = @application.delete_tab_on_facebook
+		@application.delete_tab_on_facebook
 		@application.uninstall_tab_callback
 		@admin = current_admin
 		render 'admins/entities'
@@ -167,6 +169,7 @@ class ApplicationsController < ApplicationController
 	# CSS
 	# 
 	def generate_css(content)
+		@application.application_assets.where(attachment_file_name: 'styles.css').all.map{|asset| asset.destroy}
 		path = "#{Rails.root}/app/assets/stylesheets/application_stylesheets/#{@application.checksum}/"
 		FileUtils.mkdir_p(path) unless File.directory?(path)
 		css_file = path + "styles.css"
@@ -192,6 +195,7 @@ class ApplicationsController < ApplicationController
 	# STATIC MESSAGES
 	# 
 	def generate_messages(content)
+		@application.application_assets.where(attachment_file_name: 'messages.json').all.map{|asset| asset.destroy}
 		path = "#{Rails.root}/app/assets/json/application_messages/#{@application.checksum}/"
 		FileUtils.mkdir_p(path) unless File.directory?(path)
 		json_file = path + "messages.json"
@@ -217,6 +221,7 @@ class ApplicationsController < ApplicationController
 	# STATIC IMAGES
 	# 
 	def generate_images(content)
+		@application.application_assets.where(attachment_file_name: 'images.json').all.map{|asset| asset.destroy}
 		path = "#{Rails.root}/app/assets/json/application_images/#{@application.checksum}/"
 		FileUtils.mkdir_p(path) unless File.directory?(path)
 		json_file = path + "images.json"
