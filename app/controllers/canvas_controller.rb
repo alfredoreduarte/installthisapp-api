@@ -10,7 +10,7 @@ class CanvasController < ApplicationController
 	before_action :load_application, :except => [:auth, :standalone_auth]
 
 	def images
-		image_dict_assets = application.application_assets.where(attachment_file_name: "images.json")
+		image_dict_assets = $application.application_assets.where(attachment_file_name: "images.json")
 		if image_dict_assets.length > 0
 			response = {
 				images_url: image_dict_assets.last.asset_url,
