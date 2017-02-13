@@ -19,8 +19,12 @@ class Admin < ActiveRecord::Base
 
 	def has_subscription
 		subscription = self.subscription
-		if subscription && subscription.active_until > Time.now
-			return subscription.plan.slug
+		if subscription 
+			if subscription.active?
+				return subscription.plan.slug
+			else
+				return nil
+			end
 		else
 			return nil
 		end
