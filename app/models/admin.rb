@@ -21,7 +21,7 @@ class Admin < ActiveRecord::Base
 		subscription = self.subscription
 		if subscription 
 			if subscription.active?
-				return subscription.plan.slug
+				return subscription.plan.stripe_id
 			else
 				return nil
 			end
