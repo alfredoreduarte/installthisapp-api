@@ -1,4 +1,9 @@
 module FrontendController
+	def settings
+		respond_to do |format|
+			format.json { render json: $application.setting.conf["preferences"] }
+		end
+	end
 
 # TODO
 # 
@@ -16,6 +21,20 @@ module FrontendController
 # 
 	
 	def viewmodel
+		already_answered = []
+		entries = $application.answers.where(fb_user_id: $fb_user.id)
+		for entry in entries
+			already_answered << entry.question_id
+		end
+		if already_answered.length > 0
+			if $application.questions.where("id not in (#{already_answered.join(',')})").where("active = true").length > 0
+				@questions = $application.questions.where("id not in (#{already_answered.join(',')})")
+			else
+				@questions = []
+			end
+		else
+			@questions = $application.questions
+		end
 	end
 
 	def save

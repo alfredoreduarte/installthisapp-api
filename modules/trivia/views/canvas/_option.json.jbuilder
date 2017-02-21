@@ -1,0 +1,1 @@
+json.extract! option, :id, :text, :correct, :question_id, :position
