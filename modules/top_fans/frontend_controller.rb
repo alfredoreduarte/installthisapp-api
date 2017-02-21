@@ -17,8 +17,8 @@ module FrontendController
 		end
 		response = {
 			success: true,
-			likes: results_likes.first(10),
-			comments: results_comments.first(10),
+			likes: results_likes.first(50),
+			comments: results_comments.first(50),
 		}
 		respond_to do |format|
 			format.json { render json: response }
