@@ -1,0 +1,23 @@
+{
+	"appTitle": "<%= $application.title %>",
+	"payload": {
+		"questions": [
+			<% @questions.each do |question| %>
+			{
+				"id": <%= question.id %>,
+				"text": "<%= question.text %>",
+				"options": [
+					<% question.options.each do |option| %>
+					{
+						"id": <%= option.id %>,
+						"text": "<%= option.text %>",
+						"correct": <%= option.correct %>,
+						"position": <%= option.position %>
+					}<%=',' unless option == question.options.last%>
+					<% end %>
+				]
+			}<%=',' unless question == @questions.last%>
+			<% end %>
+		]
+	}
+}
