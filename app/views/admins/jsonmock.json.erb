@@ -35,7 +35,7 @@
 					"title": "<%= app.title %>",
 					"application_type": "<%= app.application_type %>",
 					"status": "<%= app.status %>",
-					"canvasId": "<%= app.installed? ? app.fb_application.canvas_id : 'null' %>",
+					"canvasId": "<%= app.installed? && app.fb_application ? app.fb_application.canvas_id : 'null' %>",
 					"fbPageId": <%= app.fb_page ? app.fb_page.id : 'null' %>,
 					"fbPageIdentifier": <%= app.fb_page ? app.fb_page.identifier : 'null' %>,
 					"users": <%= app.fb_users.length %>	
