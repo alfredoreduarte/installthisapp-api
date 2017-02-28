@@ -6,6 +6,18 @@ class Application
 		logger.info("/*/*/*/*/*/ INSTALL CALLBACK: OVERRIDE THIS! /*/*/*/*/*/")
 	end
 
+	def uninstall_callback
+		logger.info("/*/*/*/*/*/ UNINSTALL CALLBACK: OVERRIDE THIS! /*/*/*/*/*/")
+	end
+
+	def uninstall_tab_callback
+		logger.info("/*/*/*/*/*/ UNINSTALL TAB CALLBACK: OVERRIDE THIS! /*/*/*/*/*/")
+	end
+
+	def install_tab_callback
+		logger.info("/*/*/*/*/*/ UNINSTALL TAB CALLBACK: OVERRIDE THIS! /*/*/*/*/*/")
+	end
+
 	def stats_summary
 		return {
 			stats_summary: [

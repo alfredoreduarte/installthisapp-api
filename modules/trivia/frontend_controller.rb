@@ -44,7 +44,7 @@ module FrontendController
 		for question in save_params[:details]
 			answer = $application.answers.new(
 				:correct => question[:correct], 
-				:option_id => question[:option],
+				:option_id => question[:option] || -1,
 				:fb_user_id => $fb_user.id,
 				:question_id => question[:question],
 				:fb_user_summary_id => user_summary.id

@@ -10,8 +10,8 @@ module BackendController
 	end
 
 	def questions_create
-		hash = params.deep_symbolize_keys
-		question = @application.questions.create(hash[:question])
+		# hash = params.deep_symbolize_keys
+		question = @application.questions.create(question_params)
 		response = {
 			questions: [
 				@application.questions.find(question.id).as_json(include: :options)
