@@ -45,8 +45,12 @@ class Application < ApplicationRecord
 
 	def assign_fb_application
 		free_fb_application = FbApplication.find_by(application_type: self.application_type)
-		self.fb_application = free_fb_application
-		self.save
+		if free_fb_application
+			self.fb_application = free_fb_application
+			self.save
+		else
+			logger.info('Could not obtain a FB Application')
+		end
 	end
 
 	def put_tab_on_facebook(fb_page_identifier)
