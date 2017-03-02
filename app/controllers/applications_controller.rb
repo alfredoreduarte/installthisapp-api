@@ -46,8 +46,8 @@ class ApplicationsController < ApplicationController
 	end
 
 	def create
-		if current_admin.can(:create_apps)
-			@application = current_admin.applications.new(application_params)
+		@application = current_admin.applications.new(application_params)
+		if current_admin.can(:create_apps) || @application.application_type == 'trivia'
 			if (@application.save!)
 				load_module
 				generate_css(params[:initial_styles])
