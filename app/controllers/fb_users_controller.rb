@@ -10,6 +10,8 @@ class FbUsersController < ApplicationController
 		end
 		render json: {
 			id: $fb_user.id,
+			name: $fb_user.name,
+			identifier: $fb_user.identifier,
 			api_key: $fb_user.api_key.last.token,
 		}
 	end

@@ -1,4 +1,5 @@
 module BackendController
+
 	def photos
 		@photos = @application.photos
 	end
@@ -22,4 +23,5 @@ module BackendController
 			format.json { render json: {status: 'ok'} }
 		end
 	end
+	
 end

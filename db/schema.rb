@@ -147,14 +147,13 @@ ActiveRecord::Schema.define(version: 20161126184014) do
   end
 
   create_table "module_photo_contest_photos", force: :cascade do |t|
-    t.integer  "application_id",                                  null: false
-    t.integer  "fb_user_id",                                      null: false
+    t.integer  "application_id",                         null: false
+    t.integer  "fb_user_id",                             null: false
     t.text     "caption"
-    t.integer  "votes_count",                         default: 0
-    t.string   "attachment_file_name",    limit: 255
-    t.string   "attachment_content_type", limit: 255
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.integer  "votes_count",                default: 0
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.string   "attachment_url", limit: 255
   end
 
   create_table "module_photo_contest_votes", force: :cascade do |t|

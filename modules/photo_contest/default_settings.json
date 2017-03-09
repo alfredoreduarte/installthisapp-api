@@ -1,5 +1,6 @@
 {
 	"preferences": {
-		"vote_many_times": true
+		"multiple_votes_per_user": false,
+		"multiple_photos_per_user": false
 	}
 }
