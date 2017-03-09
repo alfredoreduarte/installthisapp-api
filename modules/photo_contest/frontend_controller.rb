@@ -12,8 +12,6 @@ module FrontendController
 	end
 
 	def vote
-		logger.info('se puede subir?')
-		logger.info($application.setting.conf["preferences"]["vote_many_times"])
 		vote = $application.votes.new(vote_params)
 		vote.fb_user_id = $fb_user.id
 		vote.save
@@ -29,5 +27,5 @@ module FrontendController
 	def vote_params
 		params.require(:vote).permit(:photo_id)
 	end
-
+	
 end
