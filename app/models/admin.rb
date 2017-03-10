@@ -33,8 +33,8 @@ class Admin < ActiveRecord::Base
 	def can(action)
 		case action
 			when :create_apps
-				# if self.has_subscription || self.email == 'alfredoreduarte@gmail.com'
-				if self.has_subscription
+				if self.has_subscription || self.email == 'alfredoreduarte@gmail.com'
+				# if self.has_subscription
 					# if self.applications.count < 5
 						# return true
 					# else
