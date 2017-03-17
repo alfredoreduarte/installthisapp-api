@@ -1,0 +1,1 @@
+json.extract! question, :id, :text, :application_id, :created_at

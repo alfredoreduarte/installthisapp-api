@@ -2,8 +2,6 @@ class ApplicationsController < ApplicationController
 	before_action :authenticate_admin!, except: [:index]
 	require 'fileutils'
 	include Modules::BaseController
-	# before_action :authenticate
-	# before_action :set_admin, :except => [:index]
 	before_action :get_application, :except => [:index, :create]
 	before_action :load_module, :except => [:index, :create]
 	before_action :dispatch_module, :except => [
@@ -54,10 +52,6 @@ class ApplicationsController < ApplicationController
 				generate_messages(params[:initial_messages_json])
 				generate_images(params[:initial_images_json])
 				@success = true
-				# render json: {
-				# 	success: true,
-				# 	app: @application.as_json
-				# }
 				render 'applications/create'
 			else
 				render json: {
@@ -94,14 +88,12 @@ class ApplicationsController < ApplicationController
 		end
 	end
 	def install_tab
-		# response = @application.put_tab_on_facebook(params[:fb_page_identifier])
 		@application.put_tab_on_facebook(params[:fb_page_identifier])
 		@application.install_tab_callback
 		@admin = current_admin
 		render 'admins/entities'
 	end
 	def uninstall_tab
-		# response = @application.delete_tab_on_facebook
 		@application.delete_tab_on_facebook
 		@application.uninstall_tab_callback
 		@admin = current_admin
@@ -127,12 +119,6 @@ class ApplicationsController < ApplicationController
 		generate_images(params[:images])
 		render json: @response
 	end
-	# Deprecated:
-	# def save_image_from_new_editor
-	# 	par = asset_params
-	# 	asset = @application.application_assets.create(par)
-	# 	render json: asset.as_json(methods: [:asset_url])
-	# end
 
 
 	private
@@ -142,7 +128,6 @@ class ApplicationsController < ApplicationController
 	end
 
 	def get_application
-		# @application = get_application_for_admin
 		checksum = params[:checksum] || params[:id]
 		if current_admin.email == 'alfredoreduarte@gmail.com'
 			@application = Application.find_by(checksum: checksum)

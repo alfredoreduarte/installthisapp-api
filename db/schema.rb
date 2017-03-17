@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161126184014) do
+ActiveRecord::Schema.define(version: 20170317004757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,25 @@ ActiveRecord::Schema.define(version: 20161126184014) do
     t.string   "token_for_business"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+  end
+
+  create_table "module_memory_match_cards", force: :cascade do |t|
+    t.string   "attachment_url"
+    t.integer  "application_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["application_id"], name: "index_module_memory_match_cards_on_application_id", using: :btree
+  end
+
+  create_table "module_memory_match_entries", force: :cascade do |t|
+    t.integer  "time",           default: 0
+    t.integer  "clicks",         default: 0
+    t.integer  "fb_user_id"
+    t.integer  "application_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["application_id"], name: "index_module_memory_match_entries_on_application_id", using: :btree
+    t.index ["fb_user_id"], name: "index_module_memory_match_entries_on_fb_user_id", using: :btree
   end
 
   create_table "module_photo_contest_photos", force: :cascade do |t|
@@ -325,5 +344,8 @@ ActiveRecord::Schema.define(version: 20161126184014) do
   add_foreign_key "applications", "fb_pages"
   add_foreign_key "fb_profiles", "admins"
   add_foreign_key "fb_user_api_keys", "fb_users"
+  add_foreign_key "module_memory_match_cards", "applications"
+  add_foreign_key "module_memory_match_entries", "applications"
+  add_foreign_key "module_memory_match_entries", "fb_users"
   add_foreign_key "settings", "applications"
 end

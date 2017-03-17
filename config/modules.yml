@@ -5,23 +5,15 @@ trivia:
         2: "Application has_many answers TriviaAnswer"
         3: "User has_many user_summaries TriviaUserSummary"
         4: "Application has_many user_summaries TriviaUserSummary" 
-    perms: ""
-    secondary_perms:
-        enter: "public_profile, publish_actions"
-        mobile: "public_profile, publish_actions"
-        form: "public_profile, public_profile"
 photo_contest:
     associations:
         0: "Application has_many photos PhotoContestPhoto"
         1: "User has_many photos PhotoContestPhoto"
         2: "Application has_many votes PhotoContestVote"
         3: "User has_many votes PhotoContestVote"
-    perms: ""
-    secondary_perms:
-        enter: "email, user_friends"
-        form: "email, user_friends"
 top_fans:
-    perms: ""
-    secondary_perms:
-        enter: "email, user_friends"
-        form: "email, user_friends"
+memory_match:
+    associations:
+        0: "Application has_many cards MemoryMatchCard"
+        1: "Application has_many entries MemoryMatchEntry"
+        2: "User has_one entry MemoryMatchEntry"
