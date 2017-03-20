@@ -1,1 +1,1 @@
-json.extract! question, :id, :text, :application_id, :created_at
+json.extract! entry, :id, :points, :application_id, :created_at

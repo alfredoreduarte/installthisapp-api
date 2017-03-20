@@ -1,0 +1,1 @@
+json.partial! partial: 'canvas/card', card: @card
