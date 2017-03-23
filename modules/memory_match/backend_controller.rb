@@ -13,6 +13,16 @@ module BackendController
 		@card = @application.cards.create(card_params)
 	end
 
+	def cards_destroy
+		card = @application.cards.find(params[:id])
+		if card
+			card.destroy
+		end
+		respond_to do |format|
+			format.json { render json: {status: 'ok'} }
+		end
+	end
+
 	private
 
 	def card_params

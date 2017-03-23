@@ -1,1 +1,1 @@
-json.partial! partial: 'canvas/card', card: @card
+json.partial! 'applications/card', card: @card
