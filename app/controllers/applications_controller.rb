@@ -85,12 +85,19 @@ class ApplicationsController < ApplicationController
 	end
 
 	def install
-		install_result = @application.install
-		if install_result == :ok
-			@application.install_callback
-			render json: @application.as_json(include: [:fb_users, :fb_application])
+		if current_admin.can(:publish_apps)
+			install_result = @application.install
+			if install_result == :ok
+				@application.install_callback
+				render json: @application.as_json(include: [:fb_users, :fb_application])
+			else
+				render json: { status: install_result }
+			end
 		else
-			render json: { status: install_result }
+			render json: {
+				success: false,
+				message: "User can't publish apps"
+			}
 		end
 	end
 	def install_tab
