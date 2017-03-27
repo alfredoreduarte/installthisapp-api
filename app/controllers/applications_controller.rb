@@ -83,9 +83,15 @@ class ApplicationsController < ApplicationController
 			install_result = @application.install
 			if install_result == :ok
 				@application.install_callback
-				render json: @application.as_json(include: [:fb_users, :fb_application])
+				render json: {
+					success: true,
+					application: @application.as_json(include: [:fb_users, :fb_application])
+				}
 			else
-				render json: { status: install_result }
+				render json: { 
+					success: false,
+					status: install_result
+				}
 			end
 		else
 			render json: {
