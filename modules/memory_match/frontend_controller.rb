@@ -5,5 +5,10 @@ module FrontendController
 			format.json { render json: $application.setting.conf["preferences"] }
 		end
 	end
+
+	def entities
+		@application = $application
+		@cards = $application.cards
+	end
 	
 end
