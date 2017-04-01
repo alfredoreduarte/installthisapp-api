@@ -1,1 +1,1 @@
-json.extract! entry, :id, :points
+json.extract! entry, :clicks, :time

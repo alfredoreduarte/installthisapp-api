@@ -23,6 +23,16 @@ module BackendController
 		end
 	end
 
+	def entries_destroy
+		entry = @application.entries.find(params[:id])
+		if entry
+			entry.destroy
+		end
+		respond_to do |format|
+			format.json { render json: {status: 'ok'} }
+		end
+	end
+
 	private
 
 	def card_params

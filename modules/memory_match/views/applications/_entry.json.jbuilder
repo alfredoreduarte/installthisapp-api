@@ -1,1 +1,2 @@
-json.extract! entry, :id, :clicks, :time, :user_id, :application_id, :created_at
+json.extract! entry, :id, :clicks, :time, :application_id, :created_at
+json.user entry.fb_user

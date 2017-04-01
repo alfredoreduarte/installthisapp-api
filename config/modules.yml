@@ -16,4 +16,4 @@ memory_match:
     associations:
         0: "Application has_many cards MemoryMatchCard"
         1: "Application has_many entries MemoryMatchEntry"
-        2: "User has_one entry MemoryMatchEntry"
+        2: "FbUser has_one entry MemoryMatchEntry"
