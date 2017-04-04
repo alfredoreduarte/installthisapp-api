@@ -34,7 +34,7 @@ class Admin < ActiveRecord::Base
 		case action
 			when :create_apps
 				return true
-				if self.has_subscription || self.email == 'alfredoreduarte@gmail.com'
+				if self.has_subscription || self.email == 'alfredoreduarte@gmail.com' || self.email == 'sergioruizv@usa.net'
 				# if self.has_subscription
 					# if self.applications.count < 5
 						# return true
@@ -55,7 +55,7 @@ class Admin < ActiveRecord::Base
 				end
 				return true
 			when :publish_apps
-				if self.has_subscription || self.email == 'alfredoreduarte@gmail.com'
+				if self.has_subscription || self.email == 'alfredoreduarte@gmail.com' || self.email == 'sergioruizv@usa.net'
 					return true
 				else
 					if self.created_at + 7.days > Time.now # active free trial
