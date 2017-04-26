@@ -48,17 +48,31 @@ class CanvasController < ApplicationController
 		page_data = fb_auth.payload[:page]
 		fb_page = FbPage.find_by(identifier: page_data['id'])
 		application = fb_application.applications.installed.where(fb_page_id: fb_page.id).first
-		application.module
-		response = {
-			title: application.title,
-			checksum: application.checksum,
-			fb_application_id: application.fb_application.app_id,
-			stylesheet_url: application.application_assets.where(attachment_file_name: "styles.css").last.asset_url,
-			messages_url: application.application_assets.where(attachment_file_name: "messages.json").last.asset_url,
-			images_url: application.application_assets.where(attachment_file_name: "images.json").last.asset_url,
-		}
-		respond_to do |format|
-			format.json { render json: response }
+		if application	
+			application.module
+			response = {
+				title: application.title,
+				checksum: application.checksum,
+				fb_application_id: application.fb_application.app_id,
+				stylesheet_url: application.application_assets.where(attachment_file_name: "styles.css").last.asset_url,
+				messages_url: application.application_assets.where(attachment_file_name: "messages.json").last.asset_url,
+				images_url: application.application_assets.where(attachment_file_name: "images.json").last.asset_url,
+			}
+			respond_to do |format|
+				format.json { render json: response }
+			end
+		else
+			# render plain: "app not found"
+			render json: {
+				error: "Could not find an application associated to this Facebook Page and Facebook app"
+			# }, status: 404
+			}
+			# respond_to do |format|
+			# 	format.json { render json: {
+			# 		status: 'error',
+			# 		message: 'Could not find an application associated to this Facebook Page and Facebook app'
+			# 	}, status: 404 }
+			# end
 		end
 	end
 

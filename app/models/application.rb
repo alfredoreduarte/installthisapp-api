@@ -80,10 +80,10 @@ class Application < ApplicationRecord
 		koala = Koala::Facebook::API.new(page_token)
 		params = {
 			app_id: self.fb_application.app_id,
-			position: 1,
+			# position: 1,
 			custom_name: self.title,
 		}
-		koala.put_connections("me","tabs", params)
+		koala.put_connections("me", "tabs", params)
 		self.installed!
 		self.save!
 		return :ok

@@ -1,21 +1,5 @@
 class AdminsController < ApplicationController
-	before_action :authenticate_admin!, except: [:jsonmock]
-	# before_action :authenticate_admin!, except: [:jsonmock, :index]
-	# before_action 	:authenticate, except: [:create, :jsonmock]
-	# before_action 	:set_admin, except: [:create, :jsonmock]
-
-	# Godview data
-	def jsonmock
-		@admins = Admin.includes(:applications)
-		@apps = Application.all
-		@active_apps = Application.installed.all
-		@pages = FbPage.all
-		@fb_apps = FbApplication.all
-		@plans = SubscriptionPlan.all
-		respond_to do |format|
-			format.json
-		end
-	end
+	before_action :authenticate_admin!, except: [:index]
 
 	def entities
 		@admin = current_admin
@@ -24,7 +8,7 @@ class AdminsController < ApplicationController
 
 	def index
 		# working:
-		admins = Rails.cache.fetch("all_adminss", :expires_in => 1.minute) do
+		admins = Rails.cache.fetch("all_admins", :expires_in => 1.minute) do
 			Admin.all
 		end
 		render json: admins.as_json
