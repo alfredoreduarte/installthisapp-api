@@ -22,5 +22,5 @@ json.fb_apps do
 end
 
 json.plans do
-	json.array! @plans, :id, :name, :stripe_id, :amount, :interval, :trialPeriodDays
+	json.array! @plans, :id, :name, :stripe_id, :amount, :interval, :trial_period_days
 end
