@@ -70,11 +70,11 @@ class MainController < ApplicationController
 		if plan.valid?
 			response = {
 				id: plan.id,
-				stripeId: plan.stripe_id,
+				stripe_id: plan.stripe_id,
 				name: plan.name,
 				amount: plan.amount,
 				interval: plan.interval,
-				trialPeriodDays: plan.trial_period_days,
+				trial_period_days: plan.trial_period_days,
 			}
 		else
 			response = {
