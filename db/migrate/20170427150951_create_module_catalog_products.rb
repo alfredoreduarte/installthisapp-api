@@ -28,7 +28,9 @@ class CreateModuleCatalogProducts < ActiveRecord::Migration[5.0]
 
 			# Attached media
 			t.integer :featured_image_id
-			t.text :gallery_media_ids, array: true, default: []			
+			t.text :gallery_media_ids, array: true, default: []
+
+			t.references :application, foreign_key: true
 
 			t.timestamps
 		end

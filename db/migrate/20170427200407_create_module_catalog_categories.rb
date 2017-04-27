@@ -13,6 +13,10 @@ class CreateModuleCatalogCategories < ActiveRecord::Migration[5.0]
 			# Custom fields
 			t.integer :featured_image_id
 			t.string :slug
+
+			t.references :application, foreign_key: true
+
+			t.timestamps
 		end
 	end
 end
