@@ -55,6 +55,8 @@ GEM
       public_suffix (~> 2.0, >= 2.0.2)
     arel (7.1.4)
     attr_required (1.0.1)
+    awesome_nested_set (3.1.2)
+      activerecord (>= 4.0.0, < 5.1)
     aws-sdk (2.7.7)
       aws-sdk-resources (= 2.7.7)
     aws-sdk-core (2.7.7)
@@ -284,6 +286,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_nested_set
   aws-sdk (~> 2)
   byebug
   coffee-rails (~> 4.2)
