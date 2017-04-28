@@ -4,6 +4,12 @@ module BackendController
 		render json: @application.setting
 	end
 
+	def entities
+		@products = @application.products
+		@categories = @application.categories
+		@media = @application.media
+	end
+
 	# 
 	# Products
 	# 

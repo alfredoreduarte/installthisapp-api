@@ -1,3 +1,3 @@
-json.entries do
-	json.array! @entries, partial: 'applications/entry', as: :entry
+json.products do
+	json.array! @products, partial: 'applications/product', as: :product
 end
