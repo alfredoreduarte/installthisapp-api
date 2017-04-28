@@ -81,4 +81,20 @@ elsif Rails.env == "development"
 		canvas_id: "app3", 
 		namespace: "ita_dev_i_iii",
 	)
+	FbApplication.create(
+		name: "Memory Match", 
+		app_id: "1303618956340973",
+		secret_key: "a3a58110eeb29f8f423f48dfb2193f4f", 
+		application_type: "memory_match", 
+		canvas_id: "app4", 
+		namespace: "ita_dev_i_iv",
+	)
+	FbApplication.create(
+		name: "Catalog", 
+		app_id: "639649409573258",
+		secret_key: "560b4be68a7f53ea091ebee7b151b07d", 
+		application_type: "catalog", 
+		canvas_id: "app5", 
+		namespace: "ita_dev_i_v",
+	)
 end

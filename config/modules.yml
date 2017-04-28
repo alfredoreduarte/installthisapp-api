@@ -17,3 +17,8 @@ memory_match:
         0: "Application has_many cards MemoryMatchCard"
         1: "Application has_many entries MemoryMatchEntry"
         2: "FbUser has_one entry MemoryMatchEntry"
+memory_match:
+    associations:
+        0: "Application has_many products CatalogProduct"
+        1: "Application has_many categories CatalogCategory"
+        2: "Application has_many media CatalogMedium"
