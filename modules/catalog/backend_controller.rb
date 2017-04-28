@@ -32,7 +32,7 @@ module BackendController
 
 	def product_params
 		params.require(:product).permit(
-			:id,
+			# :id,
 			:name,
 			:slug,
 			:status,
@@ -53,14 +53,15 @@ module BackendController
 
 	def category_params
 		params.require(:category).permit(
-			:id,
+			# :id,
 			:name,
+			:parent_id,
 		)
 	end
 
 	def medium_params
 		params.require(:medium).permit(
-			:id,
+			# :id,
 			:attachment_url,
 			:attachment_type,
 			:attachment_alt,

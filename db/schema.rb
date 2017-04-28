@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170317004757) do
+ActiveRecord::Schema.define(version: 20170427213915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,56 @@ ActiveRecord::Schema.define(version: 20170317004757) do
     t.string   "token_for_business"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+  end
+
+  create_table "module_catalog_categories", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.integer  "lft",                           null: false
+    t.integer  "rgt",                           null: false
+    t.integer  "depth",             default: 0, null: false
+    t.integer  "children_count",    default: 0, null: false
+    t.integer  "featured_image_id"
+    t.string   "slug"
+    t.integer  "application_id"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["application_id"], name: "index_module_catalog_categories_on_application_id", using: :btree
+    t.index ["lft"], name: "index_module_catalog_categories_on_lft", using: :btree
+    t.index ["parent_id"], name: "index_module_catalog_categories_on_parent_id", using: :btree
+    t.index ["rgt"], name: "index_module_catalog_categories_on_rgt", using: :btree
+  end
+
+  create_table "module_catalog_media", force: :cascade do |t|
+    t.string   "attachment_url"
+    t.string   "attachment_type"
+    t.string   "attachment_alt"
+    t.integer  "application_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["application_id"], name: "index_module_catalog_media_on_application_id", using: :btree
+  end
+
+  create_table "module_catalog_products", force: :cascade do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.integer  "status",            default: 0
+    t.boolean  "featured",          default: false
+    t.text     "description"
+    t.string   "short_description"
+    t.string   "price"
+    t.string   "regular_price"
+    t.string   "sale_price"
+    t.datetime "on_sale_from"
+    t.datetime "on_sale_to"
+    t.integer  "menu_order"
+    t.text     "category_ids",      default: [],                 array: true
+    t.integer  "featured_image_id"
+    t.text     "gallery_media_ids", default: [],                 array: true
+    t.integer  "application_id"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.index ["application_id"], name: "index_module_catalog_products_on_application_id", using: :btree
   end
 
   create_table "module_memory_match_cards", force: :cascade do |t|
@@ -344,6 +394,9 @@ ActiveRecord::Schema.define(version: 20170317004757) do
   add_foreign_key "applications", "fb_pages"
   add_foreign_key "fb_profiles", "admins"
   add_foreign_key "fb_user_api_keys", "fb_users"
+  add_foreign_key "module_catalog_categories", "applications"
+  add_foreign_key "module_catalog_media", "applications"
+  add_foreign_key "module_catalog_products", "applications"
   add_foreign_key "module_memory_match_cards", "applications"
   add_foreign_key "module_memory_match_entries", "applications"
   add_foreign_key "module_memory_match_entries", "fb_users"
