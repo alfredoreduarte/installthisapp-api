@@ -155,9 +155,9 @@ module BackendController
 				:on_sale_from,
 				:on_sale_to,
 				:menu_order,
-				:category_ids,
+				{:category_ids => []},
 				:featured_image_id,
-				:gallery_media_ids,
+				{:gallery_media_ids => []},
 			)
 		end
 
