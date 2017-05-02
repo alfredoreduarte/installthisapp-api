@@ -1,0 +1,1 @@
+json.partial! "applications/categories/category", category: @category

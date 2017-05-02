@@ -10,7 +10,7 @@ class ApplicationsController < ApplicationController
 
 	def index
 		render json: {
-			apps: Application.installed.as_json,
+			apps: Application.all.as_json,
 		}
 	end
 	def styles

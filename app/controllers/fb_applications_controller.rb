@@ -7,25 +7,35 @@ class FbApplicationsController < ApplicationController
 	end
 
 	def create
-		hash = params.deep_symbolize_keys
-		fbApp = FbApplication.create(
-			name: hash[:name],
-			app_id: hash[:applicationId],
-			secret_key: hash[:secretCode],
-			application_type: hash[:type],
-			canvas_id: hash[:canvasId],
-			namespace: hash[:namespace]
-		)
-		if fbApp.valid?
-			response = {
-				id: fbApp.id,
-				name: fbApp.name,
-				applicationId: fbApp.app_id,
-				secretCode: fbApp.secret_key,
-				type: fbApp.application_type,
-				canvasId: fbApp.canvas_id,
-				namespace: fbApp.namespace
-			}
+		# hash = params.deep_symbolize_keys
+		# logger.info('losparams')
+		# logger.info(params.inspect)
+		# fbApp = FbApplication.create(
+			# name: hash[:name],
+			# app_id: hash[:appId],
+			# secret_key: hash[:secret_key],
+		# 	application_type: hash[:application_type],
+		# 	canvas_id: hash[:canvas_id],
+		# 	namespace: hash[:namespace]
+		# )
+		# if fbApp.valid?
+		# 	response = {
+		# 		id: fbApp.id,
+		# 		name: fbApp.name,
+		# 		app_id: fbApp.app_id,
+		# 		secret_key: fbApp.secret_key,
+		# 		application_type: fbApp.application_type,
+		# 		canvas_id: fbApp.canvas_id,
+		# 		namespace: fbApp.namespace
+		# 	}
+		# else
+		# 	response = {
+		# 		error: fbApp.errors.full_messages,
+		# 	}
+		# end
+		@fb_application = FbApplication.create(fb_application_params)
+		if @fb_application.valid?
+			response = @fb_application.as_json
 		else
 			response = {
 				error: fbApp.errors.full_messages,
@@ -50,5 +60,18 @@ class FbApplicationsController < ApplicationController
 		respond_to do |format|
 			format.json { render json: response }
 		end
+	end
+
+	private
+
+	def fb_application_params
+		params.require(:fb_application).permit(
+			:name,
+			:app_id,
+			:secret_key,
+			:application_type,
+			:canvas_id,
+			:namespace,
+		)
 	end
 end

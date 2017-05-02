@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 	resources :fb_pages
 	resources :fb_profiles
 	match '/applications/:checksum/:action.json', to: "applications#:action", via: [:get, :post, :delete, :put, :patch]
+	match '/applications/:checksum/:action/:id.json', to: "applications#:action", via: [:get, :post, :delete, :put, :patch]
 
 	# 
 	# CANVAS

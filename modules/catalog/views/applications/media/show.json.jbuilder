@@ -1,0 +1,1 @@
+json.partial! "applications/media/medium", medium: @medium

@@ -1,1 +1,0 @@
-json.extract! product, :id, :name, :slug, :status, :created_at

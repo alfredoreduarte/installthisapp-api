@@ -11,6 +11,7 @@ class Application < ApplicationRecord
 	has_one 		:setting
 
 	before_create 	:generate_checksum
+	before_create 	:assign_fb_application
 	after_create 	:create_setting
 
 	attr_accessor 	:module_loaded
@@ -37,17 +38,20 @@ class Application < ApplicationRecord
 	end
 
 	def install
-		self.assign_fb_application
+		# self.assign_fb_application
 		self.installed!
 		self.save
 		return :ok
 	end
 
 	def assign_fb_application
+		logger.info('assigning!')
+		logger.info(self.application_type)
 		free_fb_application = FbApplication.find_by(application_type: self.application_type)
+		logger.info(free_fb_application)
 		if free_fb_application
 			self.fb_application = free_fb_application
-			self.save
+			# self.save
 		else
 			logger.info('Could not obtain a FB Application')
 		end
@@ -55,7 +59,7 @@ class Application < ApplicationRecord
 
 	def put_tab_on_facebook(fb_page_identifier)
 		# fb_page = FbPage.find(self.fb_page_id)
-		self.assign_fb_application
+		# self.assign_fb_application
 		fb_page = FbPage.find_by(identifier: fb_page_identifier)
 		self.fb_page = fb_page
 		# installed_apps = Application.installed.where("fb_page_id = '#{fb_page.id}' and application_type = '#{self.application_type}'")
