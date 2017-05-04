@@ -1,1 +1,1 @@
-json.extract! category, :id, :application_id, :name, :slug, :created_at
+json.extract! category, :id, :application_id, :name, :slug, :lft, :parent_id, :created_at
