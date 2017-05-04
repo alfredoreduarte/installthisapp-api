@@ -2,11 +2,17 @@ class CatalogProduct < ActiveRecord::Base
 	self.table_name = "module_catalog_products"
 	enum status: { draft: 0, published: 1, deleted: 2 }
 	belongs_to 	:application
+	before_save :sanitize_slug
 	before_save :sanitize_category_ids
 	before_save :sanitize_image_ids
 
 	def categories
 		return CatalogCategory.find(self.category_ids)
+	end
+
+	def sanitize_slug
+		slug = self.slug ? self.slug : self.name
+		self.slug = slug.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
 	end
 
 	def sanitize_category_ids
