@@ -27,8 +27,9 @@ module BackendController
 
 	def entries
 		# remove this ONLY after dumping top fans in V2
-		los_ids = FbPage.pluck(:identifier)
-		TopFansCleanupJob.perform_later(los_ids)
+		# UPDATE: removed!
+		# los_ids = FbPage.pluck(:identifier)
+		# TopFansCleanupJob.perform_later(los_ids)
 		# 
 		fb_page = @application.fb_page
 		if fb_page
