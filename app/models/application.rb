@@ -11,6 +11,7 @@ class Application < ApplicationRecord
 	has_one 		:setting
 
 	before_create 	:generate_checksum
+	before_create 	:assign_fb_application
 	after_create 	:create_setting
 
 	attr_accessor 	:module_loaded
