@@ -1,5 +1,6 @@
 {
 	"preferences": {
-		"currency": "US$"
+		"currency": "US$",
+		"message_recipients": "",
 	}
 }
