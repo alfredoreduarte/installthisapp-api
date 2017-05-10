@@ -1,0 +1,1 @@
+json.extract! medium, :id, :application_id, :attachment_url, :created_at

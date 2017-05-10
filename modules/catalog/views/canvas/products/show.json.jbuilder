@@ -1,0 +1,1 @@
+json.partial! "applications/products/product", product: @product
