@@ -10,6 +10,14 @@ class CatalogProduct < ActiveRecord::Base
 		return CatalogCategory.find(self.category_ids)
 	end
 
+	def gallery
+		return CatalogMedium.find([self.featured_image_id] + self.gallery_media_ids)
+	end
+
+	def permalink
+		return "/#{self.application.fb_application.canvas_id}/#{self.application.checksum}/#{self.slug}"
+	end
+
 	def sanitize_slug
 		slug = self.slug ? self.slug : self.name
 		self.slug = slug.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')

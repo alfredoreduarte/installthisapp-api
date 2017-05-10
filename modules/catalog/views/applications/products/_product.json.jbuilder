@@ -17,4 +17,5 @@ json.extract! product,
 	:gallery_media_ids,
 	:category_ids,
 	:categories,
+	:permalink,
 	:created_at
