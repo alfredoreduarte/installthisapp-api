@@ -10,8 +10,12 @@ class CatalogProduct < ActiveRecord::Base
 		return CatalogCategory.find(self.category_ids)
 	end
 
-	def gallery
+	def media
 		return CatalogMedium.find([self.featured_image_id] + self.gallery_media_ids)
+	end
+
+	def featured_image
+		return CatalogMedium.find(self.featured_image_id)
 	end
 
 	def permalink

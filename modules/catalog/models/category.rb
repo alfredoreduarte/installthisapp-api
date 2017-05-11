@@ -4,6 +4,6 @@ class CatalogCategory < ActiveRecord::Base
 	belongs_to 	:application
 
 	def permalink
-		return "/#{self.application.fb_application.canvas_id}/#{self.application.checksum}/#{self.slug}"
+		return "/#{self.application.fb_application.canvas_id}/#{self.application.checksum}/categories/#{self.slug}"
 	end
 end

@@ -9,6 +9,7 @@ module FrontendController
 	def entities
 		@application = $application
 		@products = @application.products.published
+		# @products = @application.products.published.includes(:categories, :media)
 		# categories array
 		category_ids = []
 		otrosids = []
