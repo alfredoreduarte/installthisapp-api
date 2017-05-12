@@ -1,6 +1,5 @@
 json.extract! medium, 
-	:id, 
-	# :application_id,
+	:id,
 	:attachment_url, 
 	:original, 
 	:thumbnail, 

@@ -1,6 +1,5 @@
 json.extract! product,
 	:id,
-	# :application_id,
 	:name,
 	:slug,
 	# :status,
@@ -14,10 +13,6 @@ json.extract! product,
 	:on_sale_to,
 	:menu_order,
 	:featured_image,
-	# :gallery_media_ids,
-	# :category_ids,
-	# :categories,
-	# :media,
 	:permalink,
 	:created_at
 json.media do

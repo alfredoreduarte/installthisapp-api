@@ -1,6 +1,5 @@
 json.extract! category, 
 	:id, 
-	# :application_id, 
 	:name, 
 	:slug, 
 	:lft, 
