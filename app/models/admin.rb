@@ -55,7 +55,7 @@ class Admin < ActiveRecord::Base
 				end
 				return true
 			when :publish_apps
-				if self.has_subscription || self.email == 'alfredoreduarte@gmail.com' || self.email == 'sergioruizv@usa.net'
+				if self.has_subscription || self.id.to_i == 1 || self.id.to_i == 421 || self.id.to_i == 590
 					return true
 				else
 					if self.created_at + 7.days > Time.now # active free trial
