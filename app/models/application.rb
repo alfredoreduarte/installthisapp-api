@@ -48,7 +48,7 @@ class Application < ApplicationRecord
 		free_fb_application = FbApplication.find_by(application_type: self.application_type)
 		if free_fb_application
 			self.fb_application = free_fb_application
-			self.save
+			# self.save
 		else
 			logger.info('Could not obtain a FB Application')
 		end
