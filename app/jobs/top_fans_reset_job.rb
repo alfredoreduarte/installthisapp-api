@@ -14,14 +14,14 @@ class TopFansResetJob < ApplicationJob
 			page_token = user_graph.get_page_access_token(fb_page_identifier)
 			koala = Koala::Facebook::API.new(page_token)
 			elfeed = koala.get_connection('me', 'feed', since: start_date, limit: 10, fields: ['id', 'created_time'])
-			begin
+			loop do
 				elfeed.each do |post|
 					page_id = fb_page_identifier
 					parent_id = post["id"]
 					post_id = post["id"]
 					comments = koala.get_connections(post["id"], "comments", limit: 20)
 					if comments
-						begin
+						loop do
 							comments.each do |comment|
 								SaveFbCommentJob.perform_now(page_id, {
 									post_id: post_id,
@@ -34,11 +34,13 @@ class TopFansResetJob < ApplicationJob
 								})
 							end
 							comments = comments.next_page
-						end while comments != nil
+						# end while comments != nil
+							break unless comments != nil
+						end
 					end
 					likes = koala.get_connections(post["id"], "likes", limit: 20, fields: ['name', 'created_time'])
 					if likes
-						begin
+						loop do
 							likes.each do |like|
 								SaveFbLikeJob.perform_now(page_id, {
 									parent_id: parent_id,
@@ -48,11 +50,13 @@ class TopFansResetJob < ApplicationJob
 								})
 							end
 							likes = likes.next_page
-						end while likes != nil
+							break unless likes != nil
+						end
 					end
 				end
 				elfeed = elfeed.next_page
-			end while elfeed != nil
+				break unless elfeed != nil
+			end
 		end
 	end
 end

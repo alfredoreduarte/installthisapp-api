@@ -5,10 +5,10 @@ require 'resque/pool/tasks'
 # and preload the rails environment in the pool manager
 task "resque:setup" => :environment do
 	# generic worker setup, e.g. Hoptoad for failed jobs
-	Resque.before_fork = Proc.new do |job|
+	Resque.before_fork = Proc.new do
 		ActiveRecord::Base.connection.disconnect!
 	end
-	Resque.after_fork = Proc.new do |job|
+	Resque.after_fork = Proc.new do
 		ActiveRecord::Base.establish_connection
 	end
 end

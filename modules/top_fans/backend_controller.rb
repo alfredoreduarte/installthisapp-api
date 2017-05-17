@@ -77,5 +77,4 @@ module BackendController
 			}
 		}
 	end
-	private
 end
