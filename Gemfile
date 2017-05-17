@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.3.1'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 # Use postgresql as the database for Active Record
@@ -19,7 +18,7 @@ gem 'coffee-rails', '~> 4.2'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-# Turbolinks makes navigating your web application faster. 
+# Turbolinks makes navigating your web application faster.
 # Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -33,17 +32,21 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  # Call 'byebug' anywhere in the code to stop execution
+  # and get a debugger console
   gem 'byebug', platform: :mri
   gem 'foreman'
 end
 
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console'
+  # Access an IRB console on exception pages or by using
+  # <%= console %> anywhere in the code.
   gem 'listen', '~> 3.0.5'
-  # Spring speeds up development by keeping your application running in the background. 
+  gem 'web-console'
+  # Spring speeds up development by keeping your application
+  # running in the background.
   # Read more: https://github.com/rails/spring
+  gem 'rubocop', '~> 0.48.1'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
@@ -56,12 +59,13 @@ gem 'fb_graph2'
 gem 'koala', '~> 3.0'
 
 # Paperclip
-gem "paperclip"
+gem 'paperclip'
 
 # Paperclip AWS S3 integration
 gem 'aws-sdk', '~> 2'
 
-# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS),
+# making cross-origin AJAX possible
 gem 'rack-cors'
 
 # gem 'mongoid', '~> 5.1.0'
@@ -72,15 +76,15 @@ gem 'faraday'
 gem 'sentry-raven'
 
 gem 'devise'
-gem 'omniauth'
 gem 'devise_token_auth'
+gem 'omniauth'
 gem 'sendgrid-ruby'
 
 # gem 'resque', "~> 1.22.0"
 # gem 'resque', "~> 1.24.1"
 gem 'resque'
-gem 'sinatra', github: 'sinatra'
 gem 'resque-pool'
+gem 'sinatra', github: 'sinatra'
 
 gem 'payola-payments'
 

@@ -131,7 +131,7 @@ class Application < ApplicationRecord
 		return facebook_page_loaded
 	end
 
-	def module(setting_flags={})
+	def module(_setting_flags={})
 		if self.module_loaded.nil?
 			self.module_loaded = Modules::Base.load_by_name(self.application_type)
 			self.module_loaded.load_associations

@@ -1,0 +1,8 @@
+AllCops:
+  TargetRubyVersion: 2.3.1
+  Include:
+    - Rakefile
+    - config.ru
+    - lib/**/*.rake
+  Exclude:
+    - db/schema.rb
