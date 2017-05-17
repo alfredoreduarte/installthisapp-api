@@ -24,5 +24,4 @@ module FrontendController
 			format.json { render json: response }
 		end
 	end
-	private
 end

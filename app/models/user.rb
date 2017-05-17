@@ -84,7 +84,7 @@ class User < ApplicationRecord
 	# !New API stuff
 	# =======================
 	
-	def access_token(application_id)
+	def access_token(_application_id)
 		self.access_tokens
 	end
 	

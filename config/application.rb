@@ -28,8 +28,8 @@ module ItaApi
     # http://stackoverflow.com/questions/6372626/using-active-record-generators-after-mongoid-installation
     # 
     config.generators do |g| 
-  		g.orm :active_record 
-  	end
+      g.orm :active_record 
+    end
   end
   require Rails.root.join('lib', 'modules.rb').to_s
 
