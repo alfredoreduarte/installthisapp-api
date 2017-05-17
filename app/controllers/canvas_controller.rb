@@ -86,7 +86,7 @@ class CanvasController < ApplicationController
 	private
 
 	def authenticate_user
-		authenticate_or_request_with_http_token do |token, options|
+		authenticate_or_request_with_http_token do |token, _options|
 			api_key = FbUserApiKey.find_by(token: token)
 			logger.info('el token')
 			logger.info(api_key.token)
