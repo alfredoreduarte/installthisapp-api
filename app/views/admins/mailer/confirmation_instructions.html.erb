@@ -1,5 +1,7 @@
-<p>Hi <%= @email %>! Welcome, and thanks for joining InstallThisApp</p>
+<h2>Hi <%= @email %>!</h2>
 
-<p>You can confirm your account email through the link below:</p>
+<p>Welcome, and thanks for joining InstallThisApp</p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<p>Please click below to confirm your email address:</p>
+
+<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token, config: message['client-config'].to_s, redirect_url: message['redirect-url'].to_s) %></p>

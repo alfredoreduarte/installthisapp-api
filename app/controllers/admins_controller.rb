@@ -53,7 +53,7 @@ class AdminsController < ApplicationController
 	# private
 
 	# def admin_user_params
-	# 	params.require(:admin_user).permit(:name, :email)
+		# params.require(:admin).permit(:name, :email)
 	# end
 
 	# caches_page   :index
