@@ -1,9 +1,9 @@
 class Admin < ActiveRecord::Base
 	# Include default devise modules.
-	devise :database_authenticatable, :registerable,
-	      :recoverable, :rememberable, :trackable, :validatable,
-	      # :confirmable, :omniauthable
-	      :omniauthable
+	devise 	:database_authenticatable, :registerable,
+			:recoverable, :rememberable, :trackable, :validatable,
+			:confirmable
+			# :omniauthable
 	# TODO - BUG FIX
 	# Des-comentar para staging, ver cómo arreglar para normalizar entre staging y producción
 	# serialize :tokens, JSON

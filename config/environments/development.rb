@@ -68,11 +68,13 @@ Rails.application.configure do
 		}
 	}
 
-	# Rails.application.configure do
-		# config.action_mailer.default_url_options = { :host => 'https://localhost.ssl:3000' }
-		# config.action_mailer.delivery_method = :smtp
-		# config.action_mailer.smtp_settings = { :address => 'localhost.ssl', :port => 1025 }
-	# end
+	# 
+	# Devise-token-auth email authentication using mailcatcher
+	# https://mailcatcher.me/
+	# https://github.com/lynndylanhurley/devise_token_auth#email-authentication
+	# config.action_mailer.default_url_options = { :host => ENV['HOST_URL'] }
+	# config.action_mailer.delivery_method = :smtp
+	# config.action_mailer.smtp_settings = { :address => 'localhost', :port => 1025 }
 
 	# Sendgrid
 	config.action_mailer.default_url_options = { :host => ENV['HOST_URL'] }
