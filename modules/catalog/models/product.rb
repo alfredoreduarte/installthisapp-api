@@ -2,6 +2,7 @@ class CatalogProduct < ActiveRecord::Base
 	self.table_name = "module_catalog_products"
 	enum status: { draft: 0, published: 1, deleted: 2 }
 	belongs_to 	:application
+	has_many 	:messages, class_name: "CatalogMessage", foreign_key: :product_id, dependent: :destroy
 	before_save :sanitize_slug
 	before_save :sanitize_category_ids
 	before_save :sanitize_image_ids

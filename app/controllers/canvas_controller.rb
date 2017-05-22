@@ -4,6 +4,7 @@ class CanvasController < ApplicationController
 		:auth, 
 		:standalone_auth, 
 		:viewmodel, 
+		:messages_create,
 		:entities, 
 		:entries, 
 		:settings

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170427213915) do
+ActiveRecord::Schema.define(version: 20170522034616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -172,6 +172,21 @@ ActiveRecord::Schema.define(version: 20170427213915) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["application_id"], name: "index_module_catalog_media_on_application_id", using: :btree
+  end
+
+  create_table "module_catalog_messages", force: :cascade do |t|
+    t.string   "email"
+    t.string   "name"
+    t.string   "phone"
+    t.text     "content"
+    t.integer  "module_catalog_products_id"
+    t.integer  "fb_user_id"
+    t.integer  "application_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["application_id"], name: "index_module_catalog_messages_on_application_id", using: :btree
+    t.index ["fb_user_id"], name: "index_module_catalog_messages_on_fb_user_id", using: :btree
+    t.index ["module_catalog_products_id"], name: "index_module_catalog_messages_on_module_catalog_products_id", using: :btree
   end
 
   create_table "module_catalog_products", force: :cascade do |t|
@@ -396,6 +411,9 @@ ActiveRecord::Schema.define(version: 20170427213915) do
   add_foreign_key "fb_user_api_keys", "fb_users"
   add_foreign_key "module_catalog_categories", "applications"
   add_foreign_key "module_catalog_media", "applications"
+  add_foreign_key "module_catalog_messages", "applications"
+  add_foreign_key "module_catalog_messages", "fb_users"
+  add_foreign_key "module_catalog_messages", "module_catalog_products", column: "module_catalog_products_id"
   add_foreign_key "module_catalog_products", "applications"
   add_foreign_key "module_memory_match_cards", "applications"
   add_foreign_key "module_memory_match_entries", "applications"

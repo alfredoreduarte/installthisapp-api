@@ -22,3 +22,4 @@ catalog:
         0: "Application has_many products CatalogProduct"
         1: "Application has_many categories CatalogCategory"
         2: "Application has_many media CatalogMedium"
+        2: "Application has_many messages CatalogMessage"

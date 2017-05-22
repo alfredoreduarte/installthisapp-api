@@ -69,7 +69,7 @@ Rails.application.configure do
 	}
 
 	# 
-	# Devise-token-auth email authentication using mailcatcher
+	# Mailcatcher for locally-handled emails
 	# https://mailcatcher.me/
 	# https://github.com/lynndylanhurley/devise_token_auth#email-authentication
 	# config.action_mailer.default_url_options = { :host => ENV['HOST_URL'] }
