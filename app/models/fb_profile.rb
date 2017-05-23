@@ -3,15 +3,14 @@ class FbProfile < ApplicationRecord
 	has_and_belongs_to_many :fb_pages
 	attr_accessor :signed_request
 
-	def sign_in
+	def sign_in(signed_request)
 
 		# Initialize our own fb app
 		fb_auth = FbGraph2::Auth.new(ENV['FB_APP_ID'], ENV['FB_SECRET_KEY'])
 
-		logger.info(fb_auth.inspect)
-
 		# Valudate received signed request 
-		authenticated_signed_request = fb_auth.from_signed_request(self.signed_request).user.fetch
+		# authenticated_signed_request = fb_auth.from_signed_request(self.signed_request).user.fetch
+		authenticated_signed_request = fb_auth.from_signed_request(signed_request).user.fetch
 
 		# Create long-term access token
 		fb_auth.fb_exchange_token = authenticated_signed_request.access_token
@@ -25,9 +24,6 @@ class FbProfile < ApplicationRecord
 		self.name = fetched_fb_profile.name
 		self.first_name = fetched_fb_profile.first_name
 		self.last_name 	= fetched_fb_profile.last_name
-
-		logger.info("elspectito")
-		logger.info(self.inspect)
 
 		return true
 	end
