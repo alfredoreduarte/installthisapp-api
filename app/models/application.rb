@@ -55,6 +55,27 @@ class Application < ApplicationRecord
 	end
 
 	def put_tab_on_facebook(fb_page_identifier)
+		require "logger"
+		user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
+		page_token = user_graph.get_page_access_token(fb_page_identifier)
+		conn = Faraday.new(:url => "#{ENV['FB_GRAPH_URL']}/v2.9/#{fb_page_identifier}/tabs/app_#{self.fb_application.app_id}") do |faraday|
+			faraday.request :url_encoded
+			faraday.response :logger, ::Logger.new(STDOUT), bodies: true
+			faraday.adapter Faraday.default_adapter
+			# faraday.params['app_id'] = self.fb_application.app_id
+			faraday.params['access_token'] = page_token
+		end
+
+		response = conn.post
+		logger.info(response.body)
+		# logger.info(response.inspect)
+
+		self.installed!
+		self.save!
+		return :ok
+	end
+
+	def pput_tab_on_facebook(fb_page_identifier)
 		# fb_page = FbPage.find(self.fb_page_id)
 		self.assign_fb_application
 		fb_page = FbPage.find_by(identifier: fb_page_identifier)
@@ -75,16 +96,27 @@ class Application < ApplicationRecord
 		else
 			return :fb_permission_issue
 		end
+		# Koala::Utils.logger = ActiveRecord::Base::logger
+		# Koala::Utils.level = Logger::DEBUG
 		user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
+		# logger.info(user_graph.get_object('me'))
+		# logger.info('hay token??') # si
+		# logger.info(self.admin.fb_profile.access_token)
+		# logger.info('hay app ID??') # si
+		# logger.info(self.fb_application.app_id)
 		# graph_fb_p = self.graph_facebook_page(fb_page_identifier)
 		page_token = user_graph.get_page_access_token(fb_page_identifier)
-		koala = Koala::Facebook::API.new(page_token)
+		page_graph = Koala::Facebook::API.new(page_token)
+		# logger.info(page_graph.get_object('me'))
 		params = {
-			app_id: self.fb_application.app_id,
+			app_id: self.fb_application.app_id.to_i,
+			# tab: 'app_' + self.fb_application.app_id,
+			# is_non_connection_landing_tab: true,
 			# position: 1,
-			custom_name: self.title,
+			# custom_name: self.title,
 		}
-		koala.put_connections("me", "tabs", params)
+		# page_graph.put_connections("me", "tabs", params)
+		page_graph.put_connections(fb_page_identifier, "tabs", params)
 		self.installed!
 		self.save!
 		return :ok

@@ -93,7 +93,7 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
     execjs (2.7.0)
-    faraday (0.11.0)
+    faraday (0.12.1)
       multipart-post (>= 1.2, < 3)
     fb_graph2 (0.9.1)
       activesupport (>= 3.2)
@@ -303,7 +303,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   devise_token_auth
-  faraday
+  faraday (~> 0.12.1)
   fb_graph2 (~> 0.9)
   foreman
   jbuilder (~> 2.5)
