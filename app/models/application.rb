@@ -55,6 +55,9 @@ class Application < ApplicationRecord
 	end
 
 	def put_tab_on_facebook(fb_page_identifier)
+		self.assign_fb_application
+		fb_page = FbPage.find_by(identifier: fb_page_identifier)
+		self.fb_page = fb_page
 		require "logger"
 		user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
 		page_token = user_graph.get_page_access_token(fb_page_identifier)
