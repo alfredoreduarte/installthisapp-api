@@ -75,6 +75,23 @@ class Application < ApplicationRecord
 		else
 			return :fb_permission_issue
 		end
+
+		# 
+		# Alt
+		# 
+		# Make the request using Faraday directly:
+		# 
+		# require "logger"
+		# conn = Faraday.new(:url => "#{ENV['FB_GRAPH_URL']}/v2.9/#{fb_page_identifier}/tabs/") do |faraday|
+		# 	faraday.request :url_encoded
+		# 	faraday.response :logger, ::Logger.new(STDOUT), bodies: true
+		# 	faraday.adapter Faraday.default_adapter
+		# 	faraday.params['app_id'] = self.fb_application.app_id
+		# 	faraday.params['access_token'] = page_token
+		# end
+		# response = conn.post
+		# logger.info(response.body)
+		# !Alt
 		user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
 		# graph_fb_p = self.graph_facebook_page(fb_page_identifier)
 		page_token = user_graph.get_page_access_token(fb_page_identifier)
