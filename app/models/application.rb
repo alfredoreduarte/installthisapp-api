@@ -17,6 +17,10 @@ class Application < ApplicationRecord
 	attr_accessor 	:module_loaded
 	attr_accessor 	:facebook_page_loaded
 
+	def self.batch_uninstall_expired_apps
+		Application.installed.all.map{ |app| app.uninstall unless app.admin.can(:publish_apps) }
+	end
+
 	def generate_checksum
 		code = nil
 		charset = %w{1 2 3 4 5 6 7 8 9 0 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z}
@@ -132,7 +136,6 @@ class Application < ApplicationRecord
 			tab: 'app_' + self.fb_application.app_id
 		}
 		self.fb_page = nil
-		self.uninstalled!
 		self.save!
 		if koala.delete_connections('me', 'tabs', params)
 			return true

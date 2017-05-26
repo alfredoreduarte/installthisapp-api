@@ -35,10 +35,10 @@ class Admin < ActiveRecord::Base
 			when :create_apps
 				return true
 			when :publish_apps
-				if self.has_subscription || self.id.to_i == 1 || self.id.to_i == 421 || self.id.to_i == 590
+				if self.has_subscription || ENV['FREE_ADMINS'].split(',').map(&:to_i).include?(self.id)
 					return true
 				else
-					if self.created_at + 7.days > Time.now # active free trial
+					if self.created_at + 7.days > Time.now && self.applications.installed.length <= 2 # active free trial
 						return true
 					else # free trial expired
 						return false
