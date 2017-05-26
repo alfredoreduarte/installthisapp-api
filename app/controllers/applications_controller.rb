@@ -79,6 +79,7 @@ class ApplicationsController < ApplicationController
 	end
 
 	def install
+		UninstallExpiredApps.perform_later
 		if current_admin.can(:publish_apps)
 			install_result = @application.install
 			if install_result == :ok
@@ -104,6 +105,7 @@ class ApplicationsController < ApplicationController
 		@application.put_tab_on_facebook(params[:fb_page_identifier])
 		@application.install_tab_callback
 		@admin = current_admin
+		@plans = SubscriptionPlan.all
 		render 'admins/entities'
 	end
 	def uninstall_tab

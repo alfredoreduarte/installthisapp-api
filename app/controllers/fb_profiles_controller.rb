@@ -2,9 +2,10 @@ class FbProfilesController < ApplicationController
 	before_action :authenticate_admin!
 
 	def create
-		current_admin.fb_profile = FbProfile.where(identifier: params[:identifier]).first_or_initialize
-		current_admin.fb_profile.signed_request = params[:signed_request]
-		if current_admin.fb_profile.sign_in
+		fb_profile = FbProfile.where(identifier: params[:identifier]).first_or_initialize
+		fb_profile.signed_request = params[:signed_request]
+		current_admin.fb_profile = fb_profile
+		if current_admin.fb_profile.sign_in(params[:signed_request])
 			current_admin.fb_profile.save
 			current_admin.fb_profile.fetch_fb_pages
 			@admin = current_admin

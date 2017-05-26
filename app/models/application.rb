@@ -17,6 +17,10 @@ class Application < ApplicationRecord
 	attr_accessor 	:module_loaded
 	attr_accessor 	:facebook_page_loaded
 
+	def self.batch_uninstall_expired_apps
+		Application.installed.all.map{ |app| app.uninstall unless app.admin.can(:publish_apps) }
+	end
+
 	def generate_checksum
 		code = nil
 		charset = %w{1 2 3 4 5 6 7 8 9 0 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z}
@@ -78,6 +82,23 @@ class Application < ApplicationRecord
 		else
 			return :fb_permission_issue
 		end
+
+		# 
+		# Alt
+		# 
+		# Make the request using Faraday directly:
+		# 
+		# require "logger"
+		# conn = Faraday.new(:url => "#{ENV['FB_GRAPH_URL']}/v2.9/#{fb_page_identifier}/tabs/") do |faraday|
+		# 	faraday.request :url_encoded
+		# 	faraday.response :logger, ::Logger.new(STDOUT), bodies: true
+		# 	faraday.adapter Faraday.default_adapter
+		# 	faraday.params['app_id'] = self.fb_application.app_id
+		# 	faraday.params['access_token'] = page_token
+		# end
+		# response = conn.post
+		# logger.info(response.body)
+		# !Alt
 		user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
 		# graph_fb_p = self.graph_facebook_page(fb_page_identifier)
 		page_token = user_graph.get_page_access_token(fb_page_identifier)
@@ -118,7 +139,6 @@ class Application < ApplicationRecord
 			tab: 'app_' + self.fb_application.app_id
 		}
 		self.fb_page = nil
-		self.uninstalled!
 		self.save!
 		if koala.delete_connections('me', 'tabs', params)
 			return true

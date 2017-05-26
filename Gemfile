@@ -55,7 +55,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # FB Graph 2.0+
-gem 'fb_graph2'
+gem 'fb_graph2', '~> 0.9'
 gem 'koala', '~> 3.0'
 
 # Paperclip

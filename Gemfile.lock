@@ -298,7 +298,7 @@ DEPENDENCIES
   devise
   devise_token_auth
   faraday
-  fb_graph2
+  fb_graph2 (~> 0.9)
   foreman
   jbuilder (~> 2.5)
   jquery-rails
