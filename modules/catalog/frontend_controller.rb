@@ -12,7 +12,8 @@ module FrontendController
 	# POST /[checksum]/messages_create.json
 	def messages_create
 		@message = $application.messages.new(message_params)
-		@message.recipients = $application.setting.conf["preferences"]["message_recipients"]
+		recipients_from_settings = $application.setting.conf["preferences"]["message_recipients"]
+		@message.recipients = recipients_from_settings.length > 0 ? recipients_from_settings.lenght : $application.admin.email
 		respond_to do |format|
 			if @message.save
 				format.json { render json: {

@@ -1,7 +1,7 @@
 class CatalogMessage < ActiveRecord::Base
 	self.table_name = "module_catalog_messages"
 	belongs_to 	:application
-	belongs_to 	:product, :class_name => "CatalogProduct"#, counter_cache: :requests_count # should add requests_count column to products first
+	belongs_to 	:product, :class_name => "CatalogProduct", counter_cache: :messages_count # should add requests_count column to products first
 	before_save :enqueue_email
 
 	attr_accessor :recipients

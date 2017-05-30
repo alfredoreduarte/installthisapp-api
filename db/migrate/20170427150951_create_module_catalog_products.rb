@@ -30,6 +30,8 @@ class CreateModuleCatalogProducts < ActiveRecord::Migration[5.0]
 			t.integer :featured_image_id
 			t.text :gallery_media_ids, array: true, default: []
 
+			t.integer :messages_count, null: false, default: 0
+
 			t.references :application, foreign_key: true
 
 			t.timestamps
