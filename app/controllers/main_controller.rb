@@ -45,8 +45,8 @@ class MainController < ApplicationController
 				"value": @admins.length
 			},
 			{
-				"title": "Total Orders",
-				"value": 0
+				"title": "Active Subscriptions",
+				"value": Payola::Subscription.where(state: "active").length
 			}
 		]
 	end

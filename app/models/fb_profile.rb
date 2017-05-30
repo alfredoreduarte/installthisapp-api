@@ -14,7 +14,10 @@ class FbProfile < ApplicationRecord
 
 		# Create long-term access token
 		fb_auth.fb_exchange_token = authenticated_signed_request.access_token
-		self.access_token = fb_auth.access_token!
+		access_token = fb_auth.access_token!
+		logger.info('hay access token?')
+		logger.info(access_token)
+		self.access_token = access_token
 
 		# Get profile data from fb
 		fetched_fb_profile = FbGraph2::User.me(self.access_token).fetch
@@ -30,25 +33,29 @@ class FbProfile < ApplicationRecord
 
 	def fetch_fb_pages
 		# Get profile data from fb
-		fetched_fb_profile = FbGraph2::User.me(self.access_token).fetch
-		fan_pages = fetched_fb_profile.accounts({
-			:fields => "id, name, likes, country_page_likes"
-			}).collect{|p| p unless p.category=="Application"}.compact
+		logger.info('guardado?')
+		logger.info(self.access_token)
+		if self.access_token
+			fetched_fb_profile = FbGraph2::User.me(self.access_token).fetch
+			fan_pages = fetched_fb_profile.accounts({
+				:fields => "id, name, likes, country_page_likes"
+				}).collect{|p| p unless p.category=="Application"}.compact
 
-		unless fan_pages.nil?
-			for fan_page in fan_pages
-				like_count = fan_page.raw_attributes["country_page_likes"].nil? ? fan_page.likes_count.to_i : fan_page.raw_attributes["country_page_likes"].to_i
-				self.fb_pages << FbPage.find_or_initialize_by(identifier: fan_page.id)
-				fb_page = FbPage.find_by(identifier: fan_page.id)
-				fb_page.name = fan_page.name
-				fb_page.like_count = like_count
-				# logger.info("errorcito!")
-				# logger.info(fb_page.errors.inspect)
-				fb_page.save
-				# logger.info("errorcito dos!")
-				# logger.info(fb_page.errors.inspect)
+			unless fan_pages.nil?
+				for fan_page in fan_pages
+					like_count = fan_page.raw_attributes["country_page_likes"].nil? ? fan_page.likes_count.to_i : fan_page.raw_attributes["country_page_likes"].to_i
+					self.fb_pages << FbPage.find_or_initialize_by(identifier: fan_page.id)
+					fb_page = FbPage.find_by(identifier: fan_page.id)
+					fb_page.name = fan_page.name
+					fb_page.like_count = like_count
+					# logger.info("errorcito!")
+					# logger.info(fb_page.errors.inspect)
+					fb_page.save
+					# logger.info("errorcito dos!")
+					# logger.info(fb_page.errors.inspect)
+				end
+				self.save
 			end
-			self.save
 		end
 	end
 end
