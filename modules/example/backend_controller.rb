@@ -1,7 +1,7 @@
 module BackendController
 
-	def settings
-		render json: @application.setting
+	def entities
+		@application = @application
 	end
 
 end

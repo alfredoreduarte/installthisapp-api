@@ -1,7 +1,4 @@
 module BackendController
-	def settings
-		render json: @application.setting
-	end
 
 	def reset
 		start_date = @application.setting.conf["preferences"]["first_fetch_from_date"].to_datetime.to_i

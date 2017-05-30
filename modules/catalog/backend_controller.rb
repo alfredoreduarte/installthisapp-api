@@ -3,10 +3,6 @@ module BackendController
 	# This is an argument in favor of turning modules into engines
 	# before_action :set_product, only: [:products_update, :products_destroy]
 
-	def settings
-		render json: @application.setting
-	end
-
 	def entities
 		@products = @application.products
 		@categories = @application.categories

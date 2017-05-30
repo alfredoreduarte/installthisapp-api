@@ -13,18 +13,21 @@ class ApplicationsController < ApplicationController
 			apps: Application.all.as_json,
 		}
 	end
+	
 	def styles
 		response = {
 			stylesheet_url: @application.application_assets.where(attachment_file_name: "styles.css").last.asset_url,
 		}
 		render json: response
 	end
+
 	def messages
 		response = {
 			messages_url: @application.application_assets.where(attachment_file_name: "messages.json").last.asset_url,
 		}
 		render json: response
 	end
+
 	def images
 		image_dict_assets = @application.application_assets.where(attachment_file_name: "images.json")
 		if image_dict_assets.length > 0
@@ -39,6 +42,13 @@ class ApplicationsController < ApplicationController
 		end
 		render json: response
 	end
+
+	def settings
+		respond_to do |format|
+			format.json { render json: @application.setting.conf["preferences"] }
+		end
+	end
+
 	def stats_summary
 		render json: @application.stats_summary
 	end

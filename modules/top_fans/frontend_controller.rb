@@ -1,9 +1,5 @@
 module FrontendController
-	def settings
-		respond_to do |format|
-			format.json { render json: $application.setting.conf["preferences"] }
-		end
-	end
+	
 	def entries
 		fb_page = $application.fb_page
 		if fb_page

@@ -11,6 +11,12 @@ class CanvasController < ApplicationController
 	]
 	before_action :load_application, :except => [:auth, :standalone_auth]
 
+	def settings
+		respond_to do |format|
+			format.json { render json: $application.setting.conf["preferences"] }
+		end
+	end
+
 	def images
 		image_dict_assets = $application.application_assets.where(attachment_file_name: "images.json")
 		if image_dict_assets.length > 0
