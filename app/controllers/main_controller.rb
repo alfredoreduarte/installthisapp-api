@@ -10,35 +10,26 @@ class MainController < ApplicationController
 		@admins = Rails.cache.fetch("entities_admins", :expires_in => 5.minute) do
 			Admin.includes(:applications)
 		end
-		# @admins = Admin.includes(:applications)
-		# @applications = Application.all
 		@applications = Rails.cache.fetch("entities_applications", :expires_in => 5.minute) do
 			Application.all
 		end
-		# @active_apps = Application.installed.all
-		@active_apps = Rails.cache.fetch("entities_active_applications", :expires_in => 5.minute) do
-			Application.installed.all
-		end
-		# @fb_pages = FbPage.all
 		@fb_pages = Rails.cache.fetch("entities_fb_pages", :expires_in => 5.minute) do
 			FbPage.all
 		end
-		# @fb_apps = FbApplication.all
 		@fb_apps = Rails.cache.fetch("entities_fb_apps", :expires_in => 5.minute) do
 			FbApplication.all
 		end
-		# @plans = SubscriptionPlan.all
 		@plans = Rails.cache.fetch("entities_plans", :expires_in => 5.minute) do
 			SubscriptionPlan.all
 		end
-		@summarydata = [
+		@summary = [
 			{
 				"title": "Total Apps",
 				"value": @applications.length
 			},
 			{
 				"title": "Active Apps",
-				"value": @active_apps.length
+				"value": @applications.installed.length
 			},
 			{
 				"title": "Total Admins",

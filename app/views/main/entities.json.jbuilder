@@ -1,5 +1,5 @@
 json.summary do
-	json.array! @summarydata do |summary|
+	json.array! @summary do |summary|
 		json.title summary[:title]
 		json.value summary[:value]
 	end
