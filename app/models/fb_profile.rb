@@ -1,6 +1,7 @@
 class FbProfile < ApplicationRecord
 	belongs_to :admin
 	has_and_belongs_to_many :fb_pages
+	validates :access_token, presence: true
 	attr_accessor :signed_request
 
 	def sign_in(signed_request)

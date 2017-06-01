@@ -6,21 +6,19 @@ class ApplicationController < ActionController::Base
 	before_action :configure_permitted_parameters, if: :devise_controller?
 	# before_action :set_raven_context
 
-	# edit
-		# class ParamsVerificationFailed < ActionController::BadRequest; end
-		ParamsVerificationFailed = Class.new(ActionController::BadRequest)
-		# class ApiExceptionSerializer < ActiveModel::Serializer
-			# attributes :status, :code, :message
-		# end
+	# 
+	# Custom error types
+	# We're not rescuing from any in order to get notified about them
+	# 
+	# class ParamsVerificationFailed < ActionController::BadRequest; end
+	ParamsVerificationFailed = Class.new(ActionController::BadRequest)
 
-		rescue_from ParamsVerificationFailed, :with => :render_error_response
-		def render_error_response(error)
-			# render json: error, serializer: ApiExceptionsSerializer, status: :bad_request
-			render json: {
-				message: error
-			}, status: :bad_request
-		end
-	# edit
+	# rescue_from ParamsVerificationFailed, :with => :render_error_response
+	# def render_error_response(error)
+	# 	render json: {
+	# 		message: error
+	# 	}, status: :bad_request
+	# end
 
 	# 
 	# GodWiew for super admins

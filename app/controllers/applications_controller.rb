@@ -119,21 +119,17 @@ class ApplicationsController < ApplicationController
 			@plans = SubscriptionPlan.all
 			render 'admins/entities'
 		else
-			# render json: { status: "error", message: "param fb_page_identifier is required" }, status: :bad_request
-			# render json: {
-			# 		error: "Install tab no respondio con ok"
-			# 	}, status: :bad_request
-			# raise( "install tab no respondio con ok" ) 
 			raise ParamsVerificationFailed, 'param fb_page_identifier is required'
-			# raise ApiExceptions::PurchaseError::MissingDatesError, 'param fb_page_identifier is required'
 		end
 	end
+
 	def uninstall_tab
 		@application.delete_tab_on_facebook
 		@application.uninstall_tab_callback
 		@admin = current_admin
 		render 'admins/entities'
 	end
+	
 	def uninstall
 		uninstall_result = @application.uninstall
 		if uninstall_result == :ok
