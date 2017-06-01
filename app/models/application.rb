@@ -60,60 +60,57 @@ class Application < ApplicationRecord
 		end
 	end
 
-	# class AlfredVerificationFailed < Exception::BadRequest; end
 	def put_tab_on_facebook(fb_page_identifier)
-		# raise AlfredVerificationFailed.new 'param fb_page_identifier is required' if !fb_page_identifier
-		# fb_page = FbPage.find(self.fb_page_id)
-		# self.assign_fb_application
 		fb_page = FbPage.find_by(identifier: fb_page_identifier)
-		# fb_page = FbPage.find_by(identifier: nil)
-		self.fb_page = fb_page
-		# installed_apps = Application.installed.where("fb_page_id = '#{fb_page.id}' and application_type = '#{self.application_type}'")
-		# if installed_apps.length > 0
-			# free_fb_application = FbApplication::where("id not in (#{installed_apps.collect{|o| o.fb_application_id}.join(",")}) and application_type = '#{self.application_type}'").first
-		# else
-			# free_fb_application = FbApplication::where("application_type='#{self.application_type}'").first
-		# end
-		# self.fb_application = free_fb_application
-		pages = FbGraph2::User.me(self.admin.fb_profile.access_token).accounts
-		index = pages.find_index{|p| p.id.to_i == fb_page.identifier.to_i}
-		unless index.nil?
-			if !pages[index].perms.include?("CREATE_CONTENT")
-				return :fb_page_not_admin
+		if fb_page
+			self.fb_page = fb_page
+			# installed_apps = Application.installed.where("fb_page_id = '#{fb_page.id}' and application_type = '#{self.application_type}'")
+			# if installed_apps.length > 0
+				# free_fb_application = FbApplication::where("id not in (#{installed_apps.collect{|o| o.fb_application_id}.join(",")}) and application_type = '#{self.application_type}'").first
+			# else
+				# free_fb_application = FbApplication::where("application_type='#{self.application_type}'").first
+			# end
+			# self.fb_application = free_fb_application
+			pages = FbGraph2::User.me(self.admin.fb_profile.access_token).accounts
+			index = pages.find_index{|p| p.id.to_i == fb_page.identifier.to_i}
+			unless index.nil?
+				if !pages[index].perms.include?("CREATE_CONTENT")
+					return :fb_page_not_admin
+				end
+			else
+				return :fb_permission_issue
 			end
-		else
-			return :fb_permission_issue
-		end
 
-		# 
-		# Alt
-		# 
-		# Make the request using Faraday directly:
-		# 
-		# require "logger"
-		# conn = Faraday.new(:url => "#{ENV['FB_GRAPH_URL']}/v2.9/#{fb_page_identifier}/tabs/") do |faraday|
-		# 	faraday.request :url_encoded
-		# 	faraday.response :logger, ::Logger.new(STDOUT), bodies: true
-		# 	faraday.adapter Faraday.default_adapter
-		# 	faraday.params['app_id'] = self.fb_application.app_id
-		# 	faraday.params['access_token'] = page_token
-		# end
-		# response = conn.post
-		# logger.info(response.body)
-		# !Alt
-		user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
-		# graph_fb_p = self.graph_facebook_page(fb_page_identifier)
-		page_token = user_graph.get_page_access_token(fb_page_identifier)
-		koala = Koala::Facebook::API.new(page_token)
-		params = {
-			app_id: self.fb_application.app_id,
-			# position: 1,
-			custom_name: self.title,
-		}
-		koala.put_connections("me", "tabs", params)
-		self.installed!
-		self.save!
-		return :ok
+			# 
+			# Alt
+			# 
+			# Make the request using Faraday directly:
+			# 
+			# require "logger"
+			# conn = Faraday.new(:url => "#{ENV['FB_GRAPH_URL']}/v2.9/#{fb_page_identifier}/tabs/") do |faraday|
+			# 	faraday.request :url_encoded
+			# 	faraday.response :logger, ::Logger.new(STDOUT), bodies: true
+			# 	faraday.adapter Faraday.default_adapter
+			# 	faraday.params['app_id'] = self.fb_application.app_id
+			# 	faraday.params['access_token'] = page_token
+			# end
+			# response = conn.post
+			# logger.info(response.body)
+			# !Alt
+			user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
+			page_token = user_graph.get_page_access_token(fb_page_identifier)
+			koala = Koala::Facebook::API.new(page_token)
+			params = {
+				app_id: self.fb_application.app_id,
+				custom_name: self.title,
+			}
+			koala.put_connections("me", "tabs", params)
+			self.installed!
+			self.save!
+			return :ok
+		else
+			raise ActiveRecord::RecordNotFound, "No facebook_page found for identifier #{fb_page_identifier}"
+		end
 	end
 
 	def uninstall

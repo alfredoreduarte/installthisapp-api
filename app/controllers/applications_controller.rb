@@ -6,6 +6,7 @@ class ApplicationsController < ApplicationController
 	before_action :get_application, :except => [ :index, :create ]
 	before_action :load_module, :except => [ :index, :create ]
 	before_action :dispatch_module, :except => [ :destroy ]
+	before_action :set_raven_context, except: [ :index ]
 
 	def index
 		render json: {
@@ -119,7 +120,7 @@ class ApplicationsController < ApplicationController
 			@plans = SubscriptionPlan.all
 			render 'admins/entities'
 		else
-			raise ParamsVerificationFailed, 'param fb_page_identifier is required'
+			raise ParamsVerificationFailed, 'fb_page_identifier'
 		end
 	end
 
@@ -129,7 +130,7 @@ class ApplicationsController < ApplicationController
 		@admin = current_admin
 		render 'admins/entities'
 	end
-	
+
 	def uninstall
 		uninstall_result = @application.uninstall
 		if uninstall_result == :ok
@@ -257,5 +258,16 @@ class ApplicationsController < ApplicationController
 	def cleanup_local_images_json_files(file)
 		File.delete(file) if File.exist?(file)
 		FileUtils.remove_dir "#{Rails.root}/app/assets/json/application_images/#{@application.checksum}", false
+	end
+
+	def set_raven_context
+		Raven.user_context(
+			id: current_admin.id,
+			email: current_admin.email
+		)
+		Raven.extra_context(
+			params: params.to_unsafe_h, 
+			url: request.url
+		)
 	end
 end

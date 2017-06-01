@@ -9,27 +9,24 @@ class FbUser < ApplicationRecord
 
 	def self.auth(fb_application)
 		begin
-			# return FbGraph2::Auth.new(Application::fb_app_data[:app_id], Application::fb_app_data[:client_secret])
 			return FbGraph2::Auth.new(fb_application.app_id, fb_application.secret_key)
 		rescue HTTPClient::ConnectTimeoutError
  			return nil
  		end
 	end
 
-	def self.test_sign_in(application, fb_application, signed_request)
+	def self.test_sign_in(application_id, fb_application_id, fb_application_secret_key, signed_request)
 		# Get App by checksum
-		auth = User.auth(fb_application)
+		auth = FbGraph2::Auth.new(fb_application_id, fb_application_secret_key)
 		signed_request = auth.from_signed_request(signed_request).user.fetch
 		if signed_request
-			return self.identify(auth, signed_request, application)
+			return self.identify(auth, signed_request, application_id)
 		else
 			return false
 		end
 	end
 
-	def self.identify(auth, signed_request, application)
-		# Get existing admin user or initialise a new one
-		# user = User.where(identifier: signed_request.identifier).first_or_initialize
+	def self.identify(auth, signed_request, application_id)
 
 		# Extend access token lifetime
 		auth.fb_exchange_token 	= signed_request.access_token
@@ -55,15 +52,8 @@ class FbUser < ApplicationRecord
 		# user.name = user_data.name
 		# user.save!
 
-		# Create or save access_token
-		# access_token = AccessToken.where(application_id: signed_request.identifier).first_or_initialize
-		access_token = AccessToken.find_or_initialize_by(fb_user_id: user.id, application_id: application.id)
-		# access_token = AccessToken.new(
-		# 	application_id: application.id, 
-		# 	user_id: user.id, 
-		# 	token: access_token_string, 
-		# 	user_identifier: user.identifier
-		# )
+		# Create or update access_token
+		access_token = AccessToken.find_or_initialize_by(fb_user_id: user.id, application_id: application_id)
 		access_token.token = access_token_string
 		access_token.save!
 
@@ -72,8 +62,6 @@ class FbUser < ApplicationRecord
 		user = access_token.fb_user
 
 		return user
-
-		# user.access_token = auth.access_token!
 	end
 
 	def self.get_fb_profile(access_token)

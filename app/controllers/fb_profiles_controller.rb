@@ -3,7 +3,7 @@ class FbProfilesController < ApplicationController
 
 	def create
 		fb_profile = FbProfile.where(identifier: params[:identifier]).first_or_initialize
-		fb_profile.signed_request = params[:signed_request]
+		# fb_profile.signed_request = params[:signed_request]
 		if fb_profile.sign_in(params[:signed_request])
 			fb_profile.save
 			fb_profile.fetch_fb_pages
