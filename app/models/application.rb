@@ -42,7 +42,6 @@ class Application < ApplicationRecord
 	end
 
 	def install
-		# self.assign_fb_application
 		self.installed!
 		self.save
 		return :ok
@@ -61,10 +60,13 @@ class Application < ApplicationRecord
 		end
 	end
 
+	# class AlfredVerificationFailed < Exception::BadRequest; end
 	def put_tab_on_facebook(fb_page_identifier)
+		# raise AlfredVerificationFailed.new 'param fb_page_identifier is required' if !fb_page_identifier
 		# fb_page = FbPage.find(self.fb_page_id)
 		# self.assign_fb_application
 		fb_page = FbPage.find_by(identifier: fb_page_identifier)
+		# fb_page = FbPage.find_by(identifier: nil)
 		self.fb_page = fb_page
 		# installed_apps = Application.installed.where("fb_page_id = '#{fb_page.id}' and application_type = '#{self.application_type}'")
 		# if installed_apps.length > 0

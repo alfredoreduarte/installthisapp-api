@@ -1,12 +1,11 @@
 class ApplicationsController < ApplicationController
-	before_action :authenticate_admin!, except: [:index]
 	require 'fileutils'
 	include Modules::BaseController
-	before_action :get_application, :except => [:index, :create]
-	before_action :load_module, :except => [:index, :create]
-	before_action :dispatch_module, :except => [
-		:destroy,
-	]
+
+	before_action :authenticate_admin!, except: [ :index ]
+	before_action :get_application, :except => [ :index, :create ]
+	before_action :load_module, :except => [ :index, :create ]
+	before_action :dispatch_module, :except => [ :destroy ]
 
 	def index
 		render json: {
@@ -111,12 +110,23 @@ class ApplicationsController < ApplicationController
 			}
 		end
 	end
+
 	def install_tab
-		@application.put_tab_on_facebook(params[:fb_page_identifier])
-		@application.install_tab_callback
-		@admin = current_admin
-		@plans = SubscriptionPlan.all
-		render 'admins/entities'
+		if params[:fb_page_identifier]
+			@application.put_tab_on_facebook(params[:fb_page_identifier])
+			@application.install_tab_callback
+			@admin = current_admin
+			@plans = SubscriptionPlan.all
+			render 'admins/entities'
+		else
+			# render json: { status: "error", message: "param fb_page_identifier is required" }, status: :bad_request
+			# render json: {
+			# 		error: "Install tab no respondio con ok"
+			# 	}, status: :bad_request
+			# raise( "install tab no respondio con ok" ) 
+			raise ParamsVerificationFailed, 'param fb_page_identifier is required'
+			# raise ApiExceptions::PurchaseError::MissingDatesError, 'param fb_page_identifier is required'
+		end
 	end
 	def uninstall_tab
 		@application.delete_tab_on_facebook
