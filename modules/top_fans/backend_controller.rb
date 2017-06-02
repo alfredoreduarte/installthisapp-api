@@ -32,6 +32,7 @@ module BackendController
 		if fb_page
 			identifier = fb_page.identifier
 			ignored_identifiers = @application.setting.conf["preferences"]["ignored_user_identifiers"]
+			ignored_identifiers = ignored_identifiers.length > 0 ? ignored_identifiers : []
 			results_likes = TopFansLike.likes_by_page(identifier, ignored_identifiers, 2500)
 			results_comments = TopFansComment.comments_by_page(identifier, ignored_identifiers, 2500)
 			response = {
