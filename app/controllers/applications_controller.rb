@@ -160,12 +160,8 @@ class ApplicationsController < ApplicationController
 	end
 
 	def get_application
-		checksum = params[:checksum] || params[:id]
-		if current_admin.email == 'alfredoreduarte@gmail.com'
-			@application = Application.find_by(checksum: checksum)
-		else
-			@application = current_admin.applications.find_by(checksum: checksum)
-		end
+		@application = current_admin.applications.find_by(checksum: checksum)
+		raise ActiveRecord::RecordNotFound, "No application found for checksum #{checksum}" unless @application
 	end
 
 	def asset_params
