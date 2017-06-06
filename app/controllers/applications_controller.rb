@@ -164,6 +164,7 @@ class ApplicationsController < ApplicationController
 	def get_application
 		checksum = params[:checksum] || params[:id]
 		@application = current_admin.applications.find_by(checksum: checksum)
+		@application.create_log # temporary application logs generator
 		raise ActiveRecord::RecordNotFound, "No application found for checksum #{checksum}" unless @application
 	end
 

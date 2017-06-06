@@ -42,8 +42,9 @@ class Application < ApplicationRecord
 		end
 	end
 
+	# Creates an application log if it doesn't exist
 	def create_log
-		ApplicationLog.create(
+		ApplicationLog.find_or_create_by(
 			checksum: self.checksum,
 		)
 	end
