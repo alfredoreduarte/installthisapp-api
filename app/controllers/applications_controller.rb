@@ -116,6 +116,7 @@ class ApplicationsController < ApplicationController
 		if params[:fb_page_identifier]
 			@application.put_tab_on_facebook(params[:fb_page_identifier])
 			@application.install_tab_callback
+			ApplicationLog.log_fb_integration(@application.checksum, DateTime.now)
 			@admin = current_admin
 			@plans = SubscriptionPlan.all
 			render 'admins/entities'
@@ -146,6 +147,7 @@ class ApplicationsController < ApplicationController
 		render json: @application.as_json
 	end
 	def save_app_from_editor
+		ApplicationLog.log_design(@application.checksum, DateTime.now)
 		generate_css(params[:css])
 		generate_messages(params[:messages])
 		generate_images(params[:images])

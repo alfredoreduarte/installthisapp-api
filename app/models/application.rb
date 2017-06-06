@@ -11,6 +11,7 @@ class Application < ApplicationRecord
 	has_one 		:setting
 
 	before_create 	:generate_checksum
+	before_create 	:create_log
 	before_create 	:assign_fb_application
 	after_create 	:create_setting
 
@@ -39,6 +40,12 @@ class Application < ApplicationRecord
 		else
 			return false
 		end
+	end
+
+	def create_log
+		ApplicationLog.create(
+			checksum: self.checksum,
+		)
 	end
 
 	def install

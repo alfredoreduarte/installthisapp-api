@@ -23,11 +23,6 @@ module BackendController
 	end
 
 	def entries
-		# remove this ONLY after dumping top fans in V2
-		# UPDATE: removed!
-		# los_ids = FbPage.pluck(:identifier)
-		# TopFansCleanupJob.perform_later(los_ids)
-		# 
 		fb_page = @application.fb_page
 		if fb_page
 			identifier = fb_page.identifier
@@ -53,6 +48,7 @@ module BackendController
 			format.json { render json: response }
 		end
 	end
+
 	def subscribe_real_time
 		fb_page = FbPage.find_by(identifier: params[:fb_page_identifier])
 		fb_page.subscribe_to_realtime(current_admin, @application.fb_application)
@@ -60,9 +56,9 @@ module BackendController
 		setting.conf["preferences"]["subscripted_fb_page_identifier"] = params[:fb_page_identifier]
 		render json: { status: 'success' }
 	end
+
 	def reset_scores_for_page
 		identifier = @application.fb_page.identifier
-		# TopFansCleanupJob.perform_later(identifier)
 		@application.setting.conf["preferences"]["start_date"] = Time.now.utc
 		@application.setting.save!
 		render json: {
@@ -75,4 +71,5 @@ module BackendController
 			}
 		}
 	end
+	
 end
