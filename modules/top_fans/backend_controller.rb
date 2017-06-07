@@ -29,6 +29,7 @@ module BackendController
 
 	def entries
 		fb_page = @application.fb_page
+		@application_log = ApplicationLog.log_by_checksum(@application.checksum)
 		if fb_page
 			identifier = fb_page.identifier
 			ignored_identifiers = @application.setting.conf["preferences"]["ignored_user_identifiers"]
@@ -36,6 +37,7 @@ module BackendController
 			results_likes = TopFansLike.likes_by_page(identifier, ignored_identifiers, 2500)
 			results_comments = TopFansComment.comments_by_page(identifier, ignored_identifiers, 2500)
 			response = {
+				application_log: @application_log,
 				status: "success",
 				payload: {
 					"#{identifier}": {
@@ -46,6 +48,7 @@ module BackendController
 			}
 		else
 			response = {
+				application_log: @application_log,
 				status: false,
 			}
 		end
