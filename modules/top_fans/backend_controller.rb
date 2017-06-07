@@ -4,12 +4,17 @@ module BackendController
 		start_date = @application.setting.conf["preferences"]["first_fetch_from_date"].to_datetime.to_i
 		identifier = @application.fb_page.identifier
 		access_token = @application.admin.fb_profile.access_token
-		TopFansLike.where(
-			page_id: identifier,
-		).delete
-		TopFansComment.where(
-			page_id: identifier,
-		).delete
+
+		# 
+		# Instead handling this asynchronously inside TopFansResetJob
+		# 
+		# TopFansLike.where(
+		# 	page_id: identifier,
+		# ).delete
+		# TopFansComment.where(
+		# 	page_id: identifier,
+		# ).delete
+
 		TopFansResetJob.perform_later(identifier, access_token, start_date)
 		render json: {
 			status: "success",
