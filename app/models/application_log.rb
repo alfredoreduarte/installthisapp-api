@@ -16,6 +16,7 @@ class ApplicationLog
 			'$project': {
 				_id: 0,
 				design_edited: 1,
+				fb_tab_installed: 1,
 			}
 		}
 		result = Mongoid::QueryCache.cache { self.collection.aggregate([match, project]) }
