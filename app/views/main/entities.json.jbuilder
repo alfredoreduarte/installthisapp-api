@@ -6,18 +6,19 @@ json.summary do
 end
 
 json.users do
-	json.array! @admins, :id, :name, :email, :fb_profile, :fb_pages, :created_at, :applications
+	# json.array! @admins, :id, :name, :email, :fb_profile, :fb_pages, :created_at, :applications
+	json.array! @admins, partial: 'admins/admin', as: :admin
 end
 
-json.applications do
-	json.array! @applications, :id, :checksum, :title, :application_type, :status, :fb_page, :fb_application
-end
+# json.applications do
+# 	json.array! @applications, :id, :checksum, :title, :application_type, :status, :fb_page, :fb_application
+# end
 
-json.fb_pages do
-	json.array! @fb_pages, :id, :identifier, :name
-end
+# json.fb_pages do
+# 	json.array! @fb_pages, :id, :identifier, :name
+# end
 
-json.fb_apps do
+json.fb_applications do
 	json.array! @fb_apps, :id, :name, :app_id, :secret_key, :application_type, :canvas_id, :namespace
 end
 

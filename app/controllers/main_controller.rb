@@ -8,8 +8,11 @@ class MainController < ApplicationController
 	# Godview data
 	def entities
 		@admins = Rails.cache.fetch("entities_admins", :expires_in => 5.minute) do
-			Admin.includes(:applications)
+			# Admin.includes(applications: [:fb_application], :fb_pages)
+			Admin.includes( { applications: [ :fb_application ] }, :fb_pages)
+			# Admin.includes(applications: [:fb_application])
 		end
+		# logger.info(@admins.first.applications.installed.first.as_json)
 		@applications = Rails.cache.fetch("entities_applications", :expires_in => 5.minute) do
 			Application.all
 		end
