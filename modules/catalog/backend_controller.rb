@@ -4,6 +4,7 @@ module BackendController
 	# before_action :set_product, only: [:products_update, :products_destroy]
 
 	def entities
+		@application_log = ApplicationLog.log_by_checksum(@application.checksum)
 		@products = @application.products
 		@categories = @application.categories
 		@media = @application.media
