@@ -21,4 +21,34 @@ module FrontendController
 			format.json { render json: response }
 		end
 	end
+
+	def single_user_scores
+		logger.info($fb_user.inspect)
+		if $fb_user
+			fb_page = $application.fb_page
+			if fb_page
+				identifier = fb_page.identifier
+				fb_app = $application.fb_application
+				token = FbApi::generate_app_access_token(fb_app.app_id, fb_app.secret_key)
+				user_identifier = FbApi::get_id_for_app($fb_user.identifier, token)
+				results_likes = TopFansLike.detail_by_page_and_user(identifier, user_identifier)
+				results_comments = TopFansComment.detail_by_page_and_user(identifier, user_identifier)
+			else
+				results_likes = []
+				results_comments = []
+			end
+			response = {
+				success: true,
+				likes: results_likes,
+				comments: results_comments,
+			}
+		else
+			response = {
+				success: false,
+			}
+		end
+		respond_to do |format|
+			format.json { render json: response }
+		end
+	end
 end

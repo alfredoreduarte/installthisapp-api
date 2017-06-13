@@ -13,7 +13,7 @@ module ItaApi
     # -- all .rb files in that directory are automatically loaded.
 
     # config.autoload_paths << Rails.root.join('modules').to_s
-    config.autoload_paths += %W( #{config.root}/modules )
+    config.autoload_paths += %W( #{config.root}/lib )
     # config.force_ssl = true
 
     # Using GZip compression on all responses
