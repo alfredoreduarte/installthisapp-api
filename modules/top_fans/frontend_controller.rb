@@ -14,8 +14,10 @@ module FrontendController
 		end
 		response = {
 			success: true,
-			likes: results_likes.first(50),
-			comments: results_comments.first(50),
+			# likes: results_likes.first(50),
+			likes: results_likes,
+			# comments: results_comments.first(50),
+			comments: results_comments,
 		}
 		respond_to do |format|
 			format.json { render json: response }
@@ -23,6 +25,7 @@ module FrontendController
 	end
 
 	def single_user_scores
+		require 'fb_api'
 		if @fb_user
 			fb_page = $application.fb_page
 			if fb_page

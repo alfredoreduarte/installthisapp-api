@@ -3,7 +3,11 @@ module FbApi
 
 	def self.get_id_for_app( user_id, access_token )
 		conn = Faraday::Connection.new FACEBOOK_GRAPH_URL, {:ssl => {:verify => false}}
-		response = conn.get %{/v#{ENV['FB_API_VERSION']}/#{user_id}/ids_for_apps/?app=#{ENV['FB_APP_ID']}&access_token=#{access_token}}
+		Rails.logger.info('fb app id')
+		Rails.logger.info(ENV['FB_APP_ID'])
+		Rails.logger.info(%{/v#{ENV['FB_API_VERSION']}/#{user_id}/ids_for_apps/?app=#{ENV['FB_APP_ID']}&access_token=#{access_token}})
+		# response = conn.get %{/v#{ENV['FB_API_VERSION']}/#{user_id}/ids_for_apps/?app=#{ENV['FB_APP_ID']}&access_token=#{access_token}}
+		response = conn.get %{/v#{ENV['FB_API_VERSION']}/#{user_id}/ids_for_apps/?app=1075605565855278&access_token=#{access_token}}
 		response = JSON::parse(response.body)
 		unless response["data"].nil?
 			unless response["data"].empty?

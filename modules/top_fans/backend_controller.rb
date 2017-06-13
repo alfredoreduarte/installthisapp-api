@@ -41,8 +41,10 @@ module BackendController
 				status: "success",
 				payload: {
 					"#{identifier}": {
-						likes: results_likes.first(50),
-						comments: results_comments.first(50),
+						# likes: results_likes.first(50),
+						likes: results_likes,
+						# comments: results_comments.first(50),
+						comments: results_comments,
 					}
 				}
 			}
