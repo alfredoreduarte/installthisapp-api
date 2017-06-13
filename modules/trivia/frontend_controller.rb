@@ -17,7 +17,7 @@ module FrontendController
 	
 	def viewmodel
 		already_answered = []
-		entries = $application.answers.where(fb_user_id: $fb_user.id)
+		entries = $application.answers.where(fb_user_id: @fb_user.id)
 		for entry in entries
 			already_answered << entry.question_id
 		end
@@ -35,12 +35,12 @@ module FrontendController
 	def save
 		correct_answers = save_params[:correct].to_i
 		incorrect_answers = save_params[:incorrect].to_i
-		user_summary = $application.user_summaries.find_or_create_by(fb_user_id: $fb_user.id)
+		user_summary = $application.user_summaries.find_or_create_by(fb_user_id: @fb_user.id)
 		for question in save_params[:details]
 			answer = $application.answers.new(
 				:correct => question[:correct], 
 				:option_id => question[:option] || -1,
-				:fb_user_id => $fb_user.id,
+				:fb_user_id => @fb_user.id,
 				:question_id => question[:question],
 				:fb_user_summary_id => user_summary.id
 			)
@@ -58,7 +58,7 @@ module FrontendController
   
 	def user_has_pending_questions
 		@already_answered = []
-		entries = $application.answers.where(:fb_user_id => $fb_user.id)
+		entries = $application.answers.where(:fb_user_id => @fb_user.id)
 		for entry in entries
 			@already_answered << entry.question_id
 		end

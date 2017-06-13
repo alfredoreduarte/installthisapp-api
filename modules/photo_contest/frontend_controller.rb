@@ -7,13 +7,13 @@ module FrontendController
 
 	def upload
 		@photo = $application.photos.new(photo_params)
-		@photo.fb_user_id = $fb_user.id
+		@photo.fb_user_id = @fb_user.id
 		@photo.save
 	end
 
 	def vote
 		vote = $application.votes.new(vote_params)
-		vote.fb_user_id = $fb_user.id
+		vote.fb_user_id = @fb_user.id
 		vote.save
 		@photo = vote.photo
 	end

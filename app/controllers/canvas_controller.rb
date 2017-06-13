@@ -107,8 +107,8 @@ class CanvasController < ApplicationController
 			if api_key
 				logger.info('el token')
 				logger.info(api_key.token)
-				$fb_user = FbUser.find(api_key.fb_user_id)
-				if $fb_user
+				@fb_user = FbUser.find(api_key.fb_user_id)
+				if @fb_user
 					return true
 				else
 					return false

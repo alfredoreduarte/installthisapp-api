@@ -4,7 +4,7 @@ module FrontendController
 		@application = $application
 		logger.info('elentry')
 		logger.info($application.setting.conf["preferences"]["play_multiple_times"])
-		if $application.setting.conf["preferences"]["play_multiple_times"] == false and $fb_user.entry
+		if $application.setting.conf["preferences"]["play_multiple_times"] == false and @fb_user.entry
 			@cards = []
 		else
 			@cards = $application.cards
@@ -17,7 +17,7 @@ module FrontendController
 		time = (finish_time - starting_time).to_i
 		clicks = entry_params[:clicks]
 		# @entry = $application.entries.new(clicks: clicks, time: time)
-		@entry = $application.entries.find_or_create_by(fb_user_id: $fb_user.id)
+		@entry = $application.entries.find_or_create_by(fb_user_id: @fb_user.id)
 		@entry.clicks = clicks
 		@entry.time = time
 		if @entry.save
