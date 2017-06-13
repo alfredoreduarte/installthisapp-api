@@ -23,6 +23,7 @@ module FrontendController
 	end
 
 	def single_user_scores
+		require 'fb_api'
 		if @fb_user
 			fb_page = $application.fb_page
 			if fb_page
