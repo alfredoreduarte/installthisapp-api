@@ -123,7 +123,7 @@ class Application < ApplicationRecord
 
 	def uninstall
 		if self.installed?
-			self.uninstalled! 
+			self.uninstalled!
 			if self.save!
 				return :ok
 			else

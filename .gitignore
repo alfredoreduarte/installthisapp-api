@@ -18,4 +18,5 @@
 .env
 Procfile.dev
 ssl
+ssl-dev
 dump.rdb

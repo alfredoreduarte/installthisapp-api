@@ -10,6 +10,7 @@ class Application
 
 	def uninstall_tab_callback
 		if self.fb_page
+			self.uninstall
 			self.fb_page.unsubscribe_to_realtime(self.admin)
 		end	
 	end
