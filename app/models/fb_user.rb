@@ -36,8 +36,6 @@ class FbUser < ApplicationRecord
 		user_data = self.get_fb_profile(access_token_string)
 
 		# Intentar traer el user by token_for_business
-		logger.info('que trae?')
-		logger.info(user_data.raw_attributes)
 		token_for_business =  user_data.raw_attributes[:token_for_business]
 		user = FbUser.find_by(token_for_business: token_for_business)
 		if user.nil?

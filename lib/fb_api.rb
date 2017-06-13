@@ -3,9 +3,13 @@ module FbApi
 
 	def self.get_id_for_app( user_id, access_token )
 		conn = Faraday::Connection.new FACEBOOK_GRAPH_URL, {:ssl => {:verify => false}}
-		# response = conn.get %{/v#{ENV['FB_API_VERSION']}/#{user_id}/ids_for_apps/?app=#{ENV['FB_APP_ID']}&access_token=#{access_token}}
-		response = conn.get %{/v#{ENV['FB_API_VERSION']}/#{user_id}/ids_for_apps/?app=1075605565855278&access_token=#{access_token}}
-		return JSON::parse(response.body)["data"].first["id"]
+		response = conn.get %{/v#{ENV['FB_API_VERSION']}/#{user_id}/ids_for_apps/?app=#{ENV['FB_APP_ID']}&access_token=#{access_token}}
+		response = JSON::parse(response.body)
+		unless response["data"].empty?
+			return response["data"].first["id"]
+		else
+			return false
+		end
 	end
 
 	def self.generate_app_access_token( app_id, app_secret )
