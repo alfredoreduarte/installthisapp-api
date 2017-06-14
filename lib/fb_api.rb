@@ -6,9 +6,9 @@ module FbApi
 		Rails.logger.info('fb app id')
 		Rails.logger.info(ENV['FB_APP_ID'])
 		Rails.logger.info(%{/v#{ENV['FB_API_VERSION']}/#{user_id}/ids_for_apps/?app=#{ENV['FB_APP_ID']}&access_token=#{access_token}})
-		# response = conn.get %{/v#{ENV['FB_API_VERSION']}/#{user_id}/ids_for_apps/?app=#{ENV['FB_APP_ID']}&access_token=#{access_token}}
-		response = conn.get %{/v#{ENV['FB_API_VERSION']}/#{user_id}/ids_for_apps/?app=1075605565855278&access_token=#{access_token}}
+		response = conn.get %{/v#{ENV['FB_API_VERSION']}/#{user_id}/ids_for_apps/?app=#{ENV['FB_APP_ID']}&access_token=#{access_token}}
 		response = JSON::parse(response.body)
+		Rails.logger.info(response.inspect)
 		unless response["data"].nil?
 			unless response["data"].empty?
 				return response["data"].first["id"]
