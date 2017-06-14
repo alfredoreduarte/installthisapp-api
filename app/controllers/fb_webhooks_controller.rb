@@ -1,4 +1,23 @@
-class FbWebhookController < ApplicationController
+class FbWebhooksController < ApplicationController
+
+	def verify_page_subscription
+		identifier = params[:fb_page_identifier]
+		# render plain: identifier
+		if identifier
+			fb_page = FbPage.find_by(identifier: identifier)
+			if fb_page
+				user_graph = Koala::Facebook::API.new(fb_page.fb_profiles.first.access_token)
+				page_token = user_graph.get_page_access_token(identifier)
+
+				conn = Faraday::Connection.new ENV['FB_GRAPH_URL'], {:ssl => {:verify => false}}
+				logger.info %{/v#{ENV['FB_API_VERSION']}/#{ENV['FB_APP_ID']}/subscriptions_sample}
+				response = conn.get %{/v#{ENV['FB_API_VERSION']}/#{identifier}/subscribed_apps?access_token=#{page_token}}
+				response = JSON::parse(response.body)
+				logger.info(response)
+				render json: response
+			end
+		end
+	end
 
 	def top_fans
 		if params[:"hub.verify_token"]

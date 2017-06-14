@@ -7,7 +7,6 @@ module BackendController
 	end
 
 	def questions_create
-		# hash = params.deep_symbolize_keys
 		question = @application.questions.create(question_params)
 		response = {
 			questions: [
