@@ -53,7 +53,7 @@ class FbPage < ApplicationRecord
 					self.save
 				end
 			rescue Exception => e
-				puts "ERROR al subscribir #{app.id} admin_user #{admin_user.id}"
+				puts "ERROR al des-subscribir #{self.id} admin_user #{admin_user.id}"
 			end
 		end		
 	end

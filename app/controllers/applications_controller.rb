@@ -78,14 +78,16 @@ class ApplicationsController < ApplicationController
 	end
 
 	def update
-		@application.update_attributes(application_params)
-		render partial: 'applications/application', locals: {application: @application}
+		@success = @application.update_attributes(application_params)
+		# render partial: 'applications/application', locals: {application: @application}
+		render 'applications/update'
 	end
 
 	def update_setting
 		@application.setting.conf["preferences"] = params[:setting]
-		@application.setting.save!
-		render partial: 'applications/application', locals: {application: @application}
+		@success = @application.setting.save!
+		# render partial: 'applications/application', locals: {application: @application}
+		render 'applications/update'
 	end
 
 	def install
@@ -126,8 +128,8 @@ class ApplicationsController < ApplicationController
 	end
 
 	def uninstall_tab
-		@application.delete_tab_on_facebook
 		@application.uninstall_tab_callback
+		@application.delete_tab_on_facebook
 		@admin = current_admin
 		render 'admins/entities'
 	end

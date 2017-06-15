@@ -2,18 +2,17 @@ class FbWebhooksController < ApplicationController
 
 	def verify_page_subscription
 		identifier = params[:fb_page_identifier]
-		# render plain: identifier
 		if identifier
+			# Find fb page
 			fb_page = FbPage.find_by(identifier: identifier)
 			if fb_page
+				# Get page access token
 				user_graph = Koala::Facebook::API.new(fb_page.fb_profiles.first.access_token)
 				page_token = user_graph.get_page_access_token(identifier)
-
+				# Request subscribed apps list
 				conn = Faraday::Connection.new ENV['FB_GRAPH_URL'], {:ssl => {:verify => false}}
-				logger.info %{/v#{ENV['FB_API_VERSION']}/#{ENV['FB_APP_ID']}/subscriptions_sample}
 				response = conn.get %{/v#{ENV['FB_API_VERSION']}/#{identifier}/subscribed_apps?access_token=#{page_token}}
 				response = JSON::parse(response.body)
-				logger.info(response)
 				render json: response
 			end
 		end
@@ -28,19 +27,23 @@ class FbWebhooksController < ApplicationController
 			hash = params
 			logger.info('===== Top Fans Real time entry received =====')
 			logger.info(params.inspect)
-			entries = hash[:entry]
+			# Verify that it is a page
 			if params["object"].to_s == "page"
+				entries = hash[:entry]
 				entries.each do |entry|
 					page_id = entry[:id]
 					entry[:changes].each do |change|
+						# Verify that it's a change at feed level, not updated information about the page or something else
 						if change[:field] == "feed"
 							value = change[:value]
+							# Manage post likes and reactions
 							if value[:item] == "like"
 								if value[:verb] == "remove"
 									remove_like(page_id, value)
 								elsif value[:verb] == "add"
 									add_like(page_id, value)
 								end
+							# Manage post comments and replies
 							elsif value[:item] == "comment"
 								if value[:verb] == "remove"
 									remove_comment(page_id, value)
