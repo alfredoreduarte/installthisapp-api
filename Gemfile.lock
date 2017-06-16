@@ -146,6 +146,7 @@ GEM
     multi_json (1.12.1)
     multipart-post (2.0.0)
     mustermann (1.0.0)
+    newrelic_rpm (4.2.0.334)
     nio4r (2.0.0)
     nokogiri (1.7.2)
       mini_portile2 (~> 2.1.0)
@@ -305,6 +306,7 @@ DEPENDENCIES
   koala (~> 3.0)
   listen (~> 3.0.5)
   mongoid (~> 6.0.0)
+  newrelic_rpm
   omniauth
   paperclip
   payola-payments
