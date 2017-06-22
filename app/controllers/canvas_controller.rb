@@ -13,12 +13,12 @@ class CanvasController < ApplicationController
 
 	def settings
 		respond_to do |format|
-			format.json { render json: $application.setting.conf["preferences"] }
+			format.json { render json: @application.setting.conf["preferences"] }
 		end
 	end
 
 	def images
-		image_dict_assets = $application.application_assets.where(attachment_file_name: "images.json")
+		image_dict_assets = @application.application_assets.where(attachment_file_name: "images.json")
 		if image_dict_assets.length > 0
 			response = {
 				images_url: image_dict_assets.last.asset_url,
@@ -92,9 +92,9 @@ class CanvasController < ApplicationController
 	end
 
 	def load_application
-		$application = Application.find_by(checksum: params[:checksum])
-		application_module = $application.module
-		application_module.dispatch!(self, :frontend, $application)
+		@application = Application.find_by(checksum: params[:checksum])
+		application_module = @application.module
+		application_module.dispatch!(self, :frontend, @application)
 	end
 
 	private

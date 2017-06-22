@@ -1,18 +1,18 @@
 module FrontendController
 
 	def viewmodel
-		@application = $application
-		@photos = $application.photos.includes(:votes, :fb_user)
+		@application = @application
+		@photos = @application.photos.includes(:votes, :fb_user)
 	end
 
 	def upload
-		@photo = $application.photos.new(photo_params)
+		@photo = @application.photos.new(photo_params)
 		@photo.fb_user_id = @fb_user.id
 		@photo.save
 	end
 
 	def vote
-		vote = $application.votes.new(vote_params)
+		vote = @application.votes.new(vote_params)
 		vote.fb_user_id = @fb_user.id
 		vote.save
 		@photo = vote.photo

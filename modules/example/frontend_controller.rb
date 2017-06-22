@@ -1,7 +1,7 @@
 module FrontendController
 
 	def entities
-		@application = $application
+		@application = @application
 	end
 	
 end

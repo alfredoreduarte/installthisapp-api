@@ -1,10 +1,10 @@
 module FrontendController
 	
 	def entries
-		fb_page = $application.fb_page
+		fb_page = @application.fb_page
 		if fb_page
 			identifier = fb_page.identifier
-			ignored_identifiers = $application.setting.conf["preferences"]["ignored_user_identifiers"]
+			ignored_identifiers = @application.setting.conf["preferences"]["ignored_user_identifiers"]
 			ignored_identifiers = ignored_identifiers.length > 0 ? ignored_identifiers : []
 			results_likes = TopFansLike.likes_by_page(identifier, ignored_identifiers, 2500)
 			results_comments = TopFansComment.comments_by_page(identifier, ignored_identifiers, 2500)
@@ -27,10 +27,10 @@ module FrontendController
 	def single_user_scores
 		require 'fb_api'
 		if @fb_user
-			fb_page = $application.fb_page
+			fb_page = @application.fb_page
 			if fb_page
 				identifier = fb_page.identifier
-				fb_app = $application.fb_application
+				fb_app = @application.fb_application
 				token = FbApi::generate_app_access_token(fb_app.app_id, fb_app.secret_key)
 				user_identifier = FbApi::get_id_for_app(@fb_user.identifier, token)
 				if user_identifier
