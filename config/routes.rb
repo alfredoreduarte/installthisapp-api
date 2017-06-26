@@ -1,4 +1,11 @@
 require 'resque/server'
+# Set the AUTH env variable to your basic auth password to protect Resque.
+AUTH_PASSWORD = ENV['RESQUE_ADMIN_PASSWORD']
+if AUTH_PASSWORD
+	Resque::Server.use Rack::Auth::Basic do |username, password|
+		password == AUTH_PASSWORD
+	end
+end
 Rails.application.routes.draw do
 	mount Payola::Engine => '/payola', as: :payola
 	root 'main#index'
