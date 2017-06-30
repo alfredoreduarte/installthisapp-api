@@ -3,19 +3,19 @@ class Application
 	end
 
 	def install_callback
-		logger.info("/*/*/*/*/*/ INSTALL CALLBACK: OVERRIDE THIS! /*/*/*/*/*/")
+		logger.info("/*/*/*/*/*/ TRIVIA: INSTALL CALLBACK: OVERRIDE THIS! /*/*/*/*/*/")
 	end
 
 	def uninstall_callback
-		logger.info("/*/*/*/*/*/ UNINSTALL CALLBACK: OVERRIDE THIS! /*/*/*/*/*/")
+		logger.info("/*/*/*/*/*/ TRIVIA: UNINSTALL CALLBACK: OVERRIDE THIS! /*/*/*/*/*/")
 	end
 
 	def uninstall_tab_callback
-		logger.info("/*/*/*/*/*/ UNINSTALL TAB CALLBACK: OVERRIDE THIS! /*/*/*/*/*/")
+		logger.info("/*/*/*/*/*/ TRIVIA: UNINSTALL TAB CALLBACK: OVERRIDE THIS! /*/*/*/*/*/")
 	end
 
 	def install_tab_callback
-		logger.info("/*/*/*/*/*/ UNINSTALL TAB CALLBACK: OVERRIDE THIS! /*/*/*/*/*/")
+		logger.info("/*/*/*/*/*/ TRIVIA: UNINSTALL TAB CALLBACK: OVERRIDE THIS! /*/*/*/*/*/")
 	end
 
 	def stats_summary

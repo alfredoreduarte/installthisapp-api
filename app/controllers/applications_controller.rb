@@ -116,12 +116,20 @@ class ApplicationsController < ApplicationController
 
 	def install_tab
 		if params[:fb_page_identifier]
-			@application.put_tab_on_facebook(params[:fb_page_identifier])
-			@application.install_tab_callback
-			ApplicationLog.log_fb_integration(@application.checksum, DateTime.now)
-			@admin = current_admin
-			@plans = SubscriptionPlan.all
-			render 'admins/entities'
+			if @application.admin.can(:publish_apps)
+				@application.install
+				@application.put_tab_on_facebook(params[:fb_page_identifier])
+				@application.install_tab_callback
+				ApplicationLog.log_fb_integration(@application.checksum, DateTime.now)
+				@admin = current_admin
+				@plans = SubscriptionPlan.all
+				render 'admins/entities'
+			else
+				render json: {
+					success: false,
+					message: "User can't publish apps"
+				}
+			end
 		else
 			raise ParamsVerificationFailed, 'fb_page_identifier'
 		end

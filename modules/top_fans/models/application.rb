@@ -10,13 +10,13 @@ class Application
 
 	def uninstall_tab_callback
 		self.uninstall
+		self.fb_page.unsubscribe_to_realtime(self.admin)
 		TopFansLike.where(
 			page_id: self.fb_page.identifier,
 		).delete
 		TopFansComment.where(
 			page_id: self.fb_page.identifier,
 		).delete
-		self.fb_page.unsubscribe_to_realtime(self.admin)
 	end
 
 	def install_tab_callback

@@ -42,19 +42,21 @@ class FbPage < ApplicationRecord
 		require 'fb_graph2'
 		require 'fb_api'
 		if self.webhook_subscribed
-			begin
+			# begin
 				f_page = FbGraph2::Page.new(self.identifier).fetch(
-					:access_token => admin_user.access_token, 
+					:access_token => admin_user.fb_profile.access_token, 
 					:fields => :access_token
 				)
 				result = FbApi::unsubscribe_app(f_page.raw_attributes["access_token"], self.identifier)
+				logger.info('Fb unsubscribe response')
+				logger.info(result.inspect)
 				if result["success"] == true
 					self.webhook_subscribed = false
 					self.save
 				end
-			rescue Exception => e
-				puts "ERROR al des-subscribir #{self.id} admin_user #{admin_user.id}"
-			end
+			# rescue Exception => e
+				# puts "ERROR al des-subscribir #{self.id} admin_user #{admin_user.id}"
+			# end
 		end		
 	end
 end

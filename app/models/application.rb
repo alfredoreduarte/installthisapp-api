@@ -19,10 +19,8 @@ class Application < ApplicationRecord
 	attr_accessor 	:facebook_page_loaded
 
 	def self.batch_uninstall_expired_apps
-		unless app.admin.can(:publish_apps)
-			Application.installed.all.map{ |app| app.uninstall }
-			Application.installed.all.map{ |app| app.uninstall_tab }
-		end
+		Application.installed.all.map{ |app| app.uninstall unless app.admin.can(:publish_apps) }
+		Application.all.map{ |app| app.uninstall_tab unless app.admin.can(:publish_apps) }
 	end
 
 	def generate_checksum
@@ -78,14 +76,20 @@ class Application < ApplicationRecord
 	# and the delete_tab_on_facebook method breaks that relationship
 	# 
 	def uninstall_tab
-		@application.uninstall_tab_callback 
-		@application.delete_tab_on_facebook
+		self.module
+		self.uninstall_tab_callback 
+		self.delete_tab_on_facebook
 	end
 
 	def put_tab_on_facebook(fb_page_identifier)
 		fb_page = FbPage.find_by(identifier: fb_page_identifier)
 		if fb_page
 			self.fb_page = fb_page
+			# logger.info('el page')
+			# logger.info(fb_page.inspect)
+			# logger.info(self.fb_page.inspect)
+			# self.save
+			# logger.info(self.fb_page.inspect)
 			# installed_apps = Application.installed.where("fb_page_id = '#{fb_page.id}' and application_type = '#{self.application_type}'")
 			# if installed_apps.length > 0
 				# free_fb_application = FbApplication::where("id not in (#{installed_apps.collect{|o| o.fb_application_id}.join(",")}) and application_type = '#{self.application_type}'").first
@@ -128,7 +132,7 @@ class Application < ApplicationRecord
 			}
 			koala.put_connections("me", "tabs", params)
 			self.installed!
-			self.save!
+			self.save
 			return :ok
 		else
 			raise ActiveRecord::RecordNotFound, "No facebook_page found for identifier #{fb_page_identifier}"
@@ -150,19 +154,19 @@ class Application < ApplicationRecord
 
 	def delete_tab_on_facebook
 		user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
-		logger.info('deleting')
-		logger.info(user_graph)
-		# page_token = user_graph.get_page_access_token(self.graph_facebook_page.identifier)
-		page_token = user_graph.get_page_access_token(self.fb_page.identifier)
-		logger.info(page_token)
-		koala = Koala::Facebook::API.new(page_token)
-		params = {
-			tab: 'app_' + self.fb_application.app_id
-		}
-		self.fb_page = nil
-		self.save!
-		if koala.delete_connections('me', 'tabs', params)
-			return true
+		if self.fb_page
+			page_token = user_graph.get_page_access_token(self.fb_page.identifier)
+			koala = Koala::Facebook::API.new(page_token)
+			params = {
+				tab: 'app_' + self.fb_application.app_id
+			}
+			self.fb_page = nil
+			self.save!
+			if koala.delete_connections('me', 'tabs', params)
+				return true
+			else
+				return false
+			end
 		else
 			return false
 		end
