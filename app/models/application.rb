@@ -19,7 +19,10 @@ class Application < ApplicationRecord
 	attr_accessor 	:facebook_page_loaded
 
 	def self.batch_uninstall_expired_apps
-		Application.installed.all.map{ |app| app.uninstall unless app.admin.can(:publish_apps) }
+		unless app.admin.can(:publish_apps)
+			Application.installed.all.map{ |app| app.uninstall }
+			Application.installed.all.map{ |app| app.uninstall_tab }
+		end
 	end
 
 	def generate_checksum
@@ -66,6 +69,17 @@ class Application < ApplicationRecord
 		else
 			logger.info('Could not obtain a FB Application')
 		end
+	end
+
+	# 
+	# Uninstalling Facebook page tabs
+	# 
+	# We run the callback first because some apps need the fb_page ID to make certain operations
+	# and the delete_tab_on_facebook method breaks that relationship
+	# 
+	def uninstall_tab
+		@application.uninstall_tab_callback 
+		@application.delete_tab_on_facebook
 	end
 
 	def put_tab_on_facebook(fb_page_identifier)

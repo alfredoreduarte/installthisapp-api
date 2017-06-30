@@ -128,8 +128,7 @@ class ApplicationsController < ApplicationController
 	end
 
 	def uninstall_tab
-		@application.uninstall_tab_callback
-		@application.delete_tab_on_facebook
+		@application.uninstall_tab
 		@admin = current_admin
 		render 'admins/entities'
 	end
