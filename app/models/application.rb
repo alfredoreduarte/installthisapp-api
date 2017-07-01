@@ -153,8 +153,8 @@ class Application < ApplicationRecord
 	end
 
 	def delete_tab_on_facebook
-		user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
-		if self.fb_page
+		if self.admin.fb_profile && self.fb_page
+			user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
 			page_token = user_graph.get_page_access_token(self.fb_page.identifier)
 			koala = Koala::Facebook::API.new(page_token)
 			params = {
