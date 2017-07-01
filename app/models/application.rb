@@ -176,9 +176,9 @@ class Application < ApplicationRecord
 				else
 					return false
 				end
-			rescue Koala::Facebook::AuthenticationError => e
+			rescue Koala::Facebook::AuthenticationError, Koala::Facebook::ClientError => e
 				logger.info(e)
-				logger.info("Invalid token! ERROR al eliminar tab de page con ID #{self.fb_page.id} del admin_user #{self.admin.id}")
+				logger.info("ERROR al eliminar tab de page con ID #{self.fb_page.id} del admin_user #{self.admin.id}")
 			end
 		else
 			return false
