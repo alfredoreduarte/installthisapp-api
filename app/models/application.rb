@@ -20,7 +20,15 @@ class Application < ApplicationRecord
 
 	def self.batch_uninstall_expired_apps
 		Application.installed.all.map{ |app| app.uninstall unless app.admin.can(:publish_apps) }
-		Application.all.map{ |app| app.uninstall_tab unless app.admin.can(:publish_apps) }
+		Application.all.map do |app| 
+			unless app.admin.can(:publish_apps)
+				# begin 
+					app.uninstall_tab
+				# rescue
+					# next
+				# end
+			end
+		end
 	end
 
 	def generate_checksum
@@ -154,18 +162,23 @@ class Application < ApplicationRecord
 
 	def delete_tab_on_facebook
 		if self.admin.fb_profile && self.fb_page
-			user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
-			page_token = user_graph.get_page_access_token(self.fb_page.identifier)
-			koala = Koala::Facebook::API.new(page_token)
-			params = {
-				tab: 'app_' + self.fb_application.app_id
-			}
-			self.fb_page = nil
-			self.save!
-			if koala.delete_connections('me', 'tabs', params)
-				return true
-			else
-				return false
+			begin
+				user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
+				page_token = user_graph.get_page_access_token(self.fb_page.identifier)
+				koala = Koala::Facebook::API.new(page_token)
+				params = {
+					tab: 'app_' + self.fb_application.app_id
+				}
+				self.fb_page = nil
+				self.save!
+				if koala.delete_connections('me', 'tabs', params)
+					return true
+				else
+					return false
+				end
+			rescue Koala::Facebook::AuthenticationError => e
+				logger.info(e)
+				logger.info("Invalid token! ERROR al eliminar tab de page con ID #{self.fb_page.id} del admin_user #{self.admin.id}")
 			end
 		else
 			return false
