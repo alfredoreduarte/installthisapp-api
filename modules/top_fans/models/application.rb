@@ -11,6 +11,14 @@ class Application
 	def uninstall_tab_callback
 		self.uninstall
 		self.fb_page.unsubscribe_to_realtime(self.admin)
+		# 
+		# Remove starting date so that the next time user tries to install the tab there's no cached date
+		# 
+		# Sometimes people would re-install selecting "track only new interactions" 
+		# but the app would instead fetch past posts because it had a previously saved starting date
+		# 
+		self.setting.conf["preferences"]["first_fetch_from_date"] = nil
+		self.setting.save
 		TopFansLike.where(
 			page_id: self.fb_page.identifier,
 		).delete
