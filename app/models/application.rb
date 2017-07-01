@@ -162,9 +162,10 @@ class Application < ApplicationRecord
 
 	def delete_tab_on_facebook
 		if self.admin.fb_profile && self.fb_page
+			fb_page = self.fb_page
 			begin
 				user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
-				page_token = user_graph.get_page_access_token(self.fb_page.identifier)
+				page_token = user_graph.get_page_access_token(fb_page.identifier)
 				koala = Koala::Facebook::API.new(page_token)
 				params = {
 					tab: 'app_' + self.fb_application.app_id
@@ -178,7 +179,7 @@ class Application < ApplicationRecord
 				end
 			rescue Koala::Facebook::AuthenticationError, Koala::Facebook::ClientError => e
 				logger.info(e)
-				logger.info("ERROR al eliminar tab de page con ID #{self.fb_page.id} del admin_user #{self.admin.id}")
+				logger.info("ERROR al eliminar tab de page con ID #{fb_page.id} del admin_user #{self.admin.id}")
 			end
 		else
 			return false
