@@ -2,8 +2,6 @@ module FrontendController
 
 	def entities
 		@application = @application
-		logger.info('elentry')
-		logger.info(@application.setting.conf["preferences"]["play_multiple_times"])
 		if @application.setting.conf["preferences"]["play_multiple_times"] == false and @fb_user.entry
 			@cards = []
 		else

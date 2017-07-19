@@ -15,9 +15,9 @@ module FrontendController
 		response = {
 			success: true,
 			# likes: results_likes.first(50),
-			likes: results_likes,
+			likes: results_likes, # Stopped sending a subset because it was distorting frontend-calculated results
 			# comments: results_comments.first(50),
-			comments: results_comments,
+			comments: results_comments, # Stopped sending a subset because it was distorting frontend-calculated results
 		}
 		respond_to do |format|
 			format.json { render json: response }
