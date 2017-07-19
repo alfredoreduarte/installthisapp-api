@@ -1,6 +1,6 @@
 module FrontendController
 
-	def viewmodel
+	def entities
 		@application = @application
 		@photos = @application.photos.includes(:votes, :fb_user)
 	end

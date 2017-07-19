@@ -15,7 +15,7 @@ module FrontendController
 #
 # 
 	
-	def entities
+	def entities_authenticated
 		already_answered = []
 		entries = @application.answers.where(fb_user_id: @fb_user.id)
 		for entry in entries

@@ -3,13 +3,16 @@ class CanvasController < ApplicationController
 	before_action :authenticate_user, except: [
 		:auth, 
 		:standalone_auth, 
-		:viewmodel, 
 		:messages_create,
 		:entities, 
 		:entries, 
 		:settings
 	]
 	before_action :load_application, :except => [:auth, :standalone_auth]
+
+	def entities_authenticated
+		
+	end
 
 	def settings
 		respond_to do |format|

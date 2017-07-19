@@ -1,6 +1,6 @@
 module FrontendController
 
-	def entities
+	def entities_authenticated
 		@application = @application
 		if @application.setting.conf["preferences"]["play_multiple_times"] == false and @fb_user.entry
 			@cards = []
