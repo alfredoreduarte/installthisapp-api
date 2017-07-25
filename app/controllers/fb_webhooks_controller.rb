@@ -36,6 +36,9 @@ class FbWebhooksController < ApplicationController
 					if fb_page
 						if fb_page.webhook_subscribed
 							entry[:changes].each do |change|
+								# 
+								# Top Fans
+								# 
 								# Verify that it's a change at feed level, not updated information about the page or something else
 								if change[:field] == "feed"
 									value = change[:value]
@@ -55,6 +58,22 @@ class FbWebhooksController < ApplicationController
 										end
 									end
 								end
+								# 
+								# Leadgen
+								# https://developers.facebook.com/docs/marketing-api/guides/lead-ads/retrieving#webhooks
+								# https://developers.facebook.com/tools/lead-ads-testing
+								# 
+								if change[:field] == "leadgen"
+									value = change[:value]
+									save_leadgen({
+										ad_id: value[:ad_id],
+										form_id: value[:form_id],
+										leadgen_id: value[:leadgen_id],
+										created_time: value[:created_time],
+										page_id: value[:page_id],
+										adgroup_id: value[:adgroup_id],
+									})
+								end
 							end
 						else
 							logger.info("Receiving webhook updates for a page that is marked as not subscribed at our database, page_id: #{page_id}")
@@ -66,6 +85,15 @@ class FbWebhooksController < ApplicationController
 			end
 			render plain: 'ok'
 		end
+	end
+
+	def fb_webhook_retrieve_test
+		require 'fb_api'
+		access_token = FbProfile.first.access_token
+		respo = FbApi::retrieve_leadgen(444444444444, access_token)
+		logger.info('res')
+		logger.info(respo)
+		render plain: 'hola'
 	end
 
 	private
@@ -105,6 +133,17 @@ class FbWebhooksController < ApplicationController
 			comment_id: value[:comment_id],
 			parent_id: value[:parent_id],
 			sender_id: value[:sender_id],
+		})
+	end
+
+	def save_leadgen( values )
+		SaveFbLeadgen.perform_later({
+			ad_id: values[:ad_id],
+			form_id: values[:form_id],
+			leadgen_id: values[:leadgen_id],
+			created_time: values[:created_time],
+			page_id: values[:page_id],
+			adgroup_id: values[:adgroup_id],
 		})
 	end
 

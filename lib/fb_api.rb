@@ -1,6 +1,14 @@
 module FbApi
 	FACEBOOK_GRAPH_URL = ENV['FB_GRAPH_URL']
 
+	def self.retrieve_leadgen( leadgen_id, access_token )
+		conn = Faraday::Connection.new FACEBOOK_GRAPH_URL, {:ssl => {:verify => false}}
+		response = conn.get %{/v#{ENV['FB_API_VERSION']}/#{leadgen_id}}, { :access_token => access_token }
+		# conn = Faraday::Connection.new "http://localhost:3000", {:ssl => {:verify => false}}
+		# response = conn.get "/fb_webhook_top_fans.json", { :access_token => '234234' }
+		return JSON::parse(response.body)
+	end
+
 	def self.get_id_for_app( user_id, access_token )
 		conn = Faraday::Connection.new FACEBOOK_GRAPH_URL, {:ssl => {:verify => false}}
 		response = conn.get %{/v#{ENV['FB_API_VERSION']}/#{user_id}/ids_for_apps/?app=#{ENV['FB_APP_ID']}&access_token=#{access_token}}
