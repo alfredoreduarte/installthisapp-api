@@ -33,30 +33,34 @@ class FbWebhooksController < ApplicationController
 				entries.each do |entry|
 					page_id = entry[:id]
 					fb_page = FbPage.find_by(identifier: page_id)
-					if fb_page.webhook_subscribed
-						entry[:changes].each do |change|
-							# Verify that it's a change at feed level, not updated information about the page or something else
-							if change[:field] == "feed"
-								value = change[:value]
-								# Manage post likes and reactions
-								if value[:item] == "like"
-									if value[:verb] == "remove"
-										remove_like(page_id, value)
-									elsif value[:verb] == "add"
-										add_like(page_id, value)
-									end
-								# Manage post comments and replies
-								elsif value[:item] == "comment"
-									if value[:verb] == "remove"
-										remove_comment(page_id, value)
-									elsif value[:verb] == "add"
-										add_comment(page_id, value)
+					if fb_page
+						if fb_page.webhook_subscribed
+							entry[:changes].each do |change|
+								# Verify that it's a change at feed level, not updated information about the page or something else
+								if change[:field] == "feed"
+									value = change[:value]
+									# Manage post likes and reactions
+									if value[:item] == "like"
+										if value[:verb] == "remove"
+											remove_like(page_id, value)
+										elsif value[:verb] == "add"
+											add_like(page_id, value)
+										end
+									# Manage post comments and replies
+									elsif value[:item] == "comment"
+										if value[:verb] == "remove"
+											remove_comment(page_id, value)
+										elsif value[:verb] == "add"
+											add_comment(page_id, value)
+										end
 									end
 								end
 							end
+						else
+							logger.info("Receiving webhook updates for a page that is marked as not subscribed at our database, page_id: #{page_id}")
 						end
 					else
-						logger.info("Receiving webhook updates for a page that is marked as not subscribed at our database, page_id: #{page_id}")
+						logger.info("Receiving webhook updates for a page that is not in our database, page_id: #{page_id}")
 					end
 				end
 			end
