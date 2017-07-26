@@ -55,6 +55,55 @@ module FbApi
 		return data
 	end
 
+	def self.get_page_id_from_post_url( access_token, post_url )
+		require 'uri'
+		url = post_url
+
+		scheme = URI(url).scheme
+		host = URI(url).host
+		first_path = URI(url).path.split('/')[1]
+		page_url = "#{scheme}://#{host}/#{first_path}"
+
+		conn = Faraday.new() do |faraday|
+			faraday.request  :url_encoded
+			faraday.response :logger
+			faraday.adapter  Faraday.default_adapter
+		end
+		url = "#{FACEBOOK_GRAPH_URL}/v#{ENV['FB_API_VERSION']}/#{page_url}?access_token=#{access_token}"
+		response = conn.get(url)
+		data = JSON::parse(response.body)
+		return data
+	end
+
+	def self.get_reactions_for_post( access_token, page_id, post_url )
+		require 'uri'
+		url = post_url
+
+		post_id = URI(url).path.split('/').last
+		
+		req = "#{page_id}_#{post_id}"
+
+		conn = Faraday.new() do |faraday|
+			faraday.request  :url_encoded
+			faraday.response :logger
+			faraday.adapter  Faraday.default_adapter
+		end
+		url = "#{FACEBOOK_GRAPH_URL}/v#{ENV['FB_API_VERSION']}/#{req}/reactions?access_token=#{access_token}"
+		response = conn.get(url)
+		data = JSON::parse(response.body)
+		return data
+	end
+
+	def self.generic_request(url)
+		conn = Faraday.new() do |faraday|
+			faraday.request  :url_encoded
+			faraday.response :logger
+			faraday.adapter  Faraday.default_adapter
+		end
+		response = conn.get(url)
+		data = JSON::parse(response.body)
+		return data
+	end
 
 	def self.post_info(access_token,post_id)
 		conn = Faraday::Connection.new FACEBOOK_GRAPH_URL, {:ssl => {:verify => false}}

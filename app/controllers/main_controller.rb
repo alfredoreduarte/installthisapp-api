@@ -1,6 +1,37 @@
 class MainController < ApplicationController
 	# before_action :authenticate_admin!, except: [:index]
 
+	def timeline_contest
+		require 'fb_api'
+		a_token = "EAACEdEose0cBABZBNdqFj3nq0kF34h8gVdx4Iz478rsNch2tE1acxOYZCbkQqX77hetp67ZBpSrDgsZCGmEbjyZAMo7AbVa4ahGHL4LoCIgl0qJDRrAKBkdmMH53Rjk3WEeXSU65PCQQYLZBweSYss97ZBhYZA8KtKbpXlyviro5t0l017XZArZCUYLGUrHp9od9MZD"
+		if params[:url]
+			result = FbApi::get_page_id_from_post_url(a_token, params[:url])
+			page_id = result["id"]
+			reactions_result = FbApi::get_reactions_for_post(a_token, page_id, params[:url])
+			logger.info(reactions_result)
+			# logger.info('es?')
+			# logger.info(!reactions_result["paging"]["next"].nil?)
+			# logger.info(reactions_result["paging"]["next"].nil?)
+			# logger.info(reactions_result["paging"]["next"].blank?)
+			if !reactions_result["paging"]["next"].nil?
+				extended_results = FbApi::generic_request(reactions_result["paging"]["next"])
+				logger.info('extended_results')
+				logger.info(extended_results)
+				while !extended_results["paging"]["next"].nil?
+					extended_results = FbApi::generic_request(extended_results["paging"]["next"])
+					logger.info('extended_results')
+					logger.info(extended_results)
+				end
+			end
+			# logger.info(result)
+			# logger.info(result["id"])
+		end
+		response = {"status": "ok"}
+		respond_to do |format|
+			format.json { render json: response }
+		end
+	end
+
 	def index
 		render plain: 'Server is up and running'
 	end

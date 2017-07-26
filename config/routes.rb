@@ -24,6 +24,11 @@ Rails.application.routes.draw do
 	match '/applications/:checksum/:action/:id.json', to: "applications#:action", via: [:get, :post, :delete, :put, :patch]
 
 	# 
+	# Timeline contests
+	# 
+	match '/timeline_contest(.:format)', to: "main#timeline_contest", via: [:get, :post]
+
+	# 
 	# GODVIEW
 	# 
 	match '/entities(.:format)', to: "main#entities", via: [:get]
