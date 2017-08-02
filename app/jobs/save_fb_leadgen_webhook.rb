@@ -1,9 +1,9 @@
-class SaveFbLeadgen < ApplicationJob
+class SaveFbLeadgenWebhook < ApplicationJob
 	queue_as :default
 
 	def perform( values )
 		# Do something later
-		FbLeadgen.create(
+		FbLeadgenWebhook.create(
 			ad_id: values[:ad_id],
 			form_id: values[:form_id],
 			leadgen_id: values[:leadgen_id],

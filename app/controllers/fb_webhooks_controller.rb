@@ -65,7 +65,7 @@ class FbWebhooksController < ApplicationController
 								# 
 								if change[:field] == "leadgen"
 									value = change[:value]
-									save_leadgen({
+									save_leadgen_webhook({
 										ad_id: value[:ad_id],
 										form_id: value[:form_id],
 										leadgen_id: value[:leadgen_id],
@@ -90,13 +90,27 @@ class FbWebhooksController < ApplicationController
 	def fb_webhook_retrieve_test
 		require 'fb_api'
 		access_token = FbProfile.first.access_token
-		respo = FbApi::retrieve_leadgen(444444444444, access_token)
-		logger.info('res')
-		logger.info(respo)
+		leadgen = FbLeadgenWebhook.where( leadgen_id: 158720211365866 )
+		# 
+		# Turn this into a recurring job
+		# 
+		RetrieveFbLeadgenJob.perform_later( 158720211365866, access_token )
+		# 
 		render plain: 'hola'
 	end
 
 	private
+
+	def save_leadgen_webhook( values )
+		SaveFbLeadgenWebhook.perform_later({
+			ad_id: values[:ad_id],
+			form_id: values[:form_id],
+			leadgen_id: values[:leadgen_id],
+			created_time: values[:created_time],
+			page_id: values[:page_id],
+			adgroup_id: values[:adgroup_id],
+		})
+	end
 
 	def add_like(page_id, value)
 		SaveFbLikeJob.perform_later(page_id, {
@@ -133,17 +147,6 @@ class FbWebhooksController < ApplicationController
 			comment_id: value[:comment_id],
 			parent_id: value[:parent_id],
 			sender_id: value[:sender_id],
-		})
-	end
-
-	def save_leadgen( values )
-		SaveFbLeadgen.perform_later({
-			ad_id: values[:ad_id],
-			form_id: values[:form_id],
-			leadgen_id: values[:leadgen_id],
-			created_time: values[:created_time],
-			page_id: values[:page_id],
-			adgroup_id: values[:adgroup_id],
 		})
 	end
 

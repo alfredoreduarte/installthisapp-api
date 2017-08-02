@@ -1,4 +1,4 @@
-class FbLeadgen
+class FbLeadgenWebhook
 	Mongoid::QueryCache.enabled = true
 	include Mongoid::Document
 	include Mongoid::Timestamps
@@ -9,4 +9,6 @@ class FbLeadgen
 	field :created_time, type: Integer
 	field :page_id, type: Integer
 	field :adgroup_id, type: Integer
+
+	field :processed, type: Boolean, default: false
 end
