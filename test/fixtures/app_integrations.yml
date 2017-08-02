@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  application: one
+  integration_type: 1
+  settings: 
+
+two:
+  application: two
+  integration_type: 1
+  settings: 
