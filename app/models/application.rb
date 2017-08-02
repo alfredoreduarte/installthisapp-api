@@ -170,7 +170,14 @@ class Application < ApplicationRecord
 				params = {
 					tab: 'app_' + self.fb_application.app_id
 				}
-				self.fb_page = nil
+				# 
+				# Top Fans needs to have a FB Page associated to maintain 
+				# the webhook subscription, even if there's
+				# no Facebook Page Tab integrated.
+				# 
+				unless self.application_type == 'top_fans'
+					self.fb_page = nil
+				end
 				self.save!
 				if koala.delete_connections('me', 'tabs', params)
 					return true

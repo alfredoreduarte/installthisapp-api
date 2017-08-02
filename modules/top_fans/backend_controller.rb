@@ -1,5 +1,54 @@
 module BackendController
 
+	def subscribe_to_webhook
+		if @application.fb_page && @application.admin.can(:publish_apps)
+			@application.fb_page.subscribe_to_realtime(@application.admin, @application.fb_application)
+			if @application.setting.conf["preferences"]["first_fetch_from_date"]
+				TopFansLike.where(
+					page_id: @application.fb_page.identifier,
+				).delete
+				TopFansComment.where(
+					page_id: @application.fb_page.identifier,
+				).delete
+				start_date = @application.setting.conf["preferences"]["first_fetch_from_date"].to_datetime.to_i
+				identifier = @application.fb_page.identifier
+				access_token = @application.admin.fb_profile.access_token
+				TopFansResetJob.perform_later(identifier, access_token, start_date)
+			end
+			render 'admins/entities'
+		else
+			render json: {
+				success: false,
+				message: "User can't publish apps"
+			}
+		end
+	end
+
+	def unsubscribe_from_webhook
+		@application.uninstall
+		if @application.fb_page
+			@application.fb_page.unsubscribe_to_realtime(@application.admin)
+			# 
+			# Remove starting date so that the next time user tries to install the tab there's no cached date
+			# 
+			# Sometimes people would re-install selecting "track only new interactions" 
+			# but the app would instead fetch past posts because it had a previously saved starting date
+			# 
+			@application.setting.conf["preferences"]["first_fetch_from_date"] = nil
+			@application.setting.save
+			TopFansLike.where(
+				page_id: @application.fb_page.identifier,
+			).delete
+			TopFansComment.where(
+				page_id: @application.fb_page.identifier,
+			).delete
+		else
+			logger.info('Tried to execute unsubscribe_from_webhook on an app with no fb_page')
+		end
+		@admin = @application.admin
+		render 'admins/entities'
+	end
+
 	def reset
 		start_date = @application.setting.conf["preferences"]["first_fetch_from_date"].to_datetime.to_i
 		identifier = @application.fb_page.identifier
