@@ -1,4 +1,12 @@
 require 'resque/server'
+
+# Protecting the Resque control panel
+if ENV['RESQUE_ADMIN_PASSWORD']
+	Resque::Server.use Rack::Auth::Basic do |username, password|
+		password == ENV['RESQUE_ADMIN_PASSWORD']
+	end
+end
+
 Rails.application.routes.draw do
 	mount Payola::Engine => '/payola', as: :payola
 	root 'main#index'
@@ -16,13 +24,6 @@ Rails.application.routes.draw do
 	match '/applications/:checksum/:action/:id.json', to: "applications#:action", via: [:get, :post, :delete, :put, :patch]
 
 	# 
-	# CANVAS
-	# 
-	match '/canvasauth.json', to: "canvas#auth", via: [:post]
-	match '/standalone_auth.json', to: "canvas#standalone_auth", via: [:post]
-	match '/:checksum/:action.json', to: "canvas#:action", via: [:get, :post]
-
-	# 
 	# GODVIEW
 	# 
 	match '/entities(.:format)', to: "main#entities", via: [:get]
@@ -33,6 +34,14 @@ Rails.application.routes.draw do
 	# 
 	# FB Page realtime subscriptions
 	# 
-	match '/fb_webhook_top_fans', to: "fb_webhook#top_fans", via: [:get, :post]
+	match '/fb_webhook_top_fans', to: "fb_webhooks#top_fans", via: [:get, :post]
+	match '/fb_webhooks/verify_page_subscription', to: "fb_webhooks#verify_page_subscription", via: [:get, :post]
+
+	# 
+	# CANVAS
+	# 
+	match '/canvasauth.json', to: "canvas#auth", via: [:post]
+	match '/standalone_auth.json', to: "canvas#standalone_auth", via: [:post]
+	match '/:checksum/:action.json', to: "canvas#:action", via: [:get, :post]
 
 end

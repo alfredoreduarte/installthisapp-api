@@ -1,12 +1,12 @@
 class ApplicationsController < ApplicationController
-	before_action :authenticate_admin!, except: [:index]
 	require 'fileutils'
 	include Modules::BaseController
-	before_action :get_application, :except => [:index, :create]
-	before_action :load_module, :except => [:index, :create]
-	before_action :dispatch_module, :except => [
-		:destroy,
-	]
+
+	before_action :authenticate_admin!, except: [ :index ]
+	before_action :get_application, :except => [ :index, :create ]
+	before_action :load_module, :except => [ :index, :create ]
+	before_action :dispatch_module, :except => [ :destroy ]
+	before_action :set_raven_context, except: [ :index ]
 
 	def index
 		render json: {
@@ -78,14 +78,16 @@ class ApplicationsController < ApplicationController
 	end
 
 	def update
-		@application.update_attributes(application_params)
-		render partial: 'applications/application', locals: {application: @application}
+		@success = @application.update_attributes(application_params)
+		# render partial: 'applications/application', locals: {application: @application}
+		render 'applications/update'
 	end
 
 	def update_setting
 		@application.setting.conf["preferences"] = params[:setting]
-		@application.setting.save!
-		render partial: 'applications/application', locals: {application: @application}
+		@success = @application.setting.save!
+		# render partial: 'applications/application', locals: {application: @application}
+		render 'applications/update'
 	end
 
 	def install
@@ -111,19 +113,34 @@ class ApplicationsController < ApplicationController
 			}
 		end
 	end
+
 	def install_tab
-		@application.put_tab_on_facebook(params[:fb_page_identifier])
-		@application.install_tab_callback
-		@admin = current_admin
-		@plans = SubscriptionPlan.all
-		render 'admins/entities'
+		if params[:fb_page_identifier]
+			if @application.admin.can(:publish_apps)
+				@application.install
+				@application.put_tab_on_facebook(params[:fb_page_identifier])
+				@application.install_tab_callback
+				ApplicationLog.log_fb_integration(@application.checksum, DateTime.now)
+				@admin = current_admin
+				@plans = SubscriptionPlan.all
+				render 'admins/entities'
+			else
+				render json: {
+					success: false,
+					message: "User can't publish apps"
+				}
+			end
+		else
+			raise ParamsVerificationFailed, 'fb_page_identifier'
+		end
 	end
+
 	def uninstall_tab
-		@application.delete_tab_on_facebook
-		@application.uninstall_tab_callback
+		@application.uninstall_tab
 		@admin = current_admin
 		render 'admins/entities'
 	end
+
 	def uninstall
 		uninstall_result = @application.uninstall
 		if uninstall_result == :ok
@@ -139,6 +156,7 @@ class ApplicationsController < ApplicationController
 		render json: @application.as_json
 	end
 	def save_app_from_editor
+		ApplicationLog.log_design(@application.checksum, DateTime.now)
 		generate_css(params[:css])
 		generate_messages(params[:messages])
 		generate_images(params[:images])
@@ -154,11 +172,9 @@ class ApplicationsController < ApplicationController
 
 	def get_application
 		checksum = params[:checksum] || params[:id]
-		if current_admin.email == 'alfredoreduarte@gmail.com'
-			@application = Application.find_by(checksum: checksum)
-		else
-			@application = current_admin.applications.find_by(checksum: checksum)
-		end
+		@application = current_admin.applications.find_by(checksum: checksum)
+		@application.create_log # temporary application logs generator
+		raise ActiveRecord::RecordNotFound, "No application found for checksum #{checksum}" unless @application
 	end
 
 	def asset_params
@@ -251,5 +267,16 @@ class ApplicationsController < ApplicationController
 	def cleanup_local_images_json_files(file)
 		File.delete(file) if File.exist?(file)
 		FileUtils.remove_dir "#{Rails.root}/app/assets/json/application_images/#{@application.checksum}", false
+	end
+
+	def set_raven_context
+		Raven.user_context(
+			id: current_admin.id,
+			email: current_admin.email
+		)
+		Raven.extra_context(
+			params: params.to_unsafe_h, 
+			url: request.url
+		)
 	end
 end

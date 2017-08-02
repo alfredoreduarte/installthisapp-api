@@ -11,6 +11,7 @@ class Application < ApplicationRecord
 	has_one 		:setting
 
 	before_create 	:generate_checksum
+	before_create 	:create_log
 	before_create 	:assign_fb_application
 	after_create 	:create_setting
 
@@ -19,6 +20,15 @@ class Application < ApplicationRecord
 
 	def self.batch_uninstall_expired_apps
 		Application.installed.all.map{ |app| app.uninstall unless app.admin.can(:publish_apps) }
+		Application.all.map do |app| 
+			unless app.admin.can(:publish_apps)
+				# begin 
+					app.uninstall_tab
+				# rescue
+					# next
+				# end
+			end
+		end
 	end
 
 	def generate_checksum
@@ -41,8 +51,14 @@ class Application < ApplicationRecord
 		end
 	end
 
+	# Creates an application log if it doesn't exist
+	def create_log
+		ApplicationLog.find_or_create_by(
+			checksum: self.checksum,
+		)
+	end
+
 	def install
-		# self.assign_fb_application
 		self.installed!
 		self.save
 		return :ok
@@ -61,62 +77,79 @@ class Application < ApplicationRecord
 		end
 	end
 
-	def put_tab_on_facebook(fb_page_identifier)
-		# fb_page = FbPage.find(self.fb_page_id)
-		# self.assign_fb_application
-		fb_page = FbPage.find_by(identifier: fb_page_identifier)
-		self.fb_page = fb_page
-		# installed_apps = Application.installed.where("fb_page_id = '#{fb_page.id}' and application_type = '#{self.application_type}'")
-		# if installed_apps.length > 0
-			# free_fb_application = FbApplication::where("id not in (#{installed_apps.collect{|o| o.fb_application_id}.join(",")}) and application_type = '#{self.application_type}'").first
-		# else
-			# free_fb_application = FbApplication::where("application_type='#{self.application_type}'").first
-		# end
-		# self.fb_application = free_fb_application
-		pages = FbGraph2::User.me(self.admin.fb_profile.access_token).accounts
-		index = pages.find_index{|p| p.id.to_i == fb_page.identifier.to_i}
-		unless index.nil?
-			if !pages[index].perms.include?("CREATE_CONTENT")
-				return :fb_page_not_admin
-			end
-		else
-			return :fb_permission_issue
-		end
+	# 
+	# Uninstalling Facebook page tabs
+	# 
+	# We run the callback first because some apps need the fb_page ID to make certain operations
+	# and the delete_tab_on_facebook method breaks that relationship
+	# 
+	def uninstall_tab
+		self.module
+		self.uninstall_tab_callback 
+		self.delete_tab_on_facebook
+	end
 
-		# 
-		# Alt
-		# 
-		# Make the request using Faraday directly:
-		# 
-		# require "logger"
-		# conn = Faraday.new(:url => "#{ENV['FB_GRAPH_URL']}/v2.9/#{fb_page_identifier}/tabs/") do |faraday|
-		# 	faraday.request :url_encoded
-		# 	faraday.response :logger, ::Logger.new(STDOUT), bodies: true
-		# 	faraday.adapter Faraday.default_adapter
-		# 	faraday.params['app_id'] = self.fb_application.app_id
-		# 	faraday.params['access_token'] = page_token
-		# end
-		# response = conn.post
-		# logger.info(response.body)
-		# !Alt
-		user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
-		# graph_fb_p = self.graph_facebook_page(fb_page_identifier)
-		page_token = user_graph.get_page_access_token(fb_page_identifier)
-		koala = Koala::Facebook::API.new(page_token)
-		params = {
-			app_id: self.fb_application.app_id,
-			# position: 1,
-			custom_name: self.title,
-		}
-		koala.put_connections("me", "tabs", params)
-		self.installed!
-		self.save!
-		return :ok
+	def put_tab_on_facebook(fb_page_identifier)
+		fb_page = FbPage.find_by(identifier: fb_page_identifier)
+		if fb_page
+			self.fb_page = fb_page
+			# logger.info('el page')
+			# logger.info(fb_page.inspect)
+			# logger.info(self.fb_page.inspect)
+			# self.save
+			# logger.info(self.fb_page.inspect)
+			# installed_apps = Application.installed.where("fb_page_id = '#{fb_page.id}' and application_type = '#{self.application_type}'")
+			# if installed_apps.length > 0
+				# free_fb_application = FbApplication::where("id not in (#{installed_apps.collect{|o| o.fb_application_id}.join(",")}) and application_type = '#{self.application_type}'").first
+			# else
+				# free_fb_application = FbApplication::where("application_type='#{self.application_type}'").first
+			# end
+			# self.fb_application = free_fb_application
+			pages = FbGraph2::User.me(self.admin.fb_profile.access_token).accounts
+			index = pages.find_index{|p| p.id.to_i == fb_page.identifier.to_i}
+			unless index.nil?
+				if !pages[index].perms.include?("CREATE_CONTENT")
+					return :fb_page_not_admin
+				end
+			else
+				return :fb_permission_issue
+			end
+
+			# 
+			# Alt
+			# 
+			# Make the request using Faraday directly:
+			# 
+			# require "logger"
+			# conn = Faraday.new(:url => "#{ENV['FB_GRAPH_URL']}/v2.9/#{fb_page_identifier}/tabs/") do |faraday|
+			# 	faraday.request :url_encoded
+			# 	faraday.response :logger, ::Logger.new(STDOUT), bodies: true
+			# 	faraday.adapter Faraday.default_adapter
+			# 	faraday.params['app_id'] = self.fb_application.app_id
+			# 	faraday.params['access_token'] = page_token
+			# end
+			# response = conn.post
+			# logger.info(response.body)
+			# !Alt
+			user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
+			page_token = user_graph.get_page_access_token(fb_page_identifier)
+			koala = Koala::Facebook::API.new(page_token)
+			params = {
+				app_id: self.fb_application.app_id,
+				custom_name: self.title,
+			}
+			koala.put_connections("me", "tabs", params)
+			self.installed!
+			self.save
+			return :ok
+		else
+			raise ActiveRecord::RecordNotFound, "No facebook_page found for identifier #{fb_page_identifier}"
+		end
 	end
 
 	def uninstall
 		if self.installed?
-			self.uninstalled! 
+			self.uninstalled!
 			if self.save!
 				return :ok
 			else
@@ -128,20 +161,26 @@ class Application < ApplicationRecord
 	end
 
 	def delete_tab_on_facebook
-		user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
-		logger.info('deleting')
-		logger.info(user_graph)
-		# page_token = user_graph.get_page_access_token(self.graph_facebook_page.identifier)
-		page_token = user_graph.get_page_access_token(self.fb_page.identifier)
-		logger.info(page_token)
-		koala = Koala::Facebook::API.new(page_token)
-		params = {
-			tab: 'app_' + self.fb_application.app_id
-		}
-		self.fb_page = nil
-		self.save!
-		if koala.delete_connections('me', 'tabs', params)
-			return true
+		if self.admin.fb_profile && self.fb_page
+			fb_page = self.fb_page
+			begin
+				user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
+				page_token = user_graph.get_page_access_token(fb_page.identifier)
+				koala = Koala::Facebook::API.new(page_token)
+				params = {
+					tab: 'app_' + self.fb_application.app_id
+				}
+				self.fb_page = nil
+				self.save!
+				if koala.delete_connections('me', 'tabs', params)
+					return true
+				else
+					return false
+				end
+			rescue Koala::Facebook::AuthenticationError, Koala::Facebook::ClientError => e
+				logger.info(e)
+				logger.info("ERROR al eliminar tab de page con ID #{fb_page.id} del admin_user #{self.admin.id}")
+			end
 		else
 			return false
 		end

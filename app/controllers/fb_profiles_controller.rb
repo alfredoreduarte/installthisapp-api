@@ -3,11 +3,11 @@ class FbProfilesController < ApplicationController
 
 	def create
 		fb_profile = FbProfile.where(identifier: params[:identifier]).first_or_initialize
-		fb_profile.signed_request = params[:signed_request]
-		current_admin.fb_profile = fb_profile
-		if current_admin.fb_profile.sign_in(params[:signed_request])
-			current_admin.fb_profile.save
-			current_admin.fb_profile.fetch_fb_pages
+		# fb_profile.signed_request = params[:signed_request]
+		if fb_profile.sign_in(params[:signed_request])
+			fb_profile.save
+			fb_profile.fetch_fb_pages
+			current_admin.fb_profile = fb_profile
 			@admin = current_admin
 			render 'admins/entities'
 		else

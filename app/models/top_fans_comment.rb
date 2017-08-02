@@ -62,4 +62,32 @@ class TopFansComment
 		# result = Mongoid::QueryCache.cache { self.collection.aggregate([match, group, sort, project, limit]) }
 		return result
 	end
+
+	def self.detail_by_page_and_user(page_identifier, user_identifier)
+		match = {
+			'$match': {
+				page_id: page_identifier,
+				sender_id: user_identifier.to_i,
+			}
+		}
+		group = {
+			'$group': {
+				_id: "$sender_id",
+				senderId: { "$first": "$sender_id" },
+				senderName: { "$first": "$sender_name" },
+				comments: {"$sum": 1}
+			}
+		}
+		project = {
+			'$project': {
+				_id: 0,
+				comments: 1,
+				senderId: 1,
+				senderName: 1,
+			}
+		}
+		result = Mongoid::QueryCache.cache { self.collection.aggregate([match, group, project]) }
+		return result
+	end
+	
 end

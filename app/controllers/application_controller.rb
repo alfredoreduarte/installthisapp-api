@@ -1,8 +1,22 @@
+# class ApplicationController < ActionController::API
 class ApplicationController < ActionController::Base
 	respond_to :json
 	protect_from_forgery with: :null_session
 	include DeviseTokenAuth::Concerns::SetUserByToken
 	before_action :configure_permitted_parameters, if: :devise_controller?
+
+	# 
+	# Custom error types
+	# We're not rescuing from any in order to get notified about them
+	# 
+	# class ParamsVerificationFailed < ActionController::BadRequest; end
+	# rescue_from ParamsVerificationFailed, :with => :render_error_response
+	# def render_error_response(error)
+	# 	render json: {
+	# 		message: error
+	# 	}, status: :bad_request
+	# end
+	ParamsVerificationFailed = Class.new(ActionController::ParameterMissing)
 
 	# 
 	# GodWiew for super admins
@@ -22,16 +36,6 @@ class ApplicationController < ActionController::Base
 	end
 
 	protected
-
-	# def configure_permitted_parameters
-		# devise_parameter_sanitizer.permit(:sign_up, keys: [:confirm_success_url])
-		# devise_parameter_sanitizer.for(:sign_up) << :confirm_success_url
-		# devise_parameter_sanitizer.permit(:sign_up)        << :confirm_success_url
-	# end
-
-	# def devise_parameter_sanitizer
-	# 	Admin::ParameterSanitizer.new(Admin, :admin, params)
-	# end
 
 	# 
 	# Allow extra params for signup, update, etc.

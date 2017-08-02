@@ -16,7 +16,8 @@ class AccessToken < ApplicationRecord
 	
 	def profile
 		if self.fb_session.nil?
-			self.fb_session = FbGraph2::User.me(self.token).fetch rescue nil # si falla es porque no hay token valido, paso nil para despues conseguir otro token
+			# self.fb_session = FbGraph2::User.me(self.token).fetch rescue nil # si falla es porque no hay token valido, paso nil para despues conseguir otro token
+			self.fb_session = FbGraph2::User.me(self.token).fetch
 		end
 		return self.fb_session
 	end

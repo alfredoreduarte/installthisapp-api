@@ -7,3 +7,4 @@ end
 json.categories do
 	json.array! @categories, partial: 'applications/categories/category', as: :category
 end
+json.application_log @application_log

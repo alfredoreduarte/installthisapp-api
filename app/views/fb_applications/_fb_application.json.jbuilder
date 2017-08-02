@@ -1,0 +1,1 @@
+json.extract! fb_application, :id, :name, :app_id, :secret_key, :application_type, :canvas_id, :namespace

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FbWebhookControllerTest < ActionDispatch::IntegrationTest
+class FbWebhooksControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

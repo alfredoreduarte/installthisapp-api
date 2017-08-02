@@ -1,6 +1,7 @@
 module BackendController
 
-	def photos
+	def entities
+		@application_log = ApplicationLog.log_by_checksum(@application.checksum)
 		@photos = @application.photos
 	end
 

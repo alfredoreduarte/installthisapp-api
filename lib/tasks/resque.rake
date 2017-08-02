@@ -64,7 +64,11 @@ namespace :resque do
 	# 	Resque.workers.each {|w| w.unregister_worker}
 	# end
 
-	# Alf's custom tasks
+	# 
+	# Alfredos's custom tasks
+	# run them like this:
+	# heroku run rake:resque task_name -r production
+	# 
 	desc "Unregister all non-working workers for cleanup purposes"
 	task :cleanup_idle_workers => :environment do
 		Resque.workers.each do |worker|

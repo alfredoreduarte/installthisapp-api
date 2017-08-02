@@ -1,12 +1,12 @@
 module BackendController
 
 	def entities
+		@application_log = ApplicationLog.log_by_checksum(@application.checksum)
 		@questions = @application.questions
 		@answers = @application.user_summaries
 	end
 
 	def questions_create
-		# hash = params.deep_symbolize_keys
 		question = @application.questions.create(question_params)
 		response = {
 			questions: [
