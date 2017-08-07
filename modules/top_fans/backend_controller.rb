@@ -1,20 +1,34 @@
 module BackendController
 
 	def subscribe_to_webhook
-		if @application.fb_page && @application.admin.can(:publish_apps)
-			@application.fb_page.subscribe_to_realtime(@application.admin, @application.fb_application)
+		if !params[:fb_page_identifier].nil? && @application.admin.can(:publish_apps)
+			@application.install
+			# get page
+			fb_page = FbPage.find_by(identifier: params[:fb_page_identifier])
+			# add integration 
+			@application.app_integrations.create(integration_type: 1, settings: {
+				fb_page_identifier: fb_page.identifier,
+			})
+			# subscribe page
+			fb_page.subscribe_to_realtime(@application.admin, @application.fb_application)
 			if @application.setting.conf["preferences"]["first_fetch_from_date"]
 				TopFansLike.where(
-					page_id: @application.fb_page.identifier,
+					page_id: fb_page.identifier,
 				).delete
 				TopFansComment.where(
-					page_id: @application.fb_page.identifier,
+					page_id: fb_page.identifier,
 				).delete
 				start_date = @application.setting.conf["preferences"]["first_fetch_from_date"].to_datetime.to_i
-				identifier = @application.fb_page.identifier
+				identifier = fb_page.identifier
 				access_token = @application.admin.fb_profile.access_token
 				TopFansResetJob.perform_later(identifier, access_token, start_date)
 			end
+			# 
+			# Simulating admins#entities
+			# TODO: corregir esto en el futuro
+			# 
+			@admin = current_admin
+			@plans = SubscriptionPlan.all
 			render 'admins/entities'
 		else
 			render json: {
@@ -26,8 +40,9 @@ module BackendController
 
 	def unsubscribe_from_webhook
 		@application.uninstall
-		if @application.fb_page
-			@application.fb_page.unsubscribe_to_realtime(@application.admin)
+		fb_page = FbPage.find_by(identifier: @application.app_integrations.fb_webhook_page_feed.first.settings["fb_page_identifier"])
+		if fb_page
+			fb_page.unsubscribe_to_realtime(@application.admin)
 			# 
 			# Remove starting date so that the next time user tries to install the tab there's no cached date
 			# 
@@ -37,15 +52,16 @@ module BackendController
 			@application.setting.conf["preferences"]["first_fetch_from_date"] = nil
 			@application.setting.save
 			TopFansLike.where(
-				page_id: @application.fb_page.identifier,
+				page_id: fb_page.identifier,
 			).delete
 			TopFansComment.where(
-				page_id: @application.fb_page.identifier,
+				page_id: fb_page.identifier,
 			).delete
+			@application.app_integrations.fb_webhook_page_feed.destroy_all
 		else
 			logger.info('Tried to execute unsubscribe_from_webhook on an app with no fb_page')
 		end
-		@admin = @application.admin
+		@admin = current_admin
 		render 'admins/entities'
 	end
 
@@ -77,7 +93,8 @@ module BackendController
 	end
 
 	def entries
-		fb_page = @application.fb_page
+		fb_page = FbPage.find_by(identifier: @application.app_integrations.fb_webhook_page_feed.first.settings["fb_page_identifier"])
+		# fb_page = @application.fb_page
 		@application_log = ApplicationLog.log_by_checksum(@application.checksum)
 		if fb_page
 			identifier = fb_page.identifier

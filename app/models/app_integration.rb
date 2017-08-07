@@ -1,3 +1,4 @@
 class AppIntegration < ApplicationRecord
-  belongs_to :application
+	enum integration_type: { fb_tab: 0, fb_webhook_page_feed: 1 }
+	belongs_to :application
 end

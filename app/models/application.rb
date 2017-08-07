@@ -8,6 +8,7 @@ class Application < ApplicationRecord
 	has_many 		:application_assets
 	# has_many 		:users, :through => :access_tokens
 	has_many 		:fb_users, :through => :access_tokens
+	has_many 		:app_integrations
 	has_one 		:setting
 
 	before_create 	:generate_checksum
@@ -65,10 +66,7 @@ class Application < ApplicationRecord
 	end
 
 	def assign_fb_application
-		logger.info('assigning!')
-		logger.info(self.application_type)
 		free_fb_application = FbApplication.find_by(application_type: self.application_type)
-		logger.info(free_fb_application)
 		if free_fb_application
 			self.fb_application = free_fb_application
 			# self.save
@@ -92,6 +90,9 @@ class Application < ApplicationRecord
 	def put_tab_on_facebook(fb_page_identifier)
 		fb_page = FbPage.find_by(identifier: fb_page_identifier)
 		if fb_page
+			# 
+			# TODO: remove this association once the canvas TODO is done
+			# 
 			self.fb_page = fb_page
 			# logger.info('el page')
 			# logger.info(fb_page.inspect)
@@ -138,7 +139,16 @@ class Application < ApplicationRecord
 				app_id: self.fb_application.app_id,
 				custom_name: self.title,
 			}
+			# 
+			# TODO: UNcomment this before commit!
+			# 
 			koala.put_connections("me", "tabs", params)
+			# 
+			self.app_integrations.new(integration_type: 0, settings: {
+				fb_page_identifier: fb_page.identifier,
+				fb_application_identifier: self.fb_application.app_id,
+				tab_title: self.title,
+			})
 			self.installed!
 			self.save
 			return :ok
@@ -161,8 +171,12 @@ class Application < ApplicationRecord
 	end
 
 	def delete_tab_on_facebook
-		if self.admin.fb_profile && self.fb_page
-			fb_page = self.fb_page
+		fb_page = self.app_integrations.fb_tab ? FbPage.find_by(identifier: "#{self.app_integrations.fb_tab.first.settings["fb_page_identifier"]}") : self.fb_page
+		logger.info('aca!')
+		logger.info(fb_page.inspect)
+		logger.info(self.app_integrations.fb_tab.first.settings["fb_application_identifier"])
+		if self.admin.fb_profile && fb_page
+			# fb_page = self.fb_page
 			begin
 				user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
 				page_token = user_graph.get_page_access_token(fb_page.identifier)
@@ -175,11 +189,19 @@ class Application < ApplicationRecord
 				# the webhook subscription, even if there's
 				# no Facebook Page Tab integrated.
 				# 
-				unless self.application_type == 'top_fans'
+				# unless self.application_type == 'top_fans'
 					self.fb_page = nil
-				end
+				# end
 				self.save!
 				if koala.delete_connections('me', 'tabs', params)
+					# attempt to delete integration
+					# self.app_integrations.new(integration_type: 0, settings: {
+						# fb_page_identifier: self.fb_page.identifier,
+						# fb_application_identifier: self.fb_application.app_id,
+						# tab_title: self.title,
+					# })
+					self.app_integrations.fb_tab.destroy_all
+					# attempt to delete integration
 					return true
 				else
 					return false

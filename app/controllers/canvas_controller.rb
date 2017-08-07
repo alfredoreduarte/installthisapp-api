@@ -67,6 +67,10 @@ class CanvasController < ApplicationController
 				fb_auth = fb_connection.from_signed_request(params[:signed_request])
 				page_data = fb_auth.payload[:page]
 				fb_page = FbPage.find_by(identifier: page_data['id'])
+				# 
+				# TODO: Find another way to get application from the appintegrations. The fb_page_id column should be removed
+				# from the applications table.
+				# 
 				application = fb_application.applications.installed.where(fb_page_id: fb_page.id).first
 				if application	
 					application.module
