@@ -91,4 +91,25 @@ namespace :resque do
 			end
 		end
 	end
+
+	desc 'Fix old top fans apps without app_integrations objects'
+	task :add_integration_definition_to_old_top_fans => :environment do
+		all_top_fans = Application.where(status: 1, application_type: 'top_fans').all
+		if all_top_fans.length > 0
+			for all_top_fans.each do |application|
+				if application.app_integrations.count == 0
+					fb_page_id = application.fb_page_id
+					if fb_page_id
+						fb_page = FbPage.find(fb_page_id)
+						application.app_integrations.create(integration_type: 1, settings: {
+							fb_page_identifier: fb_page.identifier,
+						})
+					end
+				end
+			end
+		end
+		@application.app_integrations.create(integration_type: 1, settings: {
+			fb_page_identifier: fb_page.identifier,
+		})
+	end
 end
