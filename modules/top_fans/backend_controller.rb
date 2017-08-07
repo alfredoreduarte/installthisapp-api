@@ -93,8 +93,14 @@ module BackendController
 	end
 
 	def entries
-		fb_page = FbPage.find_by(identifier: @application.app_integrations.fb_webhook_page_feed.first.settings["fb_page_identifier"])
-		# fb_page = @application.fb_page
+		integration = @application.app_integrations.fb_webhook_page_feed.first
+		fb_page = nil
+		if integration
+			fb_page = FbPage.find_by(identifier: integration.settings["fb_page_identifier"])
+		else
+			# fb_page = FbPage.find_by(identifier: @application.app_integrations.fb_webhook_page_feed.first.settings["fb_page_identifier"])
+			fb_page = @application.fb_page
+		end
 		@application_log = ApplicationLog.log_by_checksum(@application.checksum)
 		if fb_page
 			identifier = fb_page.identifier
