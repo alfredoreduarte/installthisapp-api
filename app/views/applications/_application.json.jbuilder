@@ -1,4 +1,4 @@
-json.extract! application, :id, :title, :checksum, :application_type, :status, :fb_application
+json.extract! application, :id, :title, :checksum, :application_type, :status, :fb_application, :app_integrations
 json.users do
 	json.array! application.fb_users
 end

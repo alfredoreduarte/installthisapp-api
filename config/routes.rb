@@ -8,6 +8,7 @@ if ENV['RESQUE_ADMIN_PASSWORD']
 end
 
 Rails.application.routes.draw do
+  resources :app_integrations
 	mount Payola::Engine => '/payola', as: :payola
 	root 'main#index'
 	mount Resque::Server => '/resque'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170522034616) do
+ActiveRecord::Schema.define(version: 20170802203424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,15 @@ ActiveRecord::Schema.define(version: 20170522034616) do
     t.index ["email"], name: "index_admins_on_email", using: :btree
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
     t.index ["uid", "provider"], name: "index_admins_on_uid_and_provider", unique: true, using: :btree
+  end
+
+  create_table "app_integrations", force: :cascade do |t|
+    t.integer  "application_id"
+    t.integer  "integration_type"
+    t.json     "settings"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["application_id"], name: "index_app_integrations_on_application_id", using: :btree
   end
 
   create_table "application_assets", force: :cascade do |t|
@@ -403,6 +412,7 @@ ActiveRecord::Schema.define(version: 20170522034616) do
 
   add_foreign_key "access_tokens", "applications"
   add_foreign_key "access_tokens", "fb_users"
+  add_foreign_key "app_integrations", "applications"
   add_foreign_key "application_assets", "applications"
   add_foreign_key "applications", "admins"
   add_foreign_key "applications", "fb_applications"
