@@ -14,7 +14,17 @@ class Admin < ActiveRecord::Base
 	has_many :applications, -> {where.not(status: :deleted)}
 
 	def subscription
-		return Payola::Subscription.find_by(owner_id: self.id, state: 'active')
+		if ENV['FREE_ADMINS'].split(',').map(&:to_i).include?(self.id)
+		# if true
+			return Payola::Subscription.new(
+				owner_id: self.id, 
+				state: 'active',
+				plan_id: 2
+			)
+		else
+			return Payola::Subscription.find_by(owner_id: self.id, state: 'active')
+			# return nil
+		end
 	end
 
 	def has_subscription
@@ -35,7 +45,8 @@ class Admin < ActiveRecord::Base
 			when :create_apps
 				return true
 			when :publish_apps
-				if self.has_subscription || ENV['FREE_ADMINS'].split(',').map(&:to_i).include?(self.id)
+				# if self.has_subscription || ENV['FREE_ADMINS'].split(',').map(&:to_i).include?(self.id)
+				if self.has_subscription
 					return true
 				else
 					if self.created_at + 7.days > Time.now && self.applications.installed.length <= 2 # active free trial

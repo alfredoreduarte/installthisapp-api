@@ -3,7 +3,9 @@ class ApplicationController < ActionController::Base
 	respond_to :json
 	protect_from_forgery with: :null_session
 	include DeviseTokenAuth::Concerns::SetUserByToken
-	before_action :configure_permitted_parameters, if: :devise_controller?
+	# before_action :configure_permitted_parameters, if: :devise_controller?
+	# prepend_before_filter :configure_permitted_parameters, if: :devise_controller?
+	prepend_before_action :configure_permitted_parameters, if: :devise_controller?
 
 	# 
 	# Custom error types
@@ -43,6 +45,10 @@ class ApplicationController < ActionController::Base
 	# 
 	def configure_permitted_parameters
 		devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
-		devise_parameter_sanitizer.permit(:account_update, keys: [:name])
+		devise_parameter_sanitizer.permit(:account_update, keys: [:name, :email])
+	end
+
+	def confirm_first
+		Admin.first.resend_confirmation_instructions
 	end
 end
