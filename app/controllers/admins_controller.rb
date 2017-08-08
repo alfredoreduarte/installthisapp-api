@@ -17,6 +17,17 @@ class AdminsController < ApplicationController
 		# render json: results_likes.first(3).as_json
 	end
 
+	def resend_email_confirmation
+		current_admin.resend_confirmation_instructions
+		# 
+		# Simulating admins#entities
+		# TODO: corregir esto en el futuro
+		# 
+		@admin = current_admin
+		@plans = SubscriptionPlan.all
+		render 'admins/entities'
+	end
+
 	# def create
 		# $admin_user = Admins.sign_in(params[:signed_request])
 		# unless $admin_user.api_key.length > 0
@@ -51,6 +62,10 @@ class AdminsController < ApplicationController
 	
 
 	# private
+
+	# def send_confirm
+		# current_admin.resend_confirmation_instructions
+	# end
 
 	# def admin_user_params
 		# params.require(:admin).permit(:name, :email)

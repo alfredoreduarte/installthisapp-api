@@ -3,9 +3,9 @@ class ApplicationController < ActionController::Base
 	respond_to :json
 	protect_from_forgery with: :null_session
 	include DeviseTokenAuth::Concerns::SetUserByToken
-	# before_action :confirm_first
 	# before_action :configure_permitted_parameters, if: :devise_controller?
-	prepend_before_filter :configure_permitted_parameters, if: :devise_controller?
+	# prepend_before_filter :configure_permitted_parameters, if: :devise_controller?
+	prepend_before_action :configure_permitted_parameters, if: :devise_controller?
 
 	# 
 	# Custom error types

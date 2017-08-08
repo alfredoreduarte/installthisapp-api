@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 	mount Resque::Server => '/resque'
 	mount_devise_token_auth_for 'Admin', at: 'auth'
 	get 'admins/entities', to: 'admins#entities'
+	post 'admins/resend_email_confirmation.json', to: 'admins#resend_email_confirmation'
 	get 'fb_profiles/fetch_fb_pages.json', to: 'fb_profiles#fetch_fb_pages'
 	resources :admins
 	resources :fb_users, path: 'users'
