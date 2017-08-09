@@ -28,6 +28,8 @@ class Admin < ActiveRecord::Base
 	end
 
 	def has_subscription
+		return true if ENV['FREE_ADMINS'].split(',').map(&:to_i).include?(self.id)
+		# 
 		subscription = self.subscription
 		if subscription 
 			if subscription.active?
