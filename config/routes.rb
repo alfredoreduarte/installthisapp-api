@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 	get 'admins/entities', to: 'admins#entities'
 	post 'admins/resend_email_confirmation.json', to: 'admins#resend_email_confirmation'
 	get 'fb_profiles/fetch_fb_pages.json', to: 'fb_profiles#fetch_fb_pages'
+	get 'fb_pages/:identifier/fetch_leadgen_forms.json', to: 'fb_pages#fetch_leadgen_forms'
 	resources :admins
 	resources :fb_users, path: 'users'
 	resources :applications

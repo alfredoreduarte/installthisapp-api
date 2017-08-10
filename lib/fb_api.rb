@@ -7,6 +7,12 @@ module FbApi
 		return JSON::parse(response.body)
 	end
 
+	def self.retrieve_fb_page_leadgen_forms( fb_page_identifier, access_token )
+		conn = Faraday::Connection.new FACEBOOK_GRAPH_URL, {:ssl => {:verify => false}}
+		response = conn.get %{/v#{ENV['FB_API_VERSION']}/#{fb_page_identifier}/leadgen_forms}, { :access_token => access_token }
+		return JSON::parse(response.body)
+	end
+
 	def self.get_id_for_app( user_id, access_token )
 		conn = Faraday::Connection.new FACEBOOK_GRAPH_URL, {:ssl => {:verify => false}}
 		response = conn.get %{/v#{ENV['FB_API_VERSION']}/#{user_id}/ids_for_apps/?app=#{ENV['FB_APP_ID']}&access_token=#{access_token}}

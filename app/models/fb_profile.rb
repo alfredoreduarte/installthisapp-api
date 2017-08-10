@@ -34,8 +34,6 @@ class FbProfile < ApplicationRecord
 
 	def fetch_fb_pages
 		# Get profile data from fb
-		logger.info('guardado?')
-		logger.info(self.access_token)
 		if self.access_token
 			fetched_fb_profile = FbGraph2::User.me(self.access_token).fetch
 			fan_pages = fetched_fb_profile.accounts({
@@ -49,11 +47,7 @@ class FbProfile < ApplicationRecord
 					fb_page = FbPage.find_by(identifier: fan_page.id)
 					fb_page.name = fan_page.name
 					fb_page.like_count = like_count
-					# logger.info("errorcito!")
-					# logger.info(fb_page.errors.inspect)
 					fb_page.save
-					# logger.info("errorcito dos!")
-					# logger.info(fb_page.errors.inspect)
 				end
 				self.save
 			end
