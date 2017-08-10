@@ -1,0 +1,2 @@
+class FbLeadDestinationsController < ApplicationController
+end
