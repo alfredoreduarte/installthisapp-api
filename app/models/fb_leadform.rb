@@ -1,5 +1,15 @@
 class FbLeadform < ApplicationRecord
 	belongs_to :admin
-	belongs_to :fb_profile
 	has_and_belongs_to_many :fb_lead_destinations
+
+	before_create 	:subscribe_page
+
+	private
+
+	def subscribe_page
+		fb_page = FbPage.find_by(identifier: self.fb_page_identifier)
+		if fb_page
+			fb_page.subscribe_to_realtime(self.admin)
+		end
+	end
 end

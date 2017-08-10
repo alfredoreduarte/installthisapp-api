@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810033907) do
+ActiveRecord::Schema.define(version: 20170810082248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,15 +120,18 @@ ActiveRecord::Schema.define(version: 20170810033907) do
     t.index ["admin_id"], name: "index_fb_lead_destinations_on_admin_id", using: :btree
   end
 
+  create_table "fb_lead_destinations_leadforms", id: false, force: :cascade do |t|
+    t.integer "fb_leadform_id",         null: false
+    t.integer "fb_lead_destination_id", null: false
+  end
+
   create_table "fb_leadforms", force: :cascade do |t|
     t.string   "fb_page_identifier"
     t.string   "fb_form_id"
     t.integer  "admin_id"
-    t.integer  "fb_profile_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.index ["admin_id"], name: "index_fb_leadforms_on_admin_id", using: :btree
-    t.index ["fb_profile_id"], name: "index_fb_leadforms_on_fb_profile_id", using: :btree
   end
 
   create_table "fb_pages", force: :cascade do |t|
@@ -440,7 +443,6 @@ ActiveRecord::Schema.define(version: 20170810033907) do
   add_foreign_key "applications", "fb_pages"
   add_foreign_key "fb_lead_destinations", "admins"
   add_foreign_key "fb_leadforms", "admins"
-  add_foreign_key "fb_leadforms", "fb_profiles"
   add_foreign_key "fb_profiles", "admins"
   add_foreign_key "fb_user_api_keys", "fb_users"
   add_foreign_key "module_catalog_categories", "applications"

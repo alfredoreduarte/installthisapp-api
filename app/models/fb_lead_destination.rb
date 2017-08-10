@@ -14,30 +14,38 @@ class FbLeadDestination < ApplicationRecord
 		require 'fb_destination_mailchimp'
 		settings = self.settings
 		case self.destination_type
-		when 0
-			# TODO: send mail
-			FbDestinationEmail.fire!(settings)
-		when 1
-			# TODO: add to mailchimp list
-			FbDestinationMailchimp.fire!(settings)
-		else
-			self.settings = {}
+			when 0
+				# TODO: send mail
+				FbDestinationEmail.fire!(settings)
+				return true
+			when 1
+				# TODO: add to mailchimp list
+				FbDestinationMailchimp.fire!(settings)
+				return true
+			else
+				self.settings = {}
+				return true
+		end
 	end
 	
 	private
 
-	def generate_default_settings
-		case self.destination_type
-		when 0
-			self.settings = {
-				destinataries: []
-			}
-		when 1
-			self.settings = {
-				api_key: "",
-				list_id: ""
-			}
-		else
-			self.settings = {}
-	end
+		def generate_default_settings
+			case self.destination_type
+				when 0
+					self.settings = {
+						destinataries: []
+					}
+					return true
+				when 1
+					self.settings = {
+						api_key: "",
+						list_id: ""
+					}
+					return true
+				else
+					self.settings = {}
+					return true
+			end
+		end
 end

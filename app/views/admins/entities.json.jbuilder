@@ -13,3 +13,7 @@ end
 json.plans do
 	json.array! @plans, partial: 'subscription_plans/plan', as: :plan
 end
+
+json.fb_leadforms do 
+	json.array! @admin.fb_leadforms, partial: 'fb_leadforms/fb_leadform', as: :fb_leadform
+end

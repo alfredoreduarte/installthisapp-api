@@ -20,11 +20,11 @@ class RetrieveFbLeadgenJob < ApplicationJob
 	after_perform do |job|
 		fb_form_id = job.arguments.first[:form_id]
 		# TODO: create FbLeadform
-		# fb_leadform = FbLeadform.find_by(fb_form_id: fb_form_id)
-		# fb_lead_destinations = fb_leadform.fb_lead_destinations.on # Get only destinations that are currently active
-		# fb_lead_destinations.each do |destination|
-			# destination.fire!
-		# end
+		fb_leadform = FbLeadform.find_by(fb_form_id: fb_form_id)
+		fb_lead_destinations = fb_leadform.fb_lead_destinations.on # Get only destinations that are currently active
+		fb_lead_destinations.each do |destination|
+			destination.fire!
+		end
 	end
 
 end
