@@ -40,6 +40,7 @@ class FbWebhooksController < ApplicationController
 								# Top Fans
 								# 
 								# Verify that it's a change at feed level, not updated information about the page or something else
+								# 
 								if change[:field] == "feed"
 									value = change[:value]
 									# Manage post likes and reactions
@@ -60,6 +61,7 @@ class FbWebhooksController < ApplicationController
 								end
 								# 
 								# Leadgen
+								# 
 								# https://developers.facebook.com/docs/marketing-api/guides/lead-ads/retrieving#webhooks
 								# https://developers.facebook.com/tools/lead-ads-testing
 								# 
@@ -87,18 +89,6 @@ class FbWebhooksController < ApplicationController
 		end
 	end
 
-	def fb_webhook_retrieve_test
-		require 'fb_api'
-		access_token = FbProfile.first.access_token
-		leadgen = FbLeadgenWebhook.where( leadgen_id: 158720211365866 )
-		# 
-		# Turn this into a recurring job
-		# 
-		RetrieveFbLeadgenJob.perform_later( 158720211365866, access_token )
-		# 
-		render plain: 'hola'
-	end
-
 	private
 
 	def save_leadgen_webhook( values )
@@ -112,7 +102,7 @@ class FbWebhooksController < ApplicationController
 		})
 	end
 
-	def add_like(page_id, value)
+	def add_like( page_id, value )
 		SaveFbLikeJob.perform_later(page_id, {
 			parent_id: value[:parent_id],
 			sender_name: value[:sender_name],
@@ -122,7 +112,7 @@ class FbWebhooksController < ApplicationController
 		})
 	end
 
-	def remove_like(page_id, value)
+	def remove_like( page_id, value )
 		DestroyFbLikeJob.perform_later(page_id, {
 			parent_id: value[:parent_id],
 			sender_id: value[:sender_id],
@@ -130,7 +120,7 @@ class FbWebhooksController < ApplicationController
 		})
 	end
 
-	def add_comment(page_id, value)
+	def add_comment( page_id, value )
 		SaveFbCommentJob.perform_later(page_id, {
 			post_id: value[:post_id],
 			comment_id: value[:comment_id],
@@ -142,7 +132,7 @@ class FbWebhooksController < ApplicationController
 		})
 	end
 
-	def remove_comment(page_id, value)
+	def remove_comment( page_id, value )
 		DestroyFbCommentJob.perform_later(page_id, {
 			comment_id: value[:comment_id],
 			parent_id: value[:parent_id],

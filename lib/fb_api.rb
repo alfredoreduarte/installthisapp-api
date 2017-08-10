@@ -41,7 +41,7 @@ module FbApi
 		return data.first["id"]
 	end
 
-	def self.subscribe_app(access_token,fb_page_id)
+	def self.subscribe_app( access_token, fb_page_id )
 		conn = Faraday.new(FACEBOOK_GRAPH_URL) do |faraday|
 			faraday.request  :url_encoded
 			faraday.response :logger
