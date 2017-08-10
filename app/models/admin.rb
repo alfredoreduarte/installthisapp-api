@@ -17,7 +17,6 @@ class Admin < ActiveRecord::Base
 
 	def subscription
 		if ENV['FREE_ADMINS'].split(',').map(&:to_i).include?(self.id)
-		# if true
 			return Payola::Subscription.new(
 				owner_id: self.id, 
 				state: 'active',
@@ -25,7 +24,6 @@ class Admin < ActiveRecord::Base
 			)
 		else
 			return Payola::Subscription.find_by(owner_id: self.id, state: 'active')
-			# return nil
 		end
 	end
 
@@ -44,18 +42,17 @@ class Admin < ActiveRecord::Base
 		end
 	end
 
-	def can(action)
+	def can( action )
 		case action
 			when :create_apps
 				return true
 			when :publish_apps
-				# if self.has_subscription || ENV['FREE_ADMINS'].split(',').map(&:to_i).include?(self.id)
 				if self.has_subscription
 					return true
 				else
 					if self.created_at + 7.days > Time.now && self.applications.installed.length <= 2 # active free trial
 						return true
-					else # free trial expired
+					else # free trial expired or app limit exceeded
 						return false
 					end
 				end
@@ -67,10 +64,3 @@ class Admin < ActiveRecord::Base
 		end
 	end
 end
-
-# class Admin::ParameterSanitizer < Devise::ParameterSanitizer
-# 	def initialize(*)
-# 		super
-# 		permit(:sign_up, keys: [:confirm_success_url])
-# 	end
-# end

@@ -8,9 +8,6 @@ if ENV['RESQUE_ADMIN_PASSWORD']
 end
 
 Rails.application.routes.draw do
-  resources :fb_lead_destinations
-  resources :fb_leadforms
-  resources :app_integrations
 	mount Payola::Engine => '/payola', as: :payola
 	root 'main#index'
 	mount Resque::Server => '/resque'
@@ -24,6 +21,9 @@ Rails.application.routes.draw do
 	resources :fb_applications
 	resources :fb_pages
 	resources :fb_profiles
+	resources :fb_lead_destinations
+	resources :fb_leadforms
+	resources :app_integrations
 	match '/applications/:checksum/:action.json', to: "applications#:action", via: [:get, :post, :delete, :put, :patch]
 	match '/applications/:checksum/:action/:id.json', to: "applications#:action", via: [:get, :post, :delete, :put, :patch]
 

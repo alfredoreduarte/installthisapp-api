@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810033504) do
+ActiveRecord::Schema.define(version: 20170810033907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,6 +108,16 @@ ActiveRecord::Schema.define(version: 20170810033504) do
     t.string   "namespace"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+  end
+
+  create_table "fb_lead_destinations", force: :cascade do |t|
+    t.integer  "destination_type"
+    t.integer  "status"
+    t.json     "settings"
+    t.integer  "admin_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["admin_id"], name: "index_fb_lead_destinations_on_admin_id", using: :btree
   end
 
   create_table "fb_leadforms", force: :cascade do |t|
@@ -428,6 +438,7 @@ ActiveRecord::Schema.define(version: 20170810033504) do
   add_foreign_key "applications", "admins"
   add_foreign_key "applications", "fb_applications"
   add_foreign_key "applications", "fb_pages"
+  add_foreign_key "fb_lead_destinations", "admins"
   add_foreign_key "fb_leadforms", "admins"
   add_foreign_key "fb_leadforms", "fb_profiles"
   add_foreign_key "fb_profiles", "admins"

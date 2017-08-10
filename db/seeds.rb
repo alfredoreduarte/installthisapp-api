@@ -47,11 +47,20 @@ if Rails.env == "development"
 		canvas_id: "app5", 
 		namespace: "ita_dev_i_v",
 	)
+	# Basic Plan
 	SubscriptionPlan.create(
 		amount: 2900,
 		interval: 'month',
 		stripe_id: 'basic',
 		name: 'Basic',
+		trial_period_days: 7,
+	)
+	# Demo plan
+	SubscriptionPlan.create(
+		amount: 0000,
+		interval: 'month',
+		stripe_id: 'demo',
+		name: 'Demo',
 		trial_period_days: 7,
 	)
 end
