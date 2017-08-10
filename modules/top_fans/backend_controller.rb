@@ -40,7 +40,12 @@ module BackendController
 
 	def unsubscribe_from_webhook
 		@application.uninstall
-		fb_page = FbPage.find_by(identifier: @application.app_integrations.fb_webhook_page_feed.first.settings["fb_page_identifier"])
+		fb_page = nil
+		if @application.app_integrations.fb_webhook_page_feed.first
+			fb_page = FbPage.find_by(identifier: @application.app_integrations.fb_webhook_page_feed.first.settings["fb_page_identifier"])
+		else
+			fb_page = @application.fb_page
+		end
 		if fb_page
 			fb_page.unsubscribe_to_realtime(@application.admin)
 			# 
