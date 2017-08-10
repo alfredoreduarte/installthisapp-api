@@ -67,7 +67,13 @@ module BackendController
 
 	def reset
 		start_date = @application.setting.conf["preferences"]["first_fetch_from_date"].to_datetime.to_i
-		identifier = @application.fb_page.identifier
+		fb_page = nil
+		if @application.app_integrations.fb_webhook_page_feed.first
+			fb_page = FbPage.find_by(identifier: @application.app_integrations.fb_webhook_page_feed.first.settings["fb_page_identifier"])
+		else
+			fb_page = @application.fb_page
+		end
+		identifier = fb_page.identifier
 		access_token = @application.admin.fb_profile.access_token
 
 		# 
