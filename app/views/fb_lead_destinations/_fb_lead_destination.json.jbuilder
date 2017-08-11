@@ -1,0 +1,1 @@
+json.extract! fb_lead_destination, :id, :destination_type, :status, :settings, :created_at, :updated_at

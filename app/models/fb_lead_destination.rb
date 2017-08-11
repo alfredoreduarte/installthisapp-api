@@ -2,7 +2,12 @@ class FbLeadDestination < ApplicationRecord
 	enum destination_type: { 
 		email: 0, 
 		mailchimp: 1,
-		pipedrive: 1
+		pipedrive: 2,
+	}
+	enum status: { 
+		off: 0, 
+		on: 1,
+		deleted: 2
 	}
 	belongs_to		:admin
 	has_and_belongs_to_many :fb_leadforms
