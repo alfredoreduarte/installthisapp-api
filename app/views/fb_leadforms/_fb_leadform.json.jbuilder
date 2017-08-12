@@ -1,1 +1,1 @@
-json.extract! fb_leadform, :id, :fb_page_identifier, :fb_form_id, :created_at, :updated_at
+json.extract! fb_leadform, :id, :fb_page_identifier, :fb_form_id, :fb_lead_destinations, :created_at, :updated_at
