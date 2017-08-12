@@ -1,6 +1,6 @@
 class FbLeadform < ApplicationRecord
 	belongs_to :admin
-	has_and_belongs_to_many :fb_lead_destinations
+	has_many :fb_lead_destinations
 
 	before_create 	:subscribe_page
 

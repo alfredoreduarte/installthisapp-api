@@ -5,6 +5,7 @@ class CreateFbLeadDestinations < ActiveRecord::Migration[5.0]
       t.integer :status
       t.json :settings
       t.references :admin, foreign_key: true
+      t.references :fb_leadform, foreign_key: true
 
       t.timestamps
     end

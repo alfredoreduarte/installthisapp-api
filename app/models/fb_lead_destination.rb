@@ -10,7 +10,7 @@ class FbLeadDestination < ApplicationRecord
 		deleted: 2
 	}
 	belongs_to		:admin
-	has_and_belongs_to_many :fb_leadforms
+	belongs_to 		:fb_leadform
 
 	before_create 	:generate_default_settings
 
@@ -36,21 +36,19 @@ class FbLeadDestination < ApplicationRecord
 	private
 
 		def generate_default_settings
-			case self.destination_type
-				when 0
+			case self.destination_type.to_sym
+				when :email
 					self.settings = {
-						destinataries: []
+						recipients: "#{self.admin.email}"
 					}
-					return true
-				when 1
+				when :mailchimp
 					self.settings = {
 						api_key: "",
 						list_id: ""
 					}
-					return true
 				else
 					self.settings = {}
-					return true
 			end
+			self.save
 		end
 end
