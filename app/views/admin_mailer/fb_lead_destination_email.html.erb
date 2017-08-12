@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <h1>Hi <%= @name %></h1>
-    <p>
-      Someone has completed your FB leads form.<br />
-    </p>
-    <p>
-      <b>Data</b>
-    </p>
-    <p><ul>
-      <% @content.each do |content| %>
-		    <li><b><%= content["name"] %></b>: <%= content["values"].to_s %><li>
-      <% end %>
-    </ul></p>
-  </body>
+	<head>
+		<meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+	</head>
+	<body>
+		<h1>Hi <%= @name %>.</h1>
+		<p>
+			Hooray! Someone has completed your Facebook leads form with the following data:
+		</p>
+		<p>
+			<% @content.each do |content| %>
+				<b><%= content["name"].titleize %></b>: 
+				<% content["values"].each do |value| %>
+					<%= value %>
+				<% end %>
+				<br />
+			<% end %>
+		</p>
+	</body>
 </html>

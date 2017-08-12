@@ -15,6 +15,10 @@ class Admin < ActiveRecord::Base
 	has_many :fb_pages, through: :fb_profile
 	has_many :applications, -> {where.not(status: :deleted)}
 
+	def first_name
+		self.name.blank? ? "" : self.name.split(" ")[0]
+	end
+
 	def subscription
 		if ENV['FREE_ADMINS'].split(',').map(&:to_i).include?(self.id)
 			return Payola::Subscription.new(

@@ -38,6 +38,8 @@ class FbLeadDestinationsController < ApplicationController
 
 		# Never trust parameters from the scary internet, only allow the white list through.
 		def fb_lead_destination_params
-			params.require(:fb_lead_destination).permit(:destination_type, :status, :fb_leadform_id, :settings)
+			# params.require(:fb_lead_destination).permit(:destination_type, :status, :fb_leadform_id, :settings)
+			settings_keys = params[:fb_lead_destination][:settings].keys
+			params.require(:fb_lead_destination).permit(:destination_type, :status, :fb_leadform_id, settings: settings_keys)
 		end
 end

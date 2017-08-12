@@ -12,7 +12,7 @@ class FbLeadDestination < ApplicationRecord
 	belongs_to		:admin
 	belongs_to 		:fb_leadform
 
-	before_create 	:generate_default_settings
+	# before_create 	:generate_default_settings
 
 	def fire!(fb_lead)
 		require 'fb_destination_email'
@@ -25,7 +25,7 @@ class FbLeadDestination < ApplicationRecord
 				# TODO: add to mailchimp list
 				FbDestinationMailchimp.fire!(settings)
 			else
-				# self.settings = {}
+				# 
 		end
 	end
 	
