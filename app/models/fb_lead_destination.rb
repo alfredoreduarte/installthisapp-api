@@ -18,18 +18,14 @@ class FbLeadDestination < ApplicationRecord
 		require 'fb_destination_email'
 		require 'fb_destination_mailchimp'
 		settings = self.settings
-		case self.destination_type
-			when 0
-				# TODO: send mail
+		case self.destination_type.to_sym
+			when :email
 				FbDestinationEmail.fire!(self.admin, fb_lead, settings)
-				return true
-			when 1
+			when :mailchimp
 				# TODO: add to mailchimp list
 				FbDestinationMailchimp.fire!(settings)
-				return true
 			else
-				self.settings = {}
-				return true
+				# self.settings = {}
 		end
 	end
 	

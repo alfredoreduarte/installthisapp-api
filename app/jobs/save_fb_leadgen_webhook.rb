@@ -21,6 +21,7 @@ class SaveFbLeadgenWebhook < ApplicationJob
 	# Callback
 	# 
 	after_perform do |job|
+		Rails.logger.info('El After perform') 
 		# Making sure both the page and fb_leadform exist
 		fb_leadform = FbLeadform.find_by(fb_form_id: job.arguments.first[:form_id])
 		fb_page = FbPage.find_by(identifier: job.arguments.first[:page_id])
@@ -30,7 +31,7 @@ class SaveFbLeadgenWebhook < ApplicationJob
 
 			leadgen_id = job.arguments.first[:leadgen_id] # !!
 			access_token = fb_profile.access_token # !!
-			RetrieveFbLead.set(wait: 15.seconds).perform_later( leadgen_id, access_token )
+			RetrieveFbLead.perform_later( leadgen_id, access_token, job.arguments.first[:form_id] )
 		end
 	end
 
