@@ -2,6 +2,7 @@ class AdminsController < ApplicationController
 	before_action :authenticate_admin!, except: [:index]
 
 	def entities
+		AdminMailer.fb_lead_destination_email.deliver_later
 		@admin = current_admin
 		@plans = SubscriptionPlan.all
 	end

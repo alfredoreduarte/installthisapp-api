@@ -22,19 +22,15 @@ class SaveFbLeadgenWebhook < ApplicationJob
 	# 
 	after_perform do |job|
 		# Making sure both the page and fb_leadform exist
-		fb_leadform = FbLeadform.find_by(fb_form_id: values[:form_id])
-		fb_page = FbPage.find_by(identifier: values[:page_id])
+		fb_leadform = FbLeadform.find_by(fb_form_id: job.arguments.first[:form_id])
+		fb_page = FbPage.find_by(identifier: job.arguments.first[:page_id])
 
 		if fb_leadform && fb_page
-			fb_form_id = job.arguments.first[:form_id]
-			fb_page_identifier = job.arguments.first[:page_id]
-			fb_page = FbPage.find_by(identifier: fb_page_identifier)
 			fb_profile = fb_leadform.admin.fb_profile
 
 			leadgen_id = job.arguments.first[:leadgen_id] # !!
-			fb_form_id = job.arguments.first[:form_id] # !!
 			access_token = fb_profile.access_token # !!
-			RetrieveFbLeadgenJob.set(wait: 15.seconds).perform_later( leadgen_id, access_token, fb_form_id )
+			RetrieveFbLead.set(wait: 15.seconds).perform_later( leadgen_id, access_token )
 		end
 	end
 

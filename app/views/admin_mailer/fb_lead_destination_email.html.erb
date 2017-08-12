@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi <%= @name %></h1>
+    <p>
+      Someone has completed your FB leads form with ID : <%= @form_id %>.<br />
+    </p>
+    <p>
+      <b>Data</b>
+    </p>
+    <p><ul>
+      <% @content.each do |content| %>
+		<li><b><%= content %><li>
+      <% end %>
+    </ul></p>
+  </body>
+</html>
