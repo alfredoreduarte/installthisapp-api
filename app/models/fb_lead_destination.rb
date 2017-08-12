@@ -49,6 +49,5 @@ class FbLeadDestination < ApplicationRecord
 				else
 					self.settings = {}
 			end
-			self.save
 		end
 end
