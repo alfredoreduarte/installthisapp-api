@@ -9,10 +9,11 @@ class FbLeadDestination < ApplicationRecord
 		on: 1,
 		deleted: 2
 	}
+
 	belongs_to		:admin
 	belongs_to 		:fb_leadform
 
-	# before_create 	:generate_default_settings
+	validates :destination_type, :status, :settings, presence: true
 
 	def fire!(fb_lead)
 		require 'fb_destination_email'
