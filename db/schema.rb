@@ -112,12 +112,12 @@ ActiveRecord::Schema.define(version: 20170810033907) do
 
   create_table "fb_lead_destinations", force: :cascade do |t|
     t.integer  "destination_type"
-    t.integer  "status"
+    t.integer  "status",           default: 0
     t.json     "settings"
     t.integer  "admin_id"
     t.integer  "fb_leadform_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.index ["admin_id"], name: "index_fb_lead_destinations_on_admin_id", using: :btree
     t.index ["fb_leadform_id"], name: "index_fb_lead_destinations_on_fb_leadform_id", using: :btree
   end

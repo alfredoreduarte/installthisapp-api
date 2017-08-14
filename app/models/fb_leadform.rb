@@ -6,6 +6,8 @@ class FbLeadform < ApplicationRecord
 
 	before_create 	:subscribe_page
 
+	# TODO: add after_destroy action to unsubscribe page
+
 	private
 
 	def subscribe_page
