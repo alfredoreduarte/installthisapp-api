@@ -27,9 +27,10 @@ class FbLeadDestination < ApplicationRecord
 				FbDestinationEmail.fire!(self.admin, fb_lead, settings)
 			when :mailchimp
 				# TODO: add to mailchimp list
-				FbDestinationMailchimp.fire!(settings)
+				FbDestinationMailchimp.fire!(self.admin, fb_lead, settings)
+			when :pipedrive
+				# TODO: add to pipedrive list
 			when :webhook
-				# TODO: verify http post code
 				FbDestinationWebhook.fire!(self.admin, fb_lead, settings)
 			else
 				# 
