@@ -3,6 +3,7 @@ class FbLeadDestination < ApplicationRecord
 		email: 0, 
 		mailchimp: 1,
 		pipedrive: 2,
+		webhook: 3,
 	}
 	enum status: { 
 		off: 0, 
@@ -18,6 +19,8 @@ class FbLeadDestination < ApplicationRecord
 	def fire!(fb_lead)
 		require 'fb_destination_email'
 		require 'fb_destination_mailchimp'
+		require 'fb_destination_webhook'
+
 		settings = self.settings
 		case self.destination_type.to_sym
 			when :email
@@ -25,6 +28,9 @@ class FbLeadDestination < ApplicationRecord
 			when :mailchimp
 				# TODO: add to mailchimp list
 				FbDestinationMailchimp.fire!(settings)
+			when :webhook
+				# TODO: verify http post code
+				FbDestinationWebhook.fire!(self.admin, fb_lead, settings)
 			else
 				# 
 		end
@@ -32,19 +38,19 @@ class FbLeadDestination < ApplicationRecord
 	
 	private
 
-		def generate_default_settings
-			case self.destination_type.to_sym
-				when :email
-					self.settings = {
-						recipients: "#{self.admin.email}"
-					}
-				when :mailchimp
-					self.settings = {
-						api_key: "",
-						list_id: ""
-					}
-				else
-					self.settings = {}
-			end
-		end
+		# def generate_default_settings
+		# 	case self.destination_type.to_sym
+		# 		when :email
+		# 			self.settings = {
+		# 				recipients: "#{self.admin.email}"
+		# 			}
+		# 		when :mailchimp
+		# 			self.settings = {
+		# 				api_key: "",
+		# 				list_id: ""
+		# 			}
+		# 		else
+		# 			self.settings = {}
+		# 	end
+		# end
 end
