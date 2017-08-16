@@ -38,8 +38,20 @@ class FbLeadDestinationsController < ApplicationController
 
 		# Never trust parameters from the scary internet, only allow the white list through.
 		def fb_lead_destination_params
-			# params.require(:fb_lead_destination).permit(:destination_type, :status, :fb_leadform_id, :settings)
-			settings_keys = params[:fb_lead_destination][:settings].keys
+			# settings_keys = params[:fb_lead_destination][:settings].keys
+			settings_keys = [
+				# Email
+				:recipients,
+				# Mailchimp
+				:list_id,
+				:api_key,
+				# Webhook
+				:url,
+				:http_headers => [
+					:key,
+					:value
+				]
+			]
 			params.require(:fb_lead_destination).permit(:destination_type, :status, :fb_leadform_id, settings: settings_keys)
 		end
 end
