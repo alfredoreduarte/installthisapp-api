@@ -39,7 +39,7 @@ Rails.application.routes.draw do
 	# 
 	# FB Page realtime subscriptions
 	# 
-	match '/fb_webhook_top_fans', to: "fb_webhooks#top_fans", via: [:get, :post] # remove this later
+	match '/fb_webhook_top_fans', to: "fb_webhooks#receive", via: [:get, :post] # remove this later
 	match '/fb_webhooks', to: "fb_webhooks#receive", via: [:get, :post] # use this one instead
 	match '/fb_webhook_retrieve_test', to: "fb_webhooks#fb_webhook_retrieve_test", via: [:get, :post]
 	match '/fb_webhooks/verify_page_subscription', to: "fb_webhooks#verify_page_subscription", via: [:get, :post]

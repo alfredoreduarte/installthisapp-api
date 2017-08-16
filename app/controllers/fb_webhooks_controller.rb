@@ -18,7 +18,7 @@ class FbWebhooksController < ApplicationController
 		end
 	end
 
-	def top_fans
+	def receive
 		if params[:"hub.verify_token"]
 			logger.info('===== Top Fans Real time Verification =====')
 			logger.info("verify_token = #{params[:'hub.verify_token']}")
