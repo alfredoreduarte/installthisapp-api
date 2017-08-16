@@ -92,3 +92,6 @@ gem 'payola-payments'
 # gem 'actionpack-page_caching'
 gem 'awesome_nested_set'
 gem 'newrelic_rpm'
+
+# For mailchimp integrations
+gem 'gibbon'
