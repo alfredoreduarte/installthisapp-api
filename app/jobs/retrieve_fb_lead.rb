@@ -13,6 +13,7 @@ class RetrieveFbLead < ApplicationJob
 		# Fire integrations
 		fb_leadform = FbLeadform.find_by(fb_form_id: fb_form_id)
 		fb_lead_destinations = fb_leadform.fb_lead_destinations.on # Get only destinations that are currently active
+		Rails.logger.info("Will loop destinations for fb_leadform #{fb_leadform.inspect}") 
 		fb_lead_destinations.each do |destination|
 			destination.fire!(fb_lead)
 		end

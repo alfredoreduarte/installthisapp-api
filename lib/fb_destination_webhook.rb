@@ -4,6 +4,7 @@ module FbDestinationWebhook
 		Rails.logger.info("Will fire webhook")
 		url = settings["url"]
 		if url
+			Rails.logger.info("Webhook has url #{url}")
 			conn = Faraday::Connection.new url, {:ssl => {:verify => false}}
 			res = conn.post do |req|
 				req.options.timeout = 10
@@ -16,6 +17,7 @@ module FbDestinationWebhook
 				end
 				req.body = "#{fb_lead.field_data.to_json}"
 			end
+			Rails.logger.info("Webhook sent to url #{url}")
 		end
 	end
 

@@ -13,9 +13,9 @@ class TopFansResetJob < ApplicationJob
 			user_graph = Koala::Facebook::API.new(access_token)
 			page_token = user_graph.get_page_access_token(fb_page_identifier)
 			koala = Koala::Facebook::API.new(page_token)
-			elfeed = koala.get_connection('me', 'feed', since: start_date, limit: 10, fields: ['id', 'created_time'])
+			feed = koala.get_connection('me', 'feed', since: start_date, limit: 10, fields: ['id', 'created_time'])
 			loop do
-				elfeed.each do |post|
+				feed.each do |post|
 					page_id = fb_page_identifier
 					parent_id = post["id"]
 					post_id = post["id"]
@@ -54,8 +54,8 @@ class TopFansResetJob < ApplicationJob
 						end
 					end
 				end
-				elfeed = elfeed.next_page
-				break unless elfeed != nil
+				feed = feed.next_page
+				break unless feed != nil
 			end
 		end
 	end
