@@ -12,8 +12,10 @@ module FbDestinationWebhook
 				req.headers['Content-Type'] = 'application/json'
 				req.headers['Accept'] = 'application/json'
 				# custom headers
-				settings["http_headers"].each do |header|
-					req.headers[header["key"]] = header["value"]
+				if settings["http_headers"]
+					settings["http_headers"].each do |header|
+						req.headers[header["key"]] = header["value"]
+					end
 				end
 				req.body = "#{fb_lead.field_data.to_json}"
 			end

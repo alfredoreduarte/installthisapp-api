@@ -20,12 +20,12 @@ class FbWebhooksController < ApplicationController
 
 	def receive
 		if params[:"hub.verify_token"]
-			logger.info('===== Top Fans Real time Verification =====')
+			logger.info('===== Facebook Webhook Verification =====')
 			logger.info("verify_token = #{params[:'hub.verify_token']}")
 			render plain: params[:"hub.challenge"]
 		else
 			hash = params
-			logger.info('===== Top Fans Real time entry received =====')
+			logger.info('===== Facebook Webhook received =====')
 			logger.info(params.inspect)
 			# Verify that it is a page
 			if params["object"].to_s == "page"
