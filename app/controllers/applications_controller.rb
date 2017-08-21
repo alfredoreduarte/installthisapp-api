@@ -54,6 +54,7 @@ class ApplicationsController < ApplicationController
 	end
 
 	def create
+		UninstallExpiredApps.perform_later
 		@application = current_admin.applications.new(application_params)
 		if current_admin.can(:create_apps)
 			if (@application.save!)
@@ -91,7 +92,6 @@ class ApplicationsController < ApplicationController
 	end
 
 	def install
-		UninstallExpiredApps.perform_later
 		if current_admin.can(:publish_apps)
 			install_result = @application.install
 			if install_result == :ok

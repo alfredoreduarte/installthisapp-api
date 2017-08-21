@@ -171,7 +171,18 @@ class Application < ApplicationRecord
 	end
 
 	def delete_tab_on_facebook
-		fb_page = self.app_integrations.fb_tab ? FbPage.find_by(identifier: "#{self.app_integrations.fb_tab.first.settings["fb_page_identifier"]}") : self.fb_page
+		# fb_page = self.app_integrations.fb_tab ? FbPage.find_by(identifier: "#{self.app_integrations.fb_tab.first.settings["fb_page_identifier"]}") : self.fb_page
+		fb_page = nil
+		if self.app_integrations.fb_tab
+			if self.app_integrations.fb_tab.first
+				if self.app_integrations.fb_tab.first.settings["fb_page_identifier"]
+					fb_page = FbPage.find_by(identifier: "#{self.app_integrations.fb_tab.first.settings["fb_page_identifier"]}")
+				end
+			end
+		end
+		if fb_page == nil
+			fb_page = self.fb_page
+		end
 		logger.info('aca!')
 		logger.info(fb_page.inspect)
 		logger.info(self.app_integrations.fb_tab.first.settings["fb_application_identifier"])
