@@ -2,12 +2,13 @@ class TopFansResetJob < ApplicationJob
 	queue_as :default
 
 	def perform(fb_page_identifier, access_token, start_date_as_i)
-		TopFansLike.where(
-			page_id: fb_page_identifier,
-		).delete
-		TopFansComment.where(
-			page_id: fb_page_identifier,
-		).delete
+		# TopFansLike.where(
+		# 	page_id: fb_page_identifier,
+		# ).delete
+		# TopFansComment.where(
+		# 	page_id: fb_page_identifier,
+		# ).delete
+		Rails.logger.info("Top Fans Reset Job with start_date #{start_date_as_i}")
 		if start_date_as_i
 			start_date = Time.at(start_date_as_i)
 			user_graph = Koala::Facebook::API.new(access_token)
@@ -23,6 +24,7 @@ class TopFansResetJob < ApplicationJob
 					if comments
 						loop do
 							comments.each do |comment|
+								Rails.logger.info("Will save fb comment")
 								SaveFbCommentJob.perform_now(page_id, {
 									post_id: post_id,
 									comment_id: comment["id"],
@@ -42,6 +44,7 @@ class TopFansResetJob < ApplicationJob
 					if likes
 						loop do
 							likes.each do |like|
+								Rails.logger.info("Will save fb like")
 								SaveFbLikeJob.perform_now(page_id, {
 									parent_id: parent_id,
 									sender_name: like["name"],

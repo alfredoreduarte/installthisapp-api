@@ -84,12 +84,12 @@ module BackendController
 		# 
 		# Instead handling this asynchronously inside TopFansResetJob
 		# 
-		# TopFansLike.where(
-		# 	page_id: identifier,
-		# ).delete
-		# TopFansComment.where(
-		# 	page_id: identifier,
-		# ).delete
+		TopFansLike.where(
+			page_id: identifier,
+		).delete
+		TopFansComment.where(
+			page_id: identifier,
+		).delete
 
 		TopFansResetJob.perform_later(identifier, access_token, start_date)
 		render json: {
