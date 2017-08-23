@@ -22,6 +22,13 @@ module BackendController
 				identifier = fb_page.identifier
 				access_token = @application.admin.fb_profile.access_token
 				TopFansResetJob.perform_later(identifier, access_token, start_date)
+			else
+				settings = @application.setting
+				settings.conf["preferences"]["first_fetch_from_date"] = Time.now
+				# settings.save
+				@application.setting = settings
+				@application.save
+				# @application.setting.save
 			end
 			# 
 			# Simulating admins#entities
