@@ -22,6 +22,12 @@ class MainController < ApplicationController
 		@fb_apps = Rails.cache.fetch("entities_fb_apps", :expires_in => 5.minute) do
 			FbApplication.all
 		end
+		@fb_leadforms = Rails.cache.fetch("entities_fb_leadforms", :expires_in => 5.minute) do
+			FbLeadform.all
+		end
+		@fb_lead_destinations = Rails.cache.fetch("entities_fb_lead_destinations", :expires_in => 5.minute) do
+			FbLeadDestination.all
+		end
 		@plans = Rails.cache.fetch("entities_plans", :expires_in => 5.minute) do
 			SubscriptionPlan.all
 		end
