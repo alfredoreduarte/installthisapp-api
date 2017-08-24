@@ -183,9 +183,6 @@ class Application < ApplicationRecord
 		if fb_page == nil
 			fb_page = self.fb_page
 		end
-		logger.info('aca!')
-		logger.info(fb_page.inspect)
-		logger.info(self.app_integrations.fb_tab.first.settings["fb_application_identifier"])
 		if self.admin.fb_profile && fb_page
 			# fb_page = self.fb_page
 			begin
