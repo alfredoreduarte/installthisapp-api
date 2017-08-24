@@ -47,6 +47,7 @@ class FbLeadDestinationsController < ApplicationController
 				:api_key,
 				# Webhook
 				:url,
+				:payload_type,
 				:http_headers => [
 					:key,
 					:value

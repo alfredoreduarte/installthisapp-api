@@ -9,15 +9,31 @@ module FbDestinationWebhook
 			res = conn.post do |req|
 				req.options.timeout = 10
 				req.options.open_timeout = 5
-				req.headers['Content-Type'] = 'application/json'
-				req.headers['Accept'] = 'application/json'
-				# custom headers
+				# Custom Payoload Type
+				case settings["payload_type"]
+					when 'json'
+						req.headers['Content-Type'] = 'application/json'
+						req.body = "#{fb_lead.field_data.to_json}"
+					when 'form'
+						req.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+						data = fb_lead.field_data
+						query = data.map{ |datum| "#{datum["name"]}=#{datum["values"].join}"}
+						string_to_encode = query.join('&')
+						req.body = URI.encode(string_to_encode)
+					when 'xml'
+						req.headers['Content-Type'] = 'application/xml; charset=utf-8'
+						# req.body = "#{fb_lead.field_data.to_json}"
+					when 'raw'
+						# req.body = "#{fb_lead.field_data.to_json}"
+					else
+						req.headers['Content-Type'] = 'application/json'
+				end
+				# Custom Headers
 				if settings["http_headers"]
 					settings["http_headers"].each do |header|
 						req.headers[header["key"]] = header["value"]
 					end
 				end
-				req.body = "#{fb_lead.field_data.to_json}"
 			end
 			Rails.logger.info("Webhook sent to url #{url}")
 		end
