@@ -15,8 +15,28 @@ class FbLeadform < ApplicationRecord
 		access_token = fb_profile.access_token # !!
 
 		if access_token
-			test_lead = FbApi::send_test_lead( self.fb_form_id, access_token )
-			Rails.logger.info(test_lead.inspect)
+			result = FbApi::send_test_lead( self.fb_form_id, access_token )
+			if result
+				if result["error"]["code"].to_i == 2
+					# Read existing test Leads
+					read = FbApi::read_test_leads( self.fb_form_id, access_token )
+					if read
+						lead_id = read["data"].first["id"]
+						if lead_id
+							# Delete test lead
+							deleted = FbApi::delete_test_lead( lead_id, access_token )
+							if deleted
+								if deleted["success"].to_s == "true"
+									# Create new test lead
+									new_result = FbApi::send_test_lead( self.fb_form_id, access_token )
+									Rails.logger.info('NEW RESULT')
+									Rails.logger.info(new_result.inspect)
+								end
+							end
+						end
+					end
+				end
+			end
 		end
 	end
 

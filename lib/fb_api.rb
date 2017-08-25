@@ -9,7 +9,19 @@ module FbApi
 
 	def self.send_test_lead( form_id, access_token )
 		conn = Faraday::Connection.new FACEBOOK_GRAPH_URL, {:ssl => {:verify => false}}
+		response = conn.post %{/v#{ENV['FB_API_VERSION']}/#{form_id}/test_leads}, { :access_token => access_token }
+		return JSON::parse(response.body)
+	end
+
+	def self.read_test_leads( form_id, access_token )
+		conn = Faraday::Connection.new FACEBOOK_GRAPH_URL, {:ssl => {:verify => false}}
 		response = conn.get %{/v#{ENV['FB_API_VERSION']}/#{form_id}/test_leads}, { :access_token => access_token }
+		return JSON::parse(response.body)
+	end
+
+	def self.delete_test_lead( lead_id, access_token )
+		conn = Faraday::Connection.new FACEBOOK_GRAPH_URL, {:ssl => {:verify => false}}
+		response = conn.delete %{/v#{ENV['FB_API_VERSION']}/#{lead_id}}, { :access_token => access_token }
 		return JSON::parse(response.body)
 	end
 
