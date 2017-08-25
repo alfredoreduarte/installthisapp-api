@@ -7,6 +7,12 @@ module FbApi
 		return JSON::parse(response.body)
 	end
 
+	def self.send_test_lead( form_id, access_token )
+		conn = Faraday::Connection.new FACEBOOK_GRAPH_URL, {:ssl => {:verify => false}}
+		response = conn.get %{/v#{ENV['FB_API_VERSION']}/#{form_id}/test_leads}, { :access_token => access_token }
+		return JSON::parse(response.body)
+	end
+
 	def self.retrieve_fb_page_leadgen_forms( fb_page_identifier, access_token )
 		conn = Faraday::Connection.new FACEBOOK_GRAPH_URL, {:ssl => {:verify => false}}
 		response = conn.get %{/v#{ENV['FB_API_VERSION']}/#{fb_page_identifier}/leadgen_forms}, { :access_token => access_token }

@@ -1,14 +1,26 @@
 class FbLeadformsController < ApplicationController
-	before_action :set_fb_leadform, only: [:show, :update, :destroy]
+	before_action :set_fb_leadform, only: [:show, :update, :destroy, :test]
 
-	# GET /purchases
-	# GET /purchases.json
+	# GET /fb_leadforms
+	# GET /fb_leadforms.json
 	def index
 		@fb_leadforms = current_admin.fb_leadforms.order(:created_at)
 	end
 
-	# POST /purchases
-	# POST /purchases.json
+	# PATCH/PUT /fb_leadforms/1
+	# PATCH/PUT /fb_leadforms/1.json
+	def test
+		respond_to do |format|
+			if @fb_leadform.test
+				format.json { render :show, status: :ok, location: @fb_leadform }
+			else
+				format.json { render json: @fb_leadform.errors, status: :unprocessable_entity }
+			end
+		end
+	end
+
+	# POST /fb_leadforms
+	# POST /fb_leadforms.json
 	def create
 		@fb_leadform = current_admin.fb_leadforms.new(fb_leadform_params)
 
@@ -21,8 +33,8 @@ class FbLeadformsController < ApplicationController
 		end
 	end
 
-	# PATCH/PUT /purchases/1
-	# PATCH/PUT /purchases/1.json
+	# PATCH/PUT /fb_leadforms/1
+	# PATCH/PUT /fb_leadforms/1.json
 	def update
 		respond_to do |format|
 			if @fb_leadform.update(fb_leadform_params)
@@ -33,8 +45,8 @@ class FbLeadformsController < ApplicationController
 		end
 	end
 
-	# DELETE /purchases/1
-	# DELETE /purchases/1.json
+	# DELETE /fb_leadforms/1
+	# DELETE /fb_leadforms/1.json
 	def destroy
 		@fb_leadform.destroy
 		respond_to do |format|

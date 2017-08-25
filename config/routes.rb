@@ -24,6 +24,10 @@ Rails.application.routes.draw do
 	resources :fb_profiles
 	resources :fb_lead_destinations
 	resources :fb_leadforms
+	post 'fb_leadforms/:id/test.json', to: 'fb_leadforms#test'
+	# resources :fb_leadforms do 
+		# post 'test', to: 'test'
+	# end
 	resources :app_integrations
 	match '/applications/:checksum/:action.json', to: "applications#:action", via: [:get, :post, :delete, :put, :patch]
 	match '/applications/:checksum/:action/:id.json', to: "applications#:action", via: [:get, :post, :delete, :put, :patch]
