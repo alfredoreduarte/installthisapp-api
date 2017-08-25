@@ -11,10 +11,34 @@ class FbLeadformsController < ApplicationController
 	# PATCH/PUT /fb_leadforms/1.json
 	def test
 		respond_to do |format|
-			if @fb_leadform.test
-				format.json { render :show, status: :ok, location: @fb_leadform }
+			result = @fb_leadform.test
+			if result
+				# format.json { render :show, status: :ok, location: @fb_leadform }
+				format.json { render json: result }
 			else
-				format.json { render json: @fb_leadform.errors, status: :unprocessable_entity }
+				format.json { render json: @fb_leadform.errors, status: :ok }
+			end
+		end
+	end
+
+	def poll_test_arrival
+		fb_lead = FbLead.find_by(lead_id: params[:lead_id])
+		respond_to do |format|
+			if fb_lead
+				format.json { render json: fb_lead }
+			else
+				format.json { render json: {}, status: :ok }
+			end
+		end
+	end
+
+	def poll_test_notification_delivery
+		fb_lead_notification = FbLeadNotification.find_by(lead_id: params[:lead_id])
+		respond_to do |format|
+			if fb_lead_notification
+				format.json { render json: fb_lead_notification }
+			else
+				format.json { render json: {}, status: :ok }
 			end
 		end
 	end

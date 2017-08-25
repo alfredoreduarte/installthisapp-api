@@ -5,6 +5,8 @@ development:
       options:
         connect_timeout: 15
         max_pool_size: 15
+  options:
+    raise_not_found_error: false
 test:
   clients:
     default:
@@ -18,3 +20,5 @@ production:
       options:
         connect_timeout: 15
         max_pool_size: 15
+  options:
+    raise_not_found_error: false

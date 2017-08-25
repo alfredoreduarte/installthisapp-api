@@ -38,6 +38,7 @@ module FbDestinationWebhook
 				end
 			end
 			Rails.logger.info("Webhook sent to url #{url}")
+			return true
 		end
 	end
 

@@ -12,25 +12,49 @@ class FbLeadform < ApplicationRecord
 		require 'fb_api'
 
 		fb_profile = self.admin.fb_profile
-		access_token = fb_profile.access_token # !!
+		access_token = fb_profile.access_token
 
 		if access_token
-			result = FbApi::send_test_lead( self.fb_form_id, access_token )
+			result = create_test_lead( self.fb_form_id, access_token )
 			if result
-				if result["error"]["code"].to_i == 2
-					# Read existing test Leads
-					read = FbApi::read_test_leads( self.fb_form_id, access_token )
-					if read
-						lead_id = read["data"].first["id"]
-						if lead_id
-							# Delete test lead
-							deleted = FbApi::delete_test_lead( lead_id, access_token )
-							if deleted
-								if deleted["success"].to_s == "true"
-									# Create new test lead
-									new_result = FbApi::send_test_lead( self.fb_form_id, access_token )
-									Rails.logger.info('NEW RESULT')
-									Rails.logger.info(new_result.inspect)
+				# Success
+				if result["id"]
+					Rails.logger.info("will create fake notif")
+					fb_lead_notification = FbLeadNotification.create(
+						lead_id: result["id"],
+						fb_lead_destination_id: FbLeadDestination.first.id,
+						success: true,
+						retries: 0
+					)
+					return result
+				elsif result["error"]
+					# Handle error
+					Rails.logger.info('New lead returned error')
+					# Already has leads
+					if result["error"]["code"].to_i == 2
+						Rails.logger.info('Form already had a test lead')
+						# Read existing test Leads
+						read = FbApi::read_test_leads( self.fb_form_id, access_token )
+						if read
+							lead_id = read["data"].first["id"]
+							if lead_id
+								# Delete test lead
+								deleted = FbApi::delete_test_lead( lead_id, access_token )
+								if deleted
+									if deleted["success"].to_s == "true"
+										Rails.logger.info('Successfully deleted test lead')
+										# Create new test lead
+										test_lead = create_test_lead( self.fb_form_id, access_token )
+										# 
+										# Rails.logger.info("will create fake notif")
+										# fb_lead_notification = FbLeadNotification.create(
+										# 	lead_id: test_lead["id"],
+										# 	fb_lead_destination_id: FbLeadDestination.first.id,
+										# 	success: true,
+										# 	retries: 0
+										# )
+										return test_lead
+									end
 								end
 							end
 						end
@@ -38,6 +62,13 @@ class FbLeadform < ApplicationRecord
 				end
 			end
 		end
+	end
+
+	def create_test_lead(fb_form_id, access_token)
+		created = FbApi::send_test_lead( fb_form_id, access_token )
+		Rails.logger.info('NEW LEAD RESULT')
+		Rails.logger.info(created.inspect)
+		return created
 	end
 
 	private

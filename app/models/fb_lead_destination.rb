@@ -22,18 +22,32 @@ class FbLeadDestination < ApplicationRecord
 		require 'fb_destination_webhook'
 
 		settings = self.settings
+		success = false
 		case self.destination_type.to_sym
 			when :email
-				FbDestinationEmail.fire!(self.admin, fb_lead, settings)
+				success = FbDestinationEmail.fire!(self.admin, fb_lead, settings)
 			when :mailchimp
-				# TODO: add to mailchimp list
-				FbDestinationMailchimp.fire!(self.admin, fb_lead, settings)
+				success = FbDestinationMailchimp.fire!(self.admin, fb_lead, settings)
 			when :webhook
-				FbDestinationWebhook.fire!(self.admin, fb_lead, settings)
+				success = FbDestinationWebhook.fire!(self.admin, fb_lead, settings)
 			when :pipedrive
 				# TODO: add to pipedrive list
 			else
 				# 
+		end
+		fb_lead_notification = FbLeadNotification.find_by(lead_id: fb_lead["lead_id"], fb_lead_destination_id: self.id)
+		if fb_lead_notification
+			fb_lead_notification.update(
+				success: success,
+				retries: fb_lead_notification.retries + 1
+			)
+		else
+			fb_lead_notification = FbLeadNotification.create(
+				lead_id: fb_lead["lead_id"],
+				fb_lead_destination_id: self.id,
+				success: success,
+				retries: 0
+			)
 		end
 	end
 	

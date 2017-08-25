@@ -4,6 +4,7 @@ module FbDestinationEmail
 		recipients = settings["recipients"]
 		if recipients
 			AdminMailer.fb_lead_destination_email(recipients, admin, fb_lead).deliver_now
+			return true
 		end
 	end
 

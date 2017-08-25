@@ -25,6 +25,8 @@ Rails.application.routes.draw do
 	resources :fb_lead_destinations
 	resources :fb_leadforms
 	post 'fb_leadforms/:id/test.json', to: 'fb_leadforms#test'
+	get 'fb_leadforms/:lead_id/poll_test_arrival.json', to: 'fb_leadforms#poll_test_arrival'
+	get 'fb_leadforms/:lead_id/poll_test_notification_delivery.json', to: 'fb_leadforms#poll_test_notification_delivery'
 	# resources :fb_leadforms do 
 		# post 'test', to: 'test'
 	# end
