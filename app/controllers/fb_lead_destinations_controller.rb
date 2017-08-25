@@ -21,6 +21,18 @@ class FbLeadDestinationsController < ApplicationController
 		end
 	end
 
+	# PATCH/PUT /purchases/1
+	# PATCH/PUT /purchases/1.json
+	def update
+		respond_to do |format|
+			if @fb_lead_destination.update(fb_lead_destination_params)
+				format.json { render :show, status: :ok, location: @fb_lead_destination }
+			else
+				format.json { render json: @fb_lead_destination.errors, status: :unprocessable_entity }
+			end
+		end
+	end
+
 	# DELETE /purchases/1
 	# DELETE /purchases/1.json
 	def destroy

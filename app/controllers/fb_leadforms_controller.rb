@@ -21,6 +21,18 @@ class FbLeadformsController < ApplicationController
 		end
 	end
 
+	# PATCH/PUT /purchases/1
+	# PATCH/PUT /purchases/1.json
+	def update
+		respond_to do |format|
+			if @fb_leadform.update(fb_leadform_params)
+				format.json { render :show, status: :ok, location: @fb_leadform }
+			else
+				format.json { render json: @fb_leadform.errors, status: :unprocessable_entity }
+			end
+		end
+	end
+
 	# DELETE /purchases/1
 	# DELETE /purchases/1.json
 	def destroy
