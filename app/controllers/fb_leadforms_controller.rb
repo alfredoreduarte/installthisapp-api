@@ -27,7 +27,7 @@ class FbLeadformsController < ApplicationController
 			if fb_lead
 				format.json { render json: fb_lead }
 			else
-				format.json { render json: {}, status: :ok }
+				format.json { render json: nil, status: :ok }
 			end
 		end
 	end
@@ -38,7 +38,7 @@ class FbLeadformsController < ApplicationController
 			if fb_lead_notification
 				format.json { render json: fb_lead_notification }
 			else
-				format.json { render json: {}, status: :ok }
+				format.json { render json: nil, status: :ok }
 			end
 		end
 	end

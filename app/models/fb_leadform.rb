@@ -45,15 +45,20 @@ class FbLeadform < ApplicationRecord
 										Rails.logger.info('Successfully deleted test lead')
 										# Create new test lead
 										test_lead = create_test_lead( self.fb_form_id, access_token )
-										# 
-										# Rails.logger.info("will create fake notif")
-										# fb_lead_notification = FbLeadNotification.create(
-										# 	lead_id: test_lead["id"],
-										# 	fb_lead_destination_id: FbLeadDestination.first.id,
-										# 	success: true,
-										# 	retries: 0
-										# )
-										return test_lead
+										# return test_lead
+										if test_lead
+											# Success
+											if test_lead["id"]
+												Rails.logger.info("will create fake notif")
+												fb_lead_notification = FbLeadNotification.create(
+													lead_id: test_lead["id"],
+													fb_lead_destination_id: FbLeadDestination.first.id,
+													success: true,
+													retries: 0
+												)
+												return test_lead
+											end
+										end
 									end
 								end
 							end
