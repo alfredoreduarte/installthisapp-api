@@ -12,14 +12,14 @@ module FbDestinationWebhook
 				# Custom Payoload Type
 				case settings["payload_type"]
 					when 'json'
-						elbody = process_body(fb_lead, settings)
+						elbody = self.process_body(fb_lead, settings)
 						req.headers['Content-Type'] = 'application/json'
 						req.body = "#{elbody.to_json}"
 					when 'form'
-						req.headers['Content-Type'] = 'application/x-www-form-urlencoded'
 						data = fb_lead.field_data
 						query = data.map{ |datum| "#{datum["name"]}=#{datum["values"].join}"}
 						string_to_encode = query.join('&')
+						req.headers['Content-Type'] = 'application/x-www-form-urlencoded'
 						req.body = URI.encode(string_to_encode)
 					when 'xml'
 						req.headers['Content-Type'] = 'application/xml; charset=utf-8'
@@ -43,19 +43,13 @@ module FbDestinationWebhook
 		end
 	end
 
-	private
-
-	def process_body(fb_lead, settings)
+	def self.process_body(fb_lead, settings)
 		if settings["fields_dictionary"].length > 0
 			dictionary = settings["fields_dictionary"]
-			# toreturn = fb_lead.field_data.map{|datum| {:name => "cositoigual", :values => datum["values"]}}
-			# toreturn = dictionary.map{ |dict| {:name => dict[:key], :values => data.find{|datum| datum[:name] == dict[:value]}[:values]} }
-			return dictionary.map do |dict|
-				{
-					"name": dict["key"], 
-					"values": data.find{|datum| datum["name"] == dict["value"]}["values"]
-				}
-			end
+			data = fb_lead.field_data
+			toreturn = dictionary.map{ |dict| { "#{dict["key"]}" => data.find{|datum| datum["name"] == dict["value"]}["values"].length == 1 ? data.find{|datum| datum["name"] == dict["value"]}["values"].first : data.find{|datum| datum["name"] == dict["value"]}["values"] } }
+			toreturn = toreturn.reduce({}, :merge)
+			return toreturn
 		else
 			return fb_lead.field_data
 		end
