@@ -44,10 +44,12 @@ module FbDestinationWebhook
 	end
 
 	def self.process_body(fb_lead, settings)
-		if settings["fields_dictionary"].length > 0
+		if !settings["fields_dictionary"].nil? && settings["fields_dictionary"].length > 0
 			dictionary = settings["fields_dictionary"]
 			data = fb_lead.field_data
-			toreturn = dictionary.map{ |dict| { "#{dict["key"]}" => data.find{|datum| datum["name"] == dict["value"]}["values"].length == 1 ? data.find{|datum| datum["name"] == dict["value"]}["values"].first : data.find{|datum| datum["name"] == dict["value"]}["values"] } }
+			toreturn = dictionary.map{ |dict| { 
+				"#{dict["key"]}" => data.find{|datum| datum["name"] == dict["value"]}["values"].length == 1 ? data.find{|datum| datum["name"] == dict["value"]}["values"].first : data.find{|datum| datum["name"] == dict["value"]}["values"] } 
+			}
 			toreturn = toreturn.reduce({}, :merge)
 			return toreturn
 		else
