@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+	</head>
+	<body>
+		<h1>Hooray! Someone has received a leadgen notification.</h1>
+		<h3>Admin:</h3>
+		<ul>
+			<li><b>ID</b>: <a href="https://admin.installthisapp.com/d/users/<%= @admin_id %>"><%= @admin_id %></a></li>
+			<li><b>Name</b>: <%= @admin_name %></li>
+			<li><b>Email</b>: <%= @admin_email %></li>
+		</ul>
+		<h3>Notification contents:</h3>
+		<p>
+			<% @content.each do |content| %>
+				<b><%= content["name"].titleize %></b>: 
+				<% content["values"].each do |value| %>
+					<%= value %>
+				<% end %>
+				<br />
+			<% end %>
+		</p>
+	</body>
+</html>

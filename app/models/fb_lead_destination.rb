@@ -49,6 +49,9 @@ class FbLeadDestination < ApplicationRecord
 				retries: 0
 			)
 		end
+
+		# Notifying ourselves to track usage
+		AdminMailer.notify_ourselves_about_leadgen_usage(self.admin, fb_lead).deliver_later
 	end
 	
 	private
