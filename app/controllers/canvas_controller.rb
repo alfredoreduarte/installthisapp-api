@@ -4,11 +4,52 @@ class CanvasController < ApplicationController
 		:auth, 
 		:standalone_auth, 
 		:messages_create,
+		:data_for_gateway,
 		:entities, 
 		:entries, 
 		:settings
 	]
 	before_action :load_application, :except => [:auth, :standalone_auth]
+
+	def data_for_gateway
+		integration = @application.app_integrations.fb_webhook_page_feed.first
+		# fb_tab = @application.app_integrations.fb_tab.first
+		fb_tab_application_identifier = nil
+		if @application.app_integrations.fb_tab
+			if @application.app_integrations.fb_tab.first
+				fb_tab_application_identifier = @application.app_integrations.fb_tab.first.settings["fb_application_identifier"]
+			end
+		end
+		fb_page = nil
+		if integration
+			fb_page = FbPage.find_by(identifier: integration.settings["fb_page_identifier"])
+		else
+			fb_page = @application.fb_page
+		end
+		respond_to do |format|
+			format.json { 
+				render json: {
+					has_fb_tab: !fb_tab_application_identifier.nil?,
+					application_type: @application.application_type,
+					title: @application.title,
+					facebook_tab_url: !fb_tab_application_identifier.nil? ? "https://fb.com/#{fb_page.identifier}/app/#{fb_tab_application_identifier}" : nil
+				}
+			}
+		end
+		expires_in 20.minutes, public: true
+	end
+
+	# fb_page = nil
+	# if self.app_integrations.fb_tab
+	# 	if self.app_integrations.fb_tab.first
+	# 		if self.app_integrations.fb_tab.first.settings["fb_page_identifier"]
+	# 			fb_page = FbPage.find_by(identifier: "#{self.app_integrations.fb_tab.first.settings["fb_page_identifier"]}")
+	# 		end
+	# 	end
+	# end
+	# if fb_page == nil
+	# 	fb_page = self.fb_page
+	# end
 
 	def entities_authenticated
 		
