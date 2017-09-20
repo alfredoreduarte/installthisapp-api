@@ -36,7 +36,7 @@ class CanvasController < ApplicationController
 				}
 			}
 		end
-		expires_in 20.minutes, public: true
+		# expires_in 20.minutes, public: true
 	end
 
 	# fb_page = nil
