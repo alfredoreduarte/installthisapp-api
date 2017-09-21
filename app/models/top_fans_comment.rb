@@ -12,6 +12,23 @@ class TopFansComment
 	field :sender_name, type: String
 	field :page_id, type: String
 
+	def self.detail_by_page_and_sender(page_id, sender_id)
+		match = {
+			'$match': {
+				page_id: { '$eq': page_id },
+				sender_id: { '$eq': sender_id.to_i },
+			}
+		}
+		group = {
+			'$group': {
+				_id: { sender_id: '$sender_id', sender_name: '$sender_name' },
+				comments: { '$push': { post_id: '$post_id', parent_id: '$parent_id' } },
+			}
+		}
+		result = Mongoid::QueryCache.cache { self.collection.aggregate([match, group]) }
+		return result
+	end
+
 	def self.detail_by_page
 		group = {
 			'$group': {

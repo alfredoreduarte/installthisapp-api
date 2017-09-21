@@ -1,5 +1,29 @@
 module BackendController
 
+	def detail_by_user_and_page
+		if !params[:sender_id].nil?
+			# page_id = 
+			integration = @application.app_integrations.fb_webhook_page_feed.first
+			fb_page = nil
+			if integration
+				fb_page = FbPage.find_by(identifier: integration.settings["fb_page_identifier"])
+			else
+				# fb_page = FbPage.find_by(identifier: @application.app_integrations.fb_webhook_page_feed.first.settings["fb_page_identifier"])
+				fb_page = @application.fb_page
+			end
+			likes = TopFansLike.detail_by_page_and_sender(fb_page.identifier, params[:sender_id])
+			comments = TopFansComment.detail_by_page_and_sender(fb_page.identifier, params[:sender_id])
+			render json: {
+				status: "success",
+				payload: {
+					user: likes.as_json[0]["_id"],
+					likes: likes.as_json[0]["likes"],
+					comments: comments.as_json[0]["comments"],
+				}
+			}
+		end
+	end
+
 	def subscribe_to_webhook
 		if !params[:fb_page_identifier].nil? && @application.admin.can(:publish_apps)
 			@application.install
