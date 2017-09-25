@@ -7,6 +7,10 @@ module FbDestinationWebhook
 			Rails.logger.info("Webhook has url #{url}")
 			conn = Faraday::Connection.new url, {:ssl => {:verify => false}}
 			res = conn.post do |req|
+				# req.retry.max = 2
+				# req.retry.interval = 0.05
+				# req.retry.interval_randomness = 0.5
+				# req.retry.backoff_factor = 2
 				req.options.timeout = 30
 				req.options.open_timeout = 10
 				# Custom Payoload Type
