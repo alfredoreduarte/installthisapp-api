@@ -16,6 +16,8 @@ module FbApi
 	def self.read_test_leads( form_id, access_token )
 		conn = Faraday::Connection.new FACEBOOK_GRAPH_URL, {:ssl => {:verify => false}}
 		response = conn.get %{/v#{ENV['FB_API_VERSION']}/#{form_id}/test_leads}, { :access_token => access_token }
+		Rails.logger.info('el read')
+		Rails.logger.info(response.body)
 		return JSON::parse(response.body)
 	end
 

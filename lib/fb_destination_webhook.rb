@@ -4,13 +4,8 @@ module FbDestinationWebhook
 		Rails.logger.info("Will fire webhook")
 		url = settings["url"]
 		if url
-# 			require 'faraday'
-# conn = Faraday.new(:url => "http://welcome.usefixie.com", :proxy => ENV["FIXIE_URL"])
-# response = conn.get
 			Rails.logger.info("Webhook has url #{url}")
-			# conn = Faraday::Connection.new url, {:ssl => {:verify => false}}
 			conn = Faraday::Connection.new(url, { :ssl => {:verify => false}, :proxy => ENV["FIXIE_URL"] })
-			# conn = Faraday::Connection.new(:url => url, :proxy => ENV["FIXIE_URL"], {:ssl => {:verify => false}})
 			res = conn.post do |req|
 				# req.retry.max = 2
 				# req.retry.interval = 0.05
@@ -59,7 +54,15 @@ module FbDestinationWebhook
 			toreturn = dictionary.map{ |dict| { 
 				"#{dict["key"]}" => data.find{|datum| datum["name"] == dict["value"]}["values"].length == 1 ? data.find{|datum| datum["name"] == dict["value"]}["values"].first : data.find{|datum| datum["name"] == dict["value"]}["values"] } 
 			}
-			toreturn = toreturn.reduce({}, :merge)
+			fixed_values_final = {}
+			if !settings["fixed_values"].nil? && settings["fixed_values"].length > 0
+				fixed_values = settings["fixed_values"]
+				to_merge = fixed_values.map{ |fixval| {
+					"#{fixval["key"]}" => "#{fixval["value"]}"
+				} }
+				fixed_values_final = to_merge.reduce({}, :merge)
+			end
+			toreturn = toreturn.reduce(fixed_values_final, :merge)
 			return toreturn
 		else
 			return fb_lead.field_data

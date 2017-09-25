@@ -12,6 +12,6 @@ class AdminMailer < ApplicationMailer
 		@admin_name = admin.first_name || admin.email
 		@admin_email = admin.email
 		@content = fb_lead.field_data
-		mail(to: 'alfredoreduarte@gmail.com, martin@installthisapp.com', subject: 'Lead sent!')
+		mail(to: 'alfredoreduarte@gmail.com', subject: 'Lead sent!')
 	end
 end

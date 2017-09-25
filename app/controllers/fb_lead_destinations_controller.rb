@@ -64,6 +64,10 @@ class FbLeadDestinationsController < ApplicationController
 					:key,
 					:value,
 				],
+				:fixed_values => [
+					:key,
+					:value,
+				],
 				:http_headers => [
 					:key,
 					:value

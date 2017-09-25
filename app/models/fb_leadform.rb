@@ -28,6 +28,7 @@ class FbLeadform < ApplicationRecord
 					# )
 					return result
 				elsif result["error"]
+				# elsif false
 					# Handle error
 					Rails.logger.info('New lead returned error')
 					# Already has leads
@@ -35,8 +36,11 @@ class FbLeadform < ApplicationRecord
 						Rails.logger.info('Form already had a test lead')
 						# Read existing test Leads
 						read = FbApi::read_test_leads( self.fb_form_id, access_token )
+						Rails.logger.info('and it is')
+						Rails.logger.info(read)
 						if read
 							lead_id = read["data"].first["id"]
+							# return read["data"].first
 							if lead_id
 								# Delete test lead
 								deleted = FbApi::delete_test_lead( lead_id, access_token )
