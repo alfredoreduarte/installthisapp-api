@@ -20,7 +20,9 @@ class TopFansLike
 		group = {
 			'$group': {
 				_id: { sender_id: '$sender_id', sender_name: '$sender_name' },
-				likes: { '$push': { post_id: '$post_id', parent_id: '$parent_id' } },
+				# Using created_at instead of facebook's created_time because that value is 
+				# empty at times when we manually parse the page's timeline
+				likes: { '$push': { post_id: '$post_id', parent_id: '$parent_id', created_time: '$created_at' } }, 
 			}
 		}
 		result = Mongoid::QueryCache.cache { self.collection.aggregate([match, group]) }

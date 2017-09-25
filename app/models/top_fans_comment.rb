@@ -22,7 +22,7 @@ class TopFansComment
 		group = {
 			'$group': {
 				_id: { sender_id: '$sender_id', sender_name: '$sender_name' },
-				comments: { '$push': { post_id: '$post_id', parent_id: '$parent_id' } },
+				comments: { '$push': { post_id: '$post_id', parent_id: '$parent_id', created_time: '$created_time', message: '$message' } },
 			}
 		}
 		result = Mongoid::QueryCache.cache { self.collection.aggregate([match, group]) }
