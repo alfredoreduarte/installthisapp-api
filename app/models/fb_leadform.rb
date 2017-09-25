@@ -80,8 +80,8 @@ class FbLeadform < ApplicationRecord
 
 	def subscribe_page
 		fb_page = FbPage.find_by(identifier: self.fb_page_identifier)
-		unless fb_page.webhook_subscribed
+		# unless fb_page.webhook_subscribed
 			fb_page.subscribe_to_realtime(self.admin)
-		end
+		# end
 	end
 end
