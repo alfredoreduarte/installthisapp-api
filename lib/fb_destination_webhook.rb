@@ -7,8 +7,8 @@ module FbDestinationWebhook
 			Rails.logger.info("Webhook has url #{url}")
 			conn = Faraday::Connection.new url, {:ssl => {:verify => false}}
 			res = conn.post do |req|
-				req.options.timeout = 10
-				req.options.open_timeout = 5
+				req.options.timeout = 30
+				req.options.open_timeout = 10
 				# Custom Payoload Type
 				case settings["payload_type"]
 					when 'json'
