@@ -4,8 +4,11 @@ module FbDestinationWebhook
 		Rails.logger.info("Will fire webhook")
 		url = settings["url"]
 		if url
+# 			require 'faraday'
+# conn = Faraday.new(:url => "http://welcome.usefixie.com", :proxy => ENV["FIXIE_URL"])
+# response = conn.get
 			Rails.logger.info("Webhook has url #{url}")
-			conn = Faraday::Connection.new url, {:ssl => {:verify => false}}
+			conn = Faraday::Connection.new(url, :proxy => ENV["FIXIE_URL"], {:ssl => {:verify => false}})
 			res = conn.post do |req|
 				# req.retry.max = 2
 				# req.retry.interval = 0.05
