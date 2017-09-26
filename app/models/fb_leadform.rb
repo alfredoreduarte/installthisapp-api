@@ -8,6 +8,23 @@ class FbLeadform < ApplicationRecord
 
 	# TODO: add after_destroy action to unsubscribe page
 
+	def get_existing_test_lead
+		require 'fb_api'
+
+		fb_profile = self.admin.fb_profile
+		access_token = fb_profile.access_token
+
+		if access_token
+			read = FbApi::read_test_leads( self.fb_form_id, access_token )
+			Rails.logger.info('EXISTING LEAD RESULT')
+			Rails.logger.info(read.inspect)
+			if read
+				test_lead = read["data"].first
+				return test_lead
+			end
+		end
+	end
+
 	def test
 		require 'fb_api'
 

@@ -1,10 +1,22 @@
 class FbLeadformsController < ApplicationController
-	before_action :set_fb_leadform, only: [:show, :update, :destroy, :test]
+	before_action :set_fb_leadform, only: [:show, :update, :destroy, :test, :get_existing_test_lead]
 
 	# GET /fb_leadforms
 	# GET /fb_leadforms.json
 	def index
 		@fb_leadforms = current_admin.fb_leadforms.order(:created_at)
+	end
+
+	# GET /fb_leadforms/1/get_existing_test_lead.json
+	def get_existing_test_lead
+		respond_to do |format|
+			result = @fb_leadform.get_existing_test_lead
+			if result
+				format.json { render json: result }
+			else
+				format.json { render json: @fb_leadform.errors, status: :ok }
+			end
+		end
 	end
 
 	# PATCH/PUT /fb_leadforms/1
