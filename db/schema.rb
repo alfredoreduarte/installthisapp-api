@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810033907) do
+ActiveRecord::Schema.define(version: 20170926034311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(version: 20170810033907) do
     t.integer  "admin_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.string   "fb_form_name"
     t.index ["admin_id"], name: "index_fb_leadforms_on_admin_id", using: :btree
   end
 

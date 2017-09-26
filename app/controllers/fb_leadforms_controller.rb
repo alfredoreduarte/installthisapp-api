@@ -98,7 +98,7 @@ class FbLeadformsController < ApplicationController
 
 		# Never trust parameters from the scary internet, only allow the white list through.
 		def fb_leadform_params
-			params.require(:fb_leadform).permit(:fb_page_identifier, :fb_form_id)
+			params.require(:fb_leadform).permit(:fb_page_identifier, :fb_form_id, :fb_form_name)
 		end
 
 end
