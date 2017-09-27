@@ -17,6 +17,7 @@ module BackendController
 			elsif comments.as_json.length > 0
 				user = comments.as_json[0]["_id"]
 			end
+			expires_in 10.minutes, public: true
 			render json: {
 				status: "success",
 				payload: {

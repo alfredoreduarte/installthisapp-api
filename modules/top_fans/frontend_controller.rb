@@ -19,6 +19,7 @@ module FrontendController
 			# comments: results_comments.first(50),
 			comments: results_comments, # Stopped sending a subset because it was distorting frontend-calculated results
 		}
+		expires_in 5.minutes, public: true
 		render json: response
 	end
 
@@ -54,7 +55,7 @@ module FrontendController
 				success: false,
 			}
 		end
-		# expires_in 10.minutes, public: true
+		expires_in 5.minutes, public: true
 		render json: response
 	end
 end
