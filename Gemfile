@@ -95,3 +95,6 @@ gem 'newrelic_rpm'
 
 # For mailchimp integrations
 gem 'gibbon'
+
+# Enhanced logging
+gem 'timber', '~> 2.2'

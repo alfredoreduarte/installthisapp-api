@@ -8,4 +8,8 @@ class FbLeadNotification
 	field :success, type: Boolean
 	field :retries, type: Integer, default: 0
 	field :created_time, type: DateTime
+
+	def retry_manual
+		
+	end
 end
