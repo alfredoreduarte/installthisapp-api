@@ -49,7 +49,7 @@ class MainController < ApplicationController
 				"value": Payola::Subscription.where(state: "active").length
 			}
 		]
-		# expires_in 20.minutes, public: true
+		expires_in 2.minutes, public: true
 	end
 
 	def subscription_plans

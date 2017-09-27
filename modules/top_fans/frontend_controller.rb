@@ -1,5 +1,5 @@
 module FrontendController
-	
+
 	def entries
 		fb_page = @application.fb_page
 		if fb_page
@@ -19,9 +19,7 @@ module FrontendController
 			# comments: results_comments.first(50),
 			comments: results_comments, # Stopped sending a subset because it was distorting frontend-calculated results
 		}
-		# respond_to do |format|
-			render json: response
-		# end
+		render json: response
 	end
 
 	def single_user_scores
@@ -56,8 +54,7 @@ module FrontendController
 				success: false,
 			}
 		end
-		# respond_to do |format|
-			render json: response
-		# end
+		# expires_in 10.minutes, public: true
+		render json: response
 	end
 end

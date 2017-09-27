@@ -62,9 +62,6 @@ class FbWebhooksController < ApplicationController
 								# 
 								# Leadgen
 								# 
-								# https://developers.facebook.com/docs/marketing-api/guides/lead-ads/retrieving#webhooks
-								# https://developers.facebook.com/tools/lead-ads-testing
-								# 
 								if change[:field] == "leadgen"
 									value = change[:value]
 									save_leadgen_webhook({
