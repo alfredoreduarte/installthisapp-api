@@ -1,18 +1,13 @@
 class ApplicationController < ActionController::API
-# class ApplicationController < ActionController::Base
 	respond_to :json
 
+	# These two inclusions allow us to use authenticate_or_request_with_http_token at canvas_controller
+	# because they're not included by default when using ActionController::API
 	include ActionController::HttpAuthentication::Basic::ControllerMethods
 	include ActionController::HttpAuthentication::Token::ControllerMethods
 
-	# protect_from_forgery with: :null_session
 	include DeviseTokenAuth::Concerns::SetUserByToken
-	# before_action :configure_permitted_parameters, if: :devise_controller?
-	# prepend_before_filter :configure_permitted_parameters, if: :devise_controller?
 	prepend_before_action :configure_permitted_parameters, if: :devise_controller?
-
-	# Avoids (supposedly) the annoying "Can't verify CSRF token authenticity" log warning 
-	# skip_before_action :verify_authenticity_token
 
 	# 
 	# Custom error types
