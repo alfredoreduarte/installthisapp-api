@@ -20,3 +20,4 @@ Procfile.dev
 ssl
 ssl-dev
 dump.rdb
+v3-certs

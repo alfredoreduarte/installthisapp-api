@@ -1,5 +1,4 @@
 class TopFansLike
-	Mongoid::QueryCache.enabled = true
 	include Mongoid::Document
 	include Mongoid::Timestamps
 
@@ -11,6 +10,7 @@ class TopFansLike
 	field :sender_id, type: Integer
 
 	def self.detail_by_page_and_sender(page_id, sender_id)
+		Mongoid::QueryCache.enabled = true
 		match = {
 			'$match': {
 				page_id: { '$eq': page_id },
@@ -25,11 +25,15 @@ class TopFansLike
 				likes: { '$push': { post_id: '$post_id', parent_id: '$parent_id', created_time: '$created_at' } }, 
 			}
 		}
-		result = Mongoid::QueryCache.cache { self.collection.aggregate([match, group]) }
-		return result
+		Rails.cache.fetch([page_id, sender_id], :expires => 10.minutes) do
+			# Need to find a way to return an empty array instead of null here
+			# Mongoid::QueryCache.cache { self.collection.aggregate([match, group]) }.to_a || []
+			Mongoid::QueryCache.cache { self.collection.aggregate([match, group]) }.to_a
+		end
 	end
 
 	def self.detail_by_page
+		Mongoid::QueryCache.enabled = true
 		group = {
 			'$group': {
 				_id: { page_id: '$page_id' },
@@ -41,6 +45,7 @@ class TopFansLike
 	end
 	
 	def self.likes_by_page(identifier, ignored_ids = [], query_limit = 500)
+		Mongoid::QueryCache.enabled = true
 		match = {
 			'$match': {
 				page_id: identifier.to_s,
@@ -73,15 +78,15 @@ class TopFansLike
 				senderName: 1,
 			}
 		}
-		# return self.collection.aggregate([match, group, sort, project, limit])
-		result = Mongoid::QueryCache.cache { self.collection.aggregate([match, group, sort, project]) }
-		# result = Mongoid::QueryCache.cache { self.collection.aggregate([match, group, sort, project, limit]) }
-		# result = self.collection.aggregate([match, group, sort, project])
-		# return self.collection.aggregate([match, group, sort, project]).cache
-		return result
+		# result = Mongoid::QueryCache.cache { self.collection.aggregate([match, group, sort, project]) }
+		# return result
+		Rails.cache.fetch(identifier, :expires => 10.minutes) do
+			Mongoid::QueryCache.cache { self.collection.aggregate([match, group, sort, project]) }.to_a
+		end
 	end
 
 	def self.detail_by_page_and_user(page_identifier, user_identifier)
+		Mongoid::QueryCache.enabled = true
 		match = {
 			'$match': {
 				page_id: page_identifier,
@@ -104,7 +109,10 @@ class TopFansLike
 				senderName: 1,
 			}
 		}
-		result = Mongoid::QueryCache.cache { self.collection.aggregate([match, group, project]) }
-		return result
+		# result = Mongoid::QueryCache.cache { self.collection.aggregate([match, group, project]) }
+		# return result
+		Rails.cache.fetch([page_identifier, user_identifier], :expires => 10.minutes) do
+			Mongoid::QueryCache.cache { self.collection.aggregate([match, group, project]) }.to_a
+		end
 	end
 end

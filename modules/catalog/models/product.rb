@@ -20,7 +20,8 @@ class CatalogProduct < ActiveRecord::Base
 	end
 
 	def permalink
-		return "/#{self.application.fb_application.canvas_id}/#{self.application.checksum}/#{self.slug}"
+		# return "/#{self.application.fb_application.canvas_id}/#{self.application.checksum}/#{self.slug}"
+		return "/catalog/#{self.application.checksum}/#{self.slug}"
 	end
 
 	def sanitize_slug
