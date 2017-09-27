@@ -10,13 +10,15 @@ class FbPagesController < ApplicationController
 				result = FbApi::retrieve_fb_page_leadgen_forms(fb_page.identifier, current_admin.fb_profile.access_token)
 			end
 		end
-		respond_to do |format|
+		# respond_to do |format|
 			if result
-				format.json { render json: result, status: :ok }
+				# format.json { render json: result, status: :ok }
+				render json: result, status: :ok
 			else
-				format.json { render json: {success: false}, status: :unprocessable_entity }
+				# format.json { render json: {success: false}, status: :unprocessable_entity }
+				render json: {success: false}, status: :unprocessable_entity
 			end
-		end
+		# end
 	end
 
 	# def fetch

@@ -172,9 +172,9 @@ module BackendController
 				status: false,
 			}
 		end
-		respond_to do |format|
-			format.json { render json: response }
-		end
+		# respond_to do |format|
+			render json: response
+		# end
 	end
 
 	def subscribe_real_time

@@ -121,37 +121,53 @@ class Application < ApplicationRecord
 			# 
 			# Make the request using Faraday directly:
 			# 
-			# require "logger"
-			# conn = Faraday.new(:url => "#{ENV['FB_GRAPH_URL']}/v2.9/#{fb_page_identifier}/tabs/") do |faraday|
-			# 	faraday.request :url_encoded
-			# 	faraday.response :logger, ::Logger.new(STDOUT), bodies: true
-			# 	faraday.adapter Faraday.default_adapter
-			# 	faraday.params['app_id'] = self.fb_application.app_id
-			# 	faraday.params['access_token'] = page_token
-			# end
-			# response = conn.post
-			# logger.info(response.body)
-			# !Alt
+			require "logger"
 			user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
 			page_token = user_graph.get_page_access_token(fb_page_identifier)
-			koala = Koala::Facebook::API.new(page_token)
-			params = {
-				app_id: self.fb_application.app_id,
-				custom_name: self.title,
-			}
+			conn = Faraday.new(:url => "#{ENV['FB_GRAPH_URL']}/v#{ENV['FB_API_VERSION']}/#{fb_page_identifier}/tabs") do |faraday|
+				faraday.request :url_encoded
+				faraday.response :logger, ::Logger.new(STDOUT), bodies: true
+				faraday.adapter Faraday.default_adapter
+				faraday.params['app_id'] = self.fb_application.app_id
+				faraday.params['access_token'] = page_token
+				# faraday.params['custom_name'] = self.title
+			end
+			response = conn.post
+			logger.info(response.body)
+			if response.status.to_i == 200
+				self.app_integrations.new(integration_type: 0, settings: {
+					fb_page_identifier: fb_page.identifier,
+					fb_application_identifier: self.fb_application.app_id,
+					tab_title: self.title,
+				})
+				self.installed!
+				self.save
+				return :ok
+			else
+				return :error
+			end
+			# !Alt
+			# user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
+			# page_token = user_graph.get_page_access_token(fb_page_identifier)
+			# koala = Koala::Facebook::API.new(page_token)
+			# params = {
+			# 	app_id: self.fb_application.app_id,
+			# 	custom_name: self.title,
+			# }
 			# 
 			# TODO: UNcomment this before commit!
 			# 
-			koala.put_connections("me", "tabs", params)
+			# koala.put_connections("me", "tabs", params)
 			# 
-			self.app_integrations.new(integration_type: 0, settings: {
-				fb_page_identifier: fb_page.identifier,
-				fb_application_identifier: self.fb_application.app_id,
-				tab_title: self.title,
-			})
-			self.installed!
-			self.save
-			return :ok
+			# self.app_integrations.new(integration_type: 0, settings: {
+			# 	fb_page_identifier: fb_page.identifier,
+			# 	fb_application_identifier: self.fb_application.app_id,
+			# 	tab_title: self.title,
+			# })
+			# self.installed!
+			# self.save
+			# return :ok
+			return :error
 		else
 			raise ActiveRecord::RecordNotFound, "No facebook_page found for identifier #{fb_page_identifier}"
 		end

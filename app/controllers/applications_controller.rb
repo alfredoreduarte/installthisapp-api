@@ -44,9 +44,9 @@ class ApplicationsController < ApplicationController
 	end
 
 	def settings
-		respond_to do |format|
-			format.json { render json: @application.setting.conf["preferences"] }
-		end
+		# respond_to do |format|
+			render json: @application.setting.conf["preferences"]
+		# end
 	end
 
 	def stats_summary
@@ -118,12 +118,17 @@ class ApplicationsController < ApplicationController
 		if params[:fb_page_identifier]
 			if @application.admin.can(:publish_apps)
 				@application.install
-				@application.put_tab_on_facebook(params[:fb_page_identifier])
-				@application.install_tab_callback
-				ApplicationLog.log_fb_integration(@application.checksum, DateTime.now)
-				@admin = current_admin
-				@plans = SubscriptionPlan.all
-				render 'admins/entities'
+				if @application.put_tab_on_facebook(params[:fb_page_identifier]) == :ok
+					@application.install_tab_callback
+					ApplicationLog.log_fb_integration(@application.checksum, DateTime.now)
+					@admin = current_admin
+					@plans = SubscriptionPlan.all
+					render 'admins/entities'
+				else
+					render json: {
+						message: "Error creating facebook tab"
+					}, status: :error
+				end
 			else
 				render json: {
 					success: false,

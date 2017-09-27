@@ -10,9 +10,9 @@ module BackendController
 		photos.each do |photo|
 			photo.destroy
 		end
-		respond_to do |format|
-			format.json { render json: {status: 'ok'} }
-		end
+		# respond_to do |format|
+			render json: {status: 'ok'}
+		# end
 	end
 
 	def votes_destroy
@@ -20,9 +20,9 @@ module BackendController
 		votes.each do |vote|
 			vote.destroy
 		end
-		respond_to do |format|
-			format.json { render json: {status: 'ok'} }
-		end
+		# respond_to do |format|
+			render json: {status: 'ok'}
+		# end
 	end
 	
 end

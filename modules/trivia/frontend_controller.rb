@@ -49,9 +49,9 @@ module FrontendController
 		end
 		user_summary.total_answers = user_summary.total_answers + correct_answers + incorrect_answers
 		user_summary.save
-		respond_to do |format|
-			format.json { render json: user_summary.as_json }
-		end
+		# respond_to do |format|
+			render json: user_summary.as_json
+		# end
 	end
   
 	private

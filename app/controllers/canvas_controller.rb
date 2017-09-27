@@ -26,16 +26,16 @@ class CanvasController < ApplicationController
 		else
 			fb_page = @application.fb_page
 		end
-		respond_to do |format|
-			format.json { 
+		# respond_to do |format|
+			# format.json { 
 				render json: {
 					has_fb_tab: !fb_tab_application_identifier.nil?,
 					application_type: @application.application_type,
 					title: @application.title,
 					facebook_tab_url: !fb_tab_application_identifier.nil? ? "https://fb.com/#{fb_page.identifier}/app/#{fb_tab_application_identifier}" : nil
 				}
-			}
-		end
+			# }
+		# end
 		# expires_in 20.minutes, public: true
 	end
 
@@ -56,9 +56,9 @@ class CanvasController < ApplicationController
 	end
 
 	def settings
-		respond_to do |format|
-			format.json { render json: @application.setting.conf["preferences"] }
-		end
+		# respond_to do |format|
+			render json: @application.setting.conf["preferences"]
+		# end
 	end
 
 	def images
@@ -89,9 +89,9 @@ class CanvasController < ApplicationController
 					messages_url: application.application_assets.where(attachment_file_name: "messages.json").last.asset_url,
 					images_url: image_dict_assets.length > 0 ? image_dict_assets.last.asset_url : nil,
 				}
-				respond_to do |format|
-					format.json { render json: response }
-				end
+				# respond_to do |format|
+					render json: response
+				# end
 			else
 				raise ActiveRecord::RecordNotFound, "No Application found for checksum #{params[:checksum]}"
 			end
@@ -123,9 +123,9 @@ class CanvasController < ApplicationController
 						messages_url: application.application_assets.where(attachment_file_name: "messages.json").last.asset_url,
 						images_url: application.application_assets.where(attachment_file_name: "images.json").last.asset_url,
 					}
-					respond_to do |format|
-						format.json { render json: response }
-					end
+					# respond_to do |format|
+						render json: response
+					# end
 				else
 					render json: {
 						error: "Could not find an application associated to this Facebook Page and Facebook app"

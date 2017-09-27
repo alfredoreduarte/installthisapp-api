@@ -13,9 +13,9 @@ module BackendController
 				@application.questions.find(question.id).as_json(include: :options)
 			]
 		}
-		respond_to do |format|
-			format.json { render json: response }
-		end
+		# respond_to do |format|
+			render json: response
+		# end
 	end
 
 	def questions_update
@@ -27,9 +27,9 @@ module BackendController
 				@application.questions.find(question.id).as_json(include: :options)
 			]
 		}
-		respond_to do |format|
-			format.json { render json: response }
-		end
+		# respond_to do |format|
+			render json: response
+		# end
 	end
 
 	def questions_destroy
@@ -38,15 +38,15 @@ module BackendController
 			question.destroy
 		end
 		response = {status: 'ok'}
-		respond_to do |format|
-			format.json { render json: response }
-		end
+		# respond_to do |format|
+			render json: response
+		# end
 	end
 
 	def answers
-		respond_to do |format|
-			format.json { answers_json }
-		end
+		# respond_to do |format|
+			answers_json
+		# end
 	end
 
 	def answers_destroy
@@ -57,9 +57,9 @@ module BackendController
 				response = {status: 'error'}
 			end
 		end
-		respond_to do |format|
-			format.json { render json: response }
-		end
+		# respond_to do |format|
+			render json: response
+		# end
 	end
 
 	private

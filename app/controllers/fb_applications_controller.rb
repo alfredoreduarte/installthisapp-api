@@ -1,9 +1,9 @@
 class FbApplicationsController < ApplicationController
 	def index
 		response = FbApplication.all.as_json
-		respond_to do |format|
-			format.json { render json: response }
-		end
+		# respond_to do |format|
+			render json: response
+		# end
 	end
 
 	def create
@@ -41,9 +41,9 @@ class FbApplicationsController < ApplicationController
 				error: fbApp.errors.full_messages,
 			}
 		end
-		respond_to do |format|
-			format.json { render json: response }
-		end
+		# respond_to do |format|
+			render json: response
+		# end
 	end
 
 	def destroy
@@ -57,9 +57,9 @@ class FbApplicationsController < ApplicationController
 				status: @fbApp.errors.full_messages,
 			}
 		end
-		respond_to do |format|
-			format.json { render json: response }
-		end
+		# respond_to do |format|
+			render json: response
+		# end
 	end
 
 	private

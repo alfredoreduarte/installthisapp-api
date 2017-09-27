@@ -12,34 +12,34 @@ class FbLeadDestinationsController < ApplicationController
 	def create
 		@fb_lead_destination = current_admin.fb_lead_destinations.new(fb_lead_destination_params)
 
-		respond_to do |format|
+		# respond_to do |format|
 			if @fb_lead_destination.save
-				format.json { render :show, status: :created, location: @fb_lead_destination }
+				render :show, status: :created, location: @fb_lead_destination
 			else
-				format.json { render json: @fb_lead_destination.errors, status: :unprocessable_entity }
+				render json: @fb_lead_destination.errors, status: :unprocessable_entity
 			end
-		end
+		# end
 	end
 
 	# PATCH/PUT /purchases/1
 	# PATCH/PUT /purchases/1.json
 	def update
-		respond_to do |format|
+		# respond_to do |format|
 			if @fb_lead_destination.update(fb_lead_destination_params)
-				format.json { render :show, status: :ok, location: @fb_lead_destination }
+				render :show, status: :ok, location: @fb_lead_destination
 			else
-				format.json { render json: @fb_lead_destination.errors, status: :unprocessable_entity }
+				render json: @fb_lead_destination.errors, status: :unprocessable_entity
 			end
-		end
+		# end
 	end
 
 	# DELETE /purchases/1
 	# DELETE /purchases/1.json
 	def destroy
 		@fb_lead_destination.destroy
-		respond_to do |format|
-			format.json { head :no_content }
-		end
+		# respond_to do |format|
+			head :no_content
+		# end
 	end
 
 	private

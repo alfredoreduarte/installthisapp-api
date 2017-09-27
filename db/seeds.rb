@@ -9,40 +9,40 @@
 if Rails.env == "development"
 	FbApplication.create(
 		name: "Trivia", 
-		app_id: "1525778314395413",
-		secret_key: "8f2a3a93a7d3d41ee3ddb96e1062c9dd", 
+		app_id: "1652455931439619",
+		secret_key: "5ff8a29a0096408d1e4cf85b078cff06", 
 		application_type: "trivia", 
 		canvas_id: "app1", 
 		namespace: "ita_dev_i_i",
 	)
 	FbApplication.create(
 		name: "Top Fans", 
-		app_id: "1765290880276128", 
-		secret_key: "c451a330be8d758a3aa5ab107c794fec", 
+		app_id: "1941701466067415", 
+		secret_key: "2271c50848c08e11048f4862a695c23f", 
 		application_type: "top_fans", 
 		canvas_id: "app2", 
 		namespace: "ita_dev_i_ii",
 	)
 	FbApplication.create(
 		name: "Photo Contest", 
-		app_id: "1194297433923796",
-		secret_key: "4f545ea335fb60992e1a05cbd5a80fee", 
+		app_id: "1883096718679148",
+		secret_key: "c5386088eb565f21a07963c067804b3d", 
 		application_type: "photo_contest", 
 		canvas_id: "app3", 
 		namespace: "ita_dev_i_iii",
 	)
 	FbApplication.create(
 		name: "Memory Match", 
-		app_id: "1303618956340973",
-		secret_key: "a3a58110eeb29f8f423f48dfb2193f4f", 
+		app_id: "712988888886640",
+		secret_key: "872edc3ad4f26eceb72a984b8e0e5123", 
 		application_type: "memory_match", 
 		canvas_id: "app4", 
 		namespace: "ita_dev_i_iv",
 	)
 	FbApplication.create(
 		name: "Catalog", 
-		app_id: "639649409573258",
-		secret_key: "560b4be68a7f53ea091ebee7b151b07d", 
+		app_id: "1853024735025880",
+		secret_key: "0384545b217d957ff10f8d6c757eccd6", 
 		application_type: "catalog", 
 		canvas_id: "app5", 
 		namespace: "ita_dev_i_v",

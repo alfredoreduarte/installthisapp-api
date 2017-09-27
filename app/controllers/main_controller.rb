@@ -54,9 +54,10 @@ class MainController < ApplicationController
 
 	def subscription_plans
 		response = SubscriptionPlan.all.as_json
-		respond_to do |format|
-			format.json { render json: response }
-		end
+		# respond_to do |format|
+			# format.json { render json: response }
+			render json: response
+		# end
 	end
 
 	def create_subscription_plan
@@ -82,9 +83,10 @@ class MainController < ApplicationController
 				error: plan.errors.full_messages,
 			}
 		end
-		respond_to do |format|
-			format.json { render json: response }
-		end
+		# respond_to do |format|
+			# format.json { render json: response }
+			render json: response
+		# end
 	end
 
 	def remove_subscription_plan
@@ -98,8 +100,9 @@ class MainController < ApplicationController
 				status: plan.errors.full_messages,
 			}
 		end
-		respond_to do |format|
-			format.json { render json: response }
-		end
+		# respond_to do |format|
+			# format.json { render json: response }
+			render json: response
+		# end
 	end
 end

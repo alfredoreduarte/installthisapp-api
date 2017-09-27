@@ -19,9 +19,9 @@ module FrontendController
 			# comments: results_comments.first(50),
 			comments: results_comments, # Stopped sending a subset because it was distorting frontend-calculated results
 		}
-		respond_to do |format|
-			format.json { render json: response }
-		end
+		# respond_to do |format|
+			render json: response
+		# end
 	end
 
 	def single_user_scores
@@ -56,8 +56,8 @@ module FrontendController
 				success: false,
 			}
 		end
-		respond_to do |format|
-			format.json { render json: response }
-		end
+		# respond_to do |format|
+			render json: response
+		# end
 	end
 end

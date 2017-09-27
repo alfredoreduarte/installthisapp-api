@@ -14,15 +14,15 @@ module FrontendController
 		@message = @application.messages.new(message_params)
 		recipients_from_settings = @application.setting.conf["preferences"]["message_recipients"]
 		@message.recipients = recipients_from_settings.length > 0 ? recipients_from_settings.lenght : @application.admin.email
-		respond_to do |format|
+		# respond_to do |format|
 			if @message.save
-				format.json { render json: {
+				render json: {
 					success: true
-				}, status: :ok }
+				}, status: :ok
 			else
-				format.json { render json: @message.errors, status: :unprocessable_entity }
+				render json: @message.errors, status: :unprocessable_entity
 			end
-		end
+		# end
 	end
 
 	private
