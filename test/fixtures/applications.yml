@@ -5,7 +5,7 @@ one:
   checksum: MyString
   application_type: MyString
   status: 1
-  users_count: 1
+  fb_users_count: 1
   admin: one
 
 two:
@@ -13,5 +13,5 @@ two:
   checksum: MyString
   application_type: MyString
   status: 1
-  users_count: 1
+  fb_users_count: 1
   admin: two

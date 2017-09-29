@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-	before_action :get_user, :only => [:profile, :profile_interests_tab, :profile_work_and_education_tab, :profile_checkins_tab, :profile_applications_installed]
 	before_action :add_application_id_by_default , :only => [:application_users_list]
 
 	def create
@@ -14,16 +13,5 @@ class UsersController < ApplicationController
 			id: @fb_user.id,
 			api_key: @fb_user.api_key.last.token,
 		}
-	end
-		
-	private
-	
-	def get_user
-		@access_tokens = AccessToken.where("user_id = #{params[:id]} and application_id in (#{$admin_user.application_ids.join(",")})").includes(:application).order("access_tokens.updated_at DESC")
-		if @access_tokens.length > 0
-			@user = @access_tokens[0].user
-		else
-			render :text => "Erroorrr"
-		end
 	end
 end

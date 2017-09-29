@@ -4,10 +4,8 @@ one:
   fb_page_identifier: MyString
   fb_form_id: MyString
   admin: one
-  fb_profile: one
-
+  
 two:
   fb_page_identifier: MyString
   fb_form_id: MyString
   admin: two
-  fb_profile: two

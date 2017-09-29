@@ -22,17 +22,6 @@ class FbUsersController < ApplicationController
 			raise ParamsVerificationFailed, 'signed_request'
 		end
 	end
-		
-	# private
-	
-	# def get_user
-	# 	@access_tokens = AccessToken.where("fb_user_id = #{params[:id]} and application_id in (#{$admin_user.application_ids.join(",")})").includes(:application).order("access_tokens.updated_at DESC")
-	# 	if @access_tokens.length > 0
-	# 		@user = @access_tokens[0].user
-	# 	else
-	# 		render :text => "Erroorrr"
-	# 	end
-	# end
 
 	def get_application
 		@application = Application.find_by(checksum: params[:checksum])

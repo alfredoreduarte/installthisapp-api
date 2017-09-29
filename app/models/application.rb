@@ -232,7 +232,7 @@ class Application < ApplicationRecord
 				end
 			rescue Koala::Facebook::AuthenticationError, Koala::Facebook::ClientError => e
 				logger.info(e)
-				logger.info("ERROR al eliminar tab de page con ID #{fb_page.id} del admin_user #{self.admin.id}")
+				logger.info("ERROR al eliminar tab de page con ID #{fb_page.id} del admin #{self.admin.id}")
 			end
 		else
 			return false

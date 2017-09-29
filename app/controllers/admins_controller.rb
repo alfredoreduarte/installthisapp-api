@@ -27,49 +27,5 @@ class AdminsController < ApplicationController
 		@plans = SubscriptionPlan.all
 		render 'admins/entities'
 	end
-
-	# def create
-		# $admin_user = Admins.sign_in(params[:signed_request])
-		# unless $admin_user.api_key.length > 0
-			# $admin_user.api_key.create
-		# end
-		# render plain: $admin_user.api_key.last.token
-	# end
-
-	# def show
-		# response = {
-			# admin_user: $admin_user.as_json(
-				# include: {
-					# applications: {
-						# include: [:users, :fb_application, :fb_page, :setting],
-					# },
-	# 				fb_pages: {}
-	# 			}
-	# 		),
-	# 	}
-	# 	respond_to do |format|
-	# 		format.json { render json: response }
-	# 	end
-	# end
-
-	# def update
-	# 	$admin_user.update_attributes(admin_user_params)
-	# 	respond_to do |format|
-	# 		format.json { render json: $admin_user.as_json }
-	# 	end
-	# end
-
 	
-
-	# private
-
-	# def send_confirm
-		# current_admin.resend_confirmation_instructions
-	# end
-
-	# def admin_user_params
-		# params.require(:admin).permit(:name, :email)
-	# end
-
-	# caches_page   :index
 end
