@@ -80,9 +80,9 @@ class TopFansLike
 		}
 		# result = Mongoid::QueryCache.cache { self.collection.aggregate([match, group, sort, project]) }
 		# return result
-		Rails.cache.fetch(identifier, :expires => 10.minutes) do
+		# Rails.cache.fetch(identifier, :expires => 10.minutes) do
 			Mongoid::QueryCache.cache { self.collection.aggregate([match, group, sort, project]) }.to_a
-		end
+		# end
 	end
 
 	def self.detail_by_page_and_user(page_identifier, user_identifier)
