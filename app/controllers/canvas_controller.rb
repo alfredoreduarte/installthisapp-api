@@ -1,64 +1,45 @@
 class CanvasController < ApplicationController
 	include Modules::BaseController
 	before_action :authenticate_user, except: [
-		:auth, 
+		:fb_tab_auth, 
 		:standalone_auth, 
-		:messages_create,
 		:data_for_gateway,
-		:entities, 
-		:entries, 
-		:settings
+		:messages_create, # catalog
+		:entities, # most modules
+		:entries, # most modules
+		:settings # most modules
 	]
-	before_action :load_application, :except => [:auth, :standalone_auth]
+	before_action :instantiate_application, :except => [:fb_tab_auth, :standalone_auth]
 
 	def data_for_gateway
-		integration = @application.app_integrations.fb_webhook_page_feed.first
-		# fb_tab = @application.app_integrations.fb_tab.first
-		fb_tab_application_identifier = nil
+		fb_tab_app_identifier = nil
 		if @application.app_integrations.fb_tab
 			if @application.app_integrations.fb_tab.first
-				fb_tab_application_identifier = @application.app_integrations.fb_tab.first.settings["fb_application_identifier"]
+				fb_tab_app_identifier = @application.app_integrations.fb_tab.first.settings["fb_application_identifier"]
 			end
 		end
 		fb_page = nil
+		integration = @application.app_integrations.fb_webhook_page_feed.first
 		if integration
 			fb_page = FbPage.find_by(identifier: integration.settings["fb_page_identifier"])
 		else
 			fb_page = @application.fb_page
 		end
-		# respond_to do |format|
-			# format.json { 
-				render json: {
-					has_fb_tab: !fb_tab_application_identifier.nil?,
-					application_type: @application.application_type,
-					title: @application.title,
-					facebook_tab_url: !fb_tab_application_identifier.nil? ? "https://fb.com/#{fb_page.identifier}/app/#{fb_tab_application_identifier}" : nil
-				}
-			# }
-		# end
-		# expires_in 20.minutes, public: true
+		facebook_tab_url = !fb_tab_app_identifier.nil? ? "https://fb.com/#{fb_page.identifier}/app/#{fb_tab_app_identifier}" : nil
+		render json: {
+			has_fb_tab: !fb_tab_app_identifier.nil?,
+			application_type: @application.application_type,
+			title: @application.title,
+			facebook_tab_url: facebook_tab_url
+		}
 	end
-
-	# fb_page = nil
-	# if self.app_integrations.fb_tab
-	# 	if self.app_integrations.fb_tab.first
-	# 		if self.app_integrations.fb_tab.first.settings["fb_page_identifier"]
-	# 			fb_page = FbPage.find_by(identifier: "#{self.app_integrations.fb_tab.first.settings["fb_page_identifier"]}")
-	# 		end
-	# 	end
-	# end
-	# if fb_page == nil
-	# 	fb_page = self.fb_page
-	# end
 
 	def entities_authenticated
 		
 	end
 
 	def settings
-		# respond_to do |format|
-			render json: @application.setting.conf["preferences"]
-		# end
+		render json: @application.setting.conf["preferences"]
 	end
 
 	def images
@@ -66,7 +47,6 @@ class CanvasController < ApplicationController
 		if image_dict_assets.length > 0
 			response = {
 				images_url: image_dict_assets.last.asset_url,
-				# images_url: '...',
 			}
 		else
 			response = {
@@ -89,9 +69,7 @@ class CanvasController < ApplicationController
 					messages_url: application.application_assets.where(attachment_file_name: "messages.json").last.asset_url,
 					images_url: image_dict_assets.length > 0 ? image_dict_assets.last.asset_url : nil,
 				}
-				# respond_to do |format|
-					render json: response
-				# end
+				render json: response
 			else
 				raise ActiveRecord::RecordNotFound, "No Application found for checksum #{params[:checksum]}"
 			end
@@ -100,7 +78,7 @@ class CanvasController < ApplicationController
 		end
 	end
 
-	def auth
+	def fb_tab_auth
 		if params[:canvas_id]
 			fb_application = FbApplication.find_by(canvas_id: params[:canvas_id])
 			if fb_application
@@ -112,8 +90,9 @@ class CanvasController < ApplicationController
 				# TODO: Find another way to get application from the appintegrations. The fb_page_id column should be removed
 				# from the applications table.
 				# 
+				logger.info('aca')
 				application = fb_application.applications.installed.where(fb_page_id: fb_page.id).first
-				if application	
+				if !application.nil?
 					application.module
 					response = {
 						title: application.title,
@@ -123,10 +102,9 @@ class CanvasController < ApplicationController
 						messages_url: application.application_assets.where(attachment_file_name: "messages.json").last.asset_url,
 						images_url: application.application_assets.where(attachment_file_name: "images.json").last.asset_url,
 					}
-					# respond_to do |format|
-						render json: response
-					# end
+					render json: response
 				else
+					logger.error("Could not find an application associated to Facebook Page #{fb_page.identifier} and Facebook app")
 					render json: {
 						error: "Could not find an application associated to this Facebook Page and Facebook app"
 					}
@@ -139,7 +117,7 @@ class CanvasController < ApplicationController
 		end
 	end
 
-	def load_application
+	def instantiate_application
 		@application = Application.find_by(checksum: params[:checksum])
 		application_module = @application.module
 		application_module.dispatch!(self, :frontend, @application)

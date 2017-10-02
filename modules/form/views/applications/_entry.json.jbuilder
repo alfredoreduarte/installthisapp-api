@@ -1,0 +1,1 @@
+json.extract! entry, :id, :points, :application_id, :created_at

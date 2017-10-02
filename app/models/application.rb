@@ -23,11 +23,7 @@ class Application < ApplicationRecord
 		Application.installed.all.map{ |app| app.uninstall unless app.admin.can(:publish_apps) }
 		Application.all.map do |app| 
 			unless app.admin.can(:publish_apps)
-				# begin 
-					app.uninstall_tab
-				# rescue
-					# next
-				# end
+				app.uninstall_tab
 			end
 		end
 	end
@@ -69,9 +65,8 @@ class Application < ApplicationRecord
 		free_fb_application = FbApplication.find_by(application_type: self.application_type)
 		if free_fb_application
 			self.fb_application = free_fb_application
-			# self.save
 		else
-			logger.info('Could not obtain a FB Application')
+			logger.error('Could not obtain a FB Application')
 		end
 	end
 
@@ -88,24 +83,12 @@ class Application < ApplicationRecord
 	end
 
 	def put_tab_on_facebook(fb_page_identifier)
-		fb_page = FbPage.find_by(identifier: fb_page_identifier)
+		fb_page = self.get_associated_fb_page
 		if fb_page
 			# 
 			# TODO: remove this association once the canvas TODO is done
 			# 
 			self.fb_page = fb_page
-			# logger.info('el page')
-			# logger.info(fb_page.inspect)
-			# logger.info(self.fb_page.inspect)
-			# self.save
-			# logger.info(self.fb_page.inspect)
-			# installed_apps = Application.installed.where("fb_page_id = '#{fb_page.id}' and application_type = '#{self.application_type}'")
-			# if installed_apps.length > 0
-				# free_fb_application = FbApplication::where("id not in (#{installed_apps.collect{|o| o.fb_application_id}.join(",")}) and application_type = '#{self.application_type}'").first
-			# else
-				# free_fb_application = FbApplication::where("application_type='#{self.application_type}'").first
-			# end
-			# self.fb_application = free_fb_application
 			pages = FbGraph2::User.me(self.admin.fb_profile.access_token).accounts
 			index = pages.find_index{|p| p.id.to_i == fb_page.identifier.to_i}
 			unless index.nil?
@@ -115,12 +98,7 @@ class Application < ApplicationRecord
 			else
 				return :fb_permission_issue
 			end
-
-			# 
-			# Alt
-			# 
-			# Make the request using Faraday directly:
-			# 
+			
 			require "logger"
 			user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
 			page_token = user_graph.get_page_access_token(fb_page_identifier)
@@ -130,10 +108,8 @@ class Application < ApplicationRecord
 				faraday.adapter Faraday.default_adapter
 				faraday.params['app_id'] = self.fb_application.app_id
 				faraday.params['access_token'] = page_token
-				# faraday.params['custom_name'] = self.title
 			end
 			response = conn.post
-			logger.info(response.body)
 			if response.status.to_i == 200
 				self.app_integrations.new(integration_type: 0, settings: {
 					fb_page_identifier: fb_page.identifier,
@@ -146,30 +122,9 @@ class Application < ApplicationRecord
 			else
 				return :error
 			end
-			# !Alt
-			# user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
-			# page_token = user_graph.get_page_access_token(fb_page_identifier)
-			# koala = Koala::Facebook::API.new(page_token)
-			# params = {
-			# 	app_id: self.fb_application.app_id,
-			# 	custom_name: self.title,
-			# }
-			# 
-			# TODO: UNcomment this before commit!
-			# 
-			# koala.put_connections("me", "tabs", params)
-			# 
-			# self.app_integrations.new(integration_type: 0, settings: {
-			# 	fb_page_identifier: fb_page.identifier,
-			# 	fb_application_identifier: self.fb_application.app_id,
-			# 	tab_title: self.title,
-			# })
-			# self.installed!
-			# self.save
-			# return :ok
 			return :error
 		else
-			raise ActiveRecord::RecordNotFound, "No facebook_page found for identifier #{fb_page_identifier}"
+			raise ActiveRecord::RecordNotFound, "No FbPage found for identifier #{fb_page_identifier}"
 		end
 	end
 
@@ -187,20 +142,8 @@ class Application < ApplicationRecord
 	end
 
 	def delete_tab_on_facebook
-		# fb_page = self.app_integrations.fb_tab ? FbPage.find_by(identifier: "#{self.app_integrations.fb_tab.first.settings["fb_page_identifier"]}") : self.fb_page
-		fb_page = nil
-		if self.app_integrations.fb_tab
-			if self.app_integrations.fb_tab.first
-				if self.app_integrations.fb_tab.first.settings["fb_page_identifier"]
-					fb_page = FbPage.find_by(identifier: "#{self.app_integrations.fb_tab.first.settings["fb_page_identifier"]}")
-				end
-			end
-		end
-		if fb_page == nil
-			fb_page = self.fb_page
-		end
+		fb_page = self.get_associated_fb_page
 		if self.admin.fb_profile && fb_page
-			# fb_page = self.fb_page
 			begin
 				user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
 				page_token = user_graph.get_page_access_token(fb_page.identifier)
@@ -209,41 +152,25 @@ class Application < ApplicationRecord
 					tab: 'app_' + self.fb_application.app_id
 				}
 				# 
-				# Top Fans needs to have a FB Page associated to maintain 
-				# the webhook subscription, even if there's
-				# no Facebook Page Tab integrated.
+				# Remove this only when the association application > fb_page
+				# is fully replaced by app_integrations
 				# 
-				# unless self.application_type == 'top_fans'
-					self.fb_page = nil
-				# end
+				self.fb_page = nil
+				# 
 				self.save!
 				if koala.delete_connections('me', 'tabs', params)
-					# attempt to delete integration
-					# self.app_integrations.new(integration_type: 0, settings: {
-						# fb_page_identifier: self.fb_page.identifier,
-						# fb_application_identifier: self.fb_application.app_id,
-						# tab_title: self.title,
-					# })
 					self.app_integrations.fb_tab.destroy_all
-					# attempt to delete integration
 					return true
 				else
 					return false
 				end
 			rescue Koala::Facebook::AuthenticationError, Koala::Facebook::ClientError => e
-				logger.info(e)
-				logger.info("ERROR al eliminar tab de page con ID #{fb_page.id} del admin #{self.admin.id}")
+				logger.error(e)
+				logger.error("ERROR al eliminar tab de page con ID #{fb_page.id} del admin #{self.admin.id}")
 			end
 		else
 			return false
 		end
-	end
-
-	def graph_facebook_page(fb_page_identifier)
-		# fb_page = FbPage.find(self.fb_page_id)
-		fb_page = FbPage.find_by(identifier: fb_page_identifier)
-		facebook_page_loaded = FbGraph2::Page.new(fb_page.identifier).fetch(:access_token => self.admin.fb_profile.access_token, :fields => :access_token)
-		return facebook_page_loaded
 	end
 
 	def module(_setting_flags={})
@@ -253,6 +180,22 @@ class Application < ApplicationRecord
 			self.save
 		end
 		return self.module_loaded
+	end
+
+	def get_associated_fb_page
+		fb_page = nil
+		if self.app_integrations.fb_tab
+			if self.app_integrations.fb_tab.first
+				if self.app_integrations.fb_tab.first.settings["fb_page_identifier"]
+					fb_page = FbPage.find_by(identifier: "#{self.app_integrations.fb_tab.first.settings["fb_page_identifier"]}")
+				end
+			end
+		end
+		if fb_page == nil
+			logger.warn("Had to resort to application.fb_page at get_associated_fb_page")
+			fb_page = self.fb_page
+		end
+		return fb_page
 	end
 
 	def stats_summary

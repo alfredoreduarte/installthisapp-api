@@ -13,7 +13,6 @@ module Modules
 					$stderr.puts %Q(This app requires a valid modules config file. Please check `modules.yml` in the config folder.)
 					exit 1
 				end
-				# ActionController::Base.prepend_view_path(Rails.root.join('modules'))
 				load_applications
 				return true
 			end
@@ -24,22 +23,15 @@ module Modules
 				end
 			end
 			def find_by_name(name)
-				# Rails.logger.info('el findo name')
-				# Rails.logger.info(@applications.inspect)
 				@applications.each do |app|
-					# Rails.logger.info('find_by_name')
-					# Rails.logger.info(app.name.to_s == name.to_s)
 					return app if app.name.to_s == name.to_s
 				end
 				return nil
 			end
 			def get_all
-				# Ditching module order
-				# @applications.sort_by{|a|a.order}
 				return @applications
 			end
 			def load_by_name(name)
-				# Rails.logger.info('module 3?')
 				find_by_name(name).init!
 			end
 		end
@@ -63,35 +55,22 @@ module Modules
 		end
 		
 		def init!
-			# t1 = Time.now.utc
 			self.load_models
 			load Rails.root.join('modules', @name.to_s, 'backend_controller.rb')
 			load Rails.root.join('modules', @name.to_s, 'frontend_controller.rb')
-			# ActiveRecord::Base.logger.info "MODULE INIT TIME: #{Time.now.utc-t1}"  
 			return self
 		end
 
 		def load_models
-			# t1 = Time.now.utc
-			# Rails.logger.info("levanta modelos")
-			# models = Dir[Rails.root.join('modules', @name.to_s, 'models', '{setting.rb,application.rb}').to_s]
 			models = Dir[Rails.root.join('modules', @name.to_s, 'models', 'application.rb').to_s]
-			# Rails.logger.info(models.inspect)
-			# levanto las clases
 			models.each {|file|                             
 				load(file)
 			}
-			# ActiveRecord::Base.logger.info "MODULE LOAD MODELS TIME: #{Time.now.utc-t1}"
-		end
-
-		def load_setting_model_only
-			load Rails.root.join('modules', @name.to_s, 'models', 'setting.rb')
 		end
 
 		def unload_models!
 			@loaded_models.each {|model| Object.send(:remove_const, model)}
 			@loaded_models = []
-			# ActiveRecord::Base.logger.info "Module::unload_models!"  
 			true
 		end
 		
@@ -104,22 +83,15 @@ module Modules
 			case from
 				when :backend
 					controller_name = BackendController
-					base.default_url_options = {
-						:checksum => app.checksum
-					}
 					base.prepend_view_path(Rails.root.join('modules', @name.to_s, 'views'))
 				when :frontend
 					controller_name = FrontendController
-					# Rails.logger.info('debería levantar vistas')
-					# base.prepend_view_path(Rails.root.join('modules', @name.to_s ,'views','frontend'))  
-					# base.prepend_view_path(Rails.root.join('modules', @name.to_s, 'views', 'canvas'))  
 					base.prepend_view_path(Rails.root.join('modules', @name.to_s, 'views'))  
 			end
 			base.extend(controller_name)
 		end
 		
-		def load_associations  
-			# t1 = Time.now.utc
+		def load_associations
 			unless (@attrs[1]["associations"].blank? rescue true)
 				i=0
 				loop do
@@ -134,7 +106,7 @@ module Modules
 		
 	end
 		
-	module BaseController  
+	module BaseController
 		
 		def method_for_action(action_name)
 			Modules::Base.reload!
