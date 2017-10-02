@@ -204,4 +204,17 @@ class Application < ApplicationRecord
 			stats_summary: []
 		}
 	end
+
+	def response_for_canvas
+		image_dict_assets = self.application_assets.where(attachment_file_name: "images.json")
+		return {
+			title: self.title,
+			checksum: self.checksum,
+			fb_application_id: self.fb_application.app_id,
+			stylesheet_url: self.application_assets.where(attachment_file_name: "styles.css").last.asset_url,
+			messages_url: self.application_assets.where(attachment_file_name: "messages.json").last.asset_url,
+			images_url: image_dict_assets.length > 0 ? image_dict_assets.last.asset_url : nil,
+		}
+	end
+
 end

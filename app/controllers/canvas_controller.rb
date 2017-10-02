@@ -18,13 +18,7 @@ class CanvasController < ApplicationController
 				fb_tab_app_identifier = @application.app_integrations.fb_tab.first.settings["fb_application_identifier"]
 			end
 		end
-		fb_page = nil
-		integration = @application.app_integrations.fb_webhook_page_feed.first
-		if integration
-			fb_page = FbPage.find_by(identifier: integration.settings["fb_page_identifier"])
-		else
-			fb_page = @application.fb_page
-		end
+		fb_page = @application.get_associated_fb_page
 		facebook_tab_url = !fb_tab_app_identifier.nil? ? "https://fb.com/#{fb_page.identifier}/app/#{fb_tab_app_identifier}" : nil
 		render json: {
 			has_fb_tab: !fb_tab_app_identifier.nil?,
@@ -59,17 +53,8 @@ class CanvasController < ApplicationController
 	def standalone_auth
 		if params[:checksum]
 			application = Application.find_by(checksum: params[:checksum])
-			if application
-				image_dict_assets = application.application_assets.where(attachment_file_name: "images.json")
-				response = {
-					title: application.title,
-					checksum: application.checksum,
-					fb_application_id: application.fb_application.app_id,
-					stylesheet_url: application.application_assets.where(attachment_file_name: "styles.css").last.asset_url,
-					messages_url: application.application_assets.where(attachment_file_name: "messages.json").last.asset_url,
-					images_url: image_dict_assets.length > 0 ? image_dict_assets.last.asset_url : nil,
-				}
-				render json: response
+			if !application.nil?
+				render json: application.response_for_canvas
 			else
 				raise ActiveRecord::RecordNotFound, "No Application found for checksum #{params[:checksum]}"
 			end
@@ -90,19 +75,9 @@ class CanvasController < ApplicationController
 				# TODO: Find another way to get application from the appintegrations. The fb_page_id column should be removed
 				# from the applications table.
 				# 
-				logger.info('aca')
 				application = fb_application.applications.installed.where(fb_page_id: fb_page.id).first
 				if !application.nil?
-					application.module
-					response = {
-						title: application.title,
-						checksum: application.checksum,
-						fb_application_id: application.fb_application.app_id,
-						stylesheet_url: application.application_assets.where(attachment_file_name: "styles.css").last.asset_url,
-						messages_url: application.application_assets.where(attachment_file_name: "messages.json").last.asset_url,
-						images_url: application.application_assets.where(attachment_file_name: "images.json").last.asset_url,
-					}
-					render json: response
+					render json: application.response_for_canvas
 				else
 					logger.error("Could not find an application associated to Facebook Page #{fb_page.identifier} and Facebook app")
 					render json: {
