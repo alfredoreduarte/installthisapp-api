@@ -6,7 +6,8 @@ class SaveFbLeadgenWebhook < ApplicationJob
 		fb_leadform = FbLeadform.find_by(fb_form_id: values["form_id"])
 		if fb_leadform.nil?
 			logger.warn("Receiving webhook updates for a FB Leadform that is not in our database, fb_leadform: #{fb_leadform}")
-			raise ActiveRecord::RecordNotFound, "No fb_leadform found with fb_form_id #{values["form_id"]}"
+			# raising errors here is unnecessary
+			# raise ActiveRecord::RecordNotFound, "No fb_leadform found with fb_form_id #{values["form_id"]}"
 			return false
 		end
 		fb_page = FbPage.find_by(identifier: values["page_id"])

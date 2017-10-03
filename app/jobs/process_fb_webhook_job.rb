@@ -6,15 +6,15 @@ class ProcessFbWebhookJob < ApplicationJob
 		entries.each do |entry|
 			page_id = entry["id"]
 			fb_page = FbPage.find_by(identifier: page_id)
-			# if fb_page.nil?
-			# 	Rails.logger.warn("Received webhook update for a page that is not in our database, page_id: #{page_id}")
-			# 	raise ActiveRecord::RecordNotFound, "No fb_page found with identifier #{page_id}"
-			# 	return false
-			# end
-			# if !fb_page.nil? && !fb_page.webhook_subscribed
-			# 	Rails.logger.warn("Received webhook update for a page that is not marked as subscribed at our database, page_id: #{page_id}")
-			# 	return false
-			# end
+			if fb_page.nil?
+				Rails.logger.warn("Received webhook update for a page that is not in our database, page_id: #{page_id}")
+				raise ActiveRecord::RecordNotFound, "No fb_page found with identifier #{page_id}"
+				return false
+			end
+			if !fb_page.nil? && !fb_page.webhook_subscribed
+				Rails.logger.warn("Received webhook update for a page that is not marked as subscribed at our database, page_id: #{page_id}")
+				return false
+			end
 			entry["changes"].each do |change|
 				value = change["value"]
 				# 
