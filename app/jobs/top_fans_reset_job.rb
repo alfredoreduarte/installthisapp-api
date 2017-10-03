@@ -36,7 +36,7 @@ class TopFansResetJob < ApplicationJob
 									item: "comment",
 									created_time: comment["created_time"]
 								}
-								SaveFbCommentJob.perform_now(page_id, value)
+								SaveFbCommentJob.perform_now(page_id, value.as_json)
 							end
 							comments = comments.next_page
 							break unless comments != nil
@@ -56,7 +56,7 @@ class TopFansResetJob < ApplicationJob
 									item: "like",
 									created_time: post["created_time"]
 								}
-								SaveFbLikeJob.perform_now(page_id, value)
+								SaveFbLikeJob.perform_now(page_id, value.as_json)
 							end
 							likes = likes.next_page
 							break unless likes != nil
