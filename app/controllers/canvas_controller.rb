@@ -37,17 +37,7 @@ class CanvasController < ApplicationController
 	end
 
 	def images
-		image_dict_assets = @application.application_assets.where(attachment_file_name: "images.json")
-		if image_dict_assets.length > 0
-			response = {
-				images_url: image_dict_assets.last.asset_url,
-			}
-		else
-			response = {
-				images_url: nil,
-			}
-		end
-		render json: response
+		render json: @application.response_for_image_dict_assets
 	end
 
 	def standalone_auth

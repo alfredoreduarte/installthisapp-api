@@ -2,6 +2,8 @@ class SaveFbCommentJob < ApplicationJob
 	queue_as :default
 
 	def perform(page_id, values)
+		Rails.logger.info('puto!')
+		Rails.logger.info(values["sender_id"])
 		TopFansComment.create(
 			post_id: values["post_id"],
 			comment_id: values["comment_id"],

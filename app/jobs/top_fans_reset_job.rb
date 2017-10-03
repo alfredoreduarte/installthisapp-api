@@ -2,13 +2,13 @@ class TopFansResetJob < ApplicationJob
 	queue_as :default
 
 	def perform(fb_page_identifier, access_token, start_date_as_i)
-		# TopFansLike.where(
-		# 	page_id: fb_page_identifier,
-		# ).delete
-		# TopFansComment.where(
-		# 	page_id: fb_page_identifier,
-		# ).delete
-		Rails.logger.info("Top Fans Reset Job with start_date #{start_date_as_i}")
+		TopFansLike.where(
+			page_id: fb_page_identifier,
+		).delete
+		TopFansComment.where(
+			page_id: fb_page_identifier,
+		).delete
+		Rails.logger.debug("Top Fans Reset Job with start_date #{start_date_as_i}")
 		if start_date_as_i
 			start_date = Time.at(start_date_as_i)
 			user_graph = Koala::Facebook::API.new(access_token)
@@ -25,18 +25,20 @@ class TopFansResetJob < ApplicationJob
 						loop do
 							comments.each do |comment|
 								Rails.logger.info("Will save fb comment")
-								SaveFbCommentJob.perform_now(page_id, {
+								value = {
 									post_id: post_id,
 									comment_id: comment["id"],
 									message: comment["message"],
 									parent_id: parent_id,
 									sender_name: comment["from"]["name"],
-									created_time: comment["created_time"],
-									sender_id: comment["from"]["id"]
-								})
+									sender_id: comment["from"]["id"],
+									verb: "add",
+									item: "comment",
+									created_time: comment["created_time"]
+								}
+								SaveFbCommentJob.perform_now(page_id, value)
 							end
 							comments = comments.next_page
-						# end while comments != nil
 							break unless comments != nil
 						end
 					end
@@ -45,12 +47,16 @@ class TopFansResetJob < ApplicationJob
 						loop do
 							likes.each do |like|
 								Rails.logger.info("Will save fb like")
-								SaveFbLikeJob.perform_now(page_id, {
+								value = {
 									parent_id: parent_id,
 									sender_name: like["name"],
 									sender_id: like["id"],
-									post_id: post_id
-								})
+									post_id: post_id,
+									verb: "add",
+									item: "like",
+									created_time: post["created_time"]
+								}
+								SaveFbLikeJob.perform_now(page_id, value)
 							end
 							likes = likes.next_page
 							break unless likes != nil

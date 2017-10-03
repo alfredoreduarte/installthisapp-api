@@ -217,4 +217,17 @@ class Application < ApplicationRecord
 		}
 	end
 
+	def response_for_image_dict_assets
+		image_dict_assets = self.application_assets.where(attachment_file_name: "images.json")
+		if image_dict_assets.length > 0
+			return {
+				images_url: image_dict_assets.last.asset_url,
+			}
+		else
+			return {
+				images_url: nil,
+			}
+		end
+	end
+
 end

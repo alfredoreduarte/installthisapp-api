@@ -2,11 +2,11 @@ class ApplicationsController < ApplicationController
 	require 'fileutils'
 	include Modules::BaseController
 
-	before_action :authenticate_admin!, except: [ :index ]
-	before_action :get_application, :except => [ :index, :create ]
-	before_action :load_module, :except => [ :index, :create ]
-	before_action :dispatch_module, :except => [ :destroy ]
-	before_action :set_raven_context, except: [ :index ]
+	before_action :authenticate_admin!, 	except: [ :index ]
+	before_action :get_application, 		except: [ :index, :create ]
+	before_action :load_module, 			except: [ :index, :create ]
+	before_action :dispatch_module, 		except: [ :destroy ]
+	before_action :set_raven_context,		except: [ :index ]
 
 	def index
 		render json: {
@@ -15,38 +15,23 @@ class ApplicationsController < ApplicationController
 	end
 	
 	def styles
-		response = {
+		render json: {
 			stylesheet_url: @application.application_assets.where(attachment_file_name: "styles.css").last.asset_url,
 		}
-		render json: response
 	end
 
 	def messages
-		response = {
+		render json: {
 			messages_url: @application.application_assets.where(attachment_file_name: "messages.json").last.asset_url,
 		}
-		render json: response
 	end
 
 	def images
-		image_dict_assets = @application.application_assets.where(attachment_file_name: "images.json")
-		if image_dict_assets.length > 0
-			response = {
-				images_url: image_dict_assets.last.asset_url,
-				# images_url: '...',
-			}
-		else
-			response = {
-				images_url: nil,
-			}
-		end
-		render json: response
+		render json: @application.response_for_image_dict_assets
 	end
 
 	def settings
-		# respond_to do |format|
-			render json: @application.setting.conf["preferences"]
-		# end
+		render json: @application.setting.conf["preferences"]
 	end
 
 	def stats_summary
