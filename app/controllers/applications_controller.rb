@@ -152,6 +152,17 @@ class ApplicationsController < ApplicationController
 		generate_images(params[:images])
 		render json: @response
 	end
+	def save_app_from_new_form_editor
+		ApplicationLog.log_design(@application.checksum, DateTime.now)
+		generate_css(params[:css])
+		generate_messages(params[:messages])
+		generate_images(params[:images])
+		@application.setting.conf["preferences"] = params[:settings]
+		@application.setting.save
+		render json: {
+			success: true
+		}
+	end
 
 
 	private

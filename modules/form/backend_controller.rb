@@ -7,8 +7,6 @@ module BackendController
 	end
 
 	def save
-		logger.info(params[:schema])
-		logger.info(@application)
 		schema = @application.schema || @application.build_schema(application_id: @application.id)
 		schema.structure = params[:schema]
 		schema.save
