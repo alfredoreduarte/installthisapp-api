@@ -83,7 +83,7 @@ class Application < ApplicationRecord
 	end
 
 	def put_tab_on_facebook(fb_page_identifier)
-		fb_page = self.get_associated_fb_page
+		fb_page = FbPage.find_by(identifier: fb_page_identifier)
 		if fb_page
 			# 
 			# TODO: remove this association once the canvas TODO is done
