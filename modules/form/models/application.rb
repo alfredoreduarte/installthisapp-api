@@ -2,6 +2,7 @@ class Application
 
 	def create_callback
 		logger.info("/*/*/*/*/*/ EXAMPLE: CREATE CALLBACK: OVERRIDE THIS! /*/*/*/*/*/")
+		self.create_schema
 	end
 
 	def install_callback

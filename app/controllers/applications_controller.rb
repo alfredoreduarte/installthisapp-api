@@ -48,6 +48,7 @@ class ApplicationsController < ApplicationController
 				generate_messages(params[:initial_messages_json])
 				generate_images(params[:initial_images_json])
 				@success = true
+				@application.create_callback
 				render 'applications/create'
 			else
 				render json: {
