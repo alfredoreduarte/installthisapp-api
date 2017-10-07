@@ -66,14 +66,12 @@ class ApplicationsController < ApplicationController
 
 	def update
 		@success = @application.update_attributes(application_params)
-		# render partial: 'applications/application', locals: {application: @application}
 		render 'applications/update'
 	end
 
 	def update_setting
 		@application.setting.conf["preferences"] = params[:setting]
 		@success = @application.setting.save!
-		# render partial: 'applications/application', locals: {application: @application}
 		render 'applications/update'
 	end
 
@@ -164,7 +162,6 @@ class ApplicationsController < ApplicationController
 			success: true
 		}
 	end
-
 
 	private
 
