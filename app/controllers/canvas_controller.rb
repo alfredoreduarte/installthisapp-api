@@ -5,7 +5,7 @@ class CanvasController < ApplicationController
 		:standalone_auth, 
 		:data_for_gateway,
 		:messages_create, # catalog
-		:entries_create, # form
+		:unauthenticated_entries_create, # form
 		:entities, # most modules
 		:entries, # most modules
 		:settings # most modules

@@ -108,6 +108,9 @@ class Application < ApplicationRecord
 				faraday.adapter Faraday.default_adapter
 				faraday.params['app_id'] = self.fb_application.app_id
 				faraday.params['access_token'] = page_token
+				faraday.params['custom_name'] = self.title
+				faraday.params['position'] = 1
+				faraday.params['is_non_connection_landing_tab'] = true
 			end
 			response = conn.post
 			if response.status.to_i == 200
