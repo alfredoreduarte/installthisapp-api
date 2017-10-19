@@ -31,3 +31,4 @@ fan_gate:
 coupons:
     associations:
         0: "Application has_many vouchers CouponsVoucher"
+static_html:
