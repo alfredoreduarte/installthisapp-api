@@ -15,9 +15,7 @@ module BackendController
 		if card
 			card.destroy
 		end
-		# respond_to do |format|
-			render json: {status: 'ok'}
-		# end
+		render json: {status: 'ok'}
 	end
 
 	def entries_destroy

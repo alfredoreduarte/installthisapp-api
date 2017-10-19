@@ -6,7 +6,8 @@ module BackendController
 	end
 
 	def vouchers_create
-		if params[:quantity]
+		@application_log = ApplicationLog.log_by_checksum(@application.checksum)
+		if params[:mode] == 'auto'
 			quantity = params[:quantity].to_i
 			quantity.times do |i|
 				code = SecureRandom.hex(3)
@@ -16,12 +17,16 @@ module BackendController
 				end
 				@application.vouchers.create(code: code)
 			end
-			@application_log = ApplicationLog.log_by_checksum(@application.checksum)
-			@vouchers = @application.vouchers
+		elsif params[:mode] == 'custom'
+			quantity = params[:codes].count
+			quantity.times do |i|
+				@application.vouchers.create(code: params[:codes][i])
+			end
 		end
+		@vouchers = @application.vouchers
 	end
 
-	def voucher_destroy
+	def vouchers_destroy
 		voucher = @application.vouchers.find(params[:id])
 		if voucher
 			voucher.destroy
