@@ -63,6 +63,14 @@ if Rails.env == "development"
 		canvas_id: "app7", 
 		namespace: "ita_dev_i_vii",
 	)
+	FbApplication.create(
+		name: "Coupons", 
+		app_id: "177335809496005",
+		secret_key: "57695fa2d8cab89ece5585091e9320ca", 
+		application_type: "coupons", 
+		canvas_id: "app8", 
+		namespace: "ita_dev_i_viii",
+	)
 	# Basic Plan
 	SubscriptionPlan.create(
 		amount: 2900,

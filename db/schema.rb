@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171002232510) do
+ActiveRecord::Schema.define(version: 20171017015931) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -242,6 +242,16 @@ ActiveRecord::Schema.define(version: 20171002232510) do
     t.index ["application_id"], name: "index_module_catalog_products_on_application_id", using: :btree
   end
 
+  create_table "module_coupons_vouchers", force: :cascade do |t|
+    t.string   "code",           null: false
+    t.integer  "application_id"
+    t.integer  "fb_user_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["application_id"], name: "index_module_coupons_vouchers_on_application_id", using: :btree
+    t.index ["fb_user_id"], name: "index_module_coupons_vouchers_on_fb_user_id", using: :btree
+  end
+
   create_table "module_form_entries", force: :cascade do |t|
     t.json     "payload"
     t.integer  "application_id"
@@ -467,6 +477,8 @@ ActiveRecord::Schema.define(version: 20171002232510) do
   add_foreign_key "module_catalog_messages", "applications"
   add_foreign_key "module_catalog_messages", "fb_users"
   add_foreign_key "module_catalog_products", "applications"
+  add_foreign_key "module_coupons_vouchers", "applications"
+  add_foreign_key "module_coupons_vouchers", "fb_users"
   add_foreign_key "module_form_entries", "applications"
   add_foreign_key "module_form_entries", "fb_users"
   add_foreign_key "module_form_schemas", "applications"

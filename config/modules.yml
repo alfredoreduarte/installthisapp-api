@@ -28,3 +28,6 @@ form:
         0: "Application has_many entries FormEntry"
         1: "Application has_one schema FormSchema"
 fan_gate:
+coupons:
+    associations:
+        0: "Application has_many vouchers CouponsVoucher"
