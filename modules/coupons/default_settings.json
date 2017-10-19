@@ -1,6 +1,6 @@
 {
 	"preferences": {
 		"multiple_vouchers_per_user": false,
-		"welcome_layout": "html",
+		"welcome_layout": "html"
 	}
 }
