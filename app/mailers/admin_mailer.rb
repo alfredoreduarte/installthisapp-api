@@ -1,5 +1,5 @@
 class AdminMailer < ApplicationMailer
-	default from: 'hello@installthisapp.com'
+	default from: 'InstallThisApp <hello@installthisapp.com>'
  
 	def fb_lead_destination_email(recipients, admin, fb_lead)
 		@name = admin.first_name || admin.email
