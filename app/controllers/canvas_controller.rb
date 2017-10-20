@@ -25,7 +25,10 @@ class CanvasController < ApplicationController
 			has_fb_tab: !fb_tab_app_identifier.nil?,
 			application_type: @application.application_type,
 			title: @application.title,
-			facebook_tab_url: facebook_tab_url
+			facebook_tab_url: facebook_tab_url,
+			open_graph_title: @application.setting.conf["preferences"]["open_graph_title"],
+			open_graph_description: @application.setting.conf["preferences"]["open_graph_description"],
+			open_graph_image: @application.setting.conf["preferences"]["open_graph_image"]
 		}
 	end
 

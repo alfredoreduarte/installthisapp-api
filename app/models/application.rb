@@ -218,6 +218,9 @@ class Application < ApplicationRecord
 			messages_url: self.application_assets.where(attachment_file_name: "messages.json").last.asset_url,
 			images_url: image_dict_assets.length > 0 ? image_dict_assets.last.asset_url : nil,
 			custom_javascript: self.setting.conf["preferences"]["javascript"],
+			open_graph_title: self.setting.conf["preferences"]["open_graph_title"],
+			open_graph_description: self.setting.conf["preferences"]["open_graph_description"],
+			open_graph_image: self.setting.conf["preferences"]["open_graph_image"]
 		}
 	end
 
