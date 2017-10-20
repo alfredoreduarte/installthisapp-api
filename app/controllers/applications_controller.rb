@@ -140,6 +140,7 @@ class ApplicationsController < ApplicationController
 		end
 	end
 	def destroy
+		@application.uninstall_tab
 		@application.deleted!
 		@application.save
 		render json: @application.as_json
