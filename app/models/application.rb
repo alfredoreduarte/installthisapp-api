@@ -217,6 +217,7 @@ class Application < ApplicationRecord
 			stylesheet_url: self.application_assets.where(attachment_file_name: "styles.css").last.asset_url,
 			messages_url: self.application_assets.where(attachment_file_name: "messages.json").last.asset_url,
 			images_url: image_dict_assets.length > 0 ? image_dict_assets.last.asset_url : nil,
+			custom_javascript: self.setting.conf["preferences"]["javascript"],
 		}
 	end
 
