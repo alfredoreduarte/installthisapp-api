@@ -5,7 +5,7 @@ class CatalogCategory < ActiveRecord::Base
 	before_save :sanitize_slug
 
 	def permalink
-		return "/#{self.application.fb_application.canvas_id}/#{self.application.checksum}/categories/#{self.slug}"
+		return "/catalog/#{self.application.checksum}/categories/#{self.slug}"
 	end
 
 	def sanitize_slug
