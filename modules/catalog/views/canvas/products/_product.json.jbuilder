@@ -1,8 +1,8 @@
+json.ignore_nil! false
 json.extract! product,
 	:id,
 	:name,
 	:slug,
-	# :status,
 	:featured,
 	:description,
 	:short_description,

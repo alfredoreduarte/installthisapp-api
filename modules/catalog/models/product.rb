@@ -12,15 +12,20 @@ class CatalogProduct < ActiveRecord::Base
 	end
 
 	def media
-		return CatalogMedium.find([self.featured_image_id] + self.gallery_media_ids)
+		arr_of_ids = [self.featured_image_id] + self.gallery_media_ids
+		arr_of_ids = arr_of_ids.reject { |e| e.to_s.empty? }
+		if arr_of_ids.length > 0
+			return CatalogMedium.where(id: arr_of_ids).all
+		else
+			return []
+		end
 	end
 
 	def featured_image
-		return CatalogMedium.find(self.featured_image_id)
+		return CatalogMedium.find_by(id: self.featured_image_id)
 	end
 
 	def permalink
-		# return "/#{self.application.fb_application.canvas_id}/#{self.application.checksum}/#{self.slug}"
 		return "/catalog/#{self.application.checksum}/#{self.slug}"
 	end
 
