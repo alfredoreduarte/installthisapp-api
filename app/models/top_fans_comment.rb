@@ -2,14 +2,14 @@ class TopFansComment
 	include Mongoid::Document
 	include Mongoid::Timestamps
 
-	field :created_time, type: DateTime
 	field :sender_id, type: Integer
+	field :sender_name, type: String
 	field :post_id, type: String
+	field :parent_id, type: String
+	field :page_id, type: String
 	field :comment_id, type: String
 	field :message, type: String
-	field :parent_id, type: String
-	field :sender_name, type: String
-	field :page_id, type: String
+	field :created_time, type: DateTime
 
 	def self.detail_by_page_and_sender(page_id, sender_id)
 		Mongoid::QueryCache.enabled = true
