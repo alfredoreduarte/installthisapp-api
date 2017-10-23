@@ -1,0 +1,2 @@
+class TwoCheckoutNotification < ApplicationRecord
+end
