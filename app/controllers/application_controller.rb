@@ -5,6 +5,7 @@ class ApplicationController < ActionController::API
 	# because they're not included by default when using ActionController::API
 	include ActionController::HttpAuthentication::Basic::ControllerMethods
 	include ActionController::HttpAuthentication::Token::ControllerMethods
+	include ActionController::Cookies
 
 	include DeviseTokenAuth::Concerns::SetUserByToken
 	prepend_before_action :configure_permitted_parameters, if: :devise_controller?

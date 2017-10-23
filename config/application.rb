@@ -19,6 +19,9 @@ module ItaApi
     # Using GZip compression on all responses
     config.middleware.use Rack::Deflater
 
+    # Using payola with rails-api
+    config.middleware.use ActionDispatch::Cookies
+
     config.cache_store = :memory_store, { size: 64.megabytes }
 
     config.active_record.raise_in_transactional_callbacks = true
