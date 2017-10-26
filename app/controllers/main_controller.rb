@@ -5,20 +5,15 @@ class MainController < ApplicationController
 		render plain: 'Server is up and running'
 	end
 
+	def apps
+		apps = Application.all
+
+		paginate json: apps
+	end
+
 	# Godview data
 	def entities
-		@admins = Rails.cache.fetch("entities_admins", :expires_in => 5.minute) do
-			# Admin.includes(applications: [:fb_application], :fb_pages)
-			Admin.includes( { applications: [ :fb_application, :fb_page ] }, :fb_pages)
-			# Admin.includes(applications: [:fb_application])
-		end
-		# logger.info(@admins.first.applications.installed.first.as_json)
-		@applications = Rails.cache.fetch("entities_applications", :expires_in => 5.minute) do
-			Application.all
-		end
-		@fb_pages = Rails.cache.fetch("entities_fb_pages", :expires_in => 5.minute) do
-			FbPage.all
-		end
+		@admins = paginate(Admin.includes( { applications: [ :fb_application, :fb_page ] }, :fb_pages).order("created_at DESC"), per_page: 10)
 		@fb_apps = Rails.cache.fetch("entities_fb_apps", :expires_in => 5.minute) do
 			FbApplication.all
 		end
@@ -31,25 +26,28 @@ class MainController < ApplicationController
 		@plans = Rails.cache.fetch("entities_plans", :expires_in => 5.minute) do
 			SubscriptionPlan.all
 		end
+		applications = Rails.cache.fetch("entities_applications", :expires_in => 5.minute) do
+			Application.all
+		end
 		@summary = [
 			{
 				"title": "Total Apps",
-				"value": @applications.length
+				"value": applications.length
 			},
 			{
 				"title": "Active Apps",
-				"value": @applications.installed.length
+				"value": applications.installed.length
 			},
 			{
 				"title": "Total Admins",
-				"value": @admins.length
+				"value": Admin.all.count
 			},
 			{
 				"title": "Active Subscriptions",
 				"value": Payola::Subscription.where(state: "active").length
 			}
 		]
-		expires_in 2.minutes, public: true
+		# expires_in 2.minutes, public: true
 	end
 
 	def subscription_plans

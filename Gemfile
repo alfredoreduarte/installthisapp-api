@@ -98,3 +98,8 @@ gem 'gibbon'
 
 # Enhanced logging
 gem 'timber', '~> 2.2'
+
+# API Pagination
+gem 'kaminari'
+gem 'will_paginate'
+gem 'api-pagination'
