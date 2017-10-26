@@ -1,5 +1,5 @@
 class AdminsController < ApplicationController
-	before_action :authenticate_admin!, except: [:index]
+	before_action :authenticate_admin!, except: [:index, :resend_email_confirmation_for_admin_id]
 
 	def entities
 		@admin = current_admin
@@ -15,6 +15,18 @@ class AdminsController < ApplicationController
 		# 		
 		# results_likes = TopFansLike.likes_by_page(272699880986)
 		# render json: results_likes.first(3).as_json
+	end
+
+	def resend_email_confirmation_for_admin_id
+		admin = Admin.find_by(id: params[:id])
+		if admin
+			coso = admin.resend_confirmation_instructions
+			logger.info('coso')
+			logger.info(coso)
+			render json: {success: true, status: "Enqueued for delivery"}
+		else
+			render json: {success: false, status: "Could not find such admin"}
+		end
 	end
 
 	def resend_email_confirmation

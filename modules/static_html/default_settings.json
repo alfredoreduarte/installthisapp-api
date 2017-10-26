@@ -1,5 +1,6 @@
 {
 	"preferences": {
-		"content_mode": "html"
+		"content_mode": "html",
+		"html_content": "<html><head><title>My Page</title></head><body><h1>Hello World</h1></body></html>"
 	}
 }
