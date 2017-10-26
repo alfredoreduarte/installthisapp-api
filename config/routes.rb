@@ -41,6 +41,7 @@ Rails.application.routes.draw do
 	# GODVIEW
 	# 
 	match '/entities(.:format)', to: "main#entities", via: [:get]
+	match '/apps(.:format)', to: "main#apps", via: [:get]
 	match '/create_subscription_plan', to: "main#create_subscription_plan", via: [:post]
 	match '/remove_subscription_plan/:id', to: "main#remove_subscription_plan", via: [:delete]
 	match '/subscription_plans', to: "main#subscription_plans", via: [:get]
