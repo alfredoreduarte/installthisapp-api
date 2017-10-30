@@ -1,8 +1,36 @@
 class Application
+
 	def create_callback
 	end
 
 	def uninstall_callback
+		fb_page = nil
+		if self.app_integrations.fb_webhook_page_feed.first
+			fb_page = FbPage.find_by(identifier: self.app_integrations.fb_webhook_page_feed.first.settings["fb_page_identifier"])
+		else
+			fb_page = self.fb_page
+		end
+		if fb_page
+			logger.info('Top Fans Uninstall Callback: Page found')
+			fb_page.unsubscribe_to_realtime(self.admin)
+			# 
+			# Remove starting date so that the next time user tries to install the tab there's no cached date
+			# 
+			# Sometimes people would re-install selecting "track only new interactions" 
+			# but the app would instead fetch past posts because it had a previously saved starting date
+			# 
+			self.setting.conf["preferences"]["first_fetch_from_date"] = nil
+			self.setting.save
+			TopFansLike.where(
+				page_id: fb_page.identifier,
+			).delete
+			TopFansComment.where(
+				page_id: fb_page.identifier,
+			).delete
+			self.app_integrations.fb_webhook_page_feed.destroy_all
+		else
+			logger.info('Top Fans Uninstall Callback: Tried to delete data on an app with no fb_page')
+		end
 	end
 
 	def install_callback
