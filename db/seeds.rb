@@ -79,6 +79,14 @@ if Rails.env == "development"
 		canvas_id: "app9", 
 		namespace: "ita_dev_i_ix",
 	)
+	FbApplication.create(
+		name: "Capture the Flag", 
+		app_id: "412336772502496",
+		secret_key: "21d66cbc4274286151de2ed7a7fc29cb", 
+		application_type: "capture_the_flag", 
+		canvas_id: "app10", 
+		namespace: "ita_dev_i_x",
+	)
 	# Basic Plan
 	SubscriptionPlan.create(
 		amount: 2900,

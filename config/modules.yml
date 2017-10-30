@@ -32,3 +32,6 @@ coupons:
     associations:
         0: "Application has_many vouchers CouponsVoucher"
 static_html:
+capture_the_flag:
+    associations:
+        0: "Application has_many entries CaptureTheFlagEntry"
