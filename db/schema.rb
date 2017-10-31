@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171030210735) do
+ActiveRecord::Schema.define(version: 20171031151821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -181,8 +181,9 @@ ActiveRecord::Schema.define(version: 20171030210735) do
     t.integer  "elapsed_seconds"
     t.integer  "application_id"
     t.integer  "fb_user_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.boolean  "has_flag",        default: false
     t.index ["application_id"], name: "index_module_capture_the_flag_entries_on_application_id", using: :btree
     t.index ["fb_user_id"], name: "index_module_capture_the_flag_entries_on_fb_user_id", using: :btree
   end

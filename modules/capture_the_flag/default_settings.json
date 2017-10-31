@@ -1,5 +1,6 @@
 {
 	"preferences": {
-		"welcome_layout": "html"
+		"welcome_layout": "html",
+		"end_time": "20/04/2018 04:20"
 	}
 }
