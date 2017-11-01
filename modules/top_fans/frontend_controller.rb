@@ -1,7 +1,7 @@
 module FrontendController
 
 	def entries
-		fb_page = @application.fb_page
+		fb_page = get_fb_page
 		if fb_page
 			identifier = fb_page.identifier
 			ignored_identifiers = @application.setting.conf["preferences"]["ignored_user_identifiers"]
@@ -57,5 +57,21 @@ module FrontendController
 		end
 		expires_in 5.minutes, public: true
 		render json: response
+	end
+
+	def get_fb_page
+		_fb_page = nil
+		if @application.app_integrations.fb_webhook_page_feed
+			if @application.app_integrations.fb_webhook_page_feed.first
+				if @application.app_integrations.fb_webhook_page_feed.first.settings["fb_page_identifier"]
+					_fb_page = FbPage.find_by(identifier: "#{@application.app_integrations.fb_webhook_page_feed.first.settings["fb_page_identifier"]}")
+				end
+			end
+		end
+		if _fb_page == nil
+			logger.warn("Top Fans: Had to resort to application.fb_page at get_associated_fb_page")
+			_fb_page = @application.fb_page
+		end
+		return _fb_page
 	end
 end
