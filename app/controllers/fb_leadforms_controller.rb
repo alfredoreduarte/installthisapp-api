@@ -9,87 +9,69 @@ class FbLeadformsController < ApplicationController
 
 	# GET /fb_leadforms/1/get_existing_test_lead.json
 	def get_existing_test_lead
-		# respond_to do |format|
-			result = @fb_leadform.get_existing_test_lead
-			if result
-				# format.json { render json: result }
-				render json: result
-			else
-				# format.json { render json: @fb_leadform.errors, status: :ok }
-				render json: @fb_leadform.errors, status: :ok
-			end
-		# end
+		result = @fb_leadform.get_existing_test_lead
+		if result
+			render json: result
+		else
+			render json: @fb_leadform.errors, status: :ok
+		end
 	end
 
 	# PATCH/PUT /fb_leadforms/1
 	# PATCH/PUT /fb_leadforms/1.json
 	def test
-		# respond_to do |format|
-			result = @fb_leadform.test
-			if result
-				# format.json { render :show, status: :ok, location: @fb_leadform }
-				render json: result
-			else
-				render json: @fb_leadform.errors, status: :ok
-			end
-		# end
+		result = @fb_leadform.test
+		if result
+			render json: result
+		else
+			render json: @fb_leadform.errors, status: :ok
+		end
 	end
 
 	def poll_test_arrival
 		fb_lead = FbLead.find_by(lead_id: params[:lead_id])
-		# respond_to do |format|
-			if fb_lead
-				render json: fb_lead
-			else
-				render json: nil, status: :ok
-			end
-		# end
+		if fb_lead
+			render json: fb_lead
+		else
+			render json: nil, status: :ok
+		end
 	end
 
 	def poll_test_notification_delivery
 		fb_lead_notification = FbLeadNotification.find_by(lead_id: params[:lead_id])
-		# respond_to do |format|
-			if fb_lead_notification
-				render json: fb_lead_notification
-			else
-				render json: nil, status: :ok
-			end
-		# end
+		if fb_lead_notification
+			render json: fb_lead_notification
+		else
+			render json: nil, status: :ok
+		end
 	end
 
 	# POST /fb_leadforms
 	# POST /fb_leadforms.json
 	def create
 		@fb_leadform = current_admin.fb_leadforms.new(fb_leadform_params)
-
-		# respond_to do |format|
-			if @fb_leadform.save
-				render :show, status: :created, location: @fb_leadform
-			else
-				render json: @fb_leadform.errors, status: :unprocessable_entity
-			end
-		# end
+		if @fb_leadform.save
+			render :show, status: :created, location: @fb_leadform
+		else
+			render json: @fb_leadform.errors, status: :unprocessable_entity
+		end
 	end
 
 	# PATCH/PUT /fb_leadforms/1
 	# PATCH/PUT /fb_leadforms/1.json
 	def update
-		# respond_to do |format|
-			if @fb_leadform.update(fb_leadform_params)
-				render :show, status: :ok, location: @fb_leadform
-			else
-				render json: @fb_leadform.errors, status: :unprocessable_entity
-			end
-		# end
+		if @fb_leadform.update(fb_leadform_params)
+			render :show, status: :ok, location: @fb_leadform
+		else
+			render json: @fb_leadform.errors, status: :unprocessable_entity
+		end
 	end
 
 	# DELETE /fb_leadforms/1
 	# DELETE /fb_leadforms/1.json
 	def destroy
 		@fb_leadform.destroy
-		# respond_to do |format|
-			head :no_content
-		# end
+		head :no_content
 	end
 
 	private

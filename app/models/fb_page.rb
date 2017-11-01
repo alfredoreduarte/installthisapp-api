@@ -19,7 +19,7 @@ class FbPage < ApplicationRecord
 	def subscribe_to_realtime(admin,app = nil)
 		require 'fb_graph2'
 		require 'fb_api'
-		if !self.webhook_subscribed
+		# if !self.webhook_subscribed
 			logger.info('Fb Subscription request about to start')
 			f_page = FbGraph2::Page.new(self.identifier).fetch(
 				:access_token => admin.fb_profile.access_token, 
@@ -35,7 +35,7 @@ class FbPage < ApplicationRecord
 				self.webhook_subscribed = false
 				self.save
 			end
-		end
+		# end
 	end
 
 	def unsubscribe_to_realtime(admin)
