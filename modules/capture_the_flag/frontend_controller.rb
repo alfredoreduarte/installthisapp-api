@@ -18,7 +18,7 @@ module FrontendController
 			token.has_flag = true
 			token.save
 		else
-			time_diff = old_token.elapsed_seconds + (Time.now - old_token.updated_at)
+			time_diff = old_token.elapsed_seconds.to_i + (Time.now - old_token.updated_at)
 			old_token.elapsed_seconds = time_diff.to_i
 			old_token.has_flag = false
 			old_token.save
