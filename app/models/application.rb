@@ -93,13 +93,22 @@ class Application < ApplicationRecord
 			self.fb_page = fb_page
 			# 
 			# 
-			pages = FbGraph2::User.me(self.admin.fb_profile.access_token).accounts
+			# pages = FbGraph2::User.me(self.admin.fb_profile.access_token).accounts
+			pages = []
+			fan_pages = FbGraph2::User.me(self.admin.fb_profile.access_token).accounts
+			loop do
+				processed = fan_pages
+				processed = processed.collect{|p| p unless p.category=="Application"}.compact
+				unless processed.nil?
+					for fan_page in processed
+						pages.push(fan_page)
+					end
+				end
+				fan_pages = fan_pages.next
+				break unless fan_pages.length > 0
+			end
 			index = pages.find_index{|p| p.id.to_i == fb_page.identifier.to_i}
-			logger.info(pages)
-			logger.info(index)
 			unless index.nil?
-				logger.info('pages[index].perms')
-				logger.info(pages[index].perms)
 				if !pages[index].perms.include?("CREATE_CONTENT")
 					logger.info('fb_page_not_admin')
 					return :fb_page_not_admin
