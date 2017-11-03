@@ -83,28 +83,35 @@ class Application < ApplicationRecord
 	end
 
 	def put_tab_on_facebook(fb_page_identifier)
+		logger.info('put_tab_on_facebook')
 		fb_page = FbPage.find_by(identifier: fb_page_identifier)
 		if fb_page
+			logger.info('found fb page')
 			# 
-			# TODO: remove this association once the canvas TODO is done
+			# TODO: remove this association once the canvas TODO at fb_tab_auth is done
 			# 
 			self.fb_page = fb_page
+			# 
+			# 
 			pages = FbGraph2::User.me(self.admin.fb_profile.access_token).accounts
 			index = pages.find_index{|p| p.id.to_i == fb_page.identifier.to_i}
 			unless index.nil?
 				if !pages[index].perms.include?("CREATE_CONTENT")
+					logger.info('fb_page_not_admin')
 					return :fb_page_not_admin
 				end
 			else
+				logger.info('fb_permission_issue')
 				return :fb_permission_issue
 			end
 			
-			require "logger"
+			# require "logger"
 			user_graph = Koala::Facebook::API.new(self.admin.fb_profile.access_token)
 			page_token = user_graph.get_page_access_token(fb_page_identifier)
 			conn = Faraday.new(:url => "#{ENV['FB_GRAPH_URL']}/v#{ENV['FB_API_VERSION']}/#{fb_page_identifier}/tabs") do |faraday|
 				faraday.request :url_encoded
-				faraday.response :logger, ::Logger.new(STDOUT), bodies: true
+				# faraday.response :logger, ::Logger.new(STDOUT), bodies: true
+				faraday.response :logger
 				faraday.adapter Faraday.default_adapter
 				faraday.params['app_id'] = self.fb_application.app_id
 				faraday.params['access_token'] = page_token
