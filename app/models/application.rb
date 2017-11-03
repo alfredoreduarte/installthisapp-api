@@ -95,7 +95,11 @@ class Application < ApplicationRecord
 			# 
 			pages = FbGraph2::User.me(self.admin.fb_profile.access_token).accounts
 			index = pages.find_index{|p| p.id.to_i == fb_page.identifier.to_i}
+			logger.info(pages)
+			logger.info(index)
 			unless index.nil?
+				logger.info('pages[index].perms')
+				logger.info(pages[index].perms)
 				if !pages[index].perms.include?("CREATE_CONTENT")
 					logger.info('fb_page_not_admin')
 					return :fb_page_not_admin
