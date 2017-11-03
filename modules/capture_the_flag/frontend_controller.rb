@@ -1,7 +1,7 @@
 module FrontendController
 
 	def entities
-		@entries = @application.entries.order("elapsed_seconds DESC").limit(10).includes(:fb_user)
+		@entries = @application.entries.order(has_flag: :desc, elapsed_seconds: :desc).limit(10).includes(:fb_user)
 		@time_left = (Time.parse(@application.setting.conf["preferences"]["end_time"]) - Time.now).to_i
 		@success = true
 	end
