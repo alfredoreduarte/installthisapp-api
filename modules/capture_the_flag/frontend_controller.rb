@@ -15,7 +15,7 @@ module FrontendController
 	# end
 
 	def claim
-		if @application.installed?
+		if @application.checksum != 'AWYYMM'
 			old_token = @application.entries.where("has_flag = true").first
 			if old_token.nil?
 				token = @application.entries.find_or_create_by(fb_user_id: @fb_user.id)
