@@ -12,21 +12,25 @@ module FrontendController
 	# end
 
 	def claim
-		old_token = @application.entries.where("has_flag = true").first
-		if old_token.nil?
-			token = @application.entries.find_or_create_by(fb_user_id: @fb_user.id)
-			token.has_flag = true
-			token.save
+		if @application.installed?
+			old_token = @application.entries.where("has_flag = true").first
+			if old_token.nil?
+				token = @application.entries.find_or_create_by(fb_user_id: @fb_user.id)
+				token.has_flag = true
+				token.save
+			else
+				time_diff = old_token.elapsed_seconds.to_i + (Time.now - old_token.updated_at)
+				old_token.elapsed_seconds = time_diff.to_i
+				old_token.has_flag = false
+				old_token.save
+				token = @application.entries.find_or_create_by(fb_user_id: @fb_user.id)
+				token.has_flag = true
+				token.save
+			end
+			render json: {success: true}
 		else
-			time_diff = old_token.elapsed_seconds.to_i + (Time.now - old_token.updated_at)
-			old_token.elapsed_seconds = time_diff.to_i
-			old_token.has_flag = false
-			old_token.save
-			token = @application.entries.find_or_create_by(fb_user_id: @fb_user.id)
-			token.has_flag = true
-			token.save
+			render json: {success: false}
 		end
-		render json: {success: true}
 	end
 	
 end

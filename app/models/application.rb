@@ -93,7 +93,6 @@ class Application < ApplicationRecord
 			self.fb_page = fb_page
 			# 
 			# 
-			# pages = FbGraph2::User.me(self.admin.fb_profile.access_token).accounts
 			pages = []
 			fan_pages = FbGraph2::User.me(self.admin.fb_profile.access_token).accounts
 			loop do
