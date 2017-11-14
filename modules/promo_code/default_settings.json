@@ -1,0 +1,7 @@
+{
+	"preferences": {
+		"welcome_layout": "html",
+		"unique_codes_per_user": true,
+		"extra_point_for_sharing": true
+	}
+}

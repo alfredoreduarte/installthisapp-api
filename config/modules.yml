@@ -35,3 +35,6 @@ static_html:
 capture_the_flag:
     associations:
         0: "Application has_many entries CaptureTheFlagEntry"
+promo_code:
+    associations:
+        0: "Application has_many entries PromoCodeEntry"

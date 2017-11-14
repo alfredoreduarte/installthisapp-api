@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171031151821) do
+ActiveRecord::Schema.define(version: 20171114061959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -318,6 +318,16 @@ ActiveRecord::Schema.define(version: 20171031151821) do
     t.datetime "updated_at",     null: false
   end
 
+  create_table "module_promo_code_entries", force: :cascade do |t|
+    t.string   "code"
+    t.integer  "application_id"
+    t.integer  "fb_user_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["application_id"], name: "index_module_promo_code_entries_on_application_id", using: :btree
+    t.index ["fb_user_id"], name: "index_module_promo_code_entries_on_fb_user_id", using: :btree
+  end
+
   create_table "module_trivia_answers", force: :cascade do |t|
     t.integer  "correct",            limit: 2, default: 0
     t.integer  "option_id",                                null: false
@@ -504,5 +514,7 @@ ActiveRecord::Schema.define(version: 20171031151821) do
   add_foreign_key "module_memory_match_cards", "applications"
   add_foreign_key "module_memory_match_entries", "applications"
   add_foreign_key "module_memory_match_entries", "fb_users"
+  add_foreign_key "module_promo_code_entries", "applications"
+  add_foreign_key "module_promo_code_entries", "fb_users"
   add_foreign_key "settings", "applications"
 end
